@@ -1,0 +1,109 @@
+{% extends "./layouts/main.njk" %}
+{% set title        = 'KCG' %}
+{% set page         = 'about-mission' %}
+{% set header       = 'h-white' %}
+{% set footer       = 'f-white' %}
+
+
+{% block content %}
+
+
+<!-- BEGIN SECTION -->
+{# <section class="section-content"> #}
+
+ 
+
+  <div class="smooth-scroll" data-scroll-content>
+    
+    <div class="webdoor w-approach">
+
+      <div class="submenu sb-black">
+        <a href="about.html" class="item"><span>ABOUT</span></a>
+        <a href="about-mission.html" class="item active"><span>MISSION</span></a>
+        <a href="about-team.html" class="item"><span>TEAM</span></a>
+        <a href="about-giving.html" class="item"><span>GIVING</span></a>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+
+          <div class="col col-10">
+
+            <h1 class="title t-medium t-white t-center"><strong>Our innovate mission is centered<br>around three distinct phases</strong></h1>
+
+            <div class="approach">
+                <div class="item" data-video="inovate">
+                  <div class="wrapper">
+                    <div class="icon">
+                      <div class="i-telescope svg"></div>
+                    </div>
+                    <div class="infos">
+                      <h3>Inovate</h3> 
+                      <span>For businesses in their <strong>early stages</strong>.</span>
+                      <div class="paragraph p-white p-center">We deploy thoughtful strategy, cutting-edge technology and creativity to help you get from "idea" to "empire".</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item" data-video="create">
+                  <div class="wrapper">
+                    <div class="icon">
+                      <div class="i-rocket svg"></div>
+                    </div>
+                    <div class="infos">
+                      <h3>Create</h3> 
+                      <span>For businesses that are ready to launch.</span>
+                      <div class="paragraph p-white p-center">We enable you to make your mark on the industry and target market in way that is considered, genuine and truly "you".</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item" data-video="expand">
+                  <div class="wrapper">
+                    <div class="icon">
+                      <div class="i-astronaut svg"></div>
+                    </div>
+                    <div class="infos">
+                      <h3>Expand</h3> 
+                      <span>For businesses that are <strong>established</strong>.</span>
+                      <div class="paragraph p-white p-center">We help you take on the world by ensuring your journey is efficient, optimized and strategically outstanding. Anything is possible.</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="button b-icon bt-prev">
+              <div class="wrapper">
+                <div class="arrow svg a-left"></div>
+              </div>
+            </div>
+
+            <div class="button b-icon bt-next">
+              <div class="wrapper">
+                <div class="arrow svg a-right"></div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="video-background">
+        <div class="video" data-target="inovate">
+          <div class="v-image" style="background-image: url(assets/about/approach-1.gif);"></div>
+          <video loop muted><source src="assets/about/video1.mp4" type="video/mp4"></video>
+        </div>
+        <div class="video" data-target="create">
+          <div class="v-image" style="background-image: url(assets/about/approach-2.gif);"></div>
+          <video loop muted><source src="assets/about/video2.mp4" type="video/mp4"></video>
+        </div>
+        <div class="video" data-target="expand">
+          <div class="v-image" style="background-image: url(assets/about/approach-3.gif);"></div>
+          <video loop muted><source src="assets/about/video3.mp4" type="video/mp4"></video>
+        </div>
+      </div>
+    </div>
+
+{# </section> #}
+<!-- END SECTION -->
+
+
+{% endblock %} 

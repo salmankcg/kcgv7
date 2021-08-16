@@ -1,0 +1,95 @@
+.journal-highlights{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+   
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .info{
+        width: 30%;
+        position: relative;
+        padding-left: 40px;
+
+        &::before{
+            .ba;
+            width: 5px;
+            height: 100%;
+            position: absolute;
+            left: 0px;
+        }
+
+        &[data-color='orange']{
+            &:before{ background: @orange; }    
+        }
+
+        &[data-color='green']{
+            &:before{ background: @green; }    
+        }
+
+        &[data-color='yellow']{
+            &:before{ background: @yellow; }    
+        }
+
+        &[data-color='blue']{
+            &:before{ background: @blue; }    
+        }
+
+        &[data-color='purple']{
+            &:before{ background: @purple; }    
+        }
+    }
+
+    .image{
+        width: 60%;
+
+        img{
+            width: 100%;
+            display: block;
+        }
+    }
+  
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large){
+        flex-direction: column;
+
+        .info{
+            width: 100%;
+            order: 2;
+            padding: 40px 0px;
+
+            &::before{
+                width: 100%;
+                height: 4px;
+                bottom: 0px;
+            }
+        }
+
+        .image{
+            width: 100%;
+            order: 1;
+        }
+
+        .caption{
+            display: none;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        
+    }
+
+}

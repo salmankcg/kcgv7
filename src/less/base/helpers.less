@@ -1,0 +1,189 @@
+.bg(@path, @size: contain){
+	background: url('../../img/@{path}') no-repeat center center;
+	background-size: @size;
+}
+
+.cover(){
+	background: no-repeat center center;
+	background-size: cover;
+}
+
+.ir(@path, @size){
+	.bg(@path, @size);
+	.ti;
+}
+
+.ti(){
+	text-indent: -9999px;
+}
+
+.vMiddle(){
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.centerVert(){
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.centerHoriz(){
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.centerBoth(){
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.rotate(@deg: 180deg){
+	transform: rotate(@deg);
+}
+
+.clearfix() {
+	&:before, &:after {
+	    content: '';
+	    display: table;
+	}
+	
+	&:after {
+	    clear: both;
+	}
+}
+
+.hide() {
+	display: none;
+}
+
+.fill() {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.fillMargin(@space: 0px) {
+	display: block;
+	position: absolute;
+	top: @space;
+	right: @space;
+	bottom: @space;
+	left: @space;
+}
+
+.ba() {
+	content: '';
+	display: block;
+}
+
+.expandHeight(@selector: ~'> *'){
+	white-space: nowrap;
+	font-size: 0;
+
+	&:before {
+		content: '';
+		display: inline-block;
+		vertical-align: middle;
+		height: 100%;
+		min-height: inherit;
+	}
+
+	@{selector} {
+		display: inline-block;
+		width: 100%;
+		vertical-align: middle;
+		white-space: normal;
+		font-size: 1rem;
+	}
+}
+
+.fixedLightbox(@maxWidth: 800px, @padding: 20px, @background: white, @fill: rgba(0,0,0,0.75)) {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	text-align: center;
+	overflow-y: auto;
+	padding: @padding;
+	background: @fill;
+	.expandHeight();
+
+	> * {
+		text-align: left;
+		background: @background;
+		max-width: @maxWidth;
+		position: relative;
+	}
+}
+
+.overImg(@bgBefore, @bgAfter, @duration: 0s){
+	&:before, &:after {
+		.ba;
+		.fill;
+		transition: opacity @duration;
+	}
+
+	&:before {
+		.bg(@bgBefore);
+		opacity: 1;
+	}
+
+	&:after {
+		.bg(@bgAfter);
+		opacity: 0;
+	}
+
+	&:hover, &:active {
+		&:before { opacity: 0; }
+		&:after { opacity: 1; }
+	}
+}
+
+.arrowUp(@color: #000, @width: 10px, @height: @width){
+	width: 0; 
+	height: 0; 
+	border-left: (@width / 2) solid transparent;
+	border-right: (@width / 2) solid transparent;
+	border-bottom: @height solid @color;
+}
+
+.arrowDown(@color: #000, @width: 10px, @height: @width){
+	width: 0; 
+	height: 0; 
+	border-left: (@width / 2) solid transparent;
+	border-right: (@width / 2) solid transparent;
+	border-top: @height solid @color;
+}
+
+.arrowLeft(@color: #000, @width: 10px, @height: @width){
+	width: 0; 
+	height: 0; 
+	border-top: (@height / 2) solid transparent;
+	border-bottom: (@height / 2) solid transparent;
+	border-right: @width solid @color;
+}
+
+.arrowRight(@color: #000, @width: 10px, @height: @width){
+	width: 0; 
+	height: 0; 
+	border-top: (@height / 2) solid transparent;
+	border-bottom: (@height / 2) solid transparent;
+	border-left: @width solid @color;
+}
+
+.placeColor(@color: inherit, @font: inherit, @size: 12px){
+	&::-webkit-input-placeholder { color: @color; font-family: @font; font-size: @size;}
+	&:-moz-placeholder { color: @color; font-family: @font; font-size: @size;}
+	&::-moz-placeholder { color: @color; font-family: @font; font-size: @size;}
+	&:-ms-input-placeholder { color: @color; font-family: @font; font-size: @size;}
+}

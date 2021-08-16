@@ -1,0 +1,354 @@
+{% extends "./layouts/main.njk" %}
+{% set title        = 'KCG' %}
+{% set page         = 'services' %}
+{% set header       = '' %}
+{% set footer       = 'f-black' %}
+
+
+{% block content %}
+
+<!-- BEGIN SECTION -->
+{# <section class="section-content"> #}
+
+  <div class="scrolldown">
+    <span>SCROLL</span>
+  </div>
+
+  <div class="services-bckg"></div>
+
+
+  <div class="smooth-scroll" data-scroll-content>
+
+    <div class="services-content sc-slides">
+
+      <div class="infos" data-color="#FFFFFF" id="slide-1">
+
+        <div class="submenu sb-white">
+          <a href="services-strategy.html" class="item"><span>STRATEGY</span></a>
+          <a href="services-product.html" class="item"><span>PRODUCT</span></a>
+          <a href="services-marketing.html" class="item"><span>MARKETING</span></a>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-7">
+              <h1 class="title t-medium t-center"><strong>We solve complex business challenges with strategy and marketing, delivering products.</strong></h1>
+            </div>
+          </div>
+        
+          <div class="row justify-content-center">
+            <div class="col col-10">
+              <div class="services-icons">
+                <div class="item" data-target="slide-2">
+                  <div class="ico svg i-stg i-black"></div>
+                  <span>Strategy</span>
+                </div>
+                <div class="item" data-target="slide-3">
+                  <div class="ico svg i-pdt i-black"></div>
+                  <span>Product</span>
+                </div>
+                <div class="item" data-target="slide-4">
+                  <div class="ico svg i-mktg i-black"></div>
+                  <span>Marketing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infos" data-color="#2D3294" id="slide-2">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-3">
+              <span class="type">Strategy</span>
+              <div class="paragraph p-white">It all begins with an idea. We help businesses we believe in to take their idea from the drawing board to the board room.</div>
+              <a href="services-strategy.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">READ MORE</span>
+                </div>
+              </a>
+            </div>
+            <div class="col col-3">
+              <div class="ico svg i-stg"></div>
+            </div>
+            <div class="col col-3">
+              <div class="list">
+                • Research & Discovery<br>
+                • Business Consultancy<br>
+                • Digital Transformation<br>
+                • Branding 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infos" data-color="#4C9F91" id="slide-3">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-3">
+              <span class="type">Product</span>
+              <div class="paragraph p-white">Designing and delivering products to help you change the world.</div>
+              <a href="services-product.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">READ MORE</span>
+                </div>
+              </a>
+            </div>
+            <div class="col col-3">
+              <div class="ico svg i-pdt"></div>
+            </div>
+            <div class="col col-3">
+              <div class="list">
+                • Research & Discovery<br>
+                • Business Consultancy<br>
+                • Digital Transformation<br>
+                • Branding 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infos" data-color="#B27EE4" id="slide-4">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-3">
+              <span class="type">Marketing</span>
+              <div class="paragraph p-white">Your story matters. Our brand development specialism ensures that your story gets told.</div>
+              <a href="services-marketing.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">READ MORE</span>
+                </div>
+              </a>
+            </div>
+            <div class="col col-3">
+              <div class="ico svg i-mktg"></div>
+            </div>
+            <div class="col col-3">
+              <div class="list">
+                • Research & Discovery<br>
+                • Business Consultancy<br>
+                • Digital Transformation<br>
+                • Branding 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="services-content sc-black">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col col-10">
+            <div class="highlights">
+              <div class="item">
+                <div class="h-text">
+                  <div class="caption c-white"><span>How we do it</span></div>
+                  <div class="title t-small t-white">Our <strong>innovative mission</strong> is centered around your business’s lifecycle</div>
+                  <a href="about-approach.html" class="button b-white">
+                    <div class="wrapper">
+                      <span class="text">OUR MISSION</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="image">
+                  <img src="assets/about/highlights-2.png" alt="" />
+                </div>
+              </div>
+              <div class="item">
+                <div class="h-text">
+                  <div class="caption c-white"><span>Who Make it</span></div>
+                  <div class="title t-small t-white">A <strong>global team</strong> commited to help our clients build a better world.</div>
+                  <a href="about-team.html" class="button b-white">
+                    <div class="wrapper">
+                      <span class="text">MORE ABOUT US</span>
+                    </div>
+                  </a>
+                </div>
+                <!-- BEGIN SERVICES -->
+                <div class="people-scramble ps-services">
+                  <div class="wrapper">
+
+                    {% set image = cycler(1,2,4,3,5,8,6,7) %}
+                    <div class="images">
+                    {% for u in range(0,8) %}
+                      <figure data-target="{{u}}" style="background-image:url(assets/about/person-{{image.next()}}.png);"></figure>
+                    {% endfor %}
+                    </div>
+
+                    {% set name = cycler('Saul','Aline','Alex','Phillip','Paul','Marcus','Philipa','Brad') %}
+                    {% set area = cycler('design','photography','development','management','quality','copy','lorem','lorem') %}
+                    <div class="hint">
+                    {% for u in range(0,8) %}
+                      <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>
+                    {% endfor %}
+                    </div>
+
+                    
+                  </div>
+                  <div class="pc-pointer">
+                    <div class="ico i-mouse svg"></div>
+                    <div class="ico i-hand svg"></div>
+                  </div>
+                </div>
+                <!-- END SERVICES -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-content sc-clients">
+      <div class="caption c-center"><span>Our Clients</span></div>
+      <h2 class="title t-small t-center t-padding">Partnering to reach the <strong>next level.</strong></h2>
+      <div class="clients">
+        <div class="wrapper">
+          <div class="line">
+            <div class="logos">
+              <img class="image" src="assets/clients/logo-heyk.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-bond.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-executive.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-hair.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-laser.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-mariane.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-og.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-heyk.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-bond.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-executive.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-hair.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-laser.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-mariane.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-og.jpg" alt=""/>
+            </div>
+            <div class="logos">
+              <img class="image" src="assets/clients/logo-heyk.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-bond.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-executive.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-hair.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-laser.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-mariane.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-og.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-heyk.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-bond.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-executive.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-hair.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-laser.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-mariane.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-og.jpg" alt=""/>
+            </div>
+          </div>
+          <div class="line">
+            <div class="logos">
+              <img class="image" src="assets/clients/logo-one.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-open.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-opensky.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-pao.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-rhr.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-swp.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-verizon.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-one.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-open.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-opensky.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-pao.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-rhr.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-swp.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-verizon.jpg" alt=""/>
+            </div>
+            <div class="logos">
+              <img class="image" src="assets/clients/logo-one.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-open.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-opensky.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-pao.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-rhr.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-swp.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-verizon.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-one.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-open.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-opensky.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-pao.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-rhr.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-swp.jpg" alt=""/>
+              <img class="image" src="assets/clients/logo-verizon.jpg" alt=""/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-content sc-testimonials">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col col-9 c-testimonial">
+            <div class="testimonial">
+              <div class="slides">
+                <div class="item">
+                  <div class="wrapper">
+                    <div class="stars svg"></div>  
+                    <div class="phrase">"King’s Crest was crucial in all the elements to start up. They coached me in terms of why I started my business. It’s more important to know the why, and what you’re offering people, versus how you’re doing it. You have to find the strong why. That was really crucial."</div>
+                    <div class="info">
+                      <img class="photo" src="assets/photos/Monica_Heller.png" alt="" />
+                      <span class="name">Monica H</span>
+                      <span class="occupation">Founder, Laser by Monica</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <div class="stars svg"></div>  
+                    <div class="phrase">"Saul is a bulldog! That’s a compliment in every sense of the word. If you need something to get done, Saul will get it done. He’s the kind of person you can hand any project to, big or small, and know that he will get it done with excellence no matter what obstacles he has in his way. He’s smart, organized, focused, driven, and is a rare person who can work in startups and Fortune 500 companies with equal effectiveness. I highly recommend Saul and envy anyone who hires him."</div>
+                    <div class="info">
+                      <img class="photo" src="assets/photos/Matt-Meeker.jpg" alt="" />
+                      <span class="name">Matt M</span>
+                      <span class="occupation">Founder and Executive Chairman at BARK</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <div class="stars svg"></div>  
+                    <div class="phrase">"Saul was the Project Manager for the Web side of our project to move the Avenue website to a proprietary platform;- within an unimaginable short time period. In this, he maintained thorough details, solicited and insisted on timely decisions, and was relentless in his follow up and drive to hit schedule. Not surprising, all went well. Just the type of person you need for any highly detailed and difficult project!"</div>
+                    <div class="info">
+                      <img class="photo" src="assets/photos/Julie-Daly.jpg" alt="" />
+                      <span class="name">Julie D</span>
+                      <span class="occupation">VP Digital Commerce at Ashley Stewart</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <div class="stars svg"></div>  
+                    <div class="phrase">"You’re probably luckier to have them than they are to have you."</div>
+                    <div class="info">
+                      <img class="photo" src="assets/photos/Phil_Parotta.png" alt="" />
+                      <span class="name">Phil P</span>
+                      <span class="occupation">Founder, The Swoup App</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="button b-black b-icon t-prev">
+                <div class="wrapper">
+                  <div class="background"></div>
+                  <div class="arrow svg a-left"></div>
+                </div>
+              </div>
+              <div class="button b-black b-icon t-next">
+                <div class="wrapper">
+                  <div class="arrow svg a-right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{# </section> #}
+<!-- END SECTION -->
+
+{% endblock %}

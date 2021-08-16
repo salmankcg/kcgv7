@@ -1,0 +1,223 @@
+.clients{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 60px 0px;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.c-home{
+        width: 100%;
+        transform: rotateZ(4deg);
+
+        .wrapper{
+            transform: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .line{
+            width: 200px;
+            margin: 0px 40px;
+            transform: translateY(-30%);
+
+
+            &:nth-of-type(1){
+                .logos{
+                    transform: translateY(0%);
+                    animation:  160s linear infinite marqueeY;
+                }
+            }
+
+            &:nth-of-type(2){
+                .logos{
+                    transform: translateY(100%);
+                    animation: 160s linear infinite marqueeY2;
+                }
+            }
+        }
+
+        .logos{
+            display: flex;
+            flex-direction: column;
+            animation: none;
+            transform: translateY(60%);
+        }
+
+        .image{
+            opacity: 0;
+            margin: 20px auto;
+            height: auto;
+            display: block;
+
+    
+            img{
+                width: 100%;
+                height: auto;
+            }
+
+            &::before{
+                .ba;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                background: black;
+                mix-blend-mode: color;
+            }
+        }
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .wrapper{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        transform: rotate(-2.7deg);
+    }
+
+    .line{
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        margin: 40px 0px;
+        opacity: .8;
+    }
+
+    .logos{
+        white-space: nowrap;
+        display: inline-block;
+        
+        &.add-motion-1{
+            animation: 160s linear infinite marquee;
+        }
+
+        &.add-motion-2{
+            animation: 160s linear infinite marquee2;
+            transform: translateX(-100%);
+        }
+    }
+
+    .image{
+        position: relative;
+        margin: 0px 0px;
+        height: 120px;
+        display: inline-block;
+
+        &:hover{
+            img{
+                transform: scale(1.1);
+            }
+        }
+
+        img{
+            height: 100%;
+            display: block;
+            transition: .5s all @custom;
+        }
+
+    }
+
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    @keyframes marquee2 {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(0%); }
+    }
+
+    @keyframes marqueeY {
+        0% { transform: translateY(0%); }
+        100% { transform: translateY(100%); }
+    }
+
+    @keyframes marqueeY2 {
+        0% { transform: translateY(100%); }
+        100% { transform: translateY(0%); }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-large ){
+        &.c-home{
+            width: 100%;
+            .centerBoth;
+            top: 70%;
+    
+            .wrapper{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                transform: rotate(-2.7deg);
+            }
+    
+            .line{
+                width: 100%;
+                margin: 0px 0px;
+                transform: none;
+        
+                &:nth-of-type(1){
+                    .logos{
+                        transform: none;
+                        animation: 180s linear 0s infinite normal none running marquee;
+                    }
+                }
+    
+                &:nth-of-type(2){
+                    .logos{
+                        transform: none;
+                        animation: 180s linear 0s infinite normal none running marquee2;
+                    }
+                }
+                
+            }
+    
+            .logos{
+                display: inline-block;
+                transform: none;
+                white-space: nowrap;
+            }
+
+            .image{
+                width: initial;
+                display: inherit;
+                height: 60px;
+
+                img{
+                    width: auto;
+                    height: 100%;
+                }
+            }
+
+        }
+
+        .image{
+            height: 90px;
+        }
+
+    }
+
+    @media( max-width: @screen-large ){
+        .line{
+            margin: 10px 0px;
+        }
+
+        .image{
+            height: 70px;
+        }
+
+    }
+
+}

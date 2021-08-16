@@ -1,0 +1,154 @@
+.works-content{
+    padding: 120px 0px;
+    position: relative;
+    display: block;
+    background-color: @white;
+    z-index: 2;
+    
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+    &.no-padding{
+        padding: 0px; 
+    }
+
+    &.w-borderT{
+        border-top: 1px solid rgba(0,0,0,.2);
+    }
+
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .container-fluid{
+        .col{
+            &.col-4{
+                &:first-of-type{
+                    padding-right: 10%;
+                }
+            }
+        }
+    }
+
+    .image{
+        .cover;
+        position: relative;
+        width: 100%;
+    }
+
+    .work-image{
+        display: block;
+        margin-bottom: 40px;
+
+        img{
+            width: 100%;
+        }
+
+        .wk-sbtitle{
+            text-transform: uppercase;
+            font-size: 12px;
+            .blackerLt;
+            text-align: right;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .details{
+        .blackerLt;
+        color: @gray;
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 30px;
+
+        span{
+            .blackerMd;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    }
+    
+    .paragraph{
+        margin-bottom: 40px;
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large){
+        padding: 60px 0px;
+
+        &:nth-of-type(4){
+            padding-top: 0px;
+        }
+
+        &.w-borderT{
+            padding-top: 50px;
+        }
+
+        .container-fluid{
+            padding: 0px 50px;
+        }
+
+        .row{
+            flex-direction: column;
+
+            .col{
+                width: 100%;
+
+                &.col-4{
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+
+        .details{
+            width: 50%;
+
+            &:last-child{
+                width: 100%;
+            }
+        }
+
+        .image{
+            height: 370px;
+        }
+        
+        .paragraph:not(.p-bigger){
+            margin-bottom: 20px;
+        }
+
+    }
+
+    @media( max-width: @screen-small ){
+
+        
+        .container-fluid{
+            padding: 0px 30px;
+        }
+
+        .image{
+            height: 210px;
+        }
+
+
+        .work-image{
+            width: 100%;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        
+    }
+
+
+}

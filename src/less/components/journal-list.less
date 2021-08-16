@@ -1,0 +1,184 @@
+.journal-list{
+    display: flex;
+    position: relative;
+    margin: 0px -40px;
+    flex-wrap: wrap;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    
+
+    .item{
+        position: relative;
+        width: 33.333%;
+        cursor: pointer;
+        padding: 0px 40px;
+        margin-bottom: 80px;
+
+        &:hover{
+            &:before{
+                width: ~'calc(80% - 80px)';
+            }
+
+            img{
+                opacity: .6;
+            }
+
+            .jl-wrapper{
+                img{
+                    opacity: 1;
+                }   
+            }
+
+            .jl-pointer{
+                opacity: 1;
+                top: 50%;
+            }
+        }
+        
+        &[data-color='orange']{
+            &:before{ background: @orange; }    
+        }
+
+        &[data-color='green']{
+            &:before{ background: @green; }    
+        }
+
+        &[data-color='yellow']{
+            &:before{ background: @yellow; }    
+        }
+
+        &[data-color='blue']{
+            &:before{ background: @blue; }    
+        }
+
+        &[data-color='purple']{
+            &:before{ background: @purple; }    
+        }
+
+        &:before{
+            .ba;
+            width: ~'calc(100% - 80px)';
+            height: 4px;
+            transition: .5s all @custom;
+            .centerHoriz;
+            bottom: 0px;
+        }
+    }
+    
+    img{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        transition: .5s all @custom;
+    }
+
+    .j-title{
+        .blackerBd;
+        font-size: 28px;
+        color: @gray;
+        line-height: 36px;
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    .jl-wrapper{
+        position: relative;
+        margin-bottom: 20px;
+        img{
+            margin-bottom: 0px;
+        }
+        
+    }
+
+    .jl-pointer{
+        width: 80px;
+        height: 80px;
+        .centerBoth;
+        top: 60%;
+        opacity: 0;
+        transition: .5s all @custom;
+
+        &:before{
+            .ba;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background: rgba(255,255,255,.2);
+        }
+
+        .ico{
+            .centerBoth;
+            width: 35px;
+            height: 35px;
+
+            &.i-play{
+                .bg('ico-play.svg');
+            }
+        }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+        .j-title{
+            font-size: 18px;
+            line-height: 26px;
+        }
+    }
+
+    @media( max-width: @screen-large){
+        margin: 0px;
+        flex-wrap: wrap;
+
+        .item{
+            width: 100%;
+            margin: 0px;
+            margin-bottom: 80px;
+        }
+
+        .j-title{
+            font-size: 28px;
+            line-height: 36px;
+            height: auto;
+            padding: 40px 0px;
+            padding-top: 30px;
+        }
+
+        img{
+            border-radius: 5px;
+            margin-bottom: 0px;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        .item{
+            padding: 0px;
+            margin-bottom: 30px;
+
+            &::before{
+                width: 100%;
+            }
+        }
+
+        .j-title{
+            font-size: 18px;
+            line-height: 26px;
+            padding: 20px 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

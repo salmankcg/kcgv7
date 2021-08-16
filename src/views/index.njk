@@ -1,0 +1,268 @@
+{% extends "./layouts/main.njk" %}
+{% set title        = 'KCG' %}
+{% set page         = 'home' %}
+{% set header       = 'h-white' %}
+{% set footer       = 'f-black' %}
+
+
+{% block content %}
+
+<!-- BEGIN SECTION -->
+{# <section class="section-content"> #}
+
+  <div class="scrolldown s-white">
+    <span>SCROLL</span>
+  </div>
+
+  <div class="home-bullets">
+    <div data-target="slide-0" class="button b-bullet active">
+      <div class="wrapper"></div>
+    </div>
+    <div data-target="slide-1" class="button b-bullet">
+      <div class="wrapper"></div>
+    </div>
+    <div data-target="slide-2" class="button b-bullet">
+      <div class="wrapper"> </div>
+    </div>
+    <div data-target="slide-3" class="button b-bullet">
+      <div class="wrapper"></div>
+    </div>
+    <div data-target="slide-4" class="button b-bullet">
+      <div class="wrapper"></div>
+    </div>
+  </div>
+
+  <div class="home-bckg">
+    <div class="shape">
+      <div class="background"></div>
+    </div>
+    <div class="images">
+      <div class="img"></div>
+      <div class="img"><img src="assets/home/home-chess.png" alt=""/></div>
+      <div class="img"><img src="assets/home/home-astronaut.png" alt=""/></div>
+      <div class="img"><img src="assets/home/home-phone.png" alt=""/></div>
+    </div>
+  </div>
+
+  <div class="home-globe">
+    <div class="g-wrapper">
+      <div class="circle"></div>
+      <div id="canvas" class="canvas" data-people='[{"person":"Aline", "thumb":"assets/photos/person-1.png", "place":"south-america"},{"person":"Saul", "thumb":"assets/photos/person-2.png", "place":"europe"},{"person":"Rita", "thumb":"assets/photos/person-3.png", "place":"europe"},{"person":"Fillipa", "thumb":"assets/photos/person-4.png", "place":"north-america"},{"person":"Salman", "thumb":"assets/photos/person-5.png", "place":"asia"},{"person":"Russel", "thumb":"assets/photos/person-6.png", "place":"oceania"},{"person":"Luiz", "thumb":"assets/photos/person-7.png", "place":"africa"}]'></div>
+    </div>
+  </div>
+
+  <div class="home-infos">
+    <div class="steps" data-target="slide-1">
+      {# <h2 class="title t-white">WE ARE AN INTERNATIONAL <strong>COLLABORATIVE <br> OF TALENT</strong></h2> #}
+      <h2 class="title t-white">We find the worlds <strong>best talent</strong></h2>
+      <div class="i-wrapper">
+        <div class="paragraph p-rigth p-white">We transverse global boundaries to help our clients build a better world.</div>
+        <a href="about.html" class="button b-white">
+          <div class="wrapper">
+            <span class="text">READ ABOUT US</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="steps" data-target="slide-2">
+      <h2 class="title t-white">We plan <strong>intelligently</strong> for your success</h2>
+      <div class="i-wrapper">
+        <div class="paragraph p-rigth p-white">Our global team helps you to launch into new areas with expert guidance.</div>
+        <a href="about.html" class="button b-white">
+          <div class="wrapper">
+            <span class="text">Our Solutions</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="steps" data-target="slide-3">
+      <h2 class="title t-white">We <strong>crest</strong> intelligent content that captures <strong>hearts</strong></h2>
+      <div class="i-wrapper">
+        <div class="paragraph p-rigth p-white">We generate content that not only gets viewed but shared, time and time again.</div>
+        <a href="about.html" class="button b-white">
+          <div class="wrapper">
+            <span class="text">Our Solutions</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="steps" data-target="slide-4">
+      <h2 class="title t-white">WE DEVELOP PRODUCTS TO HELP YOU <strong>CHANGE THE WORLD</strong></h2>
+      <div class="i-wrapper">
+        <div class="paragraph p-rigth p-white">We work with you to design and create products that grow your business.</div>
+        <a href="about.html" class="button b-white">
+          <div class="wrapper">
+            <span class="text">Our Solutions</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="smooth-scroll" data-scroll-content>
+
+    <div class="home-content hc-slides">
+
+      <div class="infos" data-color="#141515" data-bkgColor="dark-blue" id="slide-1">
+        {# <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div class="col col-5">
+              <h2 class="title t-white">WE ARE AN INTERNATIONAL <strong>COLLABORATIVE <br> OF TALENT</strong></h2>
+            </div>
+            <div class="col col-3 align-self-center">
+              <div class="i-wrapper">
+                <div class="paragraph p-rigth p-white">We transverse global boundaries to help our clients build a better world.</div>
+                <a href="about.html" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">READ ABOUT US</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> #}
+      </div>
+
+      <div class="infos" data-color="#2D3294" data-bkgColor="green" id="slide-2">
+        {# <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div class="col col-5">
+              <h2 class="title t-white">WE DELIVER <strong>SPECIALIZED STRATEGIES</strong> TO REACH YOUR GOALS</h2>
+            </div>
+            <div class="col col-3 align-self-center">
+              <div class="i-wrapper">
+                <div class="paragraph p-rigth p-white">Our global team helps you to launch into new areas with expert guidance.</div>
+                <a href="about.html" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">Our Solutions</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> #}
+      </div>
+
+      <div class="infos" data-color="#B27EE4" data-bkgColor="blue" id="slide-3">
+        {# <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div class="col col-5">
+              <h2 class="title t-white">WE CREATE <strong>INTELLIGENT CONTENT</strong> TO CAPTURE HEARTS</h2>
+            </div>
+            <div class="col col-3 align-self-center">
+              <div class="i-wrapper">
+                <div class="paragraph p-rigth p-white">We generate content that not only gets viewed but shared, time and time again.</div>
+                <a href="about.html" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">Our Solutions</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> #}
+      </div>
+
+      <div class="infos" data-color="#4C9F91" data-bkgColor="orange" id="slide-4">
+        {# <div class="container-fluid">
+          <div class="row justify-content-between">
+            <div class="col col-5">
+              <h2 class="title t-white">WE DEVELOP PRODUCTS TO HELP YOU <strong>CHANGE THE WORLD</strong></h2>
+            </div>
+            <div class="col col-3 align-self-center">
+              <div class="i-wrapper">
+                <div class="paragraph p-rigth p-white">We work with you to design and create products that grow your business.</div>
+                <a href="about.html" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">Our Solutions</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> #}
+      </div>
+
+      <div class="infos" id="slide-5">
+        <div class="container-fluid">
+          <div class="row justify-content-between">
+              <div class="col col-5">
+                <div class="i-wrapper">
+                  <h2 class="title">These people are <strong>talking</strong> about us</h2>
+                  <a href="press.html" class="button b-black">
+                    <div class="wrapper">
+                      <span class="text">Our Press</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col col-6">
+                <div class="clients c-home">
+                  <div class="wrapper">
+                    <div class="line">
+                      {% for i in range(0,2) %}
+                      <div class="logos">
+                          {% for u in range(0,4) %}
+                          <a href="https://www.wfmz.com/news/pr_newswire/pr_newswire_technology/how-digital-strategy-agency-kings-crest-global-grew-despite-the-pandemic/article_295ee512-df61-5af2-a93e-94ed1f0f8c66.html" target="blank" class="image">
+                            <img src="assets/home/logo-69.png" alt="" />
+                          </a>
+                          <a href="http://www.benzinga.com/pressreleases/21/06/n21549763/how-digital-strategy-agency-kings-crest-global-grew-despite-the-pandemic" target="blank" class="image">
+                            <img src="assets/home/logo-benzinga.png" alt="" />
+                          </a>
+                          <a href="https://www.wboc.com/story/44096688/how-digital-strategy-agency-kings-crest-global-grew-despite-the-pandemic" target="blank" class="image">
+                            <img src="assets/home/logo-cbs.png" alt="" />
+                          </a>
+                          <a href="http://nashville.iabc.com/newsfeed/?rkey=20210614NY09737&filter=18774" target="blank" class="image">
+                            <img src="assets/home/logo-iabc.png" alt="" />
+                          </a>
+                          <a href="http://markets.financialcontent.com/ibtimes/news/read/41462743" target="blank" class="image">
+                            <img src="assets/home/logo-ibt.png" alt="" />
+                          </a>
+                          {% endfor %}
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="line">
+                      {% for i in range(0,2) %}
+                      <div class="logos">
+                        {% for u in range(0,3) %}
+                        <a href="http://www.marketwatch.com/press-release/how-digital-strategy-agency-kings-crest-global-grew-despite-the-pandemic-2021-06-14" target="blank" class="image">
+                          <img src="assets/home/logo-marketwatch.png" alt="" />
+                        </a>
+                        <a href="https://www.morningstar.com/news/pr-newswire/20210614ny09737/how-digital-strategy-agency-kings-crest-global-grew-despite-the-pandemic" target="blank" class="image">
+                          <img src="assets/home/logo-morning.png" alt="" />
+                        </a>
+                        <a href="https://seekingalpha.com/pr/18356820-how-digital-strategy-agency-kings-crest-global-grew-despite-pandemic" target="blank" class="image">
+                          <img src="assets/home/logo-seek-alpha.png" alt="" />
+                        </a>
+                        <a href="http://www.stateofdigitalpublishing.com/pr-newswire/?rkey=20210614NY09737&filter=8209" target="blank" class="image">
+                          <img src="assets/home/logo-sodp.png" alt="" />
+                        </a>
+                        <a href="https://www.techinsideout.co/tech-releases/?rkey=20210614NY09737&filter=21681" target="blank" class="image">
+                          <img src="assets/home/logo-tech-inside-out.png" alt="" />
+                        </a>
+                        <a href="https://finance.yahoo.com/news/digital-strategy-agency-kings-crest-135900895.html" target="blank" class="image">
+                          <img src="assets/home/logo-yahoo.png" alt="" />
+                        </a>
+                        {% endfor %}
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hidden-image" style="background-image:url(assets/earth/earth_diffuse_clouds.jpg);"></div>
+    <div class="hidden-image" style="background-image:url(assets/earth/earth_diffuse_night.jpg);"></div>
+    <div class="hidden-image" style="background-image:url(assets/earth/earth_diffuse.jpg);"></div>
+    <div class="hidden-image" style="background-image:url(assets/earth/earth_specular_map.png);"></div>
+
+{# </section> #}
+<!-- END SECTION -->
+
+{% endblock %}

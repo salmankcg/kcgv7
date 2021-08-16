@@ -1,0 +1,502 @@
+.webdoor{
+    z-index: 4;
+    width: 100%;
+    position: relative;
+    width: 100%; min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: @white;
+    
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.w-about, &.w-works, &.w-journal {
+        padding-top: 170px;
+        height: 480px;
+        min-height: auto;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    &.w-journal {
+        height: 380px;
+    }
+
+    &.w-legals{
+        padding-top: 170px;
+        height: auto;
+        min-height: auto;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &.w-journal-inner{
+        flex-direction: column;
+        height: auto;
+        padding-top: 240px;
+        min-height: auto;
+
+        .col{
+            &.col-10{
+                padding-right: 35%;
+            }
+        }
+
+        &::before{
+            .ba;
+            position: absolute;
+            width: 100%; height: 80%;
+            top: 0%;
+            z-index: -1;
+        }
+
+        &[data-color='orange']{
+            &:before{ background: @orange; }    
+        }
+
+        &[data-color='green']{
+            &:before{ background: @green; }    
+        }
+
+        &[data-color='yellow']{
+            &:before{ background: @yellow; }    
+        }
+
+        &[data-color='blue']{
+            &:before{ background: @blue; }    
+        }
+
+        &[data-color='purple']{
+            &:before{ background: @purple; }    
+        }
+
+        .title{
+            margin-bottom: 30px;
+            margin-top: -8px;
+        }
+    }
+
+    &.w-work{
+        padding-top: 240px;
+        height: 380px;
+        min-height: auto;
+        align-items: flex-start;
+
+        .title{
+            margin-top: -8px;
+        }
+    }
+
+    &.w-services{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &.w-service{
+        .cover;
+
+        .inner{
+            align-items: baseline;
+        }
+    }
+
+
+    &.w-approach{
+        background: @gray;
+        padding-top: 170px;
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+
+        .col{
+            position: relative;
+            padding: 0px;
+        }
+
+        .button{
+            display: none;
+
+            .centerVert;
+
+            &.bt-disable{
+                opacity: .2;
+            }
+
+            &.bt-prev{
+                left: -60px;
+            }
+
+            &.bt-next{
+                right: -60px;
+            }
+        }
+    }
+
+    &.w-contact{
+        background: @black;
+    }
+
+    &.w-person{
+        padding-top: 170px;
+        padding-bottom: 120px;
+
+        .container-fluid{
+            .col{
+                &.col-4{
+                    padding-right: 5%;
+                }
+            }
+        }
+
+
+        .subtitle{
+            margin-bottom: 40px;
+        }
+
+        .button{
+            margin: 0px;
+            margin-top: 10px;
+        }
+
+        .title{
+            margin-bottom: 10px;
+        }
+    }
+        
+    &.w-team{
+        padding-top: 140px;
+        align-items: flex-start;
+        flex-direction: column;
+
+        .col{
+            &.col-5{
+                &:first-of-type{
+                    padding-right: 13%;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+  
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+    .image-services{
+        height: 100vh;
+        width: 60%;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        
+        img{
+            .fill;
+            object-fit: cover;
+        }
+    }
+
+    
+    .image-journal-inner{
+
+        width: 100%;
+        margin-top: 40px;
+
+        img{
+            width: 100%;
+            height: 50vh;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+        &.w-about{
+            padding-top: 170px;
+            height: auto;
+        }
+
+        &.w-approach{
+            padding-top: 170px;
+            height: auto;
+        }
+
+        &.w-team{
+            padding-top: 170px;
+            height: auto;
+        }
+    }
+
+    @media( max-width: @screen-large){
+        &.w-team{
+            height: auto;
+            min-height: inherit;
+            padding-top: 170px;
+
+            .button{
+                display: none;
+            }
+
+            .row{
+                flex-direction: column;
+                padding: 0px 30px;
+                align-items: center;
+            }
+
+            .col{
+                padding: 0px !important;
+                width: 70%;
+                
+                .title{
+                    text-align: center;
+                }
+
+                &:first-of-type{
+                    order: 2;
+                }
+
+                &:last-of-type{
+                    order: 1;
+                    margin-bottom: 40px;
+                }
+            }
+
+            
+        }
+
+        &.w-person{
+           height: auto;
+           min-height: inherit;
+           
+           .container-fluid{
+                padding: 0px 30px;
+            }
+
+           .row{
+            flex-direction: column;
+
+                .col{
+                    width: 100%;
+
+                    &.col-4{
+                        order: 2;
+                    }
+                }
+           }
+
+            .title{
+                text-align: left;
+            }
+
+            .paragraph{
+                margin-bottom: 40px;
+            }
+        }
+
+        &.w-works{
+            height: 360px;
+
+            .title{
+                br{
+                    display: none;
+                }
+            }
+        }
+
+        &.w-work{
+            padding-top: 120px;
+            height: 250px;
+
+            .container-fluid{
+                padding: 0px 50px;
+            }
+
+            .row{
+                flex-direction: column;
+
+                .col{
+                    &.col-10{
+                        width: 100%;
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+                }
+            }
+
+        }
+
+        &.w-journal-inner{
+            padding-top: 170px;
+            
+            .container-fluid{
+                padding: 0px 50px;
+            }
+
+            .row{
+                flex-direction: column;
+                align-items: center;
+
+                .col{
+                    width: 100%;
+
+                    &.col-1{
+                        margin-bottom: 20px;
+                    }
+
+                    &.col-10{
+                        padding-right: 0px;
+                        width: 60%;
+                    }
+                }
+            }
+
+            .title{
+                text-align: center;
+            }
+
+            .paragraph{
+                text-align: center;
+                margin-bottom: 0px;
+            }
+        }
+
+        &.w-contact{
+            height: auto;
+            min-height: auto;
+            padding-top: 130px;
+        }
+
+        &.w-approach{
+            padding-top: 160px;
+
+            .button{
+                display: flex;
+
+                &.bt-prev{
+                    left: -40px;
+                }
+    
+                &.bt-next{
+                    right: -40px;
+                }
+            }
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        &.w-about, &.w-works, &.w-journal {
+            height: 310px;
+            padding-top: 120px;
+        }
+
+        &.w-approach{
+            padding-top: 120px;
+
+            .col-10{
+                width: 100%;
+                padding: 0px 30px;
+            }
+
+            .title{
+                br{
+                    display: none;
+                }
+            }
+
+            .button{
+                top: 55%;
+
+                &.bt-prev{
+                    left: 10px;
+                }
+    
+                &.bt-next{
+                    right: 10px;
+                }
+            }
+        }
+
+        &.w-about{
+            .title{
+                br{
+                    display: none;
+                }
+            }
+
+            height: auto;
+        }
+
+    
+        &.w-work{
+
+            .container-fluid{
+                padding: 0px 30px;
+            }
+        }
+
+        &.w-team{
+            padding-top: 130px;
+            
+            .row{
+                flex-direction: column;
+                padding: 0px 30px;
+            }
+
+            .col{
+                padding: 0px !important;
+                width: 100%;
+            }
+            
+        }
+
+        &.w-person{
+            padding-top: 120px;
+            padding-bottom: 40px;
+
+            .col-1{
+                margin-bottom: 20px;
+            }
+        }
+
+        &.w-legals{
+            padding-top: 120px;
+        }
+
+        &.w-journal-inner{
+            padding-top: 120px;
+
+            .container-fluid{
+                padding: 0px 30px;
+            }
+        
+            .row{
+
+                .col{
+
+                    &.col-10{
+                        width: 100%;
+                    }
+                }
+            }
+
+            img{
+                height: auto;
+            }
+        }
+
+        &.w-contact{
+           .col-9{
+               width: 100%;
+               padding: 0px 30px;
+           }
+        }
+    }
+
+}

@@ -1,0 +1,48 @@
+.caption{
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+    color: @gray;
+    justify-content: space-between;
+    align-items: center;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.c-center{
+        text-align: center;
+        justify-content: center;
+    }
+
+    &.c-white{
+        color: @white;
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    span{
+        .blackerMd;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .button{
+        margin-top: 0px;
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-small ){
+        
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

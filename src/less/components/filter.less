@@ -1,0 +1,138 @@
+.filter{
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    z-index: 2;
+    background-color: @white;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.f-marginT{
+        margin-top: 50px;
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .container-fluid{
+        .col{
+            display: flex;
+        }
+    }
+
+    .item{
+        position: relative;
+        margin-right: 40px;
+        padding-bottom: 20px;
+        display: block;
+        cursor: pointer;
+
+        &.active{
+            span{
+                .blackerBd;
+                color: rgba(0,0,0,1);
+            }
+
+            &:before{
+                width: 100%;
+            }
+        }
+
+        &:hover{
+            span{
+                color: rgba(0,0,0,1);
+            }
+        }
+
+        &:before{
+            .ba;
+            position: absolute;
+            width: 0%; height: 1px;
+            background-color: @black;
+            bottom: -1px;
+            transition: .5s all @custom;
+        }
+
+        &.i-search{
+            width: 40px;
+            height: 40px;
+
+            .svg{
+                .centerBoth;
+                top: 35%;
+                width: 25px;
+                height: 25px;
+                display: block;
+                .bg('ico-search.svg');
+            }
+        }
+    }
+
+    span{
+        .blackerBk;
+        color: rgba(0,0,0,.4);
+        transition: .5s all @custom;
+    }
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-large ){
+        margin-top: 70px;
+
+        .col{
+            justify-content: center;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        padding-bottom: 0px;
+        margin-top: 40px;
+
+        .container-fluid{
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+        }
+
+        .col{
+            overflow-x: scroll;
+            justify-content: flex-start;
+            padding: 0px;
+            width: 100%;
+        }
+
+        .row{
+            width: 100%;
+            margin: 0px;
+        }
+
+        a{
+            span{
+                white-space: nowrap;
+                font-size: 16px;
+            }
+        }
+
+        .item{
+            margin: 0px 20px;
+            
+            &:first-of-type{
+                margin-left: 30px;
+            }
+
+            &:last-of-type{
+                margin-right: 30px;
+            }
+
+            &:before{
+                bottom: 0px;
+            }
+        }
+
+    }
+
+}

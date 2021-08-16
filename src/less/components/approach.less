@@ -1,0 +1,206 @@
+.approach{
+    color: @white;
+    margin: 120px 0px;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    // .a-wrapper{
+    //     display: flex;
+    // }
+    
+    .slick-list{
+        overflow: unset;
+    }
+
+    .slick-slide{
+        margin: 0px 30px;
+    }
+
+    .slick-dots{
+        display: table !important;
+        margin: 0 auto;
+        margin-top: 40px;
+
+        li{
+            position: relative;
+            width: 10px; height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            float: left;
+            margin: 0px 5px;
+            
+            button{
+                opacity: 0;
+            }
+
+            &.slick-active{
+                &:before{
+                    opacity: 1;
+                }
+            }
+
+            &:before{
+                .ba;
+                position: absolute;
+                width: 100%; height: 100%;
+                background: white;
+                opacity: .2;
+            }
+        }
+    }
+
+    .item{
+        position: relative;
+        width: 33.3333%;
+        cursor: pointer;
+        transition: .5s all @custom;
+
+        &.hide{
+            opacity: 0;
+        }
+
+        &:hover{}
+    }
+
+    .wrapper{
+        position: relative;
+        width: 100%; 
+    }
+
+    .infos{
+        width: 100%; height: 400px;
+        border: 1px solid @white;
+        border-radius: 15px;
+        padding: 40px;
+        background: @gray;
+        margin-top: -40px;
+    }
+
+    .icon{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background-color: @gray;
+        border: 1px solid @white;
+        border-radius: 100%;
+        cursor: pointer;
+        margin: 0 auto;
+
+        .svg{
+            position: absolute;
+            width: 100%; height: 100%;
+            
+            svg{
+                transform: scale(.5);
+                transition: .5s all @custom;
+            }
+
+            &.i-telescope{
+                .bg('ico-telescope.svg');
+            }
+    
+            &.i-rocket{
+                .bg('ico-rocket.svg');
+            }
+    
+            &.i-astronaut{
+                .bg('ico-astronaut.svg');
+            }
+        }
+
+        
+    }
+
+    h3{
+        .blackerMd;
+        font-size: 32px;
+        text-align: center;
+        margin: 20px;
+        letter-spacing: 1px;
+    }
+
+    span{
+        .blackerLt;
+        font-size: 22px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        display: block;
+        text-align: center;
+    }
+
+   
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+        .item{
+            // padding: 0px;
+            // margin: 0px 15px;
+        }
+
+        h3{
+            font-size: 23px;
+            margin-top: 50px;
+        }
+
+        // .wrapper{
+        //     padding: 25px;
+        // }
+
+    }
+
+    @media( max-width: @screen-large){
+        // overflow-x: scroll;
+        // margin: 120px -76px;
+        // padding-top: 60px;
+        
+
+        // .a-wrapper{
+        //     display: block;
+        //     width: 1320px;
+        // }
+
+        .item{
+            // width: 340px;
+            // margin-bottom: 0px;
+            // margin: 0 50px;
+            // float: left;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        // overflow-x: scroll;
+        // margin: 60px -46px;
+        margin: 60px 0px;
+
+        span{
+            font-size: 16px;
+        }
+
+        // .a-wrapper{
+        //     display: block;
+        //     width: 1090px;
+        // }
+
+        h3{
+            margin-top: 20px;
+        }
+
+        .infos{
+            height: 330px;
+        }
+
+        .item{
+            // width: 300px;
+            // margin: 0 30px;
+        }
+    }
+}

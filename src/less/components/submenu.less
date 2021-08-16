@@ -1,0 +1,86 @@
+.submenu{
+    .centerBoth;
+    text-align: center;
+    z-index: 6;
+    border-radius: 40px;
+    padding: 0px 20px;
+    transition: .8s all @custom;
+    transition-delay: .7s;
+    display: table;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.sb-white{
+        color: @gray;
+        background: @white;
+        border: 1px solid #cccccc;
+    }
+
+    &.sb-black{
+        color: @white;
+        background: @gray;
+        border: 1px solid @white;
+    }
+
+    &.show-menu{
+        transform: translate(-50%, -300%);
+        transition-delay: 0s;
+    }
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .item{
+        position: relative;
+        .blackerBd;
+        font-size: 14px;
+        letter-spacing: 1px;
+        margin: 0px 20px;
+        line-height: 56px;
+        
+
+        &.active{
+            span{
+                opacity: 1;
+            }
+        }
+
+        &:hover{
+            span{
+                opacity: .2;
+            }
+        }
+    }
+    
+
+    span{
+        transition: .5s all @custom;
+        opacity: .4;
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large ){
+        padding: 0px 13px;
+        top: 32%;
+
+        .item{
+            font-size: 12px;
+            line-height: 46px;
+        }
+    }
+    @media( max-width: @screen-small ){
+        padding: 10px;
+        border-radius: 20px;
+
+        .item{
+            font-size: 10px;
+            line-height: 20px;
+            margin: 0 4px;
+        }
+    }
+
+}

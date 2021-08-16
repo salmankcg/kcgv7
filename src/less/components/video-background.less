@@ -1,0 +1,67 @@
+.video-background{
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0px;
+    z-index: -1;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+   
+    
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .video{
+        position: absolute;
+        width: 100%; height: 100%;
+        opacity: 0;
+        transition: .5s all @custom;
+
+        &.active{
+            opacity: 1;
+        }
+    }
+
+    video{
+        .centerBoth;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .v-image{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .cover;
+        display: none;
+    }
+   
+    
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+    }
+
+    @media( max-width: @screen-large){
+        .v-image{
+            display: block;
+        }
+
+        video{
+            display: none;
+        }
+    }
+
+    @media( max-width: @screen-medium ){
+        
+    }
+
+    @media( max-width: @screen-small ){
+        
+    }
+}

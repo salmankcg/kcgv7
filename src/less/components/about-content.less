@@ -1,0 +1,123 @@
+.about-content{
+    padding: 120px 0px;
+    position: relative;
+    display: block;
+    background-color: @white;
+    z-index: 2;
+    
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.ac-black{
+        background: @gray;
+    }
+
+    &.ac-nobottom{
+        padding-bottom: 0px;
+    }
+
+    &.ac-notop{
+        padding-top: 0px;
+    }
+
+    &.ac-noPadding{
+        padding: 0px;
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .container-fluid{
+        .col{
+            &.col-9{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                &.c-testimonial{
+                    display: initial;
+                }
+
+                .caption{
+                    width: 15%;
+                }
+
+                .subtitle{
+                    width: 25%;
+                }
+
+                .paragraph{
+                    width: 48%;
+                }
+            }
+        }
+    }
+
+    .ac-image{
+        width: 100%;
+
+        img{
+            width: 100%;
+        }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large){
+        padding: 60px 0px;
+
+        &.ac-notop{
+            padding-bottom: 0px;
+            padding-top: 60px;
+        }
+
+        .container-fluid{
+            padding: 0px 44px;
+            .row{
+                .col{
+                    &.col-9{
+                        width: 100%;
+                        flex-direction: column;
+
+                        .caption{
+                            width: 100%;
+                        }
+        
+                        .subtitle{
+                            width: 100%;
+                        }
+        
+                        .paragraph{
+                            width: 100%;
+                        }
+                    }
+
+                    &.col-10, &.col-11{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    @media( max-width: @screen-small ){
+        .title{
+            &.t-center{
+                padding: 0px 40px;
+            }
+        }
+
+        .container-fluid{
+            padding: 0px 30px;
+        }
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

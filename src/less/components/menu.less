@@ -1,0 +1,305 @@
+.menu{
+    position: absolute;
+    width: 100vw;
+    color: rgba(255,255,255,.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-100%);
+    z-index: 1;
+    top: 0px;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.show-menu{
+        transform: translateY(0%);
+
+        .item {
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: .5s;
+        }
+
+        .legals{
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: 1.5s;
+
+            &:before{
+                width: 100%;
+            }
+        } 
+
+        .social{
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: .8s;
+        } 
+        
+        .infos{
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: 1.2s;
+        }
+    }
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+    .container-fluid{
+        height: auto;
+
+        &:last-child{
+            position: absolute;
+            bottom: 0px;
+        }
+    }
+
+    .col{
+        &:last-of-type{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    .item{
+        font-size: 55px;
+        line-height: 120px;
+        .blackerBd;
+        width: 100%;
+        display: block;
+        opacity: 0;
+        transform: translateY(-20%);
+        transition: 1s all @custom;
+        transition-delay: 0s;
+
+        span{
+            transition: .5s all @custom;
+            opacity: 1;
+            display: block;
+        }
+
+        &:hover{
+            span{
+                opacity: .2;
+                
+            }
+        }
+
+    }
+
+    .legals{
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .blackerBk;
+        font-size: 14px;
+        padding: 40px 0px;
+        opacity: 0;
+        transform: translateY(-10%);
+        transition: 1s all @custom;
+        transition-delay: 0s;
+
+        &:before{
+            .ba;
+            position: absolute;
+            width: 0%;
+            height: 1px;
+            background: rgba(255,255,255,.5);
+            .centerHoriz;
+            top: 0px;
+            transition: .5s all @custom
+            
+        }
+    }
+
+    .social{
+        .blackerMd;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: right;
+        margin-top: 40px;
+        opacity: 0;
+        transform: translateY(-20%);
+        transition: 1s all @custom;
+        transition-delay: 0s;
+        
+        a{
+            display: block;
+
+            span{
+                transition: .5s all @custom;
+                opacity: 1;
+                display: block;
+            }
+    
+            &:hover{
+                span{
+                    opacity: .2;
+                    
+                }
+            }
+        }
+    }
+
+
+    .infos{
+        .blackerLt;
+        font-size: 18px;
+        text-align: right;
+        transform: translateY(-20%);
+        transition: 1s all @custom;
+        transition-delay: 0s;
+        opacity: 0;
+        margin-bottom: 40px;
+
+        a{
+            position: relative;
+            display: table;
+            margin-right: 0px;
+            margin-left: auto;
+
+            &:hover{
+                &:before{
+                    width: 100%;
+                }    
+            }
+
+            &:before{
+                .ba;
+                .centerHoriz;
+                width: 0%; height: 1px;
+                background: rgba(0,0,0,.6);
+                bottom: 0px;
+                transition: .5s all @custom;
+                z-index: 1;
+            }
+        }
+    }
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-height: 700px ) and (orientation: landscape){
+        .item{
+            font-size: 46px;
+            line-height: 70px;
+        }
+
+        .social{
+            line-height: 20px;
+        }
+    }
+
+    @media( max-width: @screen-big ){
+        .item{
+            font-size: 40px;
+            line-height: 80px;
+        }
+
+        .infos{
+            font-size: 16px;
+        }
+
+        .social{
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+
+            a{
+                width: 18px;
+                height: 18px;
+                margin: 0px 20px;
+                position: relative;
+
+                span{
+                    display: none;
+                }
+            }
+
+            .icon{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0px; left: 0px;
+
+                &.i-facebook{
+                    .bg('ico-facebook.svg');
+                }
+
+                &.i-instagram{
+                    .bg('ico-instagram.svg');
+                }
+                &.i-twitter{
+                    .bg('ico-twitter.svg');
+                }
+            }
+        }
+    }
+
+    @media( max-width: @screen-large){
+        .container-fluid{
+            .row{
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .col{
+                width: 100%;
+            }
+        }
+
+        .item{
+            font-size: 45px;
+            line-height: 55px;
+            text-align: center;
+        }
+
+        .social{
+            line-height: 20px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .infos{
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+
+            a{
+                margin: auto;
+            }
+        }
+
+        .legals{
+            padding: 20px 0px;
+        }
+        
+    }
+
+    @media( max-width: @screen-small ){
+        
+        .item{
+            font-size: 30px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .social{
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

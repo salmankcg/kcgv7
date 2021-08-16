@@ -1,0 +1,74 @@
+.works-list{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -30px;
+    
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .item{
+        width: 33.33333%;
+        cursor: pointer;
+        padding: 30px;
+    }
+
+    .image{
+        position: relative;
+        width: 100%;
+        .cover;
+        overflow: hidden;
+        border-radius: 10px;
+        background-position: center;
+        object-fit: cover;
+        overflow: hidden;
+        padding-top: 0px;
+        height: auto !important;
+    }
+
+    .infos{
+        margin-top: 20px;
+    }
+
+    .name{
+        .blackerBd;
+        font-size: 28px;
+    }
+
+    .type{
+        .blackerLt;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large){
+        .item{
+            width: 100%;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+
+        .name{
+            font-size: 20px;
+        }
+
+        .type{
+            font-size: 16px;
+        }
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

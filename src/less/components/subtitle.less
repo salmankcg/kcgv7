@@ -1,0 +1,41 @@
+.subtitle{
+    .blackerBk;
+    font-size: 28px;
+    line-height: 37px;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.sb-right{
+        text-align: right;
+    }
+
+    &.sb-white{
+        color: @white;
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-large ){
+        &.sb-right{
+            text-align: left;
+            margin-bottom: 30px;
+        }
+    }
+
+    @media( max-width: @screen-small){
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+}   

@@ -1,0 +1,153 @@
+.home-infos{
+    .fill;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.disabled{
+        z-index: -1;
+    }
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .steps{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        
+        &.active{
+            z-index: 2;
+        }
+    }
+
+    .i-wrapper{
+        width: 280px;
+        right: 5%;
+        .centerVert;
+    }
+
+    .button{
+        margin-right: 0px;
+        margin-left: auto;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: .5s all @custom;
+        transition-delay: .0s;
+
+        &.motion-in{
+            opacity: 1;
+            transition: 1.5s all @custom;
+            transition-delay: .8s;
+            transform: translateY(0px);
+        }
+    }
+
+    .title{
+        .centerVert;
+        width: 30%;
+        left: 12%;
+
+        .words{
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+
+        &.w-block{
+            display: block;
+        }
+
+        &.motion-in{
+            span{
+                transform: translateY(0px);
+            }
+        }
+
+        &.bold{
+            .blackerBd;
+        }
+
+        span{
+            display: block;
+            transform: translateY(120px);
+            transition: 1s all @custom;
+            margin-right: 10px;
+            transition-delay: .5s;
+            text-transform: uppercase;
+        }
+        }
+    }
+
+    .paragraph{
+        opacity: 0;
+        transform: translateY(50px);
+        transition: .5s all @custom;
+        transition-delay: 0s;
+        
+        &.motion-in{
+            opacity: 1;
+            transition: 1.5s all @custom;
+            transition-delay: .5s;
+            transform: translateY(0px);
+        }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-large){
+        .paragraph{
+            display: none;
+        }
+
+        .steps{
+            height: auto;
+            margin-top: 26%;
+        }
+    
+        .title{
+            text-align: center;
+            position: relative;
+            transform: none;
+            left: auto;
+            width: 100%;
+            top: auto;
+            
+        }
+        
+        .button{
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+
+        .i-wrapper{
+            position: relative;
+            top: auto;
+            transform: none;
+            right: auto;
+            width: 100%;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        .button{
+            margin-top: 20px;
+        }
+
+        .steps{
+            padding: 0px 30px;
+        }
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}
+

@@ -1,0 +1,356 @@
+{% extends "./layouts/main.njk" %}
+{% set title        = 'KCG' %}
+{% set page         = 'about' %}
+{% set header       = '' %}
+{% set footer       = '' %}
+
+
+{% block content %}
+
+
+<!-- BEGIN SECTION -->
+
+<div class="smooth-scroll" data-scroll-content>
+
+  <div class="webdoor w-about">
+    <div class="submenu sb-white">
+      <a href="about.html" class="item active"><span>ABOUT</span></a>
+      <a href="about-mission.html" class="item"><span>MISSION</span></a>
+      <a href="about-team.html" class="item"><span>TEAM</span></a>
+      <a href="about-giving.html" class="item"><span>GIVING</span></a>
+    </div>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-10">
+          <h1 class="title t-medium t-center"><strong>We are world-class strategic<br>transformation agency commited to<br>help our clients build a better world.</strong></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-world">
+    <div class="aw-background">
+      <img src="img/about-earth.png" />
+    </div>
+    <div class="aw-people">
+      <div class="aw-content">
+        <div class="item" data-place="south-america">
+          <img src="assets/about/person-1.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/person-2.png" alt="" />
+        </div>
+        <div class="item" data-place="europe">
+          <img src="assets/about/person-3.png" alt="" />
+        </div>
+        <div class="item" data-place="asia">
+          <img src="assets/about/person-4.png" alt="" />
+        </div>
+        <div class="item" data-place="oceania">
+          <img src="assets/about/person-5.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/person-6.png" alt="" />
+        </div>
+        <div class="item" data-place="europe">
+          <img src="assets/about/person-7.png" alt="" />
+        </div>
+        <div class="item" data-place="asia">
+          <img src="assets/about/person-8.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-9">
+          <div class="caption"><span>Our Story</span></div>
+
+          <h3 class="subtitle sb-right">"We imagined a workplace that prioritized bold and visionary work. So we created one."</h3>
+          
+          <div class="paragraph">
+            King’s Crest Global was founded with one simple goal in mind: happiness. Our founders imagined a workplace that prioritized bold and visionary work. So they created one. <br><br>
+            
+            Today, we can be found doing our thing all around the world. More than just a team, we’re an energetic collaborative of talent with the unique ability to attack a problem from every angle instead of one. We’re scattered across the globe but we come together daily with a shared mindset and fantastically diverse strengths. We live, breathe and operate in the digital space, meaning our solutions are as cutting-edge as the way we work.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-9">
+          <div class="caption"><span>Our Mission</span></div>
+
+          <h3 class="subtitle sb-right">“Our mission is create positive change, act with integrity and build infrastructure for real happiness through strategic management”</h3>
+
+          <div class="paragraph">
+            Our mission is to create positive change, act with integrity and build infrastructure for real happiness through marketing, product, and strategic management. King’s Crest is inspired by the philosophy that giving something back to the world makes all the difference — starting with happiness. Our ultimate goal is to solve our clients’ problems and enrich their lives so that they can do what they do best. 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content ac-nobottom">
+
+    <div class="caption c-center"><span>Our Clients</span></div>
+    <h2 class="title t-small t-center t-padding">Partnering to reach the <strong>next level.</strong></h2>
+    <div class="clients">
+      <div class="wrapper">
+        <div class="line">
+          {% for i in range(0,2) %}
+          <div class="logos">
+            {% for u in range(0,2) %}
+            <a href="work-heykiddo.html" target="blank" class="image">
+              <img src="assets/clients/logo-heyk.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-bond.jpg" alt=""/>
+            </a>
+            <a href="work-executiveBench.html" target="blank" class="image">
+              <img src="assets/clients/logo-executive.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-hair.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-laser.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-mariane.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-og.jpg" alt=""/>
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+        <div class="line">
+          {% for i in range(0,2) %}
+          <div class="logos">
+            {% for u in range(0,2) %}
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-one.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-open.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-opensky.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-pao.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-rhr.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-swp.jpg" alt=""/>
+            </a>
+            <a href="" target="blank" class="image">
+              <img src="assets/clients/logo-verizon.jpg" alt=""/>
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="about-content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-9 c-testimonial">
+          <div class="testimonial">
+            <div class="slides">
+              <div class="item">
+                <div class="wrapper">
+                  <div class="stars svg"></div>  
+                  <div class="phrase">"King’s Crest was crucial in all the elements to start up. They coached me in terms of why I started my business. It’s more important to know the why, and what you’re offering people, versus how you’re doing it. You have to find the strong why. That was really crucial."</div>
+                  <div class="info">
+                    <img class="photo" src="assets/photos/Monica_Heller.png" alt="" />
+                    <span class="name">Monica H</span>
+                    <span class="occupation">Founder, Laser by Monica</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="wrapper">
+                  <div class="stars svg"></div>  
+                  <div class="phrase">"Saul is a bulldog! That’s a compliment in every sense of the word. If you need something to get done, Saul will get it done. He’s the kind of person you can hand any project to, big or small, and know that he will get it done with excellence no matter what obstacles he has in his way. He’s smart, organized, focused, driven, and is a rare person who can work in startups and Fortune 500 companies with equal effectiveness. I highly recommend Saul and envy anyone who hires him."</div>
+                  <div class="info">
+                    <img class="photo" src="assets/photos/Matt-Meeker.jpg" alt="" />
+                    <span class="name">Matt M</span>
+                    <span class="occupation">Founder and Executive Chairman at BARK</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="wrapper">
+                  <div class="stars svg"></div>  
+                  <div class="phrase">"Saul was the Project Manager for the Web side of our project to move the Avenue website to a proprietary platform;- within an unimaginable short time period. In this, he maintained thorough details, solicited and insisted on timely decisions, and was relentless in his follow up and drive to hit schedule. Not surprising, all went well. Just the type of person you need for any highly detailed and difficult project!"</div>
+                  <div class="info">
+                    <img class="photo" src="assets/photos/Julie-Daly.jpg" alt="" />
+                    <span class="name">Julie D</span>
+                    <span class="occupation">VP Digital Commerce at Ashley Stewart</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="wrapper">
+                  <div class="stars svg"></div>  
+                  <div class="phrase">"You’re probably luckier to have them than they are to have you."</div>
+                  <div class="info">
+                    <img class="photo" src="assets/photos/Phil_Parotta.png" alt="" />
+                    <span class="name">Phil P</span>
+                    <span class="occupation">Founder, The Swoup App</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="button b-black b-icon t-prev">
+              <div class="wrapper">
+                <div class="arrow svg a-left"></div>
+              </div>
+            </div>
+
+            <div class="button b-black b-icon t-next">
+              <div class="wrapper">
+                <div class="arrow svg a-right"></div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content ac-black">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-10">
+          <div class="highlights">
+            <div class="item">
+              <div class="h-text">
+                <div class="caption c-white"><span>WHAT WE DO</span></div>
+                <h2 class="title t-small t-white">We provide a full <strong>range of services</strong> to help your reach your goals</h2>
+                <a href="" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">OUR SERVICES</span>
+                  </div>
+                </a>
+              </div>
+              <div class="image">
+                <img src="assets/about/highlights-1.png" alt="" />
+              </div>
+            </div>
+            <div class="item">
+              <div class="h-text">
+                <div class="caption c-white"><span>How we do it</span></div>
+                <h2 class="title t-small t-white">Our <strong>innovative approach</strong> is centered around your business’s lifecycle</h2>
+                <a href="about-approach.html" class="button">
+                  <div class="wrapper b-white">
+                    <span class="text">OUR MISSION</span>
+                  </div>
+                </a>
+              </div>
+              <div class="image">
+                <img src="assets/about/highlights-2.png" alt="" />
+              </div>
+            </div>
+            <div class="item">
+              <div class="h-text">
+                <div class="caption c-white"><span>Who Make it</span></div>
+                <h2 class="title t-small t-white">A <strong>global team</strong> commited to help our clients build a better world.</h2>
+                <a href="about-team.html" class="button b-white">
+                  <div class="wrapper">
+                    <span class="text">Meet Our Team</span>
+                  </div>
+                </a>
+              </div>
+              <!-- BEGIN SERVICES -->
+              <div class="people-scramble ps-services">
+                <div class="wrapper">
+
+                  {% set image = cycler(12,3,10,4,7,6,8,1) %}
+                  <div class="images">
+                  {% for u in range(0,8) %}
+                    <figure data-target="{{u}}" style="background-image:url(assets/about/person-{{image.next()}}.png);"></figure>
+                  {% endfor %}
+                  </div>
+
+                  {% set name = cycler('Saul','Aline','Alex','Phillip','Paul','Marcus','Philipa','Brad') %}
+                  {% set area = cycler('design','photography','development','management','quality','copy','lorem','lorem') %}
+                  <div class="hint">
+                  {% for u in range(0,8) %}
+                    <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>
+                  {% endfor %}
+                  </div>
+
+                  
+                </div>
+                <div class="pc-pointer">
+                  <div class="ico i-mouse svg"></div>
+                  <div class="ico i-hand svg"></div>
+                </div>
+              </div>
+              <!-- END SERVICES -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-content ac-journal">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col col-11">
+
+          <div class="caption">
+            <span>WHAT WE DO</span>
+
+            <a href="journal.html" class="button b-black b-icon">
+              <div class="label">SEE ALL</div>
+              <div class="wrapper">
+                <div class="arrow svg a-right"></div>
+              </div>
+            </a>
+          </div>
+
+          <div class="journal-list">
+            <a href="journal-inner-1.html" class="item" data-color="orange">
+              <img src="assets/journal/journal-1.jpg" alt="" />
+              <div class="j-title">How to Make Compelling Videos and Create an Impact with Social Media</div>
+            </a>
+
+            <a href="journal-inner-2.html" class="item" data-color="green">
+              <img src="assets/journal/journal-2.jpg" alt="" />
+              <div class="j-title"> How to Bring Teams Together and Manage Time Zones.</div>
+            </a>
+
+            <a href="journal-inner-3.html" class="item" data-color="yellow">
+              <img src="assets/journal/journal-3.jpg" alt="" />
+              <div class="j-title">Top Trends to watch in remote working and co-working spaces</div>
+            </a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- END SECTION -->
+
+{% endblock %}

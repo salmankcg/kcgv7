@@ -1,0 +1,110 @@
+{% extends "./layouts/main.njk" %}
+{% set title        = 'KCG' %}
+{% set page         = 'about-team' %}
+{% set header       = '' %}
+{% set footer       = '' %}
+
+
+{% block content %}
+
+
+<!-- BEGIN SECTION -->
+{# <section class="section-content"> #}
+
+  <div class="scrolldown">
+    <span>ALL TEAM</span>
+  </div>
+
+  <div class="smooth-scroll" data-scroll-content>
+  
+    <div class="webdoor w-team">
+
+      <div class="submenu sb-white">
+        <a href="about.html" class="item"><span>ABOUT</span></a>
+        <a href="about-mission.html" class="item" ><span>MISSION</span></a>
+        <a href="about-team.html" class="item active" ><span>TEAM</span></a>
+        <a href="about-giving.html" class="item" ><span>GIVING</span></a>
+      </div>
+
+      <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-5">
+              <h1 class="title t-medium t-people" >Meet <span class="name">the people</span> who make the <span class="area">magic</span> happen</h1>
+              <a href="about-person.html" class="button b-black">
+                <div class="wrapper">
+                  <span class="text">MEET OUR TEAM</span>
+                </div>
+              </a>
+            </div>
+            <div class="col col-5">
+              <div class="people-scramble">
+                <div class="wrapper">
+
+                  {% set image = cycler(5,6,2,3,1,10,12,4) %}
+                  <div class="images">
+                  {% for u in range(0,8) %}
+                    <figure data-target="{{u}}" style="background-image:url(assets/about/person-{{image.next()}}.png);"></figure>
+                  {% endfor %}
+                  </div>
+
+                  {% set name = cycler('Saul','Aline','Alex','Phillip','Paul','Marcus','Philipa','Brad') %}
+                  {% set area = cycler('design','photography','development','management','quality','copy','lorem','lorem') %}
+                  <div class="hint">
+                  {% for u in range(0,8) %}
+                    <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>
+                  {% endfor %}
+                  </div>
+
+                  
+                </div>
+                <div class="pc-pointer">
+                  <div class="ico i-mouse svg"></div>
+                  <div class="ico i-hand svg"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="about-content ac-nobottom">
+      <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-10">
+              <div class="people">
+                {% set image = cycler(1,2,3,4,5,6,7,8) %}
+                {% set name = cycler('Saul Tesser','James Morgan','Ksenija Prijovic','Marcus Botosh') %}
+                {% set occupation = cycler('Founder & CEO','SEO Specialist','Finance Manager','Designer') %}
+                      
+                {% for u in range(0,12) %}
+                <a href="about-person.html" class="item">
+                  <div class="i-wrapper">
+                    <img src="assets/about/person-{{image.next()}}.png" alt="" />
+                    <div class="infos">
+                      <span class="name">{{name.next()}}</span>
+                      <span class="occupation">{{occupation.next()}}</span>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
+                
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col col-10">
+              <div class="title t-center t-small" >Want to be a part of our team?<br>We are hiring! <strong>Check Here</strong></div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+{# </section> #}
+<!-- END SECTION -->
+
+{% endblock %}

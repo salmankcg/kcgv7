@@ -1,0 +1,215 @@
+.testimonial{
+    position: relative;
+    padding: 120px 0px;
+    color: @gray;
+    text-align: center;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.no-slick{
+        .item{
+            opacity: 1;
+
+            .wrapper{
+                margin: 0 auto;
+            }
+        }
+    }
+
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+    .item{
+        opacity: .2;
+        transition: .5s all @custom;
+        
+    
+        .wrapper{
+            position: relative;
+            width: 60vw;
+        }
+    }
+
+    .stars{
+        .bg('ico-stars.svg');
+        height: 15px;
+        width: 150px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .phrase{
+        font-size: 18px;
+        .blackerLt;
+        margin: 40px 0px;
+        padding: 0px 90px;
+    }
+
+    .info{
+        span{
+            display: block;
+        }
+    }
+
+    .name{
+        font-size: 18px;
+        .blackerBd;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .occupation{
+        font-size: 16px;
+        .blackerLt;
+    }
+
+    .photo{
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        .cover;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .button{
+        .centerVert;
+        z-index: 5;
+        top: 35%;
+        
+        &.t-prev{
+            left: 0px;
+        }
+
+        &.t-next{
+            right: 0px;
+        }
+    }
+
+    .slick-slide{
+        &.slick-center{
+            .item{
+                opacity: 1;
+            }
+        }
+    }
+
+    .slick-list{
+        overflow: inherit;
+    }
+
+    .slick-dots{
+        display: table !important;
+        margin: 0 auto;
+        margin-top: 80px;
+
+        li{
+            position: relative;
+            width: 10px; height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            float: left;
+            margin: 0px 5px;
+            
+            button{
+                opacity: 0;
+            }
+
+            &.slick-active{
+                &:before{
+                    opacity: 1;
+                }
+            }
+
+            &:before{
+                .ba;
+                position: absolute;
+                width: 100%; height: 100%;
+                background: black;
+                opacity: .2;
+            }
+        }
+    }
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-large ){
+        .phrase{
+            br{
+                display: none;
+            }
+        }
+
+        &.no-slick{
+            .item{
+                .wrapper{
+                    width: 70vw;
+                }
+            }
+        }
+
+    }
+
+    @media( max-width: @screen-small ){
+        padding-top: 0px;
+        padding: 40px 0px;
+
+        &.no-slick{
+            
+            .item{
+                padding: 0px;
+
+                .wrapper{
+                    width: 100%;
+                }
+            }
+        }
+
+        .phrase{
+            font-size: 18px;
+            padding: 0px;
+        }
+
+        .button{
+            bottom: 10px;
+
+            // &.t-prev{
+            //     left: -40px;
+            // }
+
+            // &.t-next{
+            //     right: -40px;
+            // }
+        }
+
+        .item{
+            padding: 0px 40px;
+
+            .wrapper{
+                width: 80vw;
+            }
+        }
+
+        .button{
+            top: auto;
+        }
+
+        .slick-list{
+            padding: 0px !important;
+        }
+
+        .slick-dots{
+            li{
+                width: 5px;
+                height: 5px;
+                margin: 0px 3px;
+            }
+        }
+    }
+
+}

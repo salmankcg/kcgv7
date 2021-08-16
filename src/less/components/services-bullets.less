@@ -1,0 +1,87 @@
+.services-bullets{
+    .centerVert;
+    position: fixed;
+    left: 4.33%;
+    width: 40px;
+    z-index: 10;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+    &.sb-dark{
+        .button{
+            &.active{
+                .wrapper{
+                    border: 1px solid @black;
+                }
+            }
+    
+            &::before{
+                background: @black;
+            }
+        }
+    }
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    
+    .button{
+        position: relative;
+        width: 50px; height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-top: 20px;
+
+        &:hover{
+            &::before{
+                transform: scale(1.5);
+            }
+        }
+
+        &.active{
+            .wrapper{
+                border: 1px solid @white;
+            }
+        }
+
+        &::before{
+            .ba;
+            position: absolute;
+            width: 5px; height: 5px;
+            background: @white;
+            border-radius: 5px;
+            transition: .5s all @custom;
+        }
+
+        .wrapper{
+            border: none;
+            transition: .5s border @custom;
+            border: 1px solid transparent;
+        }
+
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+    }
+
+    @media( max-width: @screen-large){
+        display: none;
+
+    }
+
+    @media( max-width: @screen-small ){
+
+    }
+
+    @media( max-width: @screen-xsmall ){
+    }
+}

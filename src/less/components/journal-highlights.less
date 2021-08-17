@@ -50,11 +50,16 @@
     }
 
     .image{
-        width: 60%;
+        width: 768px;
+
+        @media only screen and (max-width: 1250px) {
+            width: 60%
+        }
 
         img{
             width: 100%;
             display: block;
+            border-radius: 15px;
         }
     }
   

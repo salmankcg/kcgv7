@@ -1,5 +1,5 @@
 .services-content{
-    padding: 120px 0px;
+    padding: 120px 0px 0;
     position: relative;
     display: block;
     z-index: 3;
@@ -82,6 +82,7 @@
 
     &.sc-testimonials{
         background: @white;
+        padding-top: 0;
     }
 
     &.sc-inner{
@@ -137,13 +138,21 @@
                     align-items: flex-start;
 
                     .caption{
-                        margin-right: 20px;
+                        // margin-right: 20px;
                         margin-top: 9px;
+
+                        span {
+                            width: 128px;
+
+                            @media only screen and (max-width: 850px) {
+                                width: 100%;
+                            }
+                        }
                     }
                 }
 
                 .col-right{
-                    width: 25%;
+                    width: 28%;
                 }
 
                 .col-medium{
@@ -766,9 +775,10 @@
         .centerVert;
         width: 60%;
         height: 100vh;
-        right: -100px;
+        // right: -100px;
         top: 60%;
         z-index: 2;
+        right: 0;
 
         &.is-product{
             img{

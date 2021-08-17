@@ -36,6 +36,10 @@
         padding-top: 240px;
         min-height: auto;
 
+        .paragraph {
+            font-size: 25px;
+        }
+
         .col{
             &.col-10{
                 padding-right: 35%;
@@ -151,6 +155,9 @@
 
         .subtitle{
             margin-bottom: 40px;
+            font-size: 25px;
+            line-height: 135%;
+            letter-spacing: 0.04em;
         }
 
         .button{
@@ -159,7 +166,10 @@
         }
 
         .title{
-            margin-bottom: 10px;
+            margin-bottom: 0px;
+            font-size: 45px;
+            line-height: 135%;
+            letter-spacing: 0.04em;
         }
     }
         
@@ -201,8 +211,16 @@
     
     .image-journal-inner{
 
-        width: 100%;
-        margin-top: 40px;
+        width: 1024px;
+        margin: 40px auto 0;
+
+        @media only screen and (max-width: 1100px) {
+            width: calc(100% - 10%)
+        }
+
+        @media only screen and (max-width: 600px) {
+            width: 100%
+        }
 
         img{
             width: 100%;
@@ -210,6 +228,7 @@
             display: block;
             object-fit: cover;
             object-position: center;
+            border-radius: 15px;
         }
     }
 

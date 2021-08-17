@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPrefix", function() { return _checkPropPrefix; });
 /* harmony import */ var _gsap_core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gsap-core.js */ "./node_modules/gsap/gsap-core.js");
 /*!
- * CSSPlugin 3.6.1
+ * CSSPlugin 3.7.1
  * https://greensock.com
  *
  * Copyright 2008-2021, GreenSock. All rights reserved.
@@ -414,7 +414,7 @@ _convertToUnit = function _convertToUnit(target, property, value, unit) {
 
   if (_transformProps[property] && property !== "transform") {
     value = _parseTransform(target, uncache);
-    value = property !== "transformOrigin" ? value[property] : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
+    value = property !== "transformOrigin" ? value[property] : value.svg ? value.origin : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
   } else {
     value = target.style[property];
 
@@ -852,7 +852,7 @@ _identity2DMatrix = [1, 0, 0, 1, 0, 0],
   matrix = _getMatrix(target, cache.svg);
 
   if (cache.svg) {
-    t1 = !cache.uncache && !uncache && target.getAttribute("data-svg-origin");
+    t1 = (!cache.uncache || origin === "0px 0px") && !uncache && target.getAttribute("data-svg-origin"); // if origin is 0,0 and cache.uncache is true, let the recorded data-svg-origin stay. Otherwise, whenever we set cache.uncache to true, we'd need to set element.style.transformOrigin = (cache.xOrigin - bbox.x) + "px " + (cache.yOrigin - bbox.y) + "px". Remember, to work around browser inconsistencies we always force SVG elements' transformOrigin to 0,0 and offset the translation accordingly.
 
     _applySVGOrigin(target, t1 || origin, !!t1 || cache.originIsAbsolute, cache.smooth !== false, matrix);
   }
@@ -1366,6 +1366,7 @@ var CSSPlugin = {
 
         endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit);
         this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p);
+        props.push(p);
       } else if (type !== "undefined") {
         if (startAt && p in startAt) {
           // in case someone hard-codes a complex value as the start, like top: "calc(2vh / 2)". Without this, it'd use the computed value (always in px)
@@ -1413,7 +1414,7 @@ var CSSPlugin = {
           }
 
           if (p === "scale") {
-            this._pt = new _gsap_core_js__WEBPACK_IMPORTED_MODULE_0__["PropTween"](this._pt, cache, "scaleY", cache.scaleY, relative ? relative * endNum : endNum - cache.scaleY);
+            this._pt = new _gsap_core_js__WEBPACK_IMPORTED_MODULE_0__["PropTween"](this._pt, cache, "scaleY", cache.scaleY, (relative ? relative * endNum : endNum - cache.scaleY) || 0);
             props.push("scaleY", p);
             p += "X";
           } else if (p === "transformOrigin") {
@@ -1471,7 +1472,7 @@ var CSSPlugin = {
         } else if (!(p in style)) {
           if (p in target) {
             //maybe it's not a style - it could be a property added directly to an element in which case we'll try to animate that.
-            this.add(target, p, target[p], endValue, index, targets);
+            this.add(target, p, startValue || target[p], endValue, index, targets);
           } else {
             Object(_gsap_core_js__WEBPACK_IMPORTED_MODULE_0__["_missingPlugin"])(p, endValue);
 
@@ -1541,7 +1542,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScrollTrigger", function() { return ScrollTrigger; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScrollTrigger; });
 /*!
- * ScrollTrigger 3.6.1
+ * ScrollTrigger 3.7.1
  * https://greensock.com
  *
  * @license Copyright 2008-2021, GreenSock. All rights reserved.
@@ -1606,6 +1607,7 @@ _startup = 1,
   var s = _ref.s,
       sc = _ref.sc;
 
+  // we store the scroller functions in a alternating sequenced Array like [element, verticalScrollFunc, horizontalScrollFunc, ...] so that we can minimize memory, maximize performance, and we also record the last position as a ".rec" property in order to revert to that after refreshing to ensure things don't shift around.
   var i = _scrollers.indexOf(element),
       offset = sc === _vertical.sc ? 1 : 2;
 
@@ -1726,10 +1728,12 @@ _startup = 1,
   return _win.getComputedStyle(element);
 },
     _makePositionable = function _makePositionable(element) {
-  return element.style.position = _getComputedStyle(element).position === "absolute" ? "absolute" : "relative";
+  // if the element already has position: absolute or fixed, leave that, otherwise make it position: relative
+  var position = _getComputedStyle(element).position;
+
+  element.style.position = position === "absolute" || position === "fixed" ? position : "relative";
 },
-    // if the element already has position: absolute, leave that, otherwise make it position: relative
-_setDefaults = function _setDefaults(obj, defaults) {
+    _setDefaults = function _setDefaults(obj, defaults) {
   for (var p in defaults) {
     p in obj || (obj[p] = defaults[p]);
   }
@@ -1965,10 +1969,11 @@ _lastMediaTick,
     _savedStyles = [],
     // when ScrollTrigger.saveStyles() is called, the inline styles are recorded in this Array in a sequential format like [element, cssText, gsCache, media]. This keeps it very memory-efficient and fast to iterate through.
 _revertRecorded = function _revertRecorded(media) {
-  for (var i = 0; i < _savedStyles.length; i += 4) {
-    if (!media || _savedStyles[i + 3] === media) {
+  for (var i = 0; i < _savedStyles.length; i += 5) {
+    if (!media || _savedStyles[i + 4] === media) {
       _savedStyles[i].style.cssText = _savedStyles[i + 1];
-      _savedStyles[i + 2].uncache = 1;
+      _savedStyles[i].getBBox && _savedStyles[i].setAttribute("transform", _savedStyles[i + 2] || "");
+      _savedStyles[i + 3].uncache = 1;
     }
   }
 },
@@ -1982,17 +1987,15 @@ _revertRecorded = function _revertRecorded(media) {
       if (kill) {
         trigger.kill(1);
       } else {
-        trigger.scroll.rec || (trigger.scroll.rec = trigger.scroll()); // record the scroll positions so that in each refresh() we can ensure that it doesn't shift. Remember, pinning can make things change around, especially if the same element is pinned multiple times. If one was already recorded, don't re-record because unpinning may have occurred and made it shorter.
-
         trigger.revert();
       }
     }
   }
 
-  _revertRecorded(media);
-
+  media && _revertRecorded(media);
   media || _dispatch("revert");
 },
+    _refreshingAll,
     _refreshAll = function _refreshAll(force, skipRevert) {
   if (_lastScrollTime && !force) {
     _addListener(ScrollTrigger, "scrollEnd", _softRefresh);
@@ -2000,68 +2003,74 @@ _revertRecorded = function _revertRecorded(media) {
     return;
   }
 
+  _refreshingAll = true;
+
   var refreshInits = _dispatch("refreshInit");
 
   _sort && ScrollTrigger.sort();
   skipRevert || _revertAll();
 
-  for (_i = 0; _i < _triggers.length; _i++) {
-    _triggers[_i].refresh();
-  }
+  _triggers.forEach(function (t) {
+    return t.refresh();
+  }); // don't loop with _i because during a refresh() someone could call ScrollTrigger.update() which would iterate through _i resulting in a skip.
+
 
   refreshInits.forEach(function (result) {
     return result && result.render && result.render(-1);
   }); // if the onRefreshInit() returns an animation (typically a gsap.set()), revert it. This makes it easy to put things in a certain spot before refreshing for measurement purposes, and then put things back.
 
-  _i = _triggers.length;
+  _scrollers.forEach(function (obj) {
+    return typeof obj === "function" && (obj.rec = 0);
+  }); // zero-out all the recorded scroll positions. Don't use _triggers because if, for example, .matchMedia() is used to create some ScrollTriggers and then the user resizes and it removes ALL ScrollTriggers, and then go back to a size where there are ScrollTriggers, it would have kept the position(s) saved from the initial state.
 
-  while (_i--) {
-    _triggers[_i].scroll.rec = 0;
-  }
 
   _resizeDelay.pause();
+
+  _refreshingAll = false;
 
   _dispatch("refresh");
 },
     _lastScroll = 0,
     _direction = 1,
     _updateAll = function _updateAll() {
-  var l = _triggers.length,
-      time = _getTime(),
-      recordVelocity = time - _time1 >= 50,
-      scroll = l && _triggers[0].scroll();
+  if (!_refreshingAll) {
+    var l = _triggers.length,
+        time = _getTime(),
+        recordVelocity = time - _time1 >= 50,
+        scroll = l && _triggers[0].scroll();
 
-  _direction = _lastScroll > scroll ? -1 : 1;
-  _lastScroll = scroll;
+    _direction = _lastScroll > scroll ? -1 : 1;
+    _lastScroll = scroll;
 
-  if (recordVelocity) {
-    if (_lastScrollTime && !_pointerIsDown && time - _lastScrollTime > 200) {
-      _lastScrollTime = 0;
+    if (recordVelocity) {
+      if (_lastScrollTime && !_pointerIsDown && time - _lastScrollTime > 200) {
+        _lastScrollTime = 0;
 
-      _dispatch("scrollEnd");
+        _dispatch("scrollEnd");
+      }
+
+      _time2 = _time1;
+      _time1 = time;
     }
 
-    _time2 = _time1;
-    _time1 = time;
+    if (_direction < 0) {
+      _i = l;
+
+      while (_i-- > 0) {
+        _triggers[_i] && _triggers[_i].update(0, recordVelocity);
+      }
+
+      _direction = 1;
+    } else {
+      for (_i = 0; _i < l; _i++) {
+        _triggers[_i] && _triggers[_i].update(0, recordVelocity);
+      }
+    }
+
+    _request = 0;
   }
-
-  if (_direction < 0) {
-    _i = l;
-
-    while (_i-- > 0) {
-      _triggers[_i] && _triggers[_i].update(0, recordVelocity);
-    }
-
-    _direction = 1;
-  } else {
-    for (_i = 0; _i < l; _i++) {
-      _triggers[_i] && _triggers[_i].update(0, recordVelocity);
-    }
-  }
-
-  _request = 0;
 },
-    _propNamesToCopy = [_left, _top, _bottom, _right, _margin + _Bottom, _margin + _Right, _margin + _Top, _margin + _Left, "display", "flexShrink", "float", "zIndex"],
+    _propNamesToCopy = [_left, _top, _bottom, _right, _margin + _Bottom, _margin + _Right, _margin + _Top, _margin + _Left, "display", "flexShrink", "float", "zIndex", "grid-column-start", "grid-column-end", "grid-row-start", "grid-row-end", "grid-area", "justify-self", "align-self", "place-self"],
     _stateProps = _propNamesToCopy.concat([_width, _height, "boxSizing", "max" + _Width, "max" + _Height, "position", _margin, _padding, _padding + _Top, _padding + _Right, _padding + _Bottom, _padding + _Left]),
     _swapPinOut = function _swapPinOut(pin, spacer, state) {
   _setState(state);
@@ -2281,6 +2290,8 @@ _getTweenCreator = function _getTweenCreator(scroller, direction) {
   scroller[prop] = getScroll;
   scroller.addEventListener("wheel", function () {
     return getTween.tween && getTween.tween.kill() && (getTween.tween = 0);
+  }, {
+    passive: true
   }); // Windows machines handle mousewheel scrolling in chunks (like "3 lines per scroll") meaning the typical strategy for cancelling the scroll isn't as sensitive. It's much more likely to match one of the previous 2 scroll event positions. So we kill any snapping as soon as there's a wheel event.
 
   return getTween;
@@ -2341,10 +2352,10 @@ var ScrollTrigger = /*#__PURE__*/function () {
     },
         getScrollerSize = _getSizeFunc(scroller, isViewport, direction),
         getScrollerOffsets = _getOffsetsFunc(scroller, isViewport),
+        lastSnap = 0,
         tweenTo,
         pinCache,
         snapFunc,
-        isReverted,
         scroll1,
         scroll2,
         start,
@@ -2381,9 +2392,6 @@ var ScrollTrigger = /*#__PURE__*/function () {
 
     self.media = _creatingMedia;
     anticipatePin *= 45;
-
-    _triggers.push(self);
-
     self.scroller = scroller;
     self.scroll = _getScrollFunc(scroller, direction);
     scroll1 = self.scroll();
@@ -2413,10 +2421,15 @@ var ScrollTrigger = /*#__PURE__*/function () {
       id || (id = animation.vars.id);
     }
 
+    _triggers.push(self);
+
     if (snap) {
-      _isObject(snap) || (snap = {
-        snapTo: snap
-      });
+      if (!_isObject(snap) || snap.push) {
+        snap = {
+          snapTo: snap
+        };
+      }
+
       "scrollBehavior" in _body.style && gsap.set(isViewport ? [_body, _docEl] : scroller, {
         scrollBehavior: "auto"
       }); // smooth scrolling doesn't work with snap.
@@ -2428,11 +2441,11 @@ var ScrollTrigger = /*#__PURE__*/function () {
       };
       snapDurClamp = _isObject(snapDurClamp) ? _clamp(snapDurClamp.min, snapDurClamp.max) : _clamp(snapDurClamp, snapDurClamp);
       snapDelayedCall = gsap.delayedCall(snap.delay || scrubSmooth / 2 || 0.1, function () {
-        if (Math.abs(self.getVelocity()) < 10 && !_pointerIsDown) {
+        if (Math.abs(self.getVelocity()) < 10 && !_pointerIsDown && lastSnap !== self.scroll()) {
           var totalProgress = animation && !isToggle ? animation.totalProgress() : self.progress,
               velocity = (totalProgress - snap2) / (_getTime() - _time2) * 1000 || 0,
-              change1 = _abs(velocity / 2) * velocity / 0.185,
-              naturalEnd = totalProgress + (snap.inertia === false ? 0 : change1),
+              change1 = gsap.utils.clamp(-self.progress, 1 - self.progress, _abs(velocity / 2) * velocity / 0.185),
+              naturalEnd = self.progress + (snap.inertia === false ? 0 : change1),
               endValue = _clamp(0, 1, snapFunc(naturalEnd, self)),
               scroll = self.scroll(),
               endScroll = Math.round(start + endValue * change),
@@ -2448,6 +2461,10 @@ var ScrollTrigger = /*#__PURE__*/function () {
               return;
             }
 
+            if (snap.inertia === false) {
+              change1 = endValue - self.progress;
+            }
+
             tweenTo(endScroll, {
               duration: snapDurClamp(_abs(Math.max(_abs(naturalEnd - totalProgress), _abs(endValue - totalProgress)) * 0.185 / velocity / 0.05 || 0)),
               ease: snap.ease || "power3",
@@ -2457,6 +2474,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
                 return snapDelayedCall.restart(true) && _onInterrupt && _onInterrupt(self);
               },
               onComplete: function onComplete() {
+                lastSnap = self.scroll();
                 snap1 = snap2 = animation && !isToggle ? animation.totalProgress() : self.progress;
                 onSnapComplete && onSnapComplete(self);
                 _onComplete && _onComplete(self);
@@ -2515,7 +2533,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
       markerStart = _createMarker("start", id, scroller, direction, markerVars, offset);
       markerEnd = _createMarker("end", id, scroller, direction, markerVars, offset);
 
-      if (!useFixedPosition) {
+      if (!useFixedPosition && !(_proxies.length && _getProxyProp(scroller, "fixedMarkers") === true)) {
         _makePositionable(isViewport ? _body : scroller);
 
         gsap.set([markerStartTrigger, markerEndTrigger], {
@@ -2530,8 +2548,9 @@ var ScrollTrigger = /*#__PURE__*/function () {
       var r = revert !== false || !self.enabled,
           prevRefreshing = _refreshing;
 
-      if (r !== isReverted) {
+      if (r !== self.isReverted) {
         if (r) {
+          self.scroll.rec || (self.scroll.rec = self.scroll());
           prevScroll = Math.max(self.scroll(), self.scroll.rec || 0); // record the scroll so we can revert later (repositioning/pinning things can affect scroll position). In the static refresh() method, we first record all the scroll positions as a reference.
 
           prevProgress = self.progress;
@@ -2546,7 +2565,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
 
         _refreshing = prevRefreshing;
         pin && (r ? _swapPinOut(pin, spacer, pinOriginalState) : (!pinReparent || !self.isActive) && _swapPinIn(pin, spacer, _getComputedStyle(pin), spacerState));
-        isReverted = r;
+        self.isReverted = r;
       }
     };
 
@@ -2564,7 +2583,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
       _refreshing = 1;
       scrubTween && scrubTween.pause();
       invalidateOnRefresh && animation && animation.progress(0).invalidate();
-      isReverted || self.revert();
+      self.isReverted || self.revert();
 
       var size = getScrollerSize(),
           scrollerBounds = getScrollerOffsets(),
@@ -2574,6 +2593,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
           parsedEnd = vars.end,
           parsedEndTrigger = vars.endTrigger || trigger,
           parsedStart = vars.start || (vars.start === 0 || !trigger ? 0 : pin ? "0 0" : "0 100%"),
+          pinnedContainer = vars.pinnedContainer && _toArray(vars.pinnedContainer)[0],
           triggerIndex = trigger && Math.max(0, _triggers.indexOf(self)) || 0,
           i = triggerIndex,
           cs,
@@ -2584,7 +2604,8 @@ var ScrollTrigger = /*#__PURE__*/function () {
           curTrigger,
           curPin,
           oppositeScroll,
-          initted;
+          initted,
+          revertedPins;
 
       while (i--) {
         // user might try to pin the same element more than once, so we must find any prior triggers with the same pin, revert them, and determine how long they're pinning so that we can offset things appropriately. Make sure we revert from last to first so that things "rewind" properly.
@@ -2592,7 +2613,13 @@ var ScrollTrigger = /*#__PURE__*/function () {
         curTrigger.end || curTrigger.refresh(0, 1) || (_refreshing = 1); // if it's a timeline-based trigger that hasn't been fully initialized yet because it's waiting for 1 tick, just force the refresh() here, otherwise if it contains a pin that's supposed to affect other ScrollTriggers further down the page, they won't be adjusted properly.
 
         curPin = curTrigger.pin;
-        curPin && (curPin === trigger || curPin === pin) && curTrigger.revert();
+
+        if (curPin && (curPin === trigger || curPin === pin) && !curTrigger.isReverted) {
+          revertedPins || (revertedPins = []);
+          revertedPins.unshift(curTrigger); // we'll revert from first to last to make sure things reach their end state properly
+
+          curTrigger.revert();
+        }
       }
 
       start = _parsePosition(parsedStart, trigger, size, direction, self.scroll(), markerStart, markerStartTrigger, self, scrollerBounds, borderWidth, useFixedPosition, max) || (pin ? -0.001 : 0);
@@ -2620,7 +2647,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
 
         if (curPin && curTrigger.start - curTrigger._pinPush < start) {
           cs = curTrigger.end - curTrigger.start;
-          curPin === trigger && (offset += cs);
+          (curPin === trigger || curPin === pinnedContainer) && (offset += cs);
           curPin === pin && (otherPinOffset += cs);
         }
       }
@@ -2633,6 +2660,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
         // offset the markers if necessary
         cs = {};
         cs[direction.a] = "+=" + offset;
+        pinnedContainer && (cs[direction.p] = "-=" + self.scroll());
         gsap.set([markerStart, markerEnd], cs);
       }
 
@@ -2686,11 +2714,11 @@ var ScrollTrigger = /*#__PURE__*/function () {
 
           _suppressOverwrites(1);
 
-          animation.progress(1, true);
+          animation.render(animation.duration(), true, true);
           pinChange = pinGetter(direction.a) - pinStart + change + otherPinOffset;
           change !== pinChange && pinActiveState.splice(pinActiveState.length - 2, 2); // transform is the last property/value set in the state Array. Since the animation is controlling that, we should omit it.
 
-          animation.progress(0, true);
+          animation.render(0, true, true);
           initted || animation.invalidate();
 
           _suppressOverwrites(0);
@@ -2711,12 +2739,9 @@ var ScrollTrigger = /*#__PURE__*/function () {
         }
       }
 
-      for (i = 0; i < triggerIndex; i++) {
-        // make sure we revert from first to last to make sure things reach their end state properly
-        curTrigger = _triggers[i].pin;
-        curTrigger && (curTrigger === trigger || curTrigger === pin) && _triggers[i].revert(false);
-      }
-
+      revertedPins && revertedPins.forEach(function (t) {
+        return t.revert(false);
+      });
       self.start = start;
       self.end = end;
       scroll1 = scroll2 = self.scroll(); // reset velocity
@@ -2724,7 +2749,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
       scroll1 < prevScroll && self.scroll(prevScroll);
       self.revert(false);
       _refreshing = 0;
-      animation && isToggle && animation._initted && animation.progress(prevAnimProgress, true).render(animation.time(), true, true); // must force a re-render because if saveStyles() was used on the target(s), the styles could have been wiped out during the refresh().
+      animation && isToggle && animation._initted && animation.progress() !== prevAnimProgress && animation.progress(prevAnimProgress, true).render(animation.time(), true, true); // must force a re-render because if saveStyles() was used on the target(s), the styles could have been wiped out during the refresh().
 
       if (prevProgress !== self.progress) {
         // ensures that the direction is set properly (when refreshing, progress is set back to 0 initially, then back again to wherever it needs to be) and that callbacks are triggered.
@@ -2828,6 +2853,8 @@ var ScrollTrigger = /*#__PURE__*/function () {
                 animation.pause().totalProgress(1);
               } else if (action === "reset") {
                 animation.restart(true).pause();
+              } else if (action === "restart") {
+                animation.restart(true);
               } else {
                 animation[action]();
               }
@@ -2860,7 +2887,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
       }
     };
 
-    self.enable = function () {
+    self.enable = function (reset, refresh) {
       if (!self.enabled) {
         self.enabled = true;
 
@@ -2869,10 +2896,18 @@ var ScrollTrigger = /*#__PURE__*/function () {
         _addListener(scroller, "scroll", _onScroll);
 
         onRefreshInit && _addListener(ScrollTrigger, "refreshInit", onRefreshInit);
-        !animation || !animation.add ? self.refresh() : gsap.delayedCall(0.01, function () {
-          return start || end || self.refresh();
-        }) && (change = 0.01) && (start = end = 0); // if the animation is a timeline, it may not have been populated yet, so it wouldn't render at the proper place on the first refresh(), thus we should schedule one for the next tick.
+
+        if (reset !== false) {
+          self.progress = prevProgress = 0;
+          scroll1 = scroll2 = lastSnap = self.scroll();
+        }
+
+        refresh !== false && self.refresh();
       }
+    };
+
+    self.getTween = function (snap) {
+      return snap && tweenTo ? tweenTo.tween : scrubTween;
     };
 
     self.disable = function (reset, allowAnimation) {
@@ -2914,6 +2949,15 @@ var ScrollTrigger = /*#__PURE__*/function () {
       _triggers.splice(i, 1);
 
       i === _i && _direction > 0 && _i--; // if we're in the middle of a refresh() or update(), splicing would cause skips in the index, so adjust...
+      // if no other ScrollTrigger instances of the same scroller are found, wipe out any recorded scroll position. Otherwise, in a single page application, for example, it could maintain scroll position when it really shouldn't.
+
+      i = 0;
+
+      _triggers.forEach(function (t) {
+        return t.scroller === self.scroller && (i = 1);
+      });
+
+      i || (self.scroll.rec = 0);
 
       if (animation) {
         animation.scrollTrigger = null;
@@ -2922,7 +2966,7 @@ var ScrollTrigger = /*#__PURE__*/function () {
       }
 
       markerStart && [markerStart, markerEnd, markerStartTrigger, markerEndTrigger].forEach(function (m) {
-        return m.parentNode.removeChild(m);
+        return m.parentNode && m.parentNode.removeChild(m);
       });
 
       if (pin) {
@@ -2937,7 +2981,10 @@ var ScrollTrigger = /*#__PURE__*/function () {
       }
     };
 
-    self.enable();
+    self.enable(false, false);
+    !animation || !animation.add || change ? self.refresh() : gsap.delayedCall(0.01, function () {
+      return start || end || self.refresh();
+    }) && (change = 0.01) && (start = end = 0); // if the animation is a timeline, it may not have been populated yet, so it wouldn't render at the proper place on the first refresh(), thus we should schedule one for the next tick. If "change" is defined, we know it must be re-enabling, thus we can refresh() right away.
   };
 
   ScrollTrigger.register = function register(core) {
@@ -3105,20 +3152,34 @@ var ScrollTrigger = /*#__PURE__*/function () {
     query || (_media.length = 0);
     query = _media.indexOf(query);
     query >= 0 && _media.splice(query, 4);
-  };
+  } // static isInViewport(element, ratio, horizontal) {
+  // 	let bounds = (_isString(element) ? _toArray(element)[0] : element).getBoundingClientRect(),
+  // 		offset = bounds[horizontal ? "width" : "height"] * ratio || 0;
+  // 	return horizontal ? bounds.right - offset > 0 && bounds.left + offset < _win.innerWidth : bounds.bottom - offset > 0 && bounds.top + offset < _win.innerHeight;
+  // }
+  //
+  // static positionInViewport(element, referencePoint, horizontal) {
+  // 	_isString(element) && (element = _toArray(element)[0]);
+  // 	let bounds = element.getBoundingClientRect(),
+  // 		size = bounds[horizontal ? "width" : "height"],
+  // 		offset = referencePoint == null ? size / 2 : ((referencePoint in _keywords) ? _keywords[referencePoint] * size : ~referencePoint.indexOf("%") ? parseFloat(referencePoint) * size / 100 : parseFloat(referencePoint) || 0);
+  // 	return horizontal ? (bounds.left + offset) / _win.innerWidth : (bounds.top + offset) / _win.innerHeight;
+  // }
+  ;
 
   return ScrollTrigger;
 }();
-ScrollTrigger.version = "3.6.1";
+ScrollTrigger.version = "3.7.1";
 
 ScrollTrigger.saveStyles = function (targets) {
   return targets ? _toArray(targets).forEach(function (target) {
+    // saved styles are recorded in a consecutive alternating Array, like [element, cssText, transform attribute, cache, matchMedia, ...]
     if (target && target.style) {
       var i = _savedStyles.indexOf(target);
 
-      i >= 0 && _savedStyles.splice(i, 4);
+      i >= 0 && _savedStyles.splice(i, 5);
 
-      _savedStyles.push(target, target.style.cssText, gsap.core.getCache(target), _creatingMedia);
+      _savedStyles.push(target, target.style.cssText, target.getBBox && target.getAttribute("transform"), gsap.core.getCache(target), _creatingMedia);
     }
   }) : _savedStyles;
 };
@@ -3240,7 +3301,7 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 }(this, (function (exports) { 'use strict';
 
 	/*!
-	 * ScrollToPlugin 3.6.1
+	 * ScrollToPlugin 3.7.1
 	 * https://greensock.com
 	 *
 	 * @license Copyright 2008-2021, GreenSock. All rights reserved.
@@ -3362,7 +3423,7 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 	};
 
 	var ScrollToPlugin = {
-	  version: "3.6.1",
+	  version: "3.7.1",
 	  name: "scrollTo",
 	  rawVars: 1,
 	  register: function register(core) {
@@ -3372,7 +3433,8 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 	  },
 	  init: function init(target, value, tween, index, targets) {
 	    _coreInitted || _initCore();
-	    var data = this;
+	    var data = this,
+	        snapType = gsap.getProperty(target, "scrollSnapType");
 	    data.isWin = target === _window;
 	    data.target = target;
 	    data.tween = tween;
@@ -3383,6 +3445,12 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 	    data.getY = _buildGetter(target, "y");
 	    data.x = data.xPrev = data.getX();
 	    data.y = data.yPrev = data.getY();
+
+	    if (snapType && snapType !== "none") {
+	      data.snap = 1;
+	      data.snapInline = target.style.scrollSnapType;
+	      target.style.scrollSnapType = "none";
+	    }
 
 	    if (value.x != null) {
 	      data.add(data, "x", data.x, _parseVal(value.x, target, "x", data.x, value.offsetX || 0), index, targets);
@@ -3408,6 +3476,8 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 	        xPrev = data.xPrev,
 	        yPrev = data.yPrev,
 	        isWin = data.isWin,
+	        snap = data.snap,
+	        snapInline = data.snapInline,
 	        x,
 	        y,
 	        yDif,
@@ -3455,6 +3525,16 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 	      data.skipX || (target.scrollLeft = data.x);
 	    }
 
+	    if (snap && (ratio === 1 || ratio === 0)) {
+	      y = target.scrollTop;
+	      x = target.scrollLeft;
+	      snapInline ? target.style.scrollSnapType = snapInline : target.style.removeProperty("scroll-snap-type");
+	      target.scrollTop = y + 1;
+	      target.scrollLeft = x + 1;
+	      target.scrollTop = y;
+	      target.scrollLeft = x;
+	    }
+
 	    data.xPrev = data.x;
 	    data.yPrev = data.y;
 	  },
@@ -3489,7 +3569,7 @@ _getGSAP() && gsap.registerPlugin(ScrollTrigger);
 /*!****************************************!*\
   !*** ./node_modules/gsap/gsap-core.js ***!
   \****************************************/
-/*! exports provided: GSCache, Animation, Timeline, Tween, PropTween, gsap, Power0, Power1, Power2, Power3, Power4, Linear, Quad, Cubic, Quart, Quint, Strong, Elastic, Back, SteppedEase, Bounce, Sine, Expo, Circ, TweenMax, TweenLite, TimelineMax, TimelineLite, default, wrap, wrapYoyo, distribute, random, snap, normalize, getUnit, clamp, splitColor, toArray, mapRange, pipe, unitize, interpolate, shuffle, _getProperty, _numExp, _numWithUnitExp, _isString, _isUndefined, _renderComplexString, _relExp, _setDefaults, _removeLinkedListItem, _forEachName, _sortPropTweensByPriority, _colorStringFilter, _replaceRandom, _checkPlugin, _plugins, _ticker, _config, _roundModifier, _round, _missingPlugin, _getSetter, _getCache, _colorExp */
+/*! exports provided: GSCache, Animation, Timeline, Tween, PropTween, gsap, Power0, Power1, Power2, Power3, Power4, Linear, Quad, Cubic, Quart, Quint, Strong, Elastic, Back, SteppedEase, Bounce, Sine, Expo, Circ, TweenMax, TweenLite, TimelineMax, TimelineLite, default, wrap, wrapYoyo, distribute, random, snap, normalize, getUnit, clamp, splitColor, toArray, selector, mapRange, pipe, unitize, interpolate, shuffle, _getProperty, _numExp, _numWithUnitExp, _isString, _isUndefined, _renderComplexString, _relExp, _setDefaults, _removeLinkedListItem, _forEachName, _sortPropTweensByPriority, _colorStringFilter, _replaceRandom, _checkPlugin, _plugins, _ticker, _config, _roundModifier, _round, _missingPlugin, _getSetter, _getCache, _colorExp */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3533,6 +3613,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clamp", function() { return clamp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitColor", function() { return splitColor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toArray", function() { return toArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selector", function() { return selector; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapRange", function() { return mapRange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pipe", function() { return pipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unitize", function() { return unitize; });
@@ -3566,7 +3647,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 /*!
- * GSAP 3.6.1
+ * GSAP 3.7.1
  * https://greensock.com
  *
  * @license Copyright 2008-2021, GreenSock. All rights reserved.
@@ -3633,8 +3714,9 @@ _numWithUnitExp = /[-+=.]*\d+[.e-]*\d*[a-z%]*/g,
     _complexStringNumExp = /[-+=.]*\d+\.?\d*(?:e-|e\+)?\d*/gi,
     //duplicate so that while we're looping through matches from exec(), it doesn't contaminate the lastIndex of _numExp which we use to search for colors too.
 _relExp = /[+-]=-?[.\d]+/,
-    _delimitedValueExp = /[#\-+.]*\b[a-z\d-=+%.]+/gi,
-    _unitExp = /[\d.+\-=]+(?:e[-+]\d*)*/i,
+    _delimitedValueExp = /[^,'"\[\]\s]+/gi,
+    // previously /[#\-+.]*\b[a-z\d\-=+%.]+/gi but didn't catch special characters.
+_unitExp = /[\d.+\-=]+(?:e[-+]\d*)*/i,
     _globalTimeline,
     _win,
     _coreInitted,
@@ -3710,31 +3792,6 @@ _round = function _round(value) {
   for (; toSearch.indexOf(toFind[i]) < 0 && ++i < l;) {}
 
   return i < l;
-},
-    _parseVars = function _parseVars(params, type, parent) {
-  //reads the arguments passed to one of the key methods and figures out if the user is defining things with the OLD/legacy syntax where the duration is the 2nd parameter, and then it adjusts things accordingly and spits back the corrected vars object (with the duration added if necessary, as well as runBackwards or startAt or immediateRender). type 0 = to()/staggerTo(), 1 = from()/staggerFrom(), 2 = fromTo()/staggerFromTo()
-  var isLegacy = _isNumber(params[1]),
-      varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
-      vars = params[varsIndex],
-      irVars;
-
-  isLegacy && (vars.duration = params[1]);
-  vars.parent = parent;
-
-  if (type) {
-    irVars = vars;
-
-    while (parent && !("immediateRender" in irVars)) {
-      // inheritance hasn't happened yet, but someone may have set a default in an ancestor timeline. We could do vars.immediateRender = _isNotFalse(_inheritDefaults(vars).immediateRender) but that'd exact a slight performance penalty because _inheritDefaults() also runs in the Tween constructor. We're paying a small kb price here to gain speed.
-      irVars = parent.vars.defaults || {};
-      parent = _isNotFalse(parent.vars.inherit) && parent.parent;
-    }
-
-    vars.immediateRender = _isNotFalse(irVars.immediateRender);
-    type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1]; // "from" vars
-  }
-
-  return vars;
 },
     _lazyRender = function _lazyRender() {
   var l = _lazyTweens.length,
@@ -3984,12 +4041,12 @@ _postAddChecks = function _postAddChecks(timeline, child) {
 },
     _addToTimeline = function _addToTimeline(timeline, child, position, skipChecks) {
   child.parent && _removeFromParent(child);
-  child._start = _round(position + child._delay);
+  child._start = _round((_isNumber(position) ? position : position || timeline !== _globalTimeline ? _parsePosition(timeline, position, child) : timeline._time) + child._delay);
   child._end = _round(child._start + (child.totalDuration() / Math.abs(child.timeScale()) || 0));
 
   _addLinkedListItem(timeline, child, "_first", "_last", timeline._sort ? "_start" : 0);
 
-  timeline._recent = child;
+  _isFromOrFromStart(child) || (timeline._recent = child);
   skipChecks || _postAddChecks(timeline, child);
   return timeline;
 },
@@ -4015,10 +4072,14 @@ _postAddChecks = function _postAddChecks(timeline, child) {
   return parent && parent._ts && parent._initted && !parent._lock && (parent.rawTime() < 0 || _parentPlayheadIsBeforeStart(parent));
 },
     // check parent's _lock because when a timeline repeats/yoyos and does its artificial wrapping, we shouldn't force the ratio back to 0
-_renderZeroDurationTween = function _renderZeroDurationTween(tween, totalTime, suppressEvents, force) {
+_isFromOrFromStart = function _isFromOrFromStart(_ref2) {
+  var data = _ref2.data;
+  return data === "isFromStart" || data === "isStart";
+},
+    _renderZeroDurationTween = function _renderZeroDurationTween(tween, totalTime, suppressEvents, force) {
   var prevRatio = tween.ratio,
-      ratio = totalTime < 0 || !totalTime && (!tween._start && _parentPlayheadIsBeforeStart(tween) || (tween._ts < 0 || tween._dp._ts < 0) && tween.data !== "isFromStart" && tween.data !== "isStart") ? 0 : 1,
-      // if the tween or its parent is reversed and the totalTime is 0, we should go to a ratio of 0.
+      ratio = totalTime < 0 || !totalTime && (!tween._start && _parentPlayheadIsBeforeStart(tween) && !(!tween._initted && _isFromOrFromStart(tween)) || (tween._ts < 0 || tween._dp._ts < 0) && !_isFromOrFromStart(tween)) ? 0 : 1,
+      // if the tween or its parent is reversed and the totalTime is 0, we should go to a ratio of 0. Edge case: if a from() or fromTo() stagger tween is placed later in a timeline, the "startAt" zero-duration tween could initially render at a time when the parent timeline's playhead is technically BEFORE where this tween is, so make sure that any "from" and "fromTo" startAt tweens are rendered the first time at a ratio of 1.
   repeatDelay = tween._rDelay,
       tTime = 0,
       pt,
@@ -4118,36 +4179,70 @@ _renderZeroDurationTween = function _renderZeroDurationTween(tween, totalTime, s
 },
     _zeroPosition = {
   _start: 0,
-  endTime: _emptyFunc
+  endTime: _emptyFunc,
+  totalDuration: _emptyFunc
 },
-    _parsePosition = function _parsePosition(animation, position) {
+    _parsePosition = function _parsePosition(animation, position, percentAnimation) {
   var labels = animation.labels,
       recent = animation._recent || _zeroPosition,
       clippedDuration = animation.duration() >= _bigNum ? recent.endTime(false) : animation._dur,
       //in case there's a child that infinitely repeats, users almost never intend for the insertion point of a new child to be based on a SUPER long value like that so we clip it and assume the most recently-added child's endTime should be used instead.
   i,
-      offset;
+      offset,
+      isPercent;
 
   if (_isString(position) && (isNaN(position) || position in labels)) {
     //if the string is a number like "1", check to see if there's a label with that name, otherwise interpret it as a number (absolute value).
-    i = position.charAt(0);
-
-    if (i === "<" || i === ">") {
-      return (i === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0);
-    }
-
+    offset = position.charAt(0);
+    isPercent = position.substr(-1) === "%";
     i = position.indexOf("=");
+
+    if (offset === "<" || offset === ">") {
+      i >= 0 && (position = position.replace(/=/, ""));
+      return (offset === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0) * (isPercent ? (i < 0 ? recent : percentAnimation).totalDuration() / 100 : 1);
+    }
 
     if (i < 0) {
       position in labels || (labels[position] = clippedDuration);
       return labels[position];
     }
 
-    offset = +(position.charAt(i - 1) + position.substr(i + 1));
-    return i > 1 ? _parsePosition(animation, position.substr(0, i - 1)) + offset : clippedDuration + offset;
+    offset = parseFloat(position.charAt(i - 1) + position.substr(i + 1));
+
+    if (isPercent && percentAnimation) {
+      offset = offset / 100 * (_isArray(percentAnimation) ? percentAnimation[0] : percentAnimation).totalDuration();
+    }
+
+    return i > 1 ? _parsePosition(animation, position.substr(0, i - 1), percentAnimation) + offset : clippedDuration + offset;
   }
 
   return position == null ? clippedDuration : +position;
+},
+    _createTweenType = function _createTweenType(type, params, timeline) {
+  var isLegacy = _isNumber(params[1]),
+      varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
+      vars = params[varsIndex],
+      irVars,
+      parent;
+
+  isLegacy && (vars.duration = params[1]);
+  vars.parent = timeline;
+
+  if (type) {
+    irVars = vars;
+    parent = timeline;
+
+    while (parent && !("immediateRender" in irVars)) {
+      // inheritance hasn't happened yet, but someone may have set a default in an ancestor timeline. We could do vars.immediateRender = _isNotFalse(_inheritDefaults(vars).immediateRender) but that'd exact a slight performance penalty because _inheritDefaults() also runs in the Tween constructor. We're paying a small kb price here to gain speed.
+      irVars = parent.vars.defaults || {};
+      parent = _isNotFalse(parent.vars.inherit) && parent.parent;
+    }
+
+    vars.immediateRender = _isNotFalse(irVars.immediateRender);
+    type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1]; // "from" vars
+  }
+
+  return new Tween(params[0], vars, params[varsIndex + 1]);
 },
     _conditionalReturn = function _conditionalReturn(value, func) {
   return value || value === 0 ? func(value) : func;
@@ -4186,8 +4281,15 @@ clamp = function clamp(min, max, value) {
   }) || accumulator;
 },
     //takes any value and returns an array. If it's a string (and leaveStrings isn't true), it'll use document.querySelectorAll() and convert that to an array. It'll also accept iterables like jQuery objects.
-toArray = function toArray(value, leaveStrings) {
-  return _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call(_doc.querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+toArray = function toArray(value, scope, leaveStrings) {
+  return _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call((scope || _doc).querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+},
+    selector = function selector(value) {
+  value = toArray(value)[0] || _warn("Invalid scope") || {};
+  return function (v) {
+    var el = value.current || value.nativeElement || value;
+    return toArray(v, el.querySelectorAll ? el : el === value ? _warn("Invalid scope") || _doc.createElement("div") : value);
+  };
 },
     shuffle = function shuffle(a) {
   return a.sort(function () {
@@ -5128,8 +5230,7 @@ var GSCache = function GSCache(target, harness) {
  */
 
 var Animation = /*#__PURE__*/function () {
-  function Animation(vars, time) {
-    var parent = vars.parent || _globalTimeline;
+  function Animation(vars) {
     this.vars = vars;
     this._delay = +vars.delay || 0;
 
@@ -5145,9 +5246,6 @@ var Animation = /*#__PURE__*/function () {
 
     this.data = vars.data;
     _tickerActive || _ticker.wake();
-    parent && _addToTimeline(parent, this, time || time === 0 ? time : parent._time, 1);
-    vars.reversed && this.reverse();
-    vars.paused && this.paused(true);
   }
 
   var _proto = Animation.prototype;
@@ -5219,7 +5317,7 @@ var Animation = /*#__PURE__*/function () {
   };
 
   _proto.time = function time(value, suppressEvents) {
-    return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % this._dur || (value ? this._dur : 0), suppressEvents) : this._time; // note: if the modulus results in 0, the playhead could be exactly at the end or the beginning, and we always defer to the END with a non-zero value, otherwise if you set the time() to the very end (duration()), it would render at the START!
+    return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % (this._dur + this._rDelay) || (value ? this._dur : 0), suppressEvents) : this._time; // note: if the modulus results in 0, the playhead could be exactly at the end or the beginning, and we always defer to the END with a non-zero value, otherwise if you set the time() to the very end (duration()), it would render at the START!
   };
 
   _proto.totalProgress = function totalProgress(value, suppressEvents) {
@@ -5256,6 +5354,8 @@ var Animation = /*#__PURE__*/function () {
     }
 
     var tTime = this.parent && this._ts ? _parentToChildTotalTime(this.parent._time, this) : this._tTime; // make sure to do the parentToChildTotalTime() BEFORE setting the new _ts because the old one must be used in that calculation.
+    // future addition? Up side: fast and minimal file size. Down side: only works on this animation; if a timeline is reversed, for example, its childrens' onReverse wouldn't get called.
+    //(+value < 0 && this._rts >= 0) && _callback(this, "onReverse", true);
     // prioritize rendering where the parent's playhead lines up instead of this._tTime because there could be a tween that's animating another tween's timeScale in the same rendering loop (same parent), thus if the timeScale tween renders first, it would alter _start BEFORE _tTime was set on that tick (in the rendering loop), effectively freezing it until the timeScale tween finishes.
 
     this._rts = +value || 0;
@@ -5281,7 +5381,7 @@ var Animation = /*#__PURE__*/function () {
 
         this._ts = this._rts; //only defer to _pTime (pauseTime) if tTime is zero. Remember, someone could pause() an animation, then scrub the playhead and resume(). If the parent doesn't have smoothChildTiming, we render at the rawTime() because the startTime won't get updated.
 
-        this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && (this._tTime -= _tinyNum) && Math.abs(this._zTime) !== _tinyNum); // edge case: animation.progress(1).pause().play() wouldn't render again because the playhead is already at the end, but the call to totalTime() below will add it back to its parent...and not remove it again (since removing only happens upon rendering at a new time). Offsetting the _tTime slightly is done simply to cause the final render in totalTime() that'll pop it off its timeline (if autoRemoveChildren is true, of course). Check to make sure _zTime isn't -_tinyNum to avoid an edge case where the playhead is pushed to the end but INSIDE a tween/callback, the timeline itself is paused thus halting rendering and leaving a few unrendered. When resuming, it wouldn't render those otherwise.
+        this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && Math.abs(this._zTime) !== _tinyNum && (this._tTime -= _tinyNum)); // edge case: animation.progress(1).pause().play() wouldn't render again because the playhead is already at the end, but the call to totalTime() below will add it back to its parent...and not remove it again (since removing only happens upon rendering at a new time). Offsetting the _tTime slightly is done simply to cause the final render in totalTime() that'll pop it off its timeline (if autoRemoveChildren is true, of course). Check to make sure _zTime isn't -_tinyNum to avoid an edge case where the playhead is pushed to the end but INSIDE a tween/callback, the timeline itself is paused thus halting rendering and leaving a few unrendered. When resuming, it wouldn't render those otherwise.
       }
     }
 
@@ -5304,7 +5404,7 @@ var Animation = /*#__PURE__*/function () {
   };
 
   _proto.rawTime = function rawTime(wrapRepeats) {
-    var parent = this.parent || this._dp; // _dp = detatched parent
+    var parent = this.parent || this._dp; // _dp = detached parent
 
     return !parent ? this._tTime : wrapRepeats && (!this._ts || this._repeat && this._time && this.totalProgress() < 1) ? this._tTime % (this._dur + this._rDelay) : !this._ts ? this._tTime : _parentToChildTotalTime(parent.rawTime(wrapRepeats), this);
   };
@@ -5332,8 +5432,12 @@ var Animation = /*#__PURE__*/function () {
 
   _proto.repeatDelay = function repeatDelay(value) {
     if (arguments.length) {
+      var time = this._time;
       this._rDelay = value;
-      return _onUpdateTotalDuration(this);
+
+      _onUpdateTotalDuration(this);
+
+      return time ? this.time(time) : this;
     }
 
     return this._rDelay;
@@ -5474,19 +5578,21 @@ _setDefaults(Animation.prototype, {
 var Timeline = /*#__PURE__*/function (_Animation) {
   _inheritsLoose(Timeline, _Animation);
 
-  function Timeline(vars, time) {
+  function Timeline(vars, position) {
     var _this;
 
     if (vars === void 0) {
       vars = {};
     }
 
-    _this = _Animation.call(this, vars, time) || this;
+    _this = _Animation.call(this, vars) || this;
     _this.labels = {};
     _this.smoothChildTiming = !!vars.smoothChildTiming;
     _this.autoRemoveChildren = !!vars.autoRemoveChildren;
     _this._sort = _isNotFalse(vars.sortChildren);
-    _this.parent && _postAddChecks(_this.parent, _assertThisInitialized(_this));
+    _globalTimeline && _addToTimeline(vars.parent || _globalTimeline, _assertThisInitialized(_this), position);
+    vars.reversed && _this.reverse();
+    vars.paused && _this.paused(true);
     vars.scrollTrigger && _scrollTrigger(_assertThisInitialized(_this), vars.scrollTrigger);
     return _this;
   }
@@ -5494,17 +5600,20 @@ var Timeline = /*#__PURE__*/function (_Animation) {
   var _proto2 = Timeline.prototype;
 
   _proto2.to = function to(targets, vars, position) {
-    new Tween(targets, _parseVars(arguments, 0, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+    _createTweenType(0, arguments, this);
+
     return this;
   };
 
   _proto2.from = function from(targets, vars, position) {
-    new Tween(targets, _parseVars(arguments, 1, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+    _createTweenType(1, arguments, this);
+
     return this;
   };
 
   _proto2.fromTo = function fromTo(targets, fromVars, toVars, position) {
-    new Tween(targets, _parseVars(arguments, 2, this), _parsePosition(this, _isNumber(fromVars) ? arguments[4] : position));
+    _createTweenType(2, arguments, this);
+
     return this;
   };
 
@@ -5518,7 +5627,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
   };
 
   _proto2.call = function call(callback, params, position) {
-    return _addToTimeline(this, Tween.delayedCall(0, callback, params), _parsePosition(this, position));
+    return _addToTimeline(this, Tween.delayedCall(0, callback, params), position);
   } //ONLY for backward compatibility! Maybe delete?
   ;
 
@@ -5631,6 +5740,8 @@ var Timeline = /*#__PURE__*/function (_Animation) {
           prevTime = rewinding ? 0 : dur;
           this._lock = 1;
           this.render(prevTime || (isYoyo ? 0 : _round(iteration * cycleDuration)), suppressEvents, !dur)._lock = 0;
+          this._tTime = tTime; // if a user gets the iteration() inside the onRepeat, for example, it should be accurate.
+
           !suppressEvents && this.parent && _callback(this, "onRepeat");
           this.vars.repeatRefresh && !isYoyo && (this.invalidate()._lock = 1);
 
@@ -5647,6 +5758,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
             this._lock = 2;
             prevTime = rewinding ? dur : -0.0001;
             this.render(prevTime, true);
+            this.vars.repeatRefresh && !isYoyo && this.invalidate();
           }
 
           this._lock = 0;
@@ -5679,7 +5791,14 @@ var Timeline = /*#__PURE__*/function (_Animation) {
         prevTime = 0; // upon init, the playhead should always go forward; someone could invalidate() a completed timeline and then if they restart(), that would make child tweens render in reverse order which could lock in the wrong starting values if they build on each other, like tl.to(obj, {x: 100}).to(obj, {x: 0}).
       }
 
-      !prevTime && time && !suppressEvents && _callback(this, "onStart");
+      if (!prevTime && time && !suppressEvents) {
+        _callback(this, "onStart");
+
+        if (this._tTime !== tTime) {
+          // in case the onStart triggered a render at a different spot, eject. Like if someone did animation.pause(0.5) or something inside the onStart.
+          return this;
+        }
+      }
 
       if (time >= prevTime && totalTime >= 0) {
         child = this._first;
@@ -5752,8 +5871,8 @@ var Timeline = /*#__PURE__*/function (_Animation) {
       if (tTime === tDur && tDur >= this.totalDuration() || !tTime && prevTime) if (prevStart === this._start || Math.abs(timeScale) !== Math.abs(this._ts)) if (!this._lock) {
         (totalTime || !dur) && (tTime === tDur && this._ts > 0 || !tTime && this._ts < 0) && _removeFromParent(this, 1); // don't remove if the timeline is reversed and the playhead isn't at 0, otherwise tl.progress(1).reverse() won't work. Only remove if the playhead is at the end and timeScale is positive, or if the playhead is at 0 and the timeScale is negative.
 
-        if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime)) {
-          _callback(this, tTime === tDur ? "onComplete" : "onReverseComplete", true);
+        if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime || !tDur)) {
+          _callback(this, tTime === tDur && totalTime >= 0 ? "onComplete" : "onReverseComplete", true);
 
           this._prom && !(tTime < tDur && this.timeScale() > 0) && this._prom();
         }
@@ -5766,7 +5885,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
   _proto2.add = function add(child, position) {
     var _this2 = this;
 
-    _isNumber(position) || (position = _parsePosition(this, position));
+    _isNumber(position) || (position = _parsePosition(this, position, child));
 
     if (!(child instanceof Animation)) {
       if (_isArray(child)) {
@@ -5940,7 +6059,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
   // targets() {
   // 	let result = [];
   // 	this.getChildren(true, true, false).forEach(t => result.push(...t.targets()));
-  // 	return result;
+  // 	return result.filter((v, i) => result.indexOf(v) === i);
   // }
   ;
 
@@ -5954,6 +6073,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
         _onStart = _vars.onStart,
         onStartParams = _vars.onStartParams,
         immediateRender = _vars.immediateRender,
+        initted,
         tween = Tween.to(tl, _setDefaults({
       ease: vars.ease || "none",
       lazy: false,
@@ -5963,8 +6083,13 @@ var Timeline = /*#__PURE__*/function (_Animation) {
       duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale()) || _tinyNum,
       onStart: function onStart() {
         tl.pause();
-        var duration = vars.duration || Math.abs((endTime - tl._time) / tl.timeScale());
-        tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+
+        if (!initted) {
+          var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale());
+          tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+          initted = 1;
+        }
+
         _onStart && _onStart.apply(tween, onStartParams || []); //in case the user had an onStart in the vars - we don't want to overwrite it.
       }
     }, vars));
@@ -6234,12 +6359,18 @@ var _addComplexStringPropTween = function _addComplexStringPropTween(target, pro
     }
 
     if (end.charAt(1) === "=") {
-      end = parseFloat(parsedStart) + parseFloat(end.substr(2)) * (end.charAt(0) === "-" ? -1 : 1) + (getUnit(parsedStart) || 0);
+      pt = parseFloat(parsedStart) + parseFloat(end.substr(2)) * (end.charAt(0) === "-" ? -1 : 1) + (getUnit(parsedStart) || 0);
+
+      if (pt || pt === 0) {
+        // to avoid isNaN, like if someone passes in a value like "!= whatever"
+        end = pt;
+      }
     }
   }
 
   if (parsedStart !== end) {
-    if (!isNaN(parsedStart * end)) {
+    if (!isNaN(parsedStart * end) && end !== "") {
+      // fun fact: any number multiplied by "" is evaluated as the number 0!
       pt = new PropTween(this._pt, target, prop, +parsedStart || 0, end - (parsedStart || 0), typeof currentValue === "boolean" ? _renderBoolean : _renderPlain, 0, setter);
       funcParam && (pt.fp = funcParam);
       modifier && pt.modifier(modifier, this, target);
@@ -6332,6 +6463,8 @@ _initTween = function _initTween(tween, time) {
     tween._ease = yoyoEase;
   }
 
+  tween._from = !tl && !!vars.runBackwards; //nested timelines should never run backwards - the backwards-ness is in the child tweens.
+
   if (!tl) {
     //if there's an internal timeline, skip all the parsing because we passed that task down the chain.
     harness = targets[0] ? _getCache(targets[0]).harness : 0;
@@ -6356,13 +6489,21 @@ _initTween = function _initTween(tween, time) {
       }, startAt))); //copy the properties/values into a new object to avoid collisions, like var to = {x:0}, from = {x:500}; timeline.fromTo(e, from, to).fromTo(e, to, from);
 
 
+      time < 0 && !immediateRender && !autoRevert && tween._startAt.render(-1, true); // rare edge case, like if a render is forced in the negative direction of a non-initted tween.
+
       if (immediateRender) {
-        if (time > 0) {
-          autoRevert || (tween._startAt = 0); //tweens that render immediately (like most from() and fromTo() tweens) shouldn't revert when their parent timeline's playhead goes backward past the startTime because the initial render could have happened anytime and it shouldn't be directly correlated to this tween's startTime. Imagine setting up a complex animation where the beginning states of various objects are rendered immediately but the tween doesn't happen for quite some time - if we revert to the starting values as soon as the playhead goes backward past the tween's startTime, it will throw things off visually. Reversion should only happen in Timeline instances where immediateRender was false or when autoRevert is explicitly set to true.
-        } else if (dur && !(time < 0 && prevStartAt)) {
+        time > 0 && !autoRevert && (tween._startAt = 0); //tweens that render immediately (like most from() and fromTo() tweens) shouldn't revert when their parent timeline's playhead goes backward past the startTime because the initial render could have happened anytime and it shouldn't be directly correlated to this tween's startTime. Imagine setting up a complex animation where the beginning states of various objects are rendered immediately but the tween doesn't happen for quite some time - if we revert to the starting values as soon as the playhead goes backward past the tween's startTime, it will throw things off visually. Reversion should only happen in Timeline instances where immediateRender was false or when autoRevert is explicitly set to true.
+
+        if (dur && time <= 0) {
           time && (tween._zTime = time);
           return; //we skip initialization here so that overwriting doesn't occur until the tween actually begins. Otherwise, if you create several immediateRender:true tweens of the same target/properties to drop into a Timeline, the last one created would overwrite the first ones because they didn't get placed into the timeline yet before the first render occurs and kicks in overwriting.
-        }
+        } // if (time > 0) {
+        // 	autoRevert || (tween._startAt = 0); //tweens that render immediately (like most from() and fromTo() tweens) shouldn't revert when their parent timeline's playhead goes backward past the startTime because the initial render could have happened anytime and it shouldn't be directly correlated to this tween's startTime. Imagine setting up a complex animation where the beginning states of various objects are rendered immediately but the tween doesn't happen for quite some time - if we revert to the starting values as soon as the playhead goes backward past the tween's startTime, it will throw things off visually. Reversion should only happen in Timeline instances where immediateRender was false or when autoRevert is explicitly set to true.
+        // } else if (dur && !(time < 0 && prevStartAt)) {
+        // 	time && (tween._zTime = time);
+        // 	return; //we skip initialization here so that overwriting doesn't occur until the tween actually begins. Otherwise, if you create several immediateRender:true tweens of the same target/properties to drop into a Timeline, the last one created would overwrite the first ones because they didn't get placed into the timeline yet before the first render occurs and kicks in overwriting.
+        // }
+
       } else if (autoRevert === false) {
         tween._startAt = 0;
       }
@@ -6387,6 +6528,8 @@ _initTween = function _initTween(tween, time) {
         harnessVars && (p[harness.prop] = harnessVars); // in case someone does something like .from(..., {css:{}})
 
         _removeFromParent(tween._startAt = Tween.set(targets, p));
+
+        time < 0 && tween._startAt.render(-1, true); // rare edge case, like if a render is forced in the negative direction of a non-initted from() tween.
 
         if (!immediateRender) {
           _initTween(tween._startAt, _tinyNum); //ensures that the initial values are recorded
@@ -6447,8 +6590,6 @@ _initTween = function _initTween(tween, time) {
     tween._onInit && tween._onInit(tween); //plugins like RoundProps must wait until ALL of the PropTweens are instantiated. In the plugin's init() function, it sets the _onInit on the tween instance. May not be pretty/intuitive, but it's fast and keeps file size down.
   }
 
-  tween._from = !tl && !!vars.runBackwards; //nested timelines should never run backwards - the backwards-ness is in the child tweens.
-
   tween._onUpdate = onUpdate;
   tween._initted = (!tween._op || tween._pt) && !overwritten; // if overwrittenProps resulted in the entire tween being killed, do NOT flag it as initted or else it may render for one tick.
 },
@@ -6494,16 +6635,16 @@ _initTween = function _initTween(tween, time) {
 var Tween = /*#__PURE__*/function (_Animation2) {
   _inheritsLoose(Tween, _Animation2);
 
-  function Tween(targets, vars, time, skipInherit) {
+  function Tween(targets, vars, position, skipInherit) {
     var _this3;
 
     if (typeof vars === "number") {
-      time.duration = vars;
-      vars = time;
-      time = null;
+      position.duration = vars;
+      vars = position;
+      position = null;
     }
 
-    _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars), time) || this;
+    _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars)) || this;
     var _this3$vars = _this3.vars,
         duration = _this3$vars.duration,
         delay = _this3$vars.delay,
@@ -6514,7 +6655,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
         defaults = _this3$vars.defaults,
         scrollTrigger = _this3$vars.scrollTrigger,
         yoyoEase = _this3$vars.yoyoEase,
-        parent = _this3.parent,
+        parent = vars.parent || _globalTimeline,
         parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets),
         tl,
         i,
@@ -6544,7 +6685,11 @@ var Tween = /*#__PURE__*/function (_Animation2) {
           ease: "none"
         });
 
-        keyframes.forEach(function (frame) {
+        stagger ? parsedTargets.forEach(function (t, i) {
+          return keyframes.forEach(function (frame, j) {
+            return tl.to(t, frame, j ? ">" : i * stagger);
+          });
+        }) : keyframes.forEach(function (frame) {
           return tl.to(parsedTargets, frame, ">");
         });
       } else {
@@ -6604,7 +6749,10 @@ var Tween = /*#__PURE__*/function (_Animation2) {
       _overwritingTween = 0;
     }
 
-    parent && _postAddChecks(parent, _assertThisInitialized(_this3));
+    _addToTimeline(parent, _assertThisInitialized(_this3), position);
+
+    vars.reversed && _this3.reverse();
+    vars.paused && _this3.paused(true);
 
     if (immediateRender || !duration && !keyframes && _this3._start === _round(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
       _this3._tTime = -_tinyNum; //forces a render without having to set the render() "force" parameter to true because we want to allow lazying by default (using the "force" parameter always forces an immediate full render)
@@ -6719,7 +6867,15 @@ var Tween = /*#__PURE__*/function (_Animation2) {
         this.ratio = ratio = 1 - ratio;
       }
 
-      time && !prevTime && !suppressEvents && _callback(this, "onStart");
+      if (time && !prevTime && !suppressEvents) {
+        _callback(this, "onStart");
+
+        if (this._tTime !== tTime) {
+          // in case the onStart triggered a render at a different spot, eject. Like if someone did animation.pause(0.5) or something inside the onStart.
+          return this;
+        }
+      }
+
       pt = this._pt;
 
       while (pt) {
@@ -6860,7 +7016,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
   };
 
   Tween.from = function from(targets, vars) {
-    return new Tween(targets, _parseVars(arguments, 1));
+    return _createTweenType(1, arguments);
   };
 
   Tween.delayedCall = function delayedCall(delay, callback, params, scope) {
@@ -6878,7 +7034,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
   };
 
   Tween.fromTo = function fromTo(targets, fromVars, toVars) {
-    return new Tween(targets, _parseVars(arguments, 2));
+    return _createTweenType(2, arguments);
   };
 
   Tween.set = function set(targets, vars) {
@@ -6942,7 +7098,7 @@ var _setterPlain = function _setterPlain(target, property, value) {
   return _isFunction(target[property]) ? _setterFunc : _isUndefined(target[property]) && target.setAttribute ? _setterAttribute : _setterPlain;
 },
     _renderPlain = function _renderPlain(ratio, data) {
-  return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 10000) / 10000, data);
+  return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 1000000) / 1000000, data);
 },
     _renderBoolean = function _renderBoolean(ratio, data) {
   return data.set(data.t, data.p, !!(data.s + data.c * ratio), data);
@@ -7167,12 +7323,12 @@ var _gsap = {
   config: function config(value) {
     return _mergeDeep(_config, value || {});
   },
-  registerEffect: function registerEffect(_ref2) {
-    var name = _ref2.name,
-        effect = _ref2.effect,
-        plugins = _ref2.plugins,
-        defaults = _ref2.defaults,
-        extendTimeline = _ref2.extendTimeline;
+  registerEffect: function registerEffect(_ref3) {
+    var name = _ref3.name,
+        effect = _ref3.effect,
+        plugins = _ref3.plugins,
+        defaults = _ref3.defaults,
+        extendTimeline = _ref3.extendTimeline;
     (plugins || "").split(",").forEach(function (pluginName) {
       return pluginName && !_plugins[pluginName] && !_globals[pluginName] && _warn(name + " effect requires " + pluginName + " plugin.");
     });
@@ -7238,6 +7394,7 @@ var _gsap = {
     clamp: clamp,
     splitColor: splitColor,
     toArray: toArray,
+    selector: selector,
     mapRange: mapRange,
     pipe: pipe,
     unitize: unitize,
@@ -7366,13 +7523,9 @@ var gsap = _gsap.registerPlugin({
   }
 }, _buildModifierPlugin("roundProps", _roundModifier), _buildModifierPlugin("modifiers"), _buildModifierPlugin("snap", snap)) || _gsap; //to prevent the core plugins from being dropped via aggressive tree shaking, we must include them in the variable declaration in this way.
 
-Tween.version = Timeline.version = gsap.version = "3.6.1";
+Tween.version = Timeline.version = gsap.version = "3.7.1";
 _coreReady = 1;
-
-if (_windowExists()) {
-  _wake();
-}
-
+_windowExists() && _wake();
 var Power0 = _easeMap.Power0,
     Power1 = _easeMap.Power1,
     Power2 = _easeMap.Power2,
@@ -28397,7 +28550,7 @@ var shadowMap=new WebGLShadowMap(_this,objects,capabilities.maxTextureSize);this
 this.getContext=function(){return _gl;};this.getContextAttributes=function(){return _gl.getContextAttributes();};this.forceContextLoss=function(){var extension=extensions.get('WEBGL_lose_context');if(extension)extension.loseContext();};this.forceContextRestore=function(){var extension=extensions.get('WEBGL_lose_context');if(extension)extension.restoreContext();};this.getPixelRatio=function(){return _pixelRatio;};this.setPixelRatio=function(value){if(value===undefined)return;_pixelRatio=value;this.setSize(_width,_height,false);};this.getSize=function(target){if(target===undefined){console.warn('WebGLRenderer: .getsize() now requires a Vector2 as an argument');target=new Vector2();}return target.set(_width,_height);};this.setSize=function(width,height,updateStyle){if(xr.isPresenting){console.warn('THREE.WebGLRenderer: Can\'t change size while VR device is presenting.');return;}_width=width;_height=height;_canvas.width=Math.floor(width*_pixelRatio);_canvas.height=Math.floor(height*_pixelRatio);if(updateStyle!==false){_canvas.style.width=width+'px';_canvas.style.height=height+'px';}this.setViewport(0,0,width,height);};this.getDrawingBufferSize=function(target){if(target===undefined){console.warn('WebGLRenderer: .getdrawingBufferSize() now requires a Vector2 as an argument');target=new Vector2();}return target.set(_width*_pixelRatio,_height*_pixelRatio).floor();};this.setDrawingBufferSize=function(width,height,pixelRatio){_width=width;_height=height;_pixelRatio=pixelRatio;_canvas.width=Math.floor(width*pixelRatio);_canvas.height=Math.floor(height*pixelRatio);this.setViewport(0,0,width,height);};this.getCurrentViewport=function(target){if(target===undefined){console.warn('WebGLRenderer: .getCurrentViewport() now requires a Vector4 as an argument');target=new Vector4();}return target.copy(_currentViewport);};this.getViewport=function(target){return target.copy(_viewport);};this.setViewport=function(x,y,width,height){if(x.isVector4){_viewport.set(x.x,x.y,x.z,x.w);}else{_viewport.set(x,y,width,height);}state.viewport(_currentViewport.copy(_viewport).multiplyScalar(_pixelRatio).floor());};this.getScissor=function(target){return target.copy(_scissor);};this.setScissor=function(x,y,width,height){if(x.isVector4){_scissor.set(x.x,x.y,x.z,x.w);}else{_scissor.set(x,y,width,height);}state.scissor(_currentScissor.copy(_scissor).multiplyScalar(_pixelRatio).floor());};this.getScissorTest=function(){return _scissorTest;};this.setScissorTest=function(boolean){state.setScissorTest(_scissorTest=boolean);};this.setOpaqueSort=function(method){_opaqueSort=method;};this.setTransparentSort=function(method){_transparentSort=method;};// Clearing
 this.getClearColor=function(){return background.getClearColor();};this.setClearColor=function(){background.setClearColor.apply(background,arguments);};this.getClearAlpha=function(){return background.getClearAlpha();};this.setClearAlpha=function(){background.setClearAlpha.apply(background,arguments);};this.clear=function(color,depth,stencil){var bits=0;if(color===undefined||color)bits|=16384;if(depth===undefined||depth)bits|=256;if(stencil===undefined||stencil)bits|=1024;_gl.clear(bits);};this.clearColor=function(){this.clear(true,false,false);};this.clearDepth=function(){this.clear(false,true,false);};this.clearStencil=function(){this.clear(false,false,true);};//
 this.dispose=function(){_canvas.removeEventListener('webglcontextlost',onContextLost,false);_canvas.removeEventListener('webglcontextrestored',onContextRestore,false);renderLists.dispose();renderStates.dispose();properties.dispose();objects.dispose();xr.dispose();animation.stop();this.forceContextLoss();};// Events
-function onContextLost(event){event.preventDefault();console.log('THREE.WebGLRenderer: Context Lost.');_isContextLost=true;}function onContextRestore()/* event */{console.log('THREE.WebGLRenderer: Context Restored.');_isContextLost=false;initGLContext();}function onMaterialDispose(event){var material=event.target;material.removeEventListener('dispose',onMaterialDispose);deallocateMaterial(material);}// Buffer deallocation
+function onContextLost(event){event.preventDefault();console.log('THREE.WebGLRenderer: Context Lost.');_isContextLost=true;}function onContextRestore(){console.log('THREE.WebGLRenderer: Context Restored.');_isContextLost=false;initGLContext();}function onMaterialDispose(event){var material=event.target;material.removeEventListener('dispose',onMaterialDispose);deallocateMaterial(material);}// Buffer deallocation
 function deallocateMaterial(material){releaseMaterialProgramReference(material);properties.remove(material);}function releaseMaterialProgramReference(material){var programInfo=properties.get(material).program;material.program=undefined;if(programInfo!==undefined){programCache.releaseProgram(programInfo);}}// Buffer rendering
 function renderObjectImmediate(object,program){object.render(function(object){_this.renderBufferImmediate(object,program);});}this.renderBufferImmediate=function(object,program){state.initAttributes();var buffers=properties.get(object);if(object.hasPositions&&!buffers.position)buffers.position=_gl.createBuffer();if(object.hasNormals&&!buffers.normal)buffers.normal=_gl.createBuffer();if(object.hasUvs&&!buffers.uv)buffers.uv=_gl.createBuffer();if(object.hasColors&&!buffers.color)buffers.color=_gl.createBuffer();var programAttributes=program.getAttributes();if(object.hasPositions){_gl.bindBuffer(34962,buffers.position);_gl.bufferData(34962,object.positionArray,35048);state.enableAttribute(programAttributes.position);_gl.vertexAttribPointer(programAttributes.position,3,5126,false,0,0);}if(object.hasNormals){_gl.bindBuffer(34962,buffers.normal);_gl.bufferData(34962,object.normalArray,35048);state.enableAttribute(programAttributes.normal);_gl.vertexAttribPointer(programAttributes.normal,3,5126,false,0,0);}if(object.hasUvs){_gl.bindBuffer(34962,buffers.uv);_gl.bufferData(34962,object.uvArray,35048);state.enableAttribute(programAttributes.uv);_gl.vertexAttribPointer(programAttributes.uv,2,5126,false,0,0);}if(object.hasColors){_gl.bindBuffer(34962,buffers.color);_gl.bufferData(34962,object.colorArray,35048);state.enableAttribute(programAttributes.color);_gl.vertexAttribPointer(programAttributes.color,3,5126,false,0,0);}state.disableUnusedAttributes();_gl.drawArrays(4,0,object.count);object.count=0;};var tempScene=new Scene();this.renderBufferDirect=function(camera,scene,geometry,material,object,group){if(scene===null)scene=tempScene;// renderBufferDirect second parameter used to be fog (could be null)
 var frontFaceCW=object.isMesh&&object.matrixWorld.determinant()<0;var program=setProgram(camera,scene,material,object);state.setMaterial(material,frontFaceCW);var updateBuffers=false;if(_currentGeometryProgram.geometry!==geometry.id||_currentGeometryProgram.program!==program.id||_currentGeometryProgram.wireframe!==(material.wireframe===true)){_currentGeometryProgram.geometry=geometry.id;_currentGeometryProgram.program=program.id;_currentGeometryProgram.wireframe=material.wireframe===true;updateBuffers=true;}if(material.morphTargets||material.morphNormals){morphtargets.update(object,geometry,material,program);updateBuffers=true;}//
@@ -28500,10 +28653,10 @@ if(x>=0&&x<=renderTarget.width-width&&y>=0&&y<=renderTarget.height-height){_gl.r
 }}/**
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
- */function FogExp2(color,density){this.name='';this.color=new Color(color);this.density=density!==undefined?density:0.00025;}Object.assign(FogExp2.prototype,{isFogExp2:true,clone:function(){return new FogExp2(this.color,this.density);},toJSON:function()/* meta */{return{type:'FogExp2',color:this.color.getHex(),density:this.density};}});/**
+ */function FogExp2(color,density){this.name='';this.color=new Color(color);this.density=density!==undefined?density:0.00025;}Object.assign(FogExp2.prototype,{isFogExp2:true,clone:function(){return new FogExp2(this.color,this.density);},toJSON:function(){return{type:'FogExp2',color:this.color.getHex(),density:this.density};}});/**
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
- */function Fog(color,near,far){this.name='';this.color=new Color(color);this.near=near!==undefined?near:1;this.far=far!==undefined?far:1000;}Object.assign(Fog.prototype,{isFog:true,clone:function(){return new Fog(this.color,this.near,this.far);},toJSON:function()/* meta */{return{type:'Fog',color:this.color.getHex(),near:this.near,far:this.far};}});/**
+ */function Fog(color,near,far){this.name='';this.color=new Color(color);this.near=near!==undefined?near:1;this.far=far!==undefined?far:1000;}Object.assign(Fog.prototype,{isFog:true,clone:function(){return new Fog(this.color,this.near,this.far);},toJSON:function(){return{type:'Fog',color:this.color.getHex(),near:this.near,far:this.far};}});/**
  * @author benaadams / https://twitter.com/ben_a_adams
  */function InterleavedBuffer(array,stride){this.array=array;this.stride=stride;this.count=array!==undefined?array.length/stride:0;this.usage=StaticDrawUsage;this.updateRange={offset:0,count:-1};this.version=0;}Object.defineProperty(InterleavedBuffer.prototype,'needsUpdate',{set:function(value){if(value===true)this.version++;}});Object.assign(InterleavedBuffer.prototype,{isInterleavedBuffer:true,onUploadCallback:function(){},setUsage:function(value){this.usage=value;return this;},copy:function(source){this.array=new source.array.constructor(source.array);this.count=source.count;this.stride=source.stride;this.usage=source.usage;return this;},copyAt:function(index1,attribute,index2){index1*=this.stride;index2*=attribute.stride;for(var i=0,l=this.stride;i<l;i++){this.array[index1+i]=attribute.array[index2+i];}return this;},set:function(value,offset){if(offset===undefined)offset=0;this.array.set(value,offset);return this;},clone:function(){return new this.constructor().copy(this);},onUpload:function(callback){this.onUploadCallback=callback;return this;}});/**
  * @author benaadams / https://twitter.com/ben_a_adams
@@ -29447,8 +29600,8 @@ return this.interpolate_(i1,t0,t,t1);},settings:null,// optional, subclass-speci
 // --- Protected interface
 DefaultSettings_:{},getSettings_:function(){return this.settings||this.DefaultSettings_;},copySampleValue_:function(index){// copies a sample value to the result buffer
 var result=this.resultBuffer,values=this.sampleValues,stride=this.valueSize,offset=index*stride;for(var i=0;i!==stride;++i){result[i]=values[offset+i];}return result;},// Template methods for derived classes:
-interpolate_:function()/* i1, t0, t, t1 */{throw new Error('call to abstract method');// implementations shall return this.resultBuffer
-},intervalChanged_:function()/* i1, t0, t1 */{// empty
+interpolate_:function(){throw new Error('call to abstract method');// implementations shall return this.resultBuffer
+},intervalChanged_:function(){// empty
 }});// DECLARE ALIAS AFTER assign prototype
 Object.assign(Interpolant.prototype,{//( 0, t, t0 ), returns this.resultBuffer
 beforeStart_:Interpolant.prototype.copySampleValue_,//( N-1, tN-1, t ), returns this.resultBuffer
@@ -29609,7 +29762,7 @@ return this.files[key];},remove:function(key){delete this.files[key];},clear:fun
 this.onStart=undefined;this.onLoad=onLoad;this.onProgress=onProgress;this.onError=onError;this.itemStart=function(url){itemsTotal++;if(isLoading===false){if(scope.onStart!==undefined){scope.onStart(url,itemsLoaded,itemsTotal);}}isLoading=true;};this.itemEnd=function(url){itemsLoaded++;if(scope.onProgress!==undefined){scope.onProgress(url,itemsLoaded,itemsTotal);}if(itemsLoaded===itemsTotal){isLoading=false;if(scope.onLoad!==undefined){scope.onLoad();}}};this.itemError=function(url){if(scope.onError!==undefined){scope.onError(url);}};this.resolveURL=function(url){if(urlModifier){return urlModifier(url);}return url;};this.setURLModifier=function(transform){urlModifier=transform;return this;};this.addHandler=function(regex,loader){handlers.push(regex,loader);return this;};this.removeHandler=function(regex){var index=handlers.indexOf(regex);if(index!==-1){handlers.splice(index,2);}return this;};this.getHandler=function(file){for(var i=0,l=handlers.length;i<l;i+=2){var regex=handlers[i];var loader=handlers[i+1];if(regex.global)regex.lastIndex=0;// see #17920
 if(regex.test(file)){return loader;}}return null;};}var DefaultLoadingManager=new LoadingManager();/**
  * @author alteredq / http://alteredqualia.com/
- */function Loader(manager){this.manager=manager!==undefined?manager:DefaultLoadingManager;this.crossOrigin='anonymous';this.path='';this.resourcePath='';}Object.assign(Loader.prototype,{load:function()/* url, onLoad, onProgress, onError */{},parse:function()/* data */{},setCrossOrigin:function(crossOrigin){this.crossOrigin=crossOrigin;return this;},setPath:function(path){this.path=path;return this;},setResourcePath:function(resourcePath){this.resourcePath=resourcePath;return this;}});/**
+ */function Loader(manager){this.manager=manager!==undefined?manager:DefaultLoadingManager;this.crossOrigin='anonymous';this.path='';this.resourcePath='';}Object.assign(Loader.prototype,{load:function(){},parse:function(){},setCrossOrigin:function(crossOrigin){this.crossOrigin=crossOrigin;return this;},setPath:function(path){this.path=path;return this;},setResourcePath:function(resourcePath){this.resourcePath=resourcePath;return this;}});/**
  * @author mrdoob / http://mrdoob.com/
  */var loading={};function FileLoader(manager){Loader.call(this,manager);}FileLoader.prototype=Object.assign(Object.create(Loader.prototype),{constructor:FileLoader,load:function(url,onLoad,onProgress,onError){if(url===undefined)url='';if(this.path!==undefined)url=this.path+url;url=this.manager.resolveURL(url);var scope=this;var cached=Cache.get(url);if(cached!==undefined){scope.manager.itemStart(url);setTimeout(function(){if(onLoad)onLoad(cached);scope.manager.itemEnd(url);},0);return cached;}// Check if request is duplicate
 if(loading[url]!==undefined){loading[url].push({onLoad:onLoad,onProgress:onProgress,onError:onError});return;}// Check for data: URI
@@ -29678,7 +29831,7 @@ var isJPEG=url.search(/\.jpe?g($|\?)/i)>0||url.search(/^data\:image\/jpeg/)===0;
  *	Abstract Curve base class
  **************************************************************/function Curve(){this.type='Curve';this.arcLengthDivisions=200;}Object.assign(Curve.prototype,{// Virtual base class method to overwrite and implement in subclasses
 //	- t [0 .. 1]
-getPoint:function()/* t, optionalTarget */{console.warn('THREE.Curve: .getPoint() not implemented.');return null;},// Get point at relative position in curve according to arc length
+getPoint:function(){console.warn('THREE.Curve: .getPoint() not implemented.');return null;},// Get point at relative position in curve according to arc length
 // - u [0 .. 1]
 getPointAt:function(u,optionalTarget){var t=this.getUtoTmapping(u);return this.getPoint(t,optionalTarget);},// Get sequence of points using getPoint( t )
 getPoints:function(divisions){if(divisions===undefined)divisions=5;var points=[];for(var d=0;d<=divisions;d++){points.push(this.getPoint(d/divisions));}return points;},// Get sequence of points using getPointAt( u )
@@ -29748,7 +29901,7 @@ if(dt1<1e-4)dt1=1.0;if(dt0<1e-4)dt0=dt1;if(dt2<1e-4)dt2=dt1;px.initNonuniformCat
  */function CatmullRom(t,p0,p1,p2,p3){var v0=(p2-p0)*0.5;var v1=(p3-p1)*0.5;var t2=t*t;var t3=t*t2;return(2*p1-2*p2+v0+v1)*t3+(-3*p1+3*p2-2*v0-v1)*t2+v0*t+p1;}//
 function QuadraticBezierP0(t,p){var k=1-t;return k*k*p;}function QuadraticBezierP1(t,p){return 2*(1-t)*t*p;}function QuadraticBezierP2(t,p){return t*t*p;}function QuadraticBezier(t,p0,p1,p2){return QuadraticBezierP0(t,p0)+QuadraticBezierP1(t,p1)+QuadraticBezierP2(t,p2);}//
 function CubicBezierP0(t,p){var k=1-t;return k*k*k*p;}function CubicBezierP1(t,p){var k=1-t;return 3*k*k*t*p;}function CubicBezierP2(t,p){return 3*(1-t)*t*t*p;}function CubicBezierP3(t,p){return t*t*t*p;}function CubicBezier(t,p0,p1,p2,p3){return CubicBezierP0(t,p0)+CubicBezierP1(t,p1)+CubicBezierP2(t,p2)+CubicBezierP3(t,p3);}function CubicBezierCurve(v0,v1,v2,v3){Curve.call(this);this.type='CubicBezierCurve';this.v0=v0||new Vector2();this.v1=v1||new Vector2();this.v2=v2||new Vector2();this.v3=v3||new Vector2();}CubicBezierCurve.prototype=Object.create(Curve.prototype);CubicBezierCurve.prototype.constructor=CubicBezierCurve;CubicBezierCurve.prototype.isCubicBezierCurve=true;CubicBezierCurve.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector2();var v0=this.v0,v1=this.v1,v2=this.v2,v3=this.v3;point.set(CubicBezier(t,v0.x,v1.x,v2.x,v3.x),CubicBezier(t,v0.y,v1.y,v2.y,v3.y));return point;};CubicBezierCurve.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v0.copy(source.v0);this.v1.copy(source.v1);this.v2.copy(source.v2);this.v3.copy(source.v3);return this;};CubicBezierCurve.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v0=this.v0.toArray();data.v1=this.v1.toArray();data.v2=this.v2.toArray();data.v3=this.v3.toArray();return data;};CubicBezierCurve.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v0.fromArray(json.v0);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);this.v3.fromArray(json.v3);return this;};function CubicBezierCurve3(v0,v1,v2,v3){Curve.call(this);this.type='CubicBezierCurve3';this.v0=v0||new Vector3();this.v1=v1||new Vector3();this.v2=v2||new Vector3();this.v3=v3||new Vector3();}CubicBezierCurve3.prototype=Object.create(Curve.prototype);CubicBezierCurve3.prototype.constructor=CubicBezierCurve3;CubicBezierCurve3.prototype.isCubicBezierCurve3=true;CubicBezierCurve3.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector3();var v0=this.v0,v1=this.v1,v2=this.v2,v3=this.v3;point.set(CubicBezier(t,v0.x,v1.x,v2.x,v3.x),CubicBezier(t,v0.y,v1.y,v2.y,v3.y),CubicBezier(t,v0.z,v1.z,v2.z,v3.z));return point;};CubicBezierCurve3.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v0.copy(source.v0);this.v1.copy(source.v1);this.v2.copy(source.v2);this.v3.copy(source.v3);return this;};CubicBezierCurve3.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v0=this.v0.toArray();data.v1=this.v1.toArray();data.v2=this.v2.toArray();data.v3=this.v3.toArray();return data;};CubicBezierCurve3.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v0.fromArray(json.v0);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);this.v3.fromArray(json.v3);return this;};function LineCurve(v1,v2){Curve.call(this);this.type='LineCurve';this.v1=v1||new Vector2();this.v2=v2||new Vector2();}LineCurve.prototype=Object.create(Curve.prototype);LineCurve.prototype.constructor=LineCurve;LineCurve.prototype.isLineCurve=true;LineCurve.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector2();if(t===1){point.copy(this.v2);}else{point.copy(this.v2).sub(this.v1);point.multiplyScalar(t).add(this.v1);}return point;};// Line curve is linear, so we can overwrite default getPointAt
-LineCurve.prototype.getPointAt=function(u,optionalTarget){return this.getPoint(u,optionalTarget);};LineCurve.prototype.getTangent=function()/* t */{var tangent=this.v2.clone().sub(this.v1);return tangent.normalize();};LineCurve.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v1.copy(source.v1);this.v2.copy(source.v2);return this;};LineCurve.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v1=this.v1.toArray();data.v2=this.v2.toArray();return data;};LineCurve.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);return this;};function LineCurve3(v1,v2){Curve.call(this);this.type='LineCurve3';this.v1=v1||new Vector3();this.v2=v2||new Vector3();}LineCurve3.prototype=Object.create(Curve.prototype);LineCurve3.prototype.constructor=LineCurve3;LineCurve3.prototype.isLineCurve3=true;LineCurve3.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector3();if(t===1){point.copy(this.v2);}else{point.copy(this.v2).sub(this.v1);point.multiplyScalar(t).add(this.v1);}return point;};// Line curve is linear, so we can overwrite default getPointAt
+LineCurve.prototype.getPointAt=function(u,optionalTarget){return this.getPoint(u,optionalTarget);};LineCurve.prototype.getTangent=function(){var tangent=this.v2.clone().sub(this.v1);return tangent.normalize();};LineCurve.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v1.copy(source.v1);this.v2.copy(source.v2);return this;};LineCurve.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v1=this.v1.toArray();data.v2=this.v2.toArray();return data;};LineCurve.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);return this;};function LineCurve3(v1,v2){Curve.call(this);this.type='LineCurve3';this.v1=v1||new Vector3();this.v2=v2||new Vector3();}LineCurve3.prototype=Object.create(Curve.prototype);LineCurve3.prototype.constructor=LineCurve3;LineCurve3.prototype.isLineCurve3=true;LineCurve3.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector3();if(t===1){point.copy(this.v2);}else{point.copy(this.v2).sub(this.v1);point.multiplyScalar(t).add(this.v1);}return point;};// Line curve is linear, so we can overwrite default getPointAt
 LineCurve3.prototype.getPointAt=function(u,optionalTarget){return this.getPoint(u,optionalTarget);};LineCurve3.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v1.copy(source.v1);this.v2.copy(source.v2);return this;};LineCurve3.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v1=this.v1.toArray();data.v2=this.v2.toArray();return data;};LineCurve3.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);return this;};function QuadraticBezierCurve(v0,v1,v2){Curve.call(this);this.type='QuadraticBezierCurve';this.v0=v0||new Vector2();this.v1=v1||new Vector2();this.v2=v2||new Vector2();}QuadraticBezierCurve.prototype=Object.create(Curve.prototype);QuadraticBezierCurve.prototype.constructor=QuadraticBezierCurve;QuadraticBezierCurve.prototype.isQuadraticBezierCurve=true;QuadraticBezierCurve.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector2();var v0=this.v0,v1=this.v1,v2=this.v2;point.set(QuadraticBezier(t,v0.x,v1.x,v2.x),QuadraticBezier(t,v0.y,v1.y,v2.y));return point;};QuadraticBezierCurve.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v0.copy(source.v0);this.v1.copy(source.v1);this.v2.copy(source.v2);return this;};QuadraticBezierCurve.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v0=this.v0.toArray();data.v1=this.v1.toArray();data.v2=this.v2.toArray();return data;};QuadraticBezierCurve.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v0.fromArray(json.v0);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);return this;};function QuadraticBezierCurve3(v0,v1,v2){Curve.call(this);this.type='QuadraticBezierCurve3';this.v0=v0||new Vector3();this.v1=v1||new Vector3();this.v2=v2||new Vector3();}QuadraticBezierCurve3.prototype=Object.create(Curve.prototype);QuadraticBezierCurve3.prototype.constructor=QuadraticBezierCurve3;QuadraticBezierCurve3.prototype.isQuadraticBezierCurve3=true;QuadraticBezierCurve3.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector3();var v0=this.v0,v1=this.v1,v2=this.v2;point.set(QuadraticBezier(t,v0.x,v1.x,v2.x),QuadraticBezier(t,v0.y,v1.y,v2.y),QuadraticBezier(t,v0.z,v1.z,v2.z));return point;};QuadraticBezierCurve3.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.v0.copy(source.v0);this.v1.copy(source.v1);this.v2.copy(source.v2);return this;};QuadraticBezierCurve3.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.v0=this.v0.toArray();data.v1=this.v1.toArray();data.v2=this.v2.toArray();return data;};QuadraticBezierCurve3.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.v0.fromArray(json.v0);this.v1.fromArray(json.v1);this.v2.fromArray(json.v2);return this;};function SplineCurve(points/* array of Vector2 */){Curve.call(this);this.type='SplineCurve';this.points=points||[];}SplineCurve.prototype=Object.create(Curve.prototype);SplineCurve.prototype.constructor=SplineCurve;SplineCurve.prototype.isSplineCurve=true;SplineCurve.prototype.getPoint=function(t,optionalTarget){var point=optionalTarget||new Vector2();var points=this.points;var p=(points.length-1)*t;var intPoint=Math.floor(p);var weight=p-intPoint;var p0=points[intPoint===0?intPoint:intPoint-1];var p1=points[intPoint];var p2=points[intPoint>points.length-2?points.length-1:intPoint+1];var p3=points[intPoint>points.length-3?points.length-1:intPoint+2];point.set(CatmullRom(weight,p0.x,p1.x,p2.x,p3.x),CatmullRom(weight,p0.y,p1.y,p2.y,p3.y));return point;};SplineCurve.prototype.copy=function(source){Curve.prototype.copy.call(this,source);this.points=[];for(var i=0,l=source.points.length;i<l;i++){var point=source.points[i];this.points.push(point.clone());}return this;};SplineCurve.prototype.toJSON=function(){var data=Curve.prototype.toJSON.call(this);data.points=[];for(var i=0,l=this.points.length;i<l;i++){var point=this.points[i];data.points.push(point.toArray());}return data;};SplineCurve.prototype.fromJSON=function(json){Curve.prototype.fromJSON.call(this,json);this.points=[];for(var i=0,l=json.points.length;i<l;i++){var point=json.points[i];this.points.push(new Vector2().fromArray(point));}return this;};var Curves=/*#__PURE__*/Object.freeze({__proto__:null,ArcCurve:ArcCurve,CatmullRomCurve3:CatmullRomCurve3,CubicBezierCurve:CubicBezierCurve,CubicBezierCurve3:CubicBezierCurve3,EllipseCurve:EllipseCurve,LineCurve:LineCurve,LineCurve3:LineCurve3,QuadraticBezierCurve:QuadraticBezierCurve,QuadraticBezierCurve3:QuadraticBezierCurve3,SplineCurve:SplineCurve});/**
  * @author zz85 / http://www.lab4games.net/zz85/blog
  *
@@ -30317,7 +30470,7 @@ return box.max.x<this.min.x||box.min.x>this.max.x||box.max.y<this.min.y||box.min
  * @author bhouston / http://clara.io
  */var _startP=new Vector3();var _startEnd=new Vector3();function Line3(start,end){this.start=start!==undefined?start:new Vector3();this.end=end!==undefined?end:new Vector3();}Object.assign(Line3.prototype,{set:function(start,end){this.start.copy(start);this.end.copy(end);return this;},clone:function(){return new this.constructor().copy(this);},copy:function(line){this.start.copy(line.start);this.end.copy(line.end);return this;},getCenter:function(target){if(target===undefined){console.warn('THREE.Line3: .getCenter() target is now required');target=new Vector3();}return target.addVectors(this.start,this.end).multiplyScalar(0.5);},delta:function(target){if(target===undefined){console.warn('THREE.Line3: .delta() target is now required');target=new Vector3();}return target.subVectors(this.end,this.start);},distanceSq:function(){return this.start.distanceToSquared(this.end);},distance:function(){return this.start.distanceTo(this.end);},at:function(t,target){if(target===undefined){console.warn('THREE.Line3: .at() target is now required');target=new Vector3();}return this.delta(target).multiplyScalar(t).add(this.start);},closestPointToPointParameter:function(point,clampToLine){_startP.subVectors(point,this.start);_startEnd.subVectors(this.end,this.start);var startEnd2=_startEnd.dot(_startEnd);var startEnd_startP=_startEnd.dot(_startP);var t=startEnd_startP/startEnd2;if(clampToLine){t=MathUtils.clamp(t,0,1);}return t;},closestPointToPoint:function(point,clampToLine,target){var t=this.closestPointToPointParameter(point,clampToLine);if(target===undefined){console.warn('THREE.Line3: .closestPointToPoint() target is now required');target=new Vector3();}return this.delta(target).multiplyScalar(t).add(this.start);},applyMatrix4:function(matrix){this.start.applyMatrix4(matrix);this.end.applyMatrix4(matrix);return this;},equals:function(line){return line.start.equals(this.start)&&line.end.equals(this.end);}});/**
  * @author alteredq / http://alteredqualia.com/
- */function ImmediateRenderObject(material){Object3D.call(this);this.material=material;this.render=function()/* renderCallback */{};}ImmediateRenderObject.prototype=Object.create(Object3D.prototype);ImmediateRenderObject.prototype.constructor=ImmediateRenderObject;ImmediateRenderObject.prototype.isImmediateRenderObject=true;/**
+ */function ImmediateRenderObject(material){Object3D.call(this);this.material=material;this.render=function(){};}ImmediateRenderObject.prototype=Object.create(Object3D.prototype);ImmediateRenderObject.prototype.constructor=ImmediateRenderObject;ImmediateRenderObject.prototype.isImmediateRenderObject=true;/**
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
  * @author WestLangley / http://github.com/WestLangley
@@ -30676,25 +30829,25 @@ var pts=this.getSpacedPoints(divisions);return this.createGeometry(pts);},create
 Object.assign(Path.prototype,{fromPoints:function(points){console.warn('THREE.Path: .fromPoints() has been renamed to .setFromPoints().');return this.setFromPoints(points);}});//
 function ClosedSplineCurve3(points){console.warn('THREE.ClosedSplineCurve3 has been deprecated. Use THREE.CatmullRomCurve3 instead.');CatmullRomCurve3.call(this,points);this.type='catmullrom';this.closed=true;}ClosedSplineCurve3.prototype=Object.create(CatmullRomCurve3.prototype);//
 function SplineCurve3(points){console.warn('THREE.SplineCurve3 has been deprecated. Use THREE.CatmullRomCurve3 instead.');CatmullRomCurve3.call(this,points);this.type='catmullrom';}SplineCurve3.prototype=Object.create(CatmullRomCurve3.prototype);//
-function Spline(points){console.warn('THREE.Spline has been removed. Use THREE.CatmullRomCurve3 instead.');CatmullRomCurve3.call(this,points);this.type='catmullrom';}Spline.prototype=Object.create(CatmullRomCurve3.prototype);Object.assign(Spline.prototype,{initFromArray:function()/* a */{console.error('THREE.Spline: .initFromArray() has been removed.');},getControlPointsArray:function()/* optionalTarget */{console.error('THREE.Spline: .getControlPointsArray() has been removed.');},reparametrizeByArcLength:function()/* samplingCoef */{console.error('THREE.Spline: .reparametrizeByArcLength() has been removed.');}});//
+function Spline(points){console.warn('THREE.Spline has been removed. Use THREE.CatmullRomCurve3 instead.');CatmullRomCurve3.call(this,points);this.type='catmullrom';}Spline.prototype=Object.create(CatmullRomCurve3.prototype);Object.assign(Spline.prototype,{initFromArray:function(){console.error('THREE.Spline: .initFromArray() has been removed.');},getControlPointsArray:function(){console.error('THREE.Spline: .getControlPointsArray() has been removed.');},reparametrizeByArcLength:function(){console.error('THREE.Spline: .reparametrizeByArcLength() has been removed.');}});//
 function AxisHelper(size){console.warn('THREE.AxisHelper has been renamed to THREE.AxesHelper.');return new AxesHelper(size);}function BoundingBoxHelper(object,color){console.warn('THREE.BoundingBoxHelper has been deprecated. Creating a THREE.BoxHelper instead.');return new BoxHelper(object,color);}function EdgesHelper(object,hex){console.warn('THREE.EdgesHelper has been removed. Use THREE.EdgesGeometry instead.');return new LineSegments(new EdgesGeometry(object.geometry),new LineBasicMaterial({color:hex!==undefined?hex:0xffffff}));}GridHelper.prototype.setColors=function(){console.error('THREE.GridHelper: setColors() has been deprecated, pass them in the constructor instead.');};SkeletonHelper.prototype.update=function(){console.error('THREE.SkeletonHelper: update() no longer needs to be called.');};function WireframeHelper(object,hex){console.warn('THREE.WireframeHelper has been removed. Use THREE.WireframeGeometry instead.');return new LineSegments(new WireframeGeometry(object.geometry),new LineBasicMaterial({color:hex!==undefined?hex:0xffffff}));}//
-Object.assign(Loader.prototype,{extractUrlBase:function(url){console.warn('THREE.Loader: .extractUrlBase() has been deprecated. Use THREE.LoaderUtils.extractUrlBase() instead.');return LoaderUtils.extractUrlBase(url);}});Loader.Handlers={add:function()/* regex, loader */{console.error('THREE.Loader: Handlers.add() has been removed. Use LoadingManager.addHandler() instead.');},get:function()/* file */{console.error('THREE.Loader: Handlers.get() has been removed. Use LoadingManager.getHandler() instead.');}};function XHRLoader(manager){console.warn('THREE.XHRLoader has been renamed to THREE.FileLoader.');return new FileLoader(manager);}function BinaryTextureLoader(manager){console.warn('THREE.BinaryTextureLoader has been renamed to THREE.DataTextureLoader.');return new DataTextureLoader(manager);}Object.assign(ObjectLoader.prototype,{setTexturePath:function(value){console.warn('THREE.ObjectLoader: .setTexturePath() has been renamed to .setResourcePath().');return this.setResourcePath(value);}});//
-Object.assign(Box2.prototype,{center:function(optionalTarget){console.warn('THREE.Box2: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);},empty:function(){console.warn('THREE.Box2: .empty() has been renamed to .isEmpty().');return this.isEmpty();},isIntersectionBox:function(box){console.warn('THREE.Box2: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},size:function(optionalTarget){console.warn('THREE.Box2: .size() has been renamed to .getSize().');return this.getSize(optionalTarget);}});Object.assign(Box3.prototype,{center:function(optionalTarget){console.warn('THREE.Box3: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);},empty:function(){console.warn('THREE.Box3: .empty() has been renamed to .isEmpty().');return this.isEmpty();},isIntersectionBox:function(box){console.warn('THREE.Box3: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},isIntersectionSphere:function(sphere){console.warn('THREE.Box3: .isIntersectionSphere() has been renamed to .intersectsSphere().');return this.intersectsSphere(sphere);},size:function(optionalTarget){console.warn('THREE.Box3: .size() has been renamed to .getSize().');return this.getSize(optionalTarget);}});Frustum.prototype.setFromMatrix=function(m){console.warn('THREE.Frustum: .setFromMatrix() has been renamed to .setFromProjectionMatrix().');return this.setFromProjectionMatrix(m);};Line3.prototype.center=function(optionalTarget){console.warn('THREE.Line3: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);};Object.assign(MathUtils,{random16:function(){console.warn('THREE.Math: .random16() has been deprecated. Use Math.random() instead.');return Math.random();},nearestPowerOfTwo:function(value){console.warn('THREE.Math: .nearestPowerOfTwo() has been renamed to .floorPowerOfTwo().');return MathUtils.floorPowerOfTwo(value);},nextPowerOfTwo:function(value){console.warn('THREE.Math: .nextPowerOfTwo() has been renamed to .ceilPowerOfTwo().');return MathUtils.ceilPowerOfTwo(value);}});Object.assign(Matrix3.prototype,{flattenToArrayOffset:function(array,offset){console.warn("THREE.Matrix3: .flattenToArrayOffset() has been deprecated. Use .toArray() instead.");return this.toArray(array,offset);},multiplyVector3:function(vector){console.warn('THREE.Matrix3: .multiplyVector3() has been removed. Use vector.applyMatrix3( matrix ) instead.');return vector.applyMatrix3(this);},multiplyVector3Array:function()/* a */{console.error('THREE.Matrix3: .multiplyVector3Array() has been removed.');},applyToBufferAttribute:function(attribute){console.warn('THREE.Matrix3: .applyToBufferAttribute() has been removed. Use attribute.applyMatrix3( matrix ) instead.');return attribute.applyMatrix3(this);},applyToVector3Array:function()/* array, offset, length */{console.error('THREE.Matrix3: .applyToVector3Array() has been removed.');}});Object.assign(Matrix4.prototype,{extractPosition:function(m){console.warn('THREE.Matrix4: .extractPosition() has been renamed to .copyPosition().');return this.copyPosition(m);},flattenToArrayOffset:function(array,offset){console.warn("THREE.Matrix4: .flattenToArrayOffset() has been deprecated. Use .toArray() instead.");return this.toArray(array,offset);},getPosition:function(){console.warn('THREE.Matrix4: .getPosition() has been removed. Use Vector3.setFromMatrixPosition( matrix ) instead.');return new Vector3().setFromMatrixColumn(this,3);},setRotationFromQuaternion:function(q){console.warn('THREE.Matrix4: .setRotationFromQuaternion() has been renamed to .makeRotationFromQuaternion().');return this.makeRotationFromQuaternion(q);},multiplyToArray:function(){console.warn('THREE.Matrix4: .multiplyToArray() has been removed.');},multiplyVector3:function(vector){console.warn('THREE.Matrix4: .multiplyVector3() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},multiplyVector4:function(vector){console.warn('THREE.Matrix4: .multiplyVector4() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},multiplyVector3Array:function()/* a */{console.error('THREE.Matrix4: .multiplyVector3Array() has been removed.');},rotateAxis:function(v){console.warn('THREE.Matrix4: .rotateAxis() has been removed. Use Vector3.transformDirection( matrix ) instead.');v.transformDirection(this);},crossVector:function(vector){console.warn('THREE.Matrix4: .crossVector() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},translate:function(){console.error('THREE.Matrix4: .translate() has been removed.');},rotateX:function(){console.error('THREE.Matrix4: .rotateX() has been removed.');},rotateY:function(){console.error('THREE.Matrix4: .rotateY() has been removed.');},rotateZ:function(){console.error('THREE.Matrix4: .rotateZ() has been removed.');},rotateByAxis:function(){console.error('THREE.Matrix4: .rotateByAxis() has been removed.');},applyToBufferAttribute:function(attribute){console.warn('THREE.Matrix4: .applyToBufferAttribute() has been removed. Use attribute.applyMatrix4( matrix ) instead.');return attribute.applyMatrix4(this);},applyToVector3Array:function()/* array, offset, length */{console.error('THREE.Matrix4: .applyToVector3Array() has been removed.');},makeFrustum:function(left,right,bottom,top,near,far){console.warn('THREE.Matrix4: .makeFrustum() has been removed. Use .makePerspective( left, right, top, bottom, near, far ) instead.');return this.makePerspective(left,right,top,bottom,near,far);}});Plane.prototype.isIntersectionLine=function(line){console.warn('THREE.Plane: .isIntersectionLine() has been renamed to .intersectsLine().');return this.intersectsLine(line);};Quaternion.prototype.multiplyVector3=function(vector){console.warn('THREE.Quaternion: .multiplyVector3() has been removed. Use is now vector.applyQuaternion( quaternion ) instead.');return vector.applyQuaternion(this);};Object.assign(Ray.prototype,{isIntersectionBox:function(box){console.warn('THREE.Ray: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},isIntersectionPlane:function(plane){console.warn('THREE.Ray: .isIntersectionPlane() has been renamed to .intersectsPlane().');return this.intersectsPlane(plane);},isIntersectionSphere:function(sphere){console.warn('THREE.Ray: .isIntersectionSphere() has been renamed to .intersectsSphere().');return this.intersectsSphere(sphere);}});Object.assign(Triangle.prototype,{area:function(){console.warn('THREE.Triangle: .area() has been renamed to .getArea().');return this.getArea();},barycoordFromPoint:function(point,target){console.warn('THREE.Triangle: .barycoordFromPoint() has been renamed to .getBarycoord().');return this.getBarycoord(point,target);},midpoint:function(target){console.warn('THREE.Triangle: .midpoint() has been renamed to .getMidpoint().');return this.getMidpoint(target);},normal:function(target){console.warn('THREE.Triangle: .normal() has been renamed to .getNormal().');return this.getNormal(target);},plane:function(target){console.warn('THREE.Triangle: .plane() has been renamed to .getPlane().');return this.getPlane(target);}});Object.assign(Triangle,{barycoordFromPoint:function(point,a,b,c,target){console.warn('THREE.Triangle: .barycoordFromPoint() has been renamed to .getBarycoord().');return Triangle.getBarycoord(point,a,b,c,target);},normal:function(a,b,c,target){console.warn('THREE.Triangle: .normal() has been renamed to .getNormal().');return Triangle.getNormal(a,b,c,target);}});Object.assign(Shape.prototype,{extractAllPoints:function(divisions){console.warn('THREE.Shape: .extractAllPoints() has been removed. Use .extractPoints() instead.');return this.extractPoints(divisions);},extrude:function(options){console.warn('THREE.Shape: .extrude() has been removed. Use ExtrudeGeometry() instead.');return new ExtrudeGeometry(this,options);},makeGeometry:function(options){console.warn('THREE.Shape: .makeGeometry() has been removed. Use ShapeGeometry() instead.');return new ShapeGeometry(this,options);}});Object.assign(Vector2.prototype,{fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector2: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},distanceToManhattan:function(v){console.warn('THREE.Vector2: .distanceToManhattan() has been renamed to .manhattanDistanceTo().');return this.manhattanDistanceTo(v);},lengthManhattan:function(){console.warn('THREE.Vector2: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});Object.assign(Vector3.prototype,{setEulerFromRotationMatrix:function(){console.error('THREE.Vector3: .setEulerFromRotationMatrix() has been removed. Use Euler.setFromRotationMatrix() instead.');},setEulerFromQuaternion:function(){console.error('THREE.Vector3: .setEulerFromQuaternion() has been removed. Use Euler.setFromQuaternion() instead.');},getPositionFromMatrix:function(m){console.warn('THREE.Vector3: .getPositionFromMatrix() has been renamed to .setFromMatrixPosition().');return this.setFromMatrixPosition(m);},getScaleFromMatrix:function(m){console.warn('THREE.Vector3: .getScaleFromMatrix() has been renamed to .setFromMatrixScale().');return this.setFromMatrixScale(m);},getColumnFromMatrix:function(index,matrix){console.warn('THREE.Vector3: .getColumnFromMatrix() has been renamed to .setFromMatrixColumn().');return this.setFromMatrixColumn(matrix,index);},applyProjection:function(m){console.warn('THREE.Vector3: .applyProjection() has been removed. Use .applyMatrix4( m ) instead.');return this.applyMatrix4(m);},fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector3: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},distanceToManhattan:function(v){console.warn('THREE.Vector3: .distanceToManhattan() has been renamed to .manhattanDistanceTo().');return this.manhattanDistanceTo(v);},lengthManhattan:function(){console.warn('THREE.Vector3: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});Object.assign(Vector4.prototype,{fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector4: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},lengthManhattan:function(){console.warn('THREE.Vector4: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});//
+Object.assign(Loader.prototype,{extractUrlBase:function(url){console.warn('THREE.Loader: .extractUrlBase() has been deprecated. Use THREE.LoaderUtils.extractUrlBase() instead.');return LoaderUtils.extractUrlBase(url);}});Loader.Handlers={add:function(){console.error('THREE.Loader: Handlers.add() has been removed. Use LoadingManager.addHandler() instead.');},get:function(){console.error('THREE.Loader: Handlers.get() has been removed. Use LoadingManager.getHandler() instead.');}};function XHRLoader(manager){console.warn('THREE.XHRLoader has been renamed to THREE.FileLoader.');return new FileLoader(manager);}function BinaryTextureLoader(manager){console.warn('THREE.BinaryTextureLoader has been renamed to THREE.DataTextureLoader.');return new DataTextureLoader(manager);}Object.assign(ObjectLoader.prototype,{setTexturePath:function(value){console.warn('THREE.ObjectLoader: .setTexturePath() has been renamed to .setResourcePath().');return this.setResourcePath(value);}});//
+Object.assign(Box2.prototype,{center:function(optionalTarget){console.warn('THREE.Box2: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);},empty:function(){console.warn('THREE.Box2: .empty() has been renamed to .isEmpty().');return this.isEmpty();},isIntersectionBox:function(box){console.warn('THREE.Box2: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},size:function(optionalTarget){console.warn('THREE.Box2: .size() has been renamed to .getSize().');return this.getSize(optionalTarget);}});Object.assign(Box3.prototype,{center:function(optionalTarget){console.warn('THREE.Box3: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);},empty:function(){console.warn('THREE.Box3: .empty() has been renamed to .isEmpty().');return this.isEmpty();},isIntersectionBox:function(box){console.warn('THREE.Box3: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},isIntersectionSphere:function(sphere){console.warn('THREE.Box3: .isIntersectionSphere() has been renamed to .intersectsSphere().');return this.intersectsSphere(sphere);},size:function(optionalTarget){console.warn('THREE.Box3: .size() has been renamed to .getSize().');return this.getSize(optionalTarget);}});Frustum.prototype.setFromMatrix=function(m){console.warn('THREE.Frustum: .setFromMatrix() has been renamed to .setFromProjectionMatrix().');return this.setFromProjectionMatrix(m);};Line3.prototype.center=function(optionalTarget){console.warn('THREE.Line3: .center() has been renamed to .getCenter().');return this.getCenter(optionalTarget);};Object.assign(MathUtils,{random16:function(){console.warn('THREE.Math: .random16() has been deprecated. Use Math.random() instead.');return Math.random();},nearestPowerOfTwo:function(value){console.warn('THREE.Math: .nearestPowerOfTwo() has been renamed to .floorPowerOfTwo().');return MathUtils.floorPowerOfTwo(value);},nextPowerOfTwo:function(value){console.warn('THREE.Math: .nextPowerOfTwo() has been renamed to .ceilPowerOfTwo().');return MathUtils.ceilPowerOfTwo(value);}});Object.assign(Matrix3.prototype,{flattenToArrayOffset:function(array,offset){console.warn("THREE.Matrix3: .flattenToArrayOffset() has been deprecated. Use .toArray() instead.");return this.toArray(array,offset);},multiplyVector3:function(vector){console.warn('THREE.Matrix3: .multiplyVector3() has been removed. Use vector.applyMatrix3( matrix ) instead.');return vector.applyMatrix3(this);},multiplyVector3Array:function(){console.error('THREE.Matrix3: .multiplyVector3Array() has been removed.');},applyToBufferAttribute:function(attribute){console.warn('THREE.Matrix3: .applyToBufferAttribute() has been removed. Use attribute.applyMatrix3( matrix ) instead.');return attribute.applyMatrix3(this);},applyToVector3Array:function(){console.error('THREE.Matrix3: .applyToVector3Array() has been removed.');}});Object.assign(Matrix4.prototype,{extractPosition:function(m){console.warn('THREE.Matrix4: .extractPosition() has been renamed to .copyPosition().');return this.copyPosition(m);},flattenToArrayOffset:function(array,offset){console.warn("THREE.Matrix4: .flattenToArrayOffset() has been deprecated. Use .toArray() instead.");return this.toArray(array,offset);},getPosition:function(){console.warn('THREE.Matrix4: .getPosition() has been removed. Use Vector3.setFromMatrixPosition( matrix ) instead.');return new Vector3().setFromMatrixColumn(this,3);},setRotationFromQuaternion:function(q){console.warn('THREE.Matrix4: .setRotationFromQuaternion() has been renamed to .makeRotationFromQuaternion().');return this.makeRotationFromQuaternion(q);},multiplyToArray:function(){console.warn('THREE.Matrix4: .multiplyToArray() has been removed.');},multiplyVector3:function(vector){console.warn('THREE.Matrix4: .multiplyVector3() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},multiplyVector4:function(vector){console.warn('THREE.Matrix4: .multiplyVector4() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},multiplyVector3Array:function(){console.error('THREE.Matrix4: .multiplyVector3Array() has been removed.');},rotateAxis:function(v){console.warn('THREE.Matrix4: .rotateAxis() has been removed. Use Vector3.transformDirection( matrix ) instead.');v.transformDirection(this);},crossVector:function(vector){console.warn('THREE.Matrix4: .crossVector() has been removed. Use vector.applyMatrix4( matrix ) instead.');return vector.applyMatrix4(this);},translate:function(){console.error('THREE.Matrix4: .translate() has been removed.');},rotateX:function(){console.error('THREE.Matrix4: .rotateX() has been removed.');},rotateY:function(){console.error('THREE.Matrix4: .rotateY() has been removed.');},rotateZ:function(){console.error('THREE.Matrix4: .rotateZ() has been removed.');},rotateByAxis:function(){console.error('THREE.Matrix4: .rotateByAxis() has been removed.');},applyToBufferAttribute:function(attribute){console.warn('THREE.Matrix4: .applyToBufferAttribute() has been removed. Use attribute.applyMatrix4( matrix ) instead.');return attribute.applyMatrix4(this);},applyToVector3Array:function(){console.error('THREE.Matrix4: .applyToVector3Array() has been removed.');},makeFrustum:function(left,right,bottom,top,near,far){console.warn('THREE.Matrix4: .makeFrustum() has been removed. Use .makePerspective( left, right, top, bottom, near, far ) instead.');return this.makePerspective(left,right,top,bottom,near,far);}});Plane.prototype.isIntersectionLine=function(line){console.warn('THREE.Plane: .isIntersectionLine() has been renamed to .intersectsLine().');return this.intersectsLine(line);};Quaternion.prototype.multiplyVector3=function(vector){console.warn('THREE.Quaternion: .multiplyVector3() has been removed. Use is now vector.applyQuaternion( quaternion ) instead.');return vector.applyQuaternion(this);};Object.assign(Ray.prototype,{isIntersectionBox:function(box){console.warn('THREE.Ray: .isIntersectionBox() has been renamed to .intersectsBox().');return this.intersectsBox(box);},isIntersectionPlane:function(plane){console.warn('THREE.Ray: .isIntersectionPlane() has been renamed to .intersectsPlane().');return this.intersectsPlane(plane);},isIntersectionSphere:function(sphere){console.warn('THREE.Ray: .isIntersectionSphere() has been renamed to .intersectsSphere().');return this.intersectsSphere(sphere);}});Object.assign(Triangle.prototype,{area:function(){console.warn('THREE.Triangle: .area() has been renamed to .getArea().');return this.getArea();},barycoordFromPoint:function(point,target){console.warn('THREE.Triangle: .barycoordFromPoint() has been renamed to .getBarycoord().');return this.getBarycoord(point,target);},midpoint:function(target){console.warn('THREE.Triangle: .midpoint() has been renamed to .getMidpoint().');return this.getMidpoint(target);},normal:function(target){console.warn('THREE.Triangle: .normal() has been renamed to .getNormal().');return this.getNormal(target);},plane:function(target){console.warn('THREE.Triangle: .plane() has been renamed to .getPlane().');return this.getPlane(target);}});Object.assign(Triangle,{barycoordFromPoint:function(point,a,b,c,target){console.warn('THREE.Triangle: .barycoordFromPoint() has been renamed to .getBarycoord().');return Triangle.getBarycoord(point,a,b,c,target);},normal:function(a,b,c,target){console.warn('THREE.Triangle: .normal() has been renamed to .getNormal().');return Triangle.getNormal(a,b,c,target);}});Object.assign(Shape.prototype,{extractAllPoints:function(divisions){console.warn('THREE.Shape: .extractAllPoints() has been removed. Use .extractPoints() instead.');return this.extractPoints(divisions);},extrude:function(options){console.warn('THREE.Shape: .extrude() has been removed. Use ExtrudeGeometry() instead.');return new ExtrudeGeometry(this,options);},makeGeometry:function(options){console.warn('THREE.Shape: .makeGeometry() has been removed. Use ShapeGeometry() instead.');return new ShapeGeometry(this,options);}});Object.assign(Vector2.prototype,{fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector2: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},distanceToManhattan:function(v){console.warn('THREE.Vector2: .distanceToManhattan() has been renamed to .manhattanDistanceTo().');return this.manhattanDistanceTo(v);},lengthManhattan:function(){console.warn('THREE.Vector2: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});Object.assign(Vector3.prototype,{setEulerFromRotationMatrix:function(){console.error('THREE.Vector3: .setEulerFromRotationMatrix() has been removed. Use Euler.setFromRotationMatrix() instead.');},setEulerFromQuaternion:function(){console.error('THREE.Vector3: .setEulerFromQuaternion() has been removed. Use Euler.setFromQuaternion() instead.');},getPositionFromMatrix:function(m){console.warn('THREE.Vector3: .getPositionFromMatrix() has been renamed to .setFromMatrixPosition().');return this.setFromMatrixPosition(m);},getScaleFromMatrix:function(m){console.warn('THREE.Vector3: .getScaleFromMatrix() has been renamed to .setFromMatrixScale().');return this.setFromMatrixScale(m);},getColumnFromMatrix:function(index,matrix){console.warn('THREE.Vector3: .getColumnFromMatrix() has been renamed to .setFromMatrixColumn().');return this.setFromMatrixColumn(matrix,index);},applyProjection:function(m){console.warn('THREE.Vector3: .applyProjection() has been removed. Use .applyMatrix4( m ) instead.');return this.applyMatrix4(m);},fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector3: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},distanceToManhattan:function(v){console.warn('THREE.Vector3: .distanceToManhattan() has been renamed to .manhattanDistanceTo().');return this.manhattanDistanceTo(v);},lengthManhattan:function(){console.warn('THREE.Vector3: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});Object.assign(Vector4.prototype,{fromAttribute:function(attribute,index,offset){console.warn('THREE.Vector4: .fromAttribute() has been renamed to .fromBufferAttribute().');return this.fromBufferAttribute(attribute,index,offset);},lengthManhattan:function(){console.warn('THREE.Vector4: .lengthManhattan() has been renamed to .manhattanLength().');return this.manhattanLength();}});//
 Object.assign(Geometry.prototype,{computeTangents:function(){console.error('THREE.Geometry: .computeTangents() has been removed.');},computeLineDistances:function(){console.error('THREE.Geometry: .computeLineDistances() has been removed. Use THREE.Line.computeLineDistances() instead.');},applyMatrix:function(matrix){console.warn('THREE.Geometry: .applyMatrix() has been renamed to .applyMatrix4().');return this.applyMatrix4(matrix);}});Object.assign(Object3D.prototype,{getChildByName:function(name){console.warn('THREE.Object3D: .getChildByName() has been renamed to .getObjectByName().');return this.getObjectByName(name);},renderDepth:function(){console.warn('THREE.Object3D: .renderDepth has been removed. Use .renderOrder, instead.');},translate:function(distance,axis){console.warn('THREE.Object3D: .translate() has been removed. Use .translateOnAxis( axis, distance ) instead.');return this.translateOnAxis(axis,distance);},getWorldRotation:function(){console.error('THREE.Object3D: .getWorldRotation() has been removed. Use THREE.Object3D.getWorldQuaternion( target ) instead.');},applyMatrix:function(matrix){console.warn('THREE.Object3D: .applyMatrix() has been renamed to .applyMatrix4().');return this.applyMatrix4(matrix);}});Object.defineProperties(Object3D.prototype,{eulerOrder:{get:function(){console.warn('THREE.Object3D: .eulerOrder is now .rotation.order.');return this.rotation.order;},set:function(value){console.warn('THREE.Object3D: .eulerOrder is now .rotation.order.');this.rotation.order=value;}},useQuaternion:{get:function(){console.warn('THREE.Object3D: .useQuaternion has been removed. The library now uses quaternions by default.');},set:function(){console.warn('THREE.Object3D: .useQuaternion has been removed. The library now uses quaternions by default.');}}});Object.assign(Mesh.prototype,{setDrawMode:function(){console.error('THREE.Mesh: .setDrawMode() has been removed. The renderer now always assumes THREE.TrianglesDrawMode. Transform your geometry via BufferGeometryUtils.toTrianglesDrawMode() if necessary.');}});Object.defineProperties(Mesh.prototype,{drawMode:{get:function(){console.error('THREE.Mesh: .drawMode has been removed. The renderer now always assumes THREE.TrianglesDrawMode.');return TrianglesDrawMode;},set:function(){console.error('THREE.Mesh: .drawMode has been removed. The renderer now always assumes THREE.TrianglesDrawMode. Transform your geometry via BufferGeometryUtils.toTrianglesDrawMode() if necessary.');}}});Object.defineProperties(LOD.prototype,{objects:{get:function(){console.warn('THREE.LOD: .objects has been renamed to .levels.');return this.levels;}}});Object.defineProperty(Skeleton.prototype,'useVertexTexture',{get:function(){console.warn('THREE.Skeleton: useVertexTexture has been removed.');},set:function(){console.warn('THREE.Skeleton: useVertexTexture has been removed.');}});SkinnedMesh.prototype.initBones=function(){console.error('THREE.SkinnedMesh: initBones() has been removed.');};Object.defineProperty(Curve.prototype,'__arcLengthDivisions',{get:function(){console.warn('THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.');return this.arcLengthDivisions;},set:function(value){console.warn('THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.');this.arcLengthDivisions=value;}});//
 PerspectiveCamera.prototype.setLens=function(focalLength,filmGauge){console.warn("THREE.PerspectiveCamera.setLens is deprecated. "+"Use .setFocalLength and .filmGauge for a photographic setup.");if(filmGauge!==undefined)this.filmGauge=filmGauge;this.setFocalLength(focalLength);};//
 Object.defineProperties(Light.prototype,{onlyShadow:{set:function(){console.warn('THREE.Light: .onlyShadow has been removed.');}},shadowCameraFov:{set:function(value){console.warn('THREE.Light: .shadowCameraFov is now .shadow.camera.fov.');this.shadow.camera.fov=value;}},shadowCameraLeft:{set:function(value){console.warn('THREE.Light: .shadowCameraLeft is now .shadow.camera.left.');this.shadow.camera.left=value;}},shadowCameraRight:{set:function(value){console.warn('THREE.Light: .shadowCameraRight is now .shadow.camera.right.');this.shadow.camera.right=value;}},shadowCameraTop:{set:function(value){console.warn('THREE.Light: .shadowCameraTop is now .shadow.camera.top.');this.shadow.camera.top=value;}},shadowCameraBottom:{set:function(value){console.warn('THREE.Light: .shadowCameraBottom is now .shadow.camera.bottom.');this.shadow.camera.bottom=value;}},shadowCameraNear:{set:function(value){console.warn('THREE.Light: .shadowCameraNear is now .shadow.camera.near.');this.shadow.camera.near=value;}},shadowCameraFar:{set:function(value){console.warn('THREE.Light: .shadowCameraFar is now .shadow.camera.far.');this.shadow.camera.far=value;}},shadowCameraVisible:{set:function(){console.warn('THREE.Light: .shadowCameraVisible has been removed. Use new THREE.CameraHelper( light.shadow.camera ) instead.');}},shadowBias:{set:function(value){console.warn('THREE.Light: .shadowBias is now .shadow.bias.');this.shadow.bias=value;}},shadowDarkness:{set:function(){console.warn('THREE.Light: .shadowDarkness has been removed.');}},shadowMapWidth:{set:function(value){console.warn('THREE.Light: .shadowMapWidth is now .shadow.mapSize.width.');this.shadow.mapSize.width=value;}},shadowMapHeight:{set:function(value){console.warn('THREE.Light: .shadowMapHeight is now .shadow.mapSize.height.');this.shadow.mapSize.height=value;}}});//
-Object.defineProperties(BufferAttribute.prototype,{length:{get:function(){console.warn('THREE.BufferAttribute: .length has been deprecated. Use .count instead.');return this.array.length;}},dynamic:{get:function(){console.warn('THREE.BufferAttribute: .dynamic has been deprecated. Use .usage instead.');return this.usage===DynamicDrawUsage;},set:function()/* value */{console.warn('THREE.BufferAttribute: .dynamic has been deprecated. Use .usage instead.');this.setUsage(DynamicDrawUsage);}}});Object.assign(BufferAttribute.prototype,{setDynamic:function(value){console.warn('THREE.BufferAttribute: .setDynamic() has been deprecated. Use .setUsage() instead.');this.setUsage(value===true?DynamicDrawUsage:StaticDrawUsage);return this;},copyIndicesArray:function()/* indices */{console.error('THREE.BufferAttribute: .copyIndicesArray() has been removed.');},setArray:function()/* array */{console.error('THREE.BufferAttribute: .setArray has been removed. Use BufferGeometry .setAttribute to replace/resize attribute buffers');}});Object.assign(BufferGeometry.prototype,{addIndex:function(index){console.warn('THREE.BufferGeometry: .addIndex() has been renamed to .setIndex().');this.setIndex(index);},addAttribute:function(name,attribute){console.warn('THREE.BufferGeometry: .addAttribute() has been renamed to .setAttribute().');if(!(attribute&&attribute.isBufferAttribute)&&!(attribute&&attribute.isInterleavedBufferAttribute)){console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).');return this.setAttribute(name,new BufferAttribute(arguments[1],arguments[2]));}if(name==='index'){console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.');this.setIndex(attribute);return this;}return this.setAttribute(name,attribute);},addDrawCall:function(start,count,indexOffset){if(indexOffset!==undefined){console.warn('THREE.BufferGeometry: .addDrawCall() no longer supports indexOffset.');}console.warn('THREE.BufferGeometry: .addDrawCall() is now .addGroup().');this.addGroup(start,count);},clearDrawCalls:function(){console.warn('THREE.BufferGeometry: .clearDrawCalls() is now .clearGroups().');this.clearGroups();},computeTangents:function(){console.warn('THREE.BufferGeometry: .computeTangents() has been removed.');},computeOffsets:function(){console.warn('THREE.BufferGeometry: .computeOffsets() has been removed.');},removeAttribute:function(name){console.warn('THREE.BufferGeometry: .removeAttribute() has been renamed to .deleteAttribute().');return this.deleteAttribute(name);},applyMatrix:function(matrix){console.warn('THREE.BufferGeometry: .applyMatrix() has been renamed to .applyMatrix4().');return this.applyMatrix4(matrix);}});Object.defineProperties(BufferGeometry.prototype,{drawcalls:{get:function(){console.error('THREE.BufferGeometry: .drawcalls has been renamed to .groups.');return this.groups;}},offsets:{get:function(){console.warn('THREE.BufferGeometry: .offsets has been renamed to .groups.');return this.groups;}}});Object.defineProperties(Raycaster.prototype,{linePrecision:{get:function(){console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');return this.params.Line.threshold;},set:function(value){console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');this.params.Line.threshold=value;}}});Object.defineProperties(InterleavedBuffer.prototype,{dynamic:{get:function(){console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');return this.usage===DynamicDrawUsage;},set:function(value){console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');this.setUsage(value);}}});Object.assign(InterleavedBuffer.prototype,{setDynamic:function(value){console.warn('THREE.InterleavedBuffer: .setDynamic() has been deprecated. Use .setUsage() instead.');this.setUsage(value===true?DynamicDrawUsage:StaticDrawUsage);return this;},setArray:function()/* array */{console.error('THREE.InterleavedBuffer: .setArray has been removed. Use BufferGeometry .setAttribute to replace/resize attribute buffers');}});//
+Object.defineProperties(BufferAttribute.prototype,{length:{get:function(){console.warn('THREE.BufferAttribute: .length has been deprecated. Use .count instead.');return this.array.length;}},dynamic:{get:function(){console.warn('THREE.BufferAttribute: .dynamic has been deprecated. Use .usage instead.');return this.usage===DynamicDrawUsage;},set:function(){console.warn('THREE.BufferAttribute: .dynamic has been deprecated. Use .usage instead.');this.setUsage(DynamicDrawUsage);}}});Object.assign(BufferAttribute.prototype,{setDynamic:function(value){console.warn('THREE.BufferAttribute: .setDynamic() has been deprecated. Use .setUsage() instead.');this.setUsage(value===true?DynamicDrawUsage:StaticDrawUsage);return this;},copyIndicesArray:function(){console.error('THREE.BufferAttribute: .copyIndicesArray() has been removed.');},setArray:function(){console.error('THREE.BufferAttribute: .setArray has been removed. Use BufferGeometry .setAttribute to replace/resize attribute buffers');}});Object.assign(BufferGeometry.prototype,{addIndex:function(index){console.warn('THREE.BufferGeometry: .addIndex() has been renamed to .setIndex().');this.setIndex(index);},addAttribute:function(name,attribute){console.warn('THREE.BufferGeometry: .addAttribute() has been renamed to .setAttribute().');if(!(attribute&&attribute.isBufferAttribute)&&!(attribute&&attribute.isInterleavedBufferAttribute)){console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).');return this.setAttribute(name,new BufferAttribute(arguments[1],arguments[2]));}if(name==='index'){console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.');this.setIndex(attribute);return this;}return this.setAttribute(name,attribute);},addDrawCall:function(start,count,indexOffset){if(indexOffset!==undefined){console.warn('THREE.BufferGeometry: .addDrawCall() no longer supports indexOffset.');}console.warn('THREE.BufferGeometry: .addDrawCall() is now .addGroup().');this.addGroup(start,count);},clearDrawCalls:function(){console.warn('THREE.BufferGeometry: .clearDrawCalls() is now .clearGroups().');this.clearGroups();},computeTangents:function(){console.warn('THREE.BufferGeometry: .computeTangents() has been removed.');},computeOffsets:function(){console.warn('THREE.BufferGeometry: .computeOffsets() has been removed.');},removeAttribute:function(name){console.warn('THREE.BufferGeometry: .removeAttribute() has been renamed to .deleteAttribute().');return this.deleteAttribute(name);},applyMatrix:function(matrix){console.warn('THREE.BufferGeometry: .applyMatrix() has been renamed to .applyMatrix4().');return this.applyMatrix4(matrix);}});Object.defineProperties(BufferGeometry.prototype,{drawcalls:{get:function(){console.error('THREE.BufferGeometry: .drawcalls has been renamed to .groups.');return this.groups;}},offsets:{get:function(){console.warn('THREE.BufferGeometry: .offsets has been renamed to .groups.');return this.groups;}}});Object.defineProperties(Raycaster.prototype,{linePrecision:{get:function(){console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');return this.params.Line.threshold;},set:function(value){console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');this.params.Line.threshold=value;}}});Object.defineProperties(InterleavedBuffer.prototype,{dynamic:{get:function(){console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');return this.usage===DynamicDrawUsage;},set:function(value){console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');this.setUsage(value);}}});Object.assign(InterleavedBuffer.prototype,{setDynamic:function(value){console.warn('THREE.InterleavedBuffer: .setDynamic() has been deprecated. Use .setUsage() instead.');this.setUsage(value===true?DynamicDrawUsage:StaticDrawUsage);return this;},setArray:function(){console.error('THREE.InterleavedBuffer: .setArray has been removed. Use BufferGeometry .setAttribute to replace/resize attribute buffers');}});//
 Object.assign(ExtrudeBufferGeometry.prototype,{getArrays:function(){console.error('THREE.ExtrudeBufferGeometry: .getArrays() has been removed.');},addShapeList:function(){console.error('THREE.ExtrudeBufferGeometry: .addShapeList() has been removed.');},addShape:function(){console.error('THREE.ExtrudeBufferGeometry: .addShape() has been removed.');}});//
 Object.defineProperties(Uniform.prototype,{dynamic:{set:function(){console.warn('THREE.Uniform: .dynamic has been removed. Use object.onBeforeRender() instead.');}},onUpdate:{value:function(){console.warn('THREE.Uniform: .onUpdate() has been removed. Use object.onBeforeRender() instead.');return this;}}});//
 Object.defineProperties(Material.prototype,{wrapAround:{get:function(){console.warn('THREE.Material: .wrapAround has been removed.');},set:function(){console.warn('THREE.Material: .wrapAround has been removed.');}},overdraw:{get:function(){console.warn('THREE.Material: .overdraw has been removed.');},set:function(){console.warn('THREE.Material: .overdraw has been removed.');}},wrapRGB:{get:function(){console.warn('THREE.Material: .wrapRGB has been removed.');return new Color();}},shading:{get:function(){console.error('THREE.'+this.type+': .shading has been removed. Use the boolean .flatShading instead.');},set:function(value){console.warn('THREE.'+this.type+': .shading has been removed. Use the boolean .flatShading instead.');this.flatShading=value===FlatShading;}},stencilMask:{get:function(){console.warn('THREE.'+this.type+': .stencilMask has been removed. Use .stencilFuncMask instead.');return this.stencilFuncMask;},set:function(value){console.warn('THREE.'+this.type+': .stencilMask has been removed. Use .stencilFuncMask instead.');this.stencilFuncMask=value;}}});Object.defineProperties(MeshPhongMaterial.prototype,{metal:{get:function(){console.warn('THREE.MeshPhongMaterial: .metal has been removed. Use THREE.MeshStandardMaterial instead.');return false;},set:function(){console.warn('THREE.MeshPhongMaterial: .metal has been removed. Use THREE.MeshStandardMaterial instead');}}});Object.defineProperties(ShaderMaterial.prototype,{derivatives:{get:function(){console.warn('THREE.ShaderMaterial: .derivatives has been moved to .extensions.derivatives.');return this.extensions.derivatives;},set:function(value){console.warn('THREE. ShaderMaterial: .derivatives has been moved to .extensions.derivatives.');this.extensions.derivatives=value;}}});//
-Object.assign(WebGLRenderer.prototype,{clearTarget:function(renderTarget,color,depth,stencil){console.warn('THREE.WebGLRenderer: .clearTarget() has been deprecated. Use .setRenderTarget() and .clear() instead.');this.setRenderTarget(renderTarget);this.clear(color,depth,stencil);},animate:function(callback){console.warn('THREE.WebGLRenderer: .animate() is now .setAnimationLoop().');this.setAnimationLoop(callback);},getCurrentRenderTarget:function(){console.warn('THREE.WebGLRenderer: .getCurrentRenderTarget() is now .getRenderTarget().');return this.getRenderTarget();},getMaxAnisotropy:function(){console.warn('THREE.WebGLRenderer: .getMaxAnisotropy() is now .capabilities.getMaxAnisotropy().');return this.capabilities.getMaxAnisotropy();},getPrecision:function(){console.warn('THREE.WebGLRenderer: .getPrecision() is now .capabilities.precision.');return this.capabilities.precision;},resetGLState:function(){console.warn('THREE.WebGLRenderer: .resetGLState() is now .state.reset().');return this.state.reset();},supportsFloatTextures:function(){console.warn('THREE.WebGLRenderer: .supportsFloatTextures() is now .extensions.get( \'OES_texture_float\' ).');return this.extensions.get('OES_texture_float');},supportsHalfFloatTextures:function(){console.warn('THREE.WebGLRenderer: .supportsHalfFloatTextures() is now .extensions.get( \'OES_texture_half_float\' ).');return this.extensions.get('OES_texture_half_float');},supportsStandardDerivatives:function(){console.warn('THREE.WebGLRenderer: .supportsStandardDerivatives() is now .extensions.get( \'OES_standard_derivatives\' ).');return this.extensions.get('OES_standard_derivatives');},supportsCompressedTextureS3TC:function(){console.warn('THREE.WebGLRenderer: .supportsCompressedTextureS3TC() is now .extensions.get( \'WEBGL_compressed_texture_s3tc\' ).');return this.extensions.get('WEBGL_compressed_texture_s3tc');},supportsCompressedTexturePVRTC:function(){console.warn('THREE.WebGLRenderer: .supportsCompressedTexturePVRTC() is now .extensions.get( \'WEBGL_compressed_texture_pvrtc\' ).');return this.extensions.get('WEBGL_compressed_texture_pvrtc');},supportsBlendMinMax:function(){console.warn('THREE.WebGLRenderer: .supportsBlendMinMax() is now .extensions.get( \'EXT_blend_minmax\' ).');return this.extensions.get('EXT_blend_minmax');},supportsVertexTextures:function(){console.warn('THREE.WebGLRenderer: .supportsVertexTextures() is now .capabilities.vertexTextures.');return this.capabilities.vertexTextures;},supportsInstancedArrays:function(){console.warn('THREE.WebGLRenderer: .supportsInstancedArrays() is now .extensions.get( \'ANGLE_instanced_arrays\' ).');return this.extensions.get('ANGLE_instanced_arrays');},enableScissorTest:function(boolean){console.warn('THREE.WebGLRenderer: .enableScissorTest() is now .setScissorTest().');this.setScissorTest(boolean);},initMaterial:function(){console.warn('THREE.WebGLRenderer: .initMaterial() has been removed.');},addPrePlugin:function(){console.warn('THREE.WebGLRenderer: .addPrePlugin() has been removed.');},addPostPlugin:function(){console.warn('THREE.WebGLRenderer: .addPostPlugin() has been removed.');},updateShadowMap:function(){console.warn('THREE.WebGLRenderer: .updateShadowMap() has been removed.');},setFaceCulling:function(){console.warn('THREE.WebGLRenderer: .setFaceCulling() has been removed.');},allocTextureUnit:function(){console.warn('THREE.WebGLRenderer: .allocTextureUnit() has been removed.');},setTexture:function(){console.warn('THREE.WebGLRenderer: .setTexture() has been removed.');},setTexture2D:function(){console.warn('THREE.WebGLRenderer: .setTexture2D() has been removed.');},setTextureCube:function(){console.warn('THREE.WebGLRenderer: .setTextureCube() has been removed.');},getActiveMipMapLevel:function(){console.warn('THREE.WebGLRenderer: .getActiveMipMapLevel() is now .getActiveMipmapLevel().');return this.getActiveMipmapLevel();}});Object.defineProperties(WebGLRenderer.prototype,{shadowMapEnabled:{get:function(){return this.shadowMap.enabled;},set:function(value){console.warn('THREE.WebGLRenderer: .shadowMapEnabled is now .shadowMap.enabled.');this.shadowMap.enabled=value;}},shadowMapType:{get:function(){return this.shadowMap.type;},set:function(value){console.warn('THREE.WebGLRenderer: .shadowMapType is now .shadowMap.type.');this.shadowMap.type=value;}},shadowMapCullFace:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMapCullFace has been removed. Set Material.shadowSide instead.');return undefined;},set:function()/* value */{console.warn('THREE.WebGLRenderer: .shadowMapCullFace has been removed. Set Material.shadowSide instead.');}},context:{get:function(){console.warn('THREE.WebGLRenderer: .context has been removed. Use .getContext() instead.');return this.getContext();}},vr:{get:function(){console.warn('THREE.WebGLRenderer: .vr has been renamed to .xr');return this.xr;}},gammaInput:{get:function(){console.warn('THREE.WebGLRenderer: .gammaInput has been removed. Set the encoding for textures via Texture.encoding instead.');return false;},set:function(){console.warn('THREE.WebGLRenderer: .gammaInput has been removed. Set the encoding for textures via Texture.encoding instead.');}},gammaOutput:{get:function(){console.warn('THREE.WebGLRenderer: .gammaOutput has been removed. Set WebGLRenderer.outputEncoding instead.');return false;},set:function(value){console.warn('THREE.WebGLRenderer: .gammaOutput has been removed. Set WebGLRenderer.outputEncoding instead.');this.outputEncoding=value===true?sRGBEncoding:LinearEncoding;}}});Object.defineProperties(WebGLShadowMap.prototype,{cullFace:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.cullFace has been removed. Set Material.shadowSide instead.');return undefined;},set:function()/* cullFace */{console.warn('THREE.WebGLRenderer: .shadowMap.cullFace has been removed. Set Material.shadowSide instead.');}},renderReverseSided:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderReverseSided has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderReverseSided has been removed. Set Material.shadowSide instead.');}},renderSingleSided:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderSingleSided has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderSingleSided has been removed. Set Material.shadowSide instead.');}}});function WebGLRenderTargetCube(width,height,options){console.warn('THREE.WebGLRenderTargetCube( width, height, options ) is now WebGLCubeRenderTarget( size, options ).');return new WebGLCubeRenderTarget(width,options);}//
+Object.assign(WebGLRenderer.prototype,{clearTarget:function(renderTarget,color,depth,stencil){console.warn('THREE.WebGLRenderer: .clearTarget() has been deprecated. Use .setRenderTarget() and .clear() instead.');this.setRenderTarget(renderTarget);this.clear(color,depth,stencil);},animate:function(callback){console.warn('THREE.WebGLRenderer: .animate() is now .setAnimationLoop().');this.setAnimationLoop(callback);},getCurrentRenderTarget:function(){console.warn('THREE.WebGLRenderer: .getCurrentRenderTarget() is now .getRenderTarget().');return this.getRenderTarget();},getMaxAnisotropy:function(){console.warn('THREE.WebGLRenderer: .getMaxAnisotropy() is now .capabilities.getMaxAnisotropy().');return this.capabilities.getMaxAnisotropy();},getPrecision:function(){console.warn('THREE.WebGLRenderer: .getPrecision() is now .capabilities.precision.');return this.capabilities.precision;},resetGLState:function(){console.warn('THREE.WebGLRenderer: .resetGLState() is now .state.reset().');return this.state.reset();},supportsFloatTextures:function(){console.warn('THREE.WebGLRenderer: .supportsFloatTextures() is now .extensions.get( \'OES_texture_float\' ).');return this.extensions.get('OES_texture_float');},supportsHalfFloatTextures:function(){console.warn('THREE.WebGLRenderer: .supportsHalfFloatTextures() is now .extensions.get( \'OES_texture_half_float\' ).');return this.extensions.get('OES_texture_half_float');},supportsStandardDerivatives:function(){console.warn('THREE.WebGLRenderer: .supportsStandardDerivatives() is now .extensions.get( \'OES_standard_derivatives\' ).');return this.extensions.get('OES_standard_derivatives');},supportsCompressedTextureS3TC:function(){console.warn('THREE.WebGLRenderer: .supportsCompressedTextureS3TC() is now .extensions.get( \'WEBGL_compressed_texture_s3tc\' ).');return this.extensions.get('WEBGL_compressed_texture_s3tc');},supportsCompressedTexturePVRTC:function(){console.warn('THREE.WebGLRenderer: .supportsCompressedTexturePVRTC() is now .extensions.get( \'WEBGL_compressed_texture_pvrtc\' ).');return this.extensions.get('WEBGL_compressed_texture_pvrtc');},supportsBlendMinMax:function(){console.warn('THREE.WebGLRenderer: .supportsBlendMinMax() is now .extensions.get( \'EXT_blend_minmax\' ).');return this.extensions.get('EXT_blend_minmax');},supportsVertexTextures:function(){console.warn('THREE.WebGLRenderer: .supportsVertexTextures() is now .capabilities.vertexTextures.');return this.capabilities.vertexTextures;},supportsInstancedArrays:function(){console.warn('THREE.WebGLRenderer: .supportsInstancedArrays() is now .extensions.get( \'ANGLE_instanced_arrays\' ).');return this.extensions.get('ANGLE_instanced_arrays');},enableScissorTest:function(boolean){console.warn('THREE.WebGLRenderer: .enableScissorTest() is now .setScissorTest().');this.setScissorTest(boolean);},initMaterial:function(){console.warn('THREE.WebGLRenderer: .initMaterial() has been removed.');},addPrePlugin:function(){console.warn('THREE.WebGLRenderer: .addPrePlugin() has been removed.');},addPostPlugin:function(){console.warn('THREE.WebGLRenderer: .addPostPlugin() has been removed.');},updateShadowMap:function(){console.warn('THREE.WebGLRenderer: .updateShadowMap() has been removed.');},setFaceCulling:function(){console.warn('THREE.WebGLRenderer: .setFaceCulling() has been removed.');},allocTextureUnit:function(){console.warn('THREE.WebGLRenderer: .allocTextureUnit() has been removed.');},setTexture:function(){console.warn('THREE.WebGLRenderer: .setTexture() has been removed.');},setTexture2D:function(){console.warn('THREE.WebGLRenderer: .setTexture2D() has been removed.');},setTextureCube:function(){console.warn('THREE.WebGLRenderer: .setTextureCube() has been removed.');},getActiveMipMapLevel:function(){console.warn('THREE.WebGLRenderer: .getActiveMipMapLevel() is now .getActiveMipmapLevel().');return this.getActiveMipmapLevel();}});Object.defineProperties(WebGLRenderer.prototype,{shadowMapEnabled:{get:function(){return this.shadowMap.enabled;},set:function(value){console.warn('THREE.WebGLRenderer: .shadowMapEnabled is now .shadowMap.enabled.');this.shadowMap.enabled=value;}},shadowMapType:{get:function(){return this.shadowMap.type;},set:function(value){console.warn('THREE.WebGLRenderer: .shadowMapType is now .shadowMap.type.');this.shadowMap.type=value;}},shadowMapCullFace:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMapCullFace has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMapCullFace has been removed. Set Material.shadowSide instead.');}},context:{get:function(){console.warn('THREE.WebGLRenderer: .context has been removed. Use .getContext() instead.');return this.getContext();}},vr:{get:function(){console.warn('THREE.WebGLRenderer: .vr has been renamed to .xr');return this.xr;}},gammaInput:{get:function(){console.warn('THREE.WebGLRenderer: .gammaInput has been removed. Set the encoding for textures via Texture.encoding instead.');return false;},set:function(){console.warn('THREE.WebGLRenderer: .gammaInput has been removed. Set the encoding for textures via Texture.encoding instead.');}},gammaOutput:{get:function(){console.warn('THREE.WebGLRenderer: .gammaOutput has been removed. Set WebGLRenderer.outputEncoding instead.');return false;},set:function(value){console.warn('THREE.WebGLRenderer: .gammaOutput has been removed. Set WebGLRenderer.outputEncoding instead.');this.outputEncoding=value===true?sRGBEncoding:LinearEncoding;}}});Object.defineProperties(WebGLShadowMap.prototype,{cullFace:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.cullFace has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMap.cullFace has been removed. Set Material.shadowSide instead.');}},renderReverseSided:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderReverseSided has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderReverseSided has been removed. Set Material.shadowSide instead.');}},renderSingleSided:{get:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderSingleSided has been removed. Set Material.shadowSide instead.');return undefined;},set:function(){console.warn('THREE.WebGLRenderer: .shadowMap.renderSingleSided has been removed. Set Material.shadowSide instead.');}}});function WebGLRenderTargetCube(width,height,options){console.warn('THREE.WebGLRenderTargetCube( width, height, options ) is now WebGLCubeRenderTarget( size, options ).');return new WebGLCubeRenderTarget(width,options);}//
 Object.defineProperties(WebGLRenderTarget.prototype,{wrapS:{get:function(){console.warn('THREE.WebGLRenderTarget: .wrapS is now .texture.wrapS.');return this.texture.wrapS;},set:function(value){console.warn('THREE.WebGLRenderTarget: .wrapS is now .texture.wrapS.');this.texture.wrapS=value;}},wrapT:{get:function(){console.warn('THREE.WebGLRenderTarget: .wrapT is now .texture.wrapT.');return this.texture.wrapT;},set:function(value){console.warn('THREE.WebGLRenderTarget: .wrapT is now .texture.wrapT.');this.texture.wrapT=value;}},magFilter:{get:function(){console.warn('THREE.WebGLRenderTarget: .magFilter is now .texture.magFilter.');return this.texture.magFilter;},set:function(value){console.warn('THREE.WebGLRenderTarget: .magFilter is now .texture.magFilter.');this.texture.magFilter=value;}},minFilter:{get:function(){console.warn('THREE.WebGLRenderTarget: .minFilter is now .texture.minFilter.');return this.texture.minFilter;},set:function(value){console.warn('THREE.WebGLRenderTarget: .minFilter is now .texture.minFilter.');this.texture.minFilter=value;}},anisotropy:{get:function(){console.warn('THREE.WebGLRenderTarget: .anisotropy is now .texture.anisotropy.');return this.texture.anisotropy;},set:function(value){console.warn('THREE.WebGLRenderTarget: .anisotropy is now .texture.anisotropy.');this.texture.anisotropy=value;}},offset:{get:function(){console.warn('THREE.WebGLRenderTarget: .offset is now .texture.offset.');return this.texture.offset;},set:function(value){console.warn('THREE.WebGLRenderTarget: .offset is now .texture.offset.');this.texture.offset=value;}},repeat:{get:function(){console.warn('THREE.WebGLRenderTarget: .repeat is now .texture.repeat.');return this.texture.repeat;},set:function(value){console.warn('THREE.WebGLRenderTarget: .repeat is now .texture.repeat.');this.texture.repeat=value;}},format:{get:function(){console.warn('THREE.WebGLRenderTarget: .format is now .texture.format.');return this.texture.format;},set:function(value){console.warn('THREE.WebGLRenderTarget: .format is now .texture.format.');this.texture.format=value;}},type:{get:function(){console.warn('THREE.WebGLRenderTarget: .type is now .texture.type.');return this.texture.type;},set:function(value){console.warn('THREE.WebGLRenderTarget: .type is now .texture.type.');this.texture.type=value;}},generateMipmaps:{get:function(){console.warn('THREE.WebGLRenderTarget: .generateMipmaps is now .texture.generateMipmaps.');return this.texture.generateMipmaps;},set:function(value){console.warn('THREE.WebGLRenderTarget: .generateMipmaps is now .texture.generateMipmaps.');this.texture.generateMipmaps=value;}}});//
 Object.defineProperties(Audio.prototype,{load:{value:function(file){console.warn('THREE.Audio: .load has been deprecated. Use THREE.AudioLoader instead.');var scope=this;var audioLoader=new AudioLoader();audioLoader.load(file,function(buffer){scope.setBuffer(buffer);});return this;}},startTime:{set:function(){console.warn('THREE.Audio: .startTime is now .play( delay ).');}}});AudioAnalyser.prototype.getData=function(){console.warn('THREE.AudioAnalyser: .getData() is now .getFrequencyData().');return this.getFrequencyData();};//
 CubeCamera.prototype.updateCubeMap=function(renderer,scene){console.warn('THREE.CubeCamera: .updateCubeMap() is now .update().');return this.update(renderer,scene);};//
 var GeometryUtils={merge:function(geometry1,geometry2,materialIndexOffset){console.warn('THREE.GeometryUtils: .merge() has been moved to Geometry. Use geometry.merge( geometry2, matrix, materialIndexOffset ) instead.');var matrix;if(geometry2.isMesh){geometry2.matrixAutoUpdate&&geometry2.updateMatrix();matrix=geometry2.matrix;geometry2=geometry2.geometry;}geometry1.merge(geometry2,matrix,materialIndexOffset);},center:function(geometry){console.warn('THREE.GeometryUtils: .center() has been moved to Geometry. Use geometry.center() instead.');return geometry.center();}};ImageUtils.crossOrigin=undefined;ImageUtils.loadTexture=function(url,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTexture has been deprecated. Use THREE.TextureLoader() instead.');var loader=new TextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(url,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadTextureCube=function(urls,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTextureCube has been deprecated. Use THREE.CubeTextureLoader() instead.');var loader=new CubeTextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(urls,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadCompressedTexture=function(){console.error('THREE.ImageUtils.loadCompressedTexture has been removed. Use THREE.DDSLoader instead.');};ImageUtils.loadCompressedTextureCube=function(){console.error('THREE.ImageUtils.loadCompressedTextureCube has been removed. Use THREE.DDSLoader instead.');};//
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been removed');}//
 function JSONLoader(){console.error('THREE.JSONLoader has been removed.');}//
-var SceneUtils={createMultiMaterialObject:function()/* geometry, materials */{console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');},detach:function()/* child, parent, scene */{console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');},attach:function()/* child, scene, parent */{console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');}};//
+var SceneUtils={createMultiMaterialObject:function(){console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');},detach:function(){console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');},attach:function(){console.error('THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js');}};//
 function LensFlare(){console.error('THREE.LensFlare has been moved to /examples/jsm/objects/Lensflare.js');}if(typeof __THREE_DEVTOOLS__!=='undefined'){/* eslint-disable no-undef */__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('register',{detail:{revision:REVISION}}));/* eslint-enable no-undef */}
 
 /***/ }),

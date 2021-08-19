@@ -545,6 +545,20 @@
     }
 }
 
+.w-person {
+    .title {
+        @media only screen and (max-width: 600px){
+            font-size: 26px !important;
+        }
+    }
+
+    .subtitle {
+        @media only screen and (max-width: 600px){
+            font-size: 22px !important;
+        }
+    }
+}
+
 .w-legals {
     .title {
         @media only screen and (max-width: 600px){
@@ -554,6 +568,16 @@
 }
 
 .journal-content {
+    .button {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+
+        .label {
+            margin-right: 0px !important;
+        }
+    }
 
     @media only screen and (max-width: @screen-small) {
         padding-top: 16px !important;

@@ -54,7 +54,7 @@
                   </div>
 
                   {% set name = cycler('Djordje','Satyam','Andrea','Gaby','Ksenija','Filipa','Rita','Saul') %}
-                  {% set area = cycler('ignites <b>ideas</b> with next-generation <b>designs</b>','fuels <b>websites</b> with <b>beautiful</b> code','upgrades <b>concepts</b> with stunning <b>designs</b>','sparks engagement with creative content','expertly manages every detail of finance','cultivates change and fixes client problems','inspires great outcomes with seamless organization','inspires and drives a creative, next-generation vision for KCG') %}
+                  {% set area = cycler('ignites <b>ideas</b> with next-generation <b>designs</b>','fuels <b>websites</b> with <b>beautiful</b> code','upgrades <b>concepts</b> with stunning <b>designs</b>','sparks <b>engagement</b> with creative <b>content</b>','expertly <b>manages</b> every detail of <b>finance</b>','cultivates <b>change</b> and fixes client <b>problems</b>','inspires great <b>outcomes</b> with seamless <b>organization</b>','inspires and drives a <b>creative</b>, next-generation vision for <b>KCG</b>') %}
                   <div class="hint">
                   {% for u in range(0,8) %}
                     <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>

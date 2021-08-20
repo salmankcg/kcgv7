@@ -31182,7 +31182,7 @@ function init() {
     $peopleScramble.on('mouseleave', function () {
       _fxName.setText('the people');
 
-      _fxArea.setText('magic');
+      _fxArea.setText('make the <b>magic</b> happen');
     });
   } else {
     $peopleScramble.on('touchmove', checkPosTouch);

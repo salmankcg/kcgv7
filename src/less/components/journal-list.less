@@ -1,10 +1,8 @@
 .journal-list{
     display: flex;
     position: relative;
-    // margin: 0px -40px;
+    margin: 0px -40px;
     flex-wrap: wrap;
-    // justify-content: space-evenly;
-    justify-content: space-between;
 
     /*------------------*/
     /*--- ATTRIBUTES ---*/
@@ -14,27 +12,18 @@
     /*----------------*/
     /*--- ELEMENTS ---*/
     /*----------------*/
-    
+
 
     .item{
         position: relative;
-        width: 384px;
+        width: 33.333%;
         cursor: pointer;
-        // padding: 0px 40px;
+        padding: 0px 40px;
         margin-bottom: 80px;
-
-        @media only screen and (max-width: 1350px) {
-            width: 30% !important;
-        }
-
-        @media only screen and (max-width: 600px) {
-            width: 100% !important;
-        }
 
         &:hover{
             &:before{
-                // width: ~'calc(80% - 80px)';
-                width: 100%;
+                width: ~'calc(80% - 80px)';
             }
 
             img{
@@ -52,7 +41,7 @@
                 top: 50%;
             }
         }
-        
+
         &[data-color='orange']{
             &:before{ background: @orange; }    
         }
@@ -74,14 +63,15 @@
         }
 
         &:before{
-            width: 100%;
+            .ba;
+            width: ~'calc(100% - 80px)';
             height: 4px;
             transition: .5s all @custom;
             .centerHoriz;
             bottom: 0px;
         }
     }
-    
+
     img{
         width: 100%;
         height: 250px;
@@ -106,7 +96,7 @@
         img{
             margin-bottom: 0px;
         }
-        
+
     }
 
     .jl-pointer{
@@ -191,4 +181,4 @@
 
     @media( max-width: @screen-xsmall ){
     }
-}
+} 

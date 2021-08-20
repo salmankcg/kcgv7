@@ -18,6 +18,14 @@
         flex-direction: column;
     }
 
+    &.w-giving {
+        padding-top: 170px;
+        height: 410px;
+        min-height: auto;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
     &.w-journal {
         height: 380px;
     }
@@ -329,6 +337,16 @@
             }
         }
 
+        &.w-giving{
+            height: 360px;
+
+            .title{
+                br{
+                    display: none;
+                }
+            }
+        }
+
         &.w-work{
             padding-top: 120px;
             height: 250px;
@@ -410,9 +428,14 @@
     }
 
     @media( max-width: @screen-small ){
-        &.w-about, &.w-works, &.w-journal {
+        &.w-about, &.w-works{
             height: 310px;
             padding-top: 120px;
+        }
+
+        &.w-journal {
+            height: 210px;
+            padding-top: 130px;
         }
 
         &.w-approach{
@@ -516,6 +539,16 @@
                width: 100%;
                padding: 0px 30px;
            }
+        }
+
+        &.w-giving{
+            height: 360px;
+
+            .title{
+                br{
+                    display: none;
+                }
+            }
         }
     }
 

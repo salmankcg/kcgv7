@@ -1141,7 +1141,6 @@
             &.is-stratetgy{
                 float: right;
                 width: 100%;
-                // bottom: -31%;
 
                 img{
                     object-position: right;
@@ -1149,19 +1148,22 @@
             }
 
             &.is-product{
-                transform: translateX(0px) rotateY(180deg);
                 left: -20vw;
+
+                img{
+                    transform: translateX(0px) rotateY(180deg);
+                }
             }
 
             &.is-marketing{
-                transform: translateX(0px) rotateY(180deg);
+
                 top: -80px;
                 left: -22vw;
 
                 img{
                     object-position: center;
                     width: 80%;
-                    transform: translateY(10vh) translateX(20vw) rotate(-35deg);
+                    transform: translateY(10vh) translateX(0px) rotate(45deg) rotateY(190deg);
                 }
             }
         }
@@ -1408,6 +1410,22 @@
                         line-height: 40px;
                     }
             
+                }
+            }
+
+            .image-services{
+
+    
+                &.is-product{
+                    left: -90px;
+                }
+    
+                &.is-marketing{
+                    top: -10px;
+    
+                    img{
+                        transform: translateY(0vh) translateX(0px) rotate(35deg) rotateY(180deg);
+                    }
                 }
             }
         }

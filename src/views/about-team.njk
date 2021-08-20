@@ -20,16 +20,22 @@
     <div class="webdoor w-team">
 
       <div class="submenu sb-white">
-        <a href="about.html" class="item"><span>ABOUT</span></a>
-        <a href="about-mission.html" class="item" ><span>MISSION</span></a>
-        <a href="about-team.html" class="item active" ><span>TEAM</span></a>
-        <a href="about-giving.html" class="item" ><span>GIVING</span></a>
+        <div class="item sb-button">
+          <div class="svg i-close"></div>
+          <div class="svg i-open"></div>
+        </div>
+        <div class="sb-wrapper">
+          <a href="about.html" class="item"><span>ABOUT</span></a>
+          <a href="about-mission.html" class="item" ><span>MISSION</span></a>
+          <a href="about-team.html" class="item active" ><span>TEAM</span></a>
+          <a href="about-giving.html" class="item" ><span>GIVING</span></a>
+        </div>
       </div>
 
       <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col col-5">
-              <h1 class="title t-medium t-people" >Meet <span class="name">the people</span> who <span class="area">make the magic happen</span></h1>
+              <h1 class="title t-medium t-people" >Meet <span class="name">the people</span> who <span class="area">make the <b>magic</b> happen</span></h1>
               <a href="about-person.html" class="button b-black">
                 <div class="wrapper">
                   <span class="text">MEET OUR TEAM</span>
@@ -48,7 +54,7 @@
                   </div>
 
                   {% set name = cycler('Djordje','Satyam','Andrea','Gaby','Ksenija','Filipa','Rita','Saul') %}
-                  {% set area = cycler('ignites ideas with next-generation designs','fuels websites with beautiful code','upgrades concepts with stunning designs','sparks engagement with creative content','expertly manages every detail of finance','cultivates change and fixes client problems','inspires great outcomes with seamless organization','inspires and drives a creative, next-generation vision for KCG') %}
+                  {% set area = cycler('ignites <b>ideas</b> with next-generation <b>designs</b>','fuels <b>websites</b> with <b>beautiful</b> code','upgrades <b>concepts</b> with stunning <b>designs</b>','sparks engagement with creative content','expertly manages every detail of finance','cultivates change and fixes client problems','inspires great outcomes with seamless organization','inspires and drives a creative, next-generation vision for KCG') %}
                   <div class="hint">
                   {% for u in range(0,8) %}
                     <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>
@@ -72,10 +78,10 @@
           <div class="row justify-content-center">
             <div class="col col-10">
               <div class="people">
-                {% set image = cycler(4,1,3,2,5,6,7,8) %}
-                {% set name = cycler('Saul Tesser','Ksenija','Gaby','Andrea','Djordje','Satyam','Thiago Mota','Kate Gwinnett') %}
-                {% set occupation = cycler('Founder & CEO','Finance Manager','Copy','Designer', 'Designer', 'Developer', 'Designer', 'Head of Instructional Design') %}
-                {% set link = cycler('saul','ksenija','gaby','andrea', 'djordje', 'satyam', 'thiago', 'kate') %}
+                {% set image = cycler(1,3,4,2,5,6,7,8) %}
+                {% set name = cycler('Ksenija Prijovic','Gaby Brogan','Saul Tesser','Andrea Djordjevic','Djordje','Satyam Dwivedi','Thiago Mota','Kate Gwinnett') %}
+                {% set occupation = cycler('CFO','Head of Content','CEO','Graphic & Web Designer', 'Designer', 'Developer', 'Designer', 'Head of Instructional Design') %}
+                {% set link = cycler('ksenija','gaby','saul','andrea', 'djordje', 'satyam', 'thiago', 'kate') %}
                       
                 {% for u in range(0,12) %}
                 <a href="about-p-{{link.next()}}.html" class="item">

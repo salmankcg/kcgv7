@@ -24648,56 +24648,56 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       break;
 
     case 'about':
-      _pages_about__WEBPACK_IMPORTED_MODULE_5__["init"](); // PageLoad.hide();
+      _pages_about__WEBPACK_IMPORTED_MODULE_5__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'about-mission':
-      _pages_about_approach__WEBPACK_IMPORTED_MODULE_6__["init"](); // PageLoad.hide();
+      _pages_about_approach__WEBPACK_IMPORTED_MODULE_6__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'about-team':
-      _pages_about_team__WEBPACK_IMPORTED_MODULE_7__["init"](); // PageLoad.hide();
+      _pages_about_team__WEBPACK_IMPORTED_MODULE_7__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'works':
-      _pages_works__WEBPACK_IMPORTED_MODULE_8__["init"](); // PageLoad.hide();
+      _pages_works__WEBPACK_IMPORTED_MODULE_8__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'work':
-      _pages_work__WEBPACK_IMPORTED_MODULE_9__["init"](); // PageLoad.hide();
+      _pages_work__WEBPACK_IMPORTED_MODULE_9__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'contact':
-      _pages_contact__WEBPACK_IMPORTED_MODULE_10__["init"](); // PageLoad.hide();
+      _pages_contact__WEBPACK_IMPORTED_MODULE_10__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'services':
-      _pages_services__WEBPACK_IMPORTED_MODULE_11__["init"](); // PageLoad.hide();
+      _pages_services__WEBPACK_IMPORTED_MODULE_11__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     case 'service':
-      _pages_service__WEBPACK_IMPORTED_MODULE_12__["init"](); // PageLoad.hide();
+      _pages_service__WEBPACK_IMPORTED_MODULE_12__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
       break;
 
     default:
-      // PageLoad.hide();
-      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
+
       break;
   }
 
@@ -30887,10 +30887,12 @@ function setFirstLoader() {
 
 function hide() {
   _components_loader__WEBPACK_IMPORTED_MODULE_2__["hide"]();
-  $menu.trigger('enter').addClass('motion-in');
-  $header.addClass('motion-in');
-  $cont.find('> *').trigger('enter').addClass('motion-in');
-  activeMenus(_dataPage);
+  setTimeout(function () {
+    $menu.trigger('enter').addClass('motion-in');
+    $header.addClass('motion-in');
+    $cont.find('> *').trigger('enter').addClass('motion-in');
+    activeMenus(_dataPage);
+  }, 1000);
 }
 
 function activeMenus(page) {

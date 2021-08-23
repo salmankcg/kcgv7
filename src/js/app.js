@@ -53,47 +53,47 @@ $(function() {
         break;
         case 'about':
             About.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'about-mission':
             Approach.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'about-team':
             Team.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'works':
             Works.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'work':
             Work.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'contact':
             Contact.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'services':
             Services.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         case 'service':
             Service.init();
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
         break;
         default:
-            // PageLoad.hide();
-            PageLoad.init();
+            PageLoad.hide();
+            // PageLoad.init();
             break;
     }
 

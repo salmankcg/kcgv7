@@ -94,12 +94,14 @@ function setFirstLoader(){
 
 function hide(){
 	Loader.hide();
-			
-	$menu.trigger('enter').addClass('motion-in');
-	$header.addClass('motion-in');
-	$cont.find('> *').trigger('enter').addClass('motion-in');
+	
+	setTimeout(function(){
+		$menu.trigger('enter').addClass('motion-in');
+		$header.addClass('motion-in');
+		$cont.find('> *').trigger('enter').addClass('motion-in');
 
-	activeMenus(_dataPage);
+		activeMenus(_dataPage);
+	}, 1000);
 }
 
 function activeMenus(page){

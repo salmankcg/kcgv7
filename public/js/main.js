@@ -33985,14 +33985,10 @@ function init() {
 
 function resize() {
   $pages.find('.infos').height(window.innerHeight);
-
-  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() > 500) {
-    $pages.find('.circle').css({
-      'width': window.innerHeight / 1.8,
-      'height': window.innerHeight / 1.8
-    });
-  }
-
+  $pages.find('.circle').css({
+    'width': window.innerHeight / 1.8,
+    'height': window.innerHeight / 1.8
+  });
   _components_earth__WEBPACK_IMPORTED_MODULE_1__["resize"]();
 } // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\

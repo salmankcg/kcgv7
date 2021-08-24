@@ -1,0 +1,185 @@
+.press-list{
+    position: relative;
+    margin: 0px -40px;
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+    .item{
+        position: relative;
+        width: 33.333%;
+        cursor: pointer;
+        margin-bottom: 80px;
+
+        &:hover{
+            .line{
+                &:before{
+                    width: 80%;
+                }
+            }
+            .p-title{
+                opacity: .5;
+            }
+
+            .paragraph{
+                opacity: .5;
+            }
+        }
+
+
+        &[data-type='link']{
+            .line{ 
+                &:before{
+                    background: @yellow; 
+                }
+            }
+        }
+
+        &[data-type='twitter']{
+            .line{ 
+                &:before{
+                    background: @blue; 
+                }
+            }
+        }
+
+        &[data-type='linkedin']{
+            .line{ 
+                &:before{
+                    background: @blueDark; 
+                }
+            }
+        }
+
+        &[data-type='instagram']{
+            .line{ 
+                &:before{
+                    background: @purple; 
+                }
+            }
+        }
+   
+    }
+
+    .i-wrapper{
+        padding: 0px 30px;
+        position: relative;
+        width: 100%;
+    }
+
+    img{
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        transition: .5s all @custom;
+    }
+
+    .line{
+        position: relative;
+        width: 100%;
+        height: 4px;
+        margin: 10px 0px;
+
+        &:before{
+            .ba;
+            width: 100%;
+            height: 100%;
+            transition: .5s all @custom;
+            .centerHoriz;
+        }
+    }
+
+    .infos{
+        position: relative;
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    .author{
+        .blackerBk;
+        font-size: 18px;
+        color: @gray;
+        margin-bottom: 10px;
+    }
+
+    .info-wrapper{
+        display: flex;
+        font-size: 14px;
+        color: rgba(0,0,0,.8);
+        .blackerLt;
+    }
+
+    .category{
+        .blackerBd;
+        font-size: 16px;
+        text-transform: uppercase;
+        margin-right: 10px;
+    }
+
+    .time{
+        margin-left: 10px;
+    }
+
+    .p-title{
+        .blackerBd;
+        font-size: 28px;
+        color: @gray;
+        line-height: 36px;
+        height: auto;
+        transition: .5s all @custom;
+        margin-bottom: 20px;
+    }
+
+    .paragraph{
+        transition: .5s all @custom;        
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-big ){
+        .p-title{
+            font-size: 18px;
+            line-height: 26px;
+        }
+    }
+
+    @media( max-width: @screen-large){
+
+        .item{
+            width: 50%;
+            margin: 0px;
+            margin-bottom: 80px;
+        }
+
+        .p-title{
+            font-size: 24px;
+            line-height: 30px;
+        }
+    }
+
+    @media( max-width: @screen-small ){
+        margin: 0px;
+
+        .item{
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .i-wrapper{
+            padding: 0px;
+        }
+
+        .p-title{
+            font-size: 18px;
+            line-height: 25px;
+        }
+    }
+} 

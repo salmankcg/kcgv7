@@ -16,6 +16,7 @@ import * as Work        from './pages/work';
 import * as Contact     from './pages/contact';
 import * as Services    from './pages/services';
 import * as Service     from './pages/service';
+import * as Press       from './pages/press';
 
 import  './components/button';
 import  './components/footer';
@@ -88,6 +89,11 @@ $(function() {
         break;
         case 'service':
             Service.init();
+            PageLoad.hide();
+            // PageLoad.init();
+        break;
+        case 'press':
+            Press.init();
             PageLoad.hide();
             // PageLoad.init();
         break;

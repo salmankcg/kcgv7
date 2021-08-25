@@ -2,15 +2,13 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-
+import gsap from "gsap";
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 var $subMenu       	= $('.submenu');
-
-// var $new
 
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
@@ -31,30 +29,19 @@ if($subMenu.length){
             $($this).addClass('open-submenu');
         }
     });
-    // console.log($subMenu)
 
-	// $(window).on('scroll.header', onScroll);
-	// $(window).on('resize', onResize);
-	// onScroll();
+    $('.submenu').find('.active').on('click',function(){
+        gsap.to(window, 1, {scrollTo: {y: 0 , ease: 'Power3.easeOut'}});
+    });
+
 }
-
-
 
 // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
 
-
-
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
-function onResize(){
-	
-}
 
-function onScroll(){
-	
-
-}
 

@@ -70,9 +70,7 @@ function init(){
 function resize() {
     
     $pages.find('.infos').height(window.innerHeight);
-
     $pages.find('.circle').css({'width':window.innerHeight/1.8, 'height':window.innerHeight/1.8});
-    
     Earth.resize();
 }
 

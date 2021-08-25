@@ -99,23 +99,14 @@ function onScroll(){
 			
 		break;
 		case 'contact':
-			$header.addClass('h-white');
+			if(scrollTop + wHeight >= dHeight - _headerH){
+				$header.removeClass('h-white');
+			}else{
+				$header.addClass('h-white');
+			}
 		break;
 		case 'services':
-			// var _scTop = $('.sc-clients').offset().top;
-
-			// if(scrollTop >= _scTop - _headerH){
-			// 	if(scrollTop + wHeight >= dHeight - _headerH){
-			// 		$header.addClass('h-white');
-			// 	}else{
-			// 		$header.removeClass('h-white');
-			// 	}
-
-			// }else{
-			// 	if(!$header.hasClass('check-header')){
-			// 		$header.addClass('h-white');
-			// 	}
-			// }
+			
 		break;
 		case 'service':
 			

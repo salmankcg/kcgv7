@@ -1,20 +1,10 @@
 .legals-content{
     padding: 120px 0px;
-    padding-top: 60px;
     position: relative;
     display: block;
-
-    .legal-title {
-        font-size: 22px;
-        line-height: 30px;
-        font-weight: 400;
-        letter-spacing: 0.04em;
-        color: #141515;
-        padding-bottom: 5px;
-    }
-
+    background-color: @white;
+    z-index: 2;
     
-
     /*------------------*/
     /*--- ATTRIBUTES ---*/
     /*------------------*/
@@ -24,15 +14,20 @@
     /*----------------*/
     /*--- ELEMENTS ---*/
     /*----------------*/
-   
+    .legal-title {
+        font-size: 22px;
+        line-height: 30px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: #141515;
+        padding-bottom: 5px;
+    }
+
 
 
     /*------------------*/
     /*--- RESPONSIVE ---*/
     /*------------------*/
-    @media( max-width: @screen-large){
-        
-    }
 
     @media( max-width: @screen-small ){
         .row{
@@ -44,6 +39,4 @@
         }
     }
 
-    @media( max-width: @screen-xsmall ){
-    }
 }

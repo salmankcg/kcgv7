@@ -27796,11 +27796,9 @@ if ($footer.length) {
     });
   });
   wHeight = window.innerHeight;
-  dHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).height(); // $(window).on('scroll.footer', onScroll);
-
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('resize', onResize); // onScroll();
-
-  onResize(); // $footer.addClass('motion-in-1').addClass('motion-in-2').addClass('motion-in-3');
+  dHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).height();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('resize', onResize);
+  onResize();
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
@@ -27814,30 +27812,7 @@ function onResize() {
   });
 } // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
-// // ----------------------------------------- \\\
-// function onScroll(){
-// 	wHeight = window.innerHeight;
-// 	dHeight = $(document).height();
-// 	var scrollTop 		= $(window).scrollTop();
-// 	//Scroll no bottom da página
-// 	if (scrollTop + wHeight >= dHeight- (wHeight/2)) {
-// 		$footer.addClass('motion-in-1');
-// 	} else{
-// 		$footer.removeClass('motion-in-1');
-// 	}
-// 	if (scrollTop + wHeight >= dHeight - (wHeight/3)) {
-// 		$footer.addClass('motion-in-2');
-// 	} else{
-// 		$footer.removeClass('motion-in-2');
-// 	}
-// 	if (scrollTop + wHeight >= dHeight) {
-// 		$footer.addClass('motion-in-3');
-// 		$header.addClass('show-logo');
-// 	}else{
-// 		$footer.removeClass('motion-in-3');
-// 		$header.removeClass('show-logo');
-// 	}
-// }
+// ----------------------------------------- \\\
 
 /***/ }),
 
@@ -27994,22 +27969,15 @@ function onScroll() {
       break;
 
     case 'contact':
-      $header.addClass('h-white');
+      if (scrollTop + wHeight >= dHeight - _headerH) {
+        $header.removeClass('h-white');
+      } else {
+        $header.addClass('h-white');
+      }
+
       break;
 
     case 'services':
-      // var _scTop = $('.sc-clients').offset().top;
-      // if(scrollTop >= _scTop - _headerH){
-      // 	if(scrollTop + wHeight >= dHeight - _headerH){
-      // 		$header.addClass('h-white');
-      // 	}else{
-      // 		$header.removeClass('h-white');
-      // 	}
-      // }else{
-      // 	if(!$header.hasClass('check-header')){
-      // 		$header.addClass('h-white');
-      // 	}
-      // }
       break;
 
     case 'service':
@@ -28432,15 +28400,16 @@ function smoothScroll() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
+
  // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $subMenu = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu'); // var $new
-// ----------------------------------------- \\\
+var $subMenu = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu'); // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
@@ -28457,21 +28426,21 @@ if ($subMenu.length) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()($this).find('.sb-wrapper').slideDown();
       jquery__WEBPACK_IMPORTED_MODULE_0___default()($this).addClass('open-submenu');
     }
-  }); // console.log($subMenu)
-  // $(window).on('scroll.header', onScroll);
-  // $(window).on('resize', onResize);
-  // onScroll();
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').find('.active').on('click', function () {
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].to(window, 1, {
+      scrollTo: {
+        y: 0,
+        ease: 'Power3.easeOut'
+      }
+    });
+  });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
-
-
-function onResize() {}
-
-function onScroll() {}
 
 /***/ }),
 

@@ -28434,6 +28434,8 @@ if ($subMenu.length) {
         ease: 'Power3.easeOut'
       }
     });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').find('.sb-wrapper').slideUp();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('open-submenu');
   });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\

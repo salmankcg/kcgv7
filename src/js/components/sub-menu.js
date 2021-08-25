@@ -32,6 +32,8 @@ if($subMenu.length){
 
     $('.submenu').find('.active').on('click',function(){
         gsap.to(window, 1, {scrollTo: {y: 0 , ease: 'Power3.easeOut'}});
+        $('.submenu').find('.sb-wrapper').slideUp();
+        $('.submenu').removeClass('open-submenu');
     });
 
 }

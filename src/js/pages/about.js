@@ -17,6 +17,27 @@ var $highlights     = $('.highlights');
 let h               = window.innerHeight
 let $footer         = $('footer.footer')
 
+let _countNA        = 0;
+let _countSA        = 0;
+let _countEU        = 0;
+let _countAF        = 0;
+let _countAS        = 0;
+let _countOC        = 0;
+
+let _nhtAmerica     = ['1','2','3','4','5'];
+let _sthAmerica     = ['1','2','3','4'];
+let _europe         = ['1','2','3','4'];
+let _africa         = ['1','2','3'];
+let _asia           = ['1','2','3'];
+let _oceania        = ['1','2','3'];
+
+let _shuNhtA        = _nhtAmerica.sort(() => 0.5 - Math.random());
+let _shuShtA        = _sthAmerica.sort(() => 0.5 - Math.random());
+let _shuEu          = _europe.sort(() => 0.5 - Math.random());
+let _shuAf          = _africa.sort(() => 0.5 - Math.random());
+let _shuAs          = _asia.sort(() => 0.5 - Math.random());
+let _shuOc          = _oceania.sort(() => 0.5 - Math.random());
+
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
@@ -60,46 +81,37 @@ function addPopPeople(){
     });
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function scramblePos(_this, _place){
-    var _posY = 0//getRandomInt(1, _inneHeight);
-    var _posX = 0//getRandomInt(1, _inneWidth);
-
-    var _random = getRandomInt(1, 3);
     var _class = null;
-
-    var _arrayNorth = ['1','2', '3'];
-    const shuffled  = _arrayNorth.sort(() => 0.5 - Math.random());
-    let selected    = shuffled.slice(0, 1);
-
 
     switch(_place){
         case 'north-america':
-            _class = 'north-america-'+_random;
+            _class = 'north-america-'+_shuNhtA[_countNA];
+            _countNA ++;
         break;
         case 'south-america':
-            _class = 'south-america-'+_random;
+            _class = 'south-america-'+_shuShtA[_countSA];
+            _countSA ++;
         break;
         case 'europe':
-            _class = 'europe-'+_random;
+            _class = 'europe-'+_shuEu[_countEU];
+            _countEU ++;
         break;
         case 'asia':
-            _class = 'asia-'+_random;
+            _class = 'asia-'+_shuAs[_countAS];
+            _countAS ++;
         break;
         case 'africa':
-            _class = 'africa-'+_random;
+            _class = 'africa-'+_shuAf[_countAF];
+            _countAF ++;
         break;
         case 'oceania':
-            _class = 'oceania-'+_random;
+            _class = 'oceania-'+_shuOc[_countOC];
+            _countOC ++;
         break;
     }
     $(_this).addClass(_class);
-
-    // console.log(_random);
-
     motionIn(_this, _class);
 }
 
@@ -111,13 +123,9 @@ function motionIn(_this, _class){
 
     new TimelineMax({onComplete:function(){
         TweenMax.killTweensOf($figure);
-        // setTimeout(function(){
-            // $item.removeClass(_class);
-            // scramblePos($item);
-        // }, 1000);
     }})
     .add([TweenMax.to($figure, 5, {scale: 1, ease: 'Elastic.easeOut'})])
-    // .add([TweenMax.to($figure, .5, {scale: 0, ease: 'Power3.easeOut'})],20)
+
       
 }
 

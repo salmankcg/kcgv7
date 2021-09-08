@@ -16,7 +16,7 @@ import * as Work        from './pages/work';
 import * as Contact     from './pages/contact';
 import * as Services    from './pages/services';
 import * as Service     from './pages/service';
-import * as Press       from './pages/press';
+import * as Buzz       from './pages/buzz';
 
 import  './components/button';
 import  './components/footer';
@@ -26,6 +26,8 @@ import  "./components/testimonial";
 // import  "./components/services-items";
 import  "./components/about-scramble";
 import  "./components/smooth-scroll";
+import  "./components/gallery";
+import  "./components/video";
 
 
 
@@ -45,7 +47,9 @@ $(function() {
     'use strict';
 
     // console.log('INIT');
-    
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
 
     switch(_pages){
         case 'home':
@@ -92,8 +96,8 @@ $(function() {
             PageLoad.hide();
             // PageLoad.init();
         break;
-        case 'press':
-            Press.init();
+        case 'buzz':
+            Buzz.init();
             PageLoad.hide();
             // PageLoad.init();
         break;

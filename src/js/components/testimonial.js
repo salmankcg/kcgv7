@@ -18,7 +18,7 @@ if($testimonial.length){
   $testimonial.find('.slides').slick({
     infinite        : true,
     lazyLoad        : 'ondemand',
-    slidesToShow	: 3,
+    slidesToShow	  : 3,
     slidesToScroll	: 1,
     arrows          : false,
     dots            : true,

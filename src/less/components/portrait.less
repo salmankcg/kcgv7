@@ -1,0 +1,113 @@
+.portrait{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+   
+  
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .p-wrapper{
+        width: 500px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .icon{
+        width: 80px;
+        height: 80px;
+        .bg('ico-portrait.svg');
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+
+    .text{
+        .blackerLt;
+        font-size: 18px;
+        text-align: center;
+        color: @white;
+    }
+
+    .background{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 100%;
+        transition: .5s all @custom;
+        overflow: hidden;
+        background: @blue;
+        display: block;
+        animation: gradient2 5s linear infinite;
+
+        &:before{
+            .ba;
+            .centerBoth;
+            width: 150rem;
+            height: 150rem;
+            border-radius: 100%;
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+            background:             
+                linear-gradient(45deg, rgba(117, 217, 243, .7) 0%, rgba(117, 217, 243, 0) 50%),
+                linear-gradient(225deg, rgba(251, 199, 89, .7) 0%, rgba(251, 199, 89, 0) 50%),
+                linear-gradient(90deg, rgba(178, 126, 228, .7) 0%, rgba(178, 126, 228, 0) 50%),
+                linear-gradient(135deg, rgba(45, 50, 148, .7) 0%,  rgba(45, 50, 148, 0) 50%),
+                linear-gradient(180deg, rgba(251, 103, 87, .7) 0%, rgba(251, 103, 87, 0) 50%);
+            animation: gradient 30s linear infinite;
+        }
+    }
+
+    @keyframes gradient { 
+        0% {
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+        }
+        50% {
+            transform: translate(-50%,-50%) rotate(180deg) scale(1.4);
+        }
+        100% {
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+        }
+    }
+
+    @keyframes gradient2 { 
+        0% {
+            background: @green;
+        }
+        25% {
+            background: @yellow;
+        }
+        50% {
+            background: @orange;
+        }
+        75% {
+            background: @yellow;
+        }
+        100% {
+            background: @green;
+        }
+    }
+   
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3)
+    and (orientation: landscape) { 
+        display: flex;
+    }
+        
+}

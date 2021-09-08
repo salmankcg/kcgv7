@@ -19,9 +19,14 @@
         background-color: initial;
 
         &:first-of-type{
-            .container-fluid{
-                margin-top: 80px;
-            }    
+            // .container-fluid{
+            //     margin-top: 80px;
+            // }    
+
+            .infos{
+                padding-top: 170px;
+                justify-content: flex-start;
+            }
         }
         
         .container-fluid{
@@ -440,6 +445,15 @@
         &.i-hAuto{
             height: auto;
             z-index: 2;
+
+            .paragraph{
+                width: 100%;
+            }
+
+            .caption{
+                width: auto;
+                padding-right: 20px;
+            }
         }
 
         &.i-service{
@@ -449,6 +463,8 @@
                 height: 90%;
             }
         }
+
+        
     }
 
     .list{

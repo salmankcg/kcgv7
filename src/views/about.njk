@@ -30,7 +30,10 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col col-10">
-          <h1 class="title t-medium t-center"><strong>We are world-class strategic<br>transformation agency commited to<br>help our clients build a better world.</strong></h1>
+          <div class="caption c-center">
+            <span>About us</span>
+          </div>
+          <h1 class="title t-medium t-center"><strong>We find the world’s best talent,<br>committed to help our clients<br>build a better world.</strong></h1>
         </div>
       </div>
     </div>
@@ -42,30 +45,79 @@
     </div>
     <div class="aw-people">
       <div class="aw-content">
-        <div class="item" data-place="south-america">
-          <img src="assets/about/person-1.png" alt="" />
-        </div>
-        <div class="item" data-place="north-america">
-          <img src="assets/about/person-2.png" alt="" />
+        <div class="item" data-place="europe">
+          <img src="assets/about/people/alice.png" alt="" />
         </div>
         <div class="item" data-place="europe">
-          <img src="assets/about/person-3.png" alt="" />
+          <img src="assets/about/people/cecilia.png" alt="" />
         </div>
-        <div class="item" data-place="asia">
-          <img src="assets/about/person-4.png" alt="" />
+        <div class="item" data-place="europe">
+          <img src="assets/about/people/cem.png" alt="" />
+        </div>
+        <div class="item" data-place="europe">
+          <img src="assets/about/people/kate.png" alt="" />
+        </div>
+        
+
+        <div class="item" data-place="north-america">
+          <img src="assets/about/people/liviu.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/people/andrea.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/people/djordje.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/people/saul.png" alt="" />
+        </div>
+        <div class="item" data-place="north-america">
+          <img src="assets/about/people/praveen.png" alt="" />
+        </div>
+        
+        <div class="item" data-place="oceania">
+          <img src="assets/about/people/ksenija.png" alt="" />
         </div>
         <div class="item" data-place="oceania">
-          <img src="assets/about/person-5.png" alt="" />
+          <img src="assets/about/people/nicolai.png" alt="" />
         </div>
-        <div class="item" data-place="north-america">
-          <img src="assets/about/person-6.png" alt="" />
+        <div class="item" data-place="oceania">
+          <img src="assets/about/people/satyam.png" alt="" />
         </div>
-        <div class="item" data-place="europe">
-          <img src="assets/about/person-7.png" alt="" />
+
+        <div class="item" data-place="south-america">
+          <img src="assets/about/people/thiago.png" alt="" />
+        </div>
+        <div class="item" data-place="south-america">
+          <img src="assets/about/people/luiz.png" alt="" />
+        </div>
+        <div class="item" data-place="south-america">
+          <img src="assets/about/people/nazifa.png" alt="" />
+        </div>
+        <div class="item" data-place="south-america">
+          <img src="assets/about/people/nathan.png" alt="" />
+        </div>
+        
+        <div class="item" data-place="africa">
+          <img src="assets/about/people/filipa.png" alt="" />
+        </div>
+        <div class="item" data-place="africa">
+          <img src="assets/about/people/gabrielle.png" alt="" />
+        </div>
+        <div class="item" data-place="africa">
+          <img src="assets/about/people/rita.png" alt="" />
+        </div>
+
+        <div class="item" data-place="asia">
+          <img src="assets/about/people/russel.png" alt="" />
         </div>
         <div class="item" data-place="asia">
-          <img src="assets/about/person-8.png" alt="" />
+          <img src="assets/about/people/salman.png" alt="" />
         </div>
+        <div class="item" data-place="asia">
+          <img src="assets/about/people/waqas.png" alt="" />
+        </div>
+        
       </div>
     </div>
   </div>
@@ -258,7 +310,7 @@
               <div class="h-text">
                 <div class="caption c-white"><span>WHAT WE DO</span></div>
                 <h2 class="title t-small t-white">We provide a full <strong>range of services</strong> to help your reach your goals</h2>
-                <a href="" class="button b-white">
+                <a href="services.html" class="button b-white">
                   <div class="wrapper">
                     <span class="text">OUR SERVICES</span>
                   </div>
@@ -272,7 +324,7 @@
               <div class="h-text">
                 <div class="caption c-white"><span>How we do it</span></div>
                 <h2 class="title t-small t-white">Our <strong>innovative approach</strong> is centered around your business’s lifecycle</h2>
-                <a href="about-approach.html" class="button">
+                <a href="about-mission.html" class="button">
                   <div class="wrapper b-white">
                     <span class="text">OUR MISSION</span>
                   </div>
@@ -284,8 +336,8 @@
             </div>
             <div class="item">
               <div class="h-text">
-                <div class="caption c-white"><span>Who Make it</span></div>
-                <h2 class="title t-small t-white">A <strong>global team</strong> commited to help our clients build a better world.</h2>
+                <div class="caption c-white"><span>WHO MAKES IT</span></div>
+                <h2 class="title t-small t-white">A <strong>global team</strong> commited to help our clients build a <strong>better world</strong>.</h2>
                 <a href="about-team.html" class="button b-white">
                   <div class="wrapper">
                     <span class="text">Meet Our Team</span>
@@ -296,18 +348,20 @@
               <div class="people-scramble ps-services">
                 <div class="wrapper">
 
-                  {% set image = cycler(12,3,10,4,7,6,8,1) %}
                   <div class="images">
-                  {% for u in range(0,8) %}
-                    <figure data-target="{{u}}" style="background-image:url(assets/about/person-{{image.next()}}.png);"></figure>
-                  {% endfor %}
+                    <figure data-target="0" style="background-image:url(assets/about/people/rita.png);"></figure>
+                    <figure data-target="1" style="background-image:url(assets/about/people/gabrielle.png);"></figure>
+                    <figure data-target="2" style="background-image:url(assets/about/people/filipa.png);"></figure>
+                    <figure data-target="3" style="background-image:url(assets/about/people/saul.png);"></figure>
+                    <figure data-target="4" style="background-image:url(assets/about/people/thiago.png);"></figure>
+                    <figure data-target="5" style="background-image:url(assets/about/people/satyam.png);"></figure>
+                    <figure data-target="6" style="background-image:url(assets/about/people/kate.png);"></figure>
+                    <figure data-target="7" style="background-image:url(assets/about/people/ksenija.png);"></figure>
                   </div>
 
-                  {% set name = cycler('Saul','Aline','Alex','Phillip','Paul','Marcus','Philipa','Brad') %}
-                  {% set area = cycler('design','photography','development','management','quality','copy','lorem','lorem') %}
                   <div class="hint">
                   {% for u in range(0,8) %}
-                    <div class="item" data-target="{{u}}" data-name="{{name.next()}}" data-area="{{area.next()}}" data-link=""></div>
+                    <div class="item" data-target="{{u}}"></div>
                   {% endfor %}
                   </div>
 
@@ -334,7 +388,7 @@
           <div class="caption">
             <span>Things we did</span>
 
-            <a href="journal.html" class="button b-black b-icon d-none d-sm-block">
+            <a href="journal.html" class="button b-black b-icon">
               <div class="label">SEE ALL</div>
               <div class="wrapper">
                 <div class="arrow svg a-right"></div>

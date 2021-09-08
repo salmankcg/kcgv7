@@ -26963,7 +26963,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_contact__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/contact */ "./src/js/pages/contact.js");
 /* harmony import */ var _pages_services__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/services */ "./src/js/pages/services.js");
 /* harmony import */ var _pages_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/service */ "./src/js/pages/service.js");
-/* harmony import */ var _pages_press__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/press */ "./src/js/pages/press.js");
+/* harmony import */ var _pages_buzz__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/buzz */ "./src/js/pages/buzz.js");
 /* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
 /* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
 /* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
@@ -26971,6 +26971,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
 /* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
 /* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
+/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
+/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
@@ -26995,6 +26997,8 @@ __webpack_require__.r(__webpack_exports__);
  // import  "./components/services-items";
 
 
+
+
  // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
@@ -27006,6 +27010,10 @@ const _pages = jquery__WEBPACK_IMPORTED_MODULE_0___default()('main').data('page'
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   'use strict'; // console.log('INIT');
+
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
 
   switch (_pages) {
     case 'home':
@@ -27061,8 +27069,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
       break;
 
-    case 'press':
-      _pages_press__WEBPACK_IMPORTED_MODULE_13__["init"]();
+    case 'buzz':
+      _pages_buzz__WEBPACK_IMPORTED_MODULE_13__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
@@ -27594,7 +27602,7 @@ async function init() {
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
   document.getElementById("canvas").appendChild(renderer.domElement);
-  scene = await loadObject("assets/earth_and_water.json");
+  scene = await loadObject("assets/earth/earth_and_water.json");
   scene.fog = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["Fog"](0x000000, 1500, 2100);
   const textureLoader = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["TextureLoader"]();
   group = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["Group"]();
@@ -27860,6 +27868,52 @@ function init(_element) {
 
 /***/ }),
 
+/***/ "./src/js/components/gallery.js":
+/*!**************************************!*\
+  !*** ./src/js/components/gallery.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_1__);
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $gallery = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.gallery'); // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+if ($gallery.length) {
+  var $slides = $gallery.find('.slides');
+  $slides.slick({
+    arrows: false,
+    dots: true,
+    infinite: false,
+    padding: '120px' // variableWidth   : true,
+
+  });
+  $gallery.find('.t-prev').on('click', function () {
+    $slides.slick('slickPrev');
+  });
+  $gallery.find('.t-next').on('click', function () {
+    $slides.slick('slickNext');
+  });
+} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+
+/***/ }),
+
 /***/ "./src/js/components/header.js":
 /*!*************************************!*\
   !*** ./src/js/components/header.js ***!
@@ -27924,20 +27978,15 @@ function onScroll() {
 
   switch (_dataPage) {
     case 'home':
-      // if(scrollTop + wHeight >= dHeight - _headerH){
-      // 	$header.addClass('h-white');
-      // }else{
-      // 	if($header.hasClass('check-footer')){
-      // 		$header.removeClass('h-white');
-      // 	}
-      // }
       break;
 
     case 'about-mission':
       if (scrollTop + wHeight >= dHeight - _headerH) {
         $header.removeClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').addClass('hide');
       } else {
         $header.addClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('hide');
       }
 
       break;
@@ -27977,9 +28026,6 @@ function onScroll() {
 
       break;
 
-    case 'services':
-      break;
-
     case 'service':
       var _scTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-testimonials').offset().top;
 
@@ -28003,8 +28049,10 @@ function onScroll() {
         $header.addClass('h-white');
       } else if (scrollTop >= _acJTop - _headerH && scrollTop + wHeight < dHeight - _headerH) {
         $header.removeClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('hide');
       } else if (scrollTop + wHeight >= dHeight - _headerH) {
         $header.addClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').addClass('hide');
       } else {
         $header.removeClass('h-white');
       }
@@ -28014,8 +28062,10 @@ function onScroll() {
     default:
       if (scrollTop + wHeight >= dHeight - _headerH) {
         $header.addClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').addClass('hide');
       } else {
         $header.removeClass('h-white');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('hide');
       }
 
   }
@@ -28024,14 +28074,14 @@ function onScroll() {
 function showMenu() {
   $header.addClass('show-menu');
   $menu.addClass('show-menu');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').addClass('show-menu');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').addClass('hide');
   $hmbrg.addClass('active');
 }
 
 function hideMenu() {
   $header.removeClass('show-menu');
   $menu.removeClass('show-menu');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('show-menu');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu').removeClass('hide');
   $hmbrg.removeClass('active');
 }
 
@@ -28569,6 +28619,142 @@ function motionIn(_target) {
 
 
 
+
+/***/ }),
+
+/***/ "./src/js/components/video.js":
+/*!************************************!*\
+  !*** ./src/js/components/video.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $video = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.video-play');
+var $videoFrame = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.video-frame');
+var _inter = null;
+var player = null; // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+if ($video.length) {
+  $video.on('click', function () {
+    openVideo(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('youtube'));
+  });
+  $videoFrame.find('.bt-close').on('click', function () {
+    closeVideo();
+  });
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+
+
+function openVideo(_youtube) {
+  $videoFrame.fadeIn(200);
+  var id = 'vd' + parseInt(Math.random() * 1e9);
+  var youtubeID = _youtube;
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div/>').attr('id', id).appendTo($videoFrame);
+  onYTLoad(function () {
+    player = new YT.Player(id, {
+      videoId: youtubeID,
+      playerVars: {
+        rel: 0,
+        controls: 1,
+        autohide: 1,
+        wmode: 'opaque',
+        showinfo: 0,
+        iv_load_policy: 3,
+        modestbranding: 1
+      },
+      events: {
+        onReady: onReady,
+        onStateChange: onStateChange
+      }
+    });
+  });
+}
+
+function closeVideo() {
+  stop();
+  $videoFrame.fadeOut(200);
+  setTimeout(function () {
+    $videoFrame.find('iframe').remove();
+  }, 200);
+  clearInterval(_inter);
+} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+
+
+function onStateChange(e) {
+  if (e.data == -1 || e.data == 0 || e.data == 2) {//Paused/Stoped
+  } else {//Playing
+    }
+
+  if (e.data == 0) {
+    closeVideo();
+  }
+}
+
+function onReady() {
+  player.playVideo();
+}
+
+function stop() {
+  player.stopVideo();
+}
+
+window.onYouTubePlayerAPIReady = function () {
+  window.isYtLoaded = true;
+  (window.ytCallbacks || []).forEach(function (fn) {
+    fn();
+  });
+};
+
+function onYTLoad(callback) {
+  if (!window.requestedYTLib) {
+    window.requestedYTLib = true;
+    loadScript('https://www.youtube.com/iframe_api');
+  }
+
+  if (window.isYtLoaded) {
+    callback();
+  } else {
+    if (!window.ytCallbacks) window.ytCallbacks = [];
+    window.ytCallbacks.push(callback);
+  }
+}
+
+function loadScript(src, callback) {
+  var s = document.createElement('script'),
+      r = false,
+      t;
+  s.type = 'text/javascript';
+  s.src = src;
+
+  s.onload = s.onreadystatechange = function () {
+    if (!r && (!this.readyState || this.readyState == 'complete')) {
+      r = true;
+      if (typeof callback == 'function') callback();
+    }
+  };
+
+  t = document.getElementsByTagName('script')[0];
+  t.parentNode.insertBefore(s, t);
+} // ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+// export { openVideo, closeVideo }
 
 /***/ }),
 
@@ -33704,9 +33890,34 @@ var $abtWorld = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.about-world');
 var $people = $abtWorld.find('.item');
 var $highlights = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.highlights');
 let h = window.innerHeight;
-let $footer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('footer.footer'); // ----------------------------------------- \\\
+let $footer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('footer.footer');
+let _countNA = 0;
+let _countSA = 0;
+let _countEU = 0;
+let _countAF = 0;
+let _countAS = 0;
+let _countOC = 0;
+let _nhtAmerica = ['1', '2', '3', '4', '5'];
+let _sthAmerica = ['1', '2', '3', '4'];
+let _europe = ['1', '2', '3', '4'];
+let _africa = ['1', '2', '3'];
+let _asia = ['1', '2', '3'];
+let _oceania = ['1', '2', '3'];
+
+let _shuNhtA = _nhtAmerica.sort(() => 0.5 - Math.random());
+
+let _shuShtA = _sthAmerica.sort(() => 0.5 - Math.random());
+
+let _shuEu = _europe.sort(() => 0.5 - Math.random());
+
+let _shuAf = _africa.sort(() => 0.5 - Math.random());
+
+let _shuAs = _asia.sort(() => 0.5 - Math.random());
+
+let _shuOc = _oceania.sort(() => 0.5 - Math.random()); // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
+
 
 function init() {
   addPopPeople();
@@ -33741,52 +33952,42 @@ function addPopPeople() {
   });
 }
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function scramblePos(_this, _place) {
-  var _posY = 0; //getRandomInt(1, _inneHeight);
-
-  var _posX = 0; //getRandomInt(1, _inneWidth);
-
-  var _random = getRandomInt(1, 3);
-
   var _class = null;
-  var _arrayNorth = ['1', '2', '3'];
-
-  const shuffled = _arrayNorth.sort(() => 0.5 - Math.random());
-
-  let selected = shuffled.slice(0, 1);
 
   switch (_place) {
     case 'north-america':
-      _class = 'north-america-' + _random;
+      _class = 'north-america-' + _shuNhtA[_countNA];
+      _countNA++;
       break;
 
     case 'south-america':
-      _class = 'south-america-' + _random;
+      _class = 'south-america-' + _shuShtA[_countSA];
+      _countSA++;
       break;
 
     case 'europe':
-      _class = 'europe-' + _random;
+      _class = 'europe-' + _shuEu[_countEU];
+      _countEU++;
       break;
 
     case 'asia':
-      _class = 'asia-' + _random;
+      _class = 'asia-' + _shuAs[_countAS];
+      _countAS++;
       break;
 
     case 'africa':
-      _class = 'africa-' + _random;
+      _class = 'africa-' + _shuAf[_countAF];
+      _countAF++;
       break;
 
     case 'oceania':
-      _class = 'oceania-' + _random;
+      _class = 'oceania-' + _shuOc[_countOC];
+      _countOC++;
       break;
   }
 
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).addClass(_class); // console.log(_random);
-
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).addClass(_class);
   motionIn(_this, _class);
 }
 
@@ -33795,16 +33996,65 @@ function motionIn(_this, _class) {
   var $figure = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).find('img');
   new gsap__WEBPACK_IMPORTED_MODULE_2__["TimelineMax"]({
     onComplete: function () {
-      gsap__WEBPACK_IMPORTED_MODULE_2__["TweenMax"].killTweensOf($figure); // setTimeout(function(){
-      // $item.removeClass(_class);
-      // scramblePos($item);
-      // }, 1000);
+      gsap__WEBPACK_IMPORTED_MODULE_2__["TweenMax"].killTweensOf($figure);
     }
   }).add([gsap__WEBPACK_IMPORTED_MODULE_2__["TweenMax"].to($figure, 5, {
     scale: 1,
     ease: 'Elastic.easeOut'
-  })]); // .add([TweenMax.to($figure, .5, {scale: 0, ease: 'Power3.easeOut'})],20)
+  })]);
 } // ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+
+
+
+/***/ }),
+
+/***/ "./src/js/pages/buzz.js":
+/*!******************************!*\
+  !*** ./src/js/pages/buzz.js ***!
+  \******************************/
+/*! exports provided: init, resize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resize", function() { return resize; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! masonry-layout */ "./node_modules/masonry-layout/masonry.js");
+/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(masonry_layout__WEBPACK_IMPORTED_MODULE_1__);
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $pressList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list'); // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+function init() {
+  var elem = document.querySelector('.press-list');
+
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() > 550) {
+    var msnry = new masonry_layout__WEBPACK_IMPORTED_MODULE_1___default.a(elem, {
+      itemSelector: '.item'
+    });
+  }
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+
+
+function resize() {} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+// ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
 
@@ -34219,55 +34469,6 @@ function onInteract() {
   killScroll();
   onScroll();
 } // ----------------------------------------- \\\
-// ---------------- EXPORTS ---------------- \\\
-// ----------------------------------------- \\\
-
-
-
-
-/***/ }),
-
-/***/ "./src/js/pages/press.js":
-/*!*******************************!*\
-  !*** ./src/js/pages/press.js ***!
-  \*******************************/
-/*! exports provided: init, resize */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resize", function() { return resize; });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! masonry-layout */ "./node_modules/masonry-layout/masonry.js");
-/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(masonry_layout__WEBPACK_IMPORTED_MODULE_1__);
-// ----------------------------------------- \\\
-// ---------------- IMPORTS ---------------- \\\
-// ----------------------------------------- \\\
-
- // ----------------------------------------- \\\
-// ----------------- VARS ------------------ \\\
-// ----------------------------------------- \\\
-
-var $pressList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list'); // ----------------------------------------- \\\
-// ------------------ INIT ----------------- \\\
-// ----------------------------------------- \\\
-
-function init() {
-  var elem = document.querySelector('.press-list');
-  var msnry = new masonry_layout__WEBPACK_IMPORTED_MODULE_1___default.a(elem, {
-    itemSelector: '.item'
-  });
-} // ----------------------------------------- \\\
-// ------------ PUBLIC FUNCIONS ------------ \\\
-// ----------------------------------------- \\\
-
-
-function resize() {} // ----------------------------------------- \\\
-// ------------ PRIVATE FUNCIONS ----------- \\\
-// ----------------------------------------- \\\
-// ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
 

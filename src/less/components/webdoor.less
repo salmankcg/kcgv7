@@ -10,40 +10,13 @@
     /*------------------*/
     /*--- ATTRIBUTES ---*/
     /*------------------*/
-    &.w-about, &.w-works, &.w-journal {
+    &.w-about, &.w-works, &.w-journal, &.w-giving, &.w-press, &.w-legals {
         padding-top: 170px;
-        height: 480px;
-        min-height: auto;
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    &.w-giving {
-        padding-top: 170px;
-        height: 410px;
-        min-height: auto;
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    &.w-press {
-        padding-top: 170px;
-        height: 300px;
-        min-height: auto;
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    &.w-journal {
-        height: 380px;
-    }
-
-    &.w-legals{
-        padding-top: 170px;
+        padding-bottom: 110px;
         height: auto;
         min-height: auto;
+        align-items: flex-start;
         flex-direction: column;
-        justify-content: center;
     }
 
     &.w-journal-inner{
@@ -97,8 +70,8 @@
     }
 
     &.w-work{
-        padding-top: 240px;
-        height: 380px;
+        padding-top: 170px;
+        padding-bottom: 60px;
         min-height: auto;
         align-items: flex-start;
 
@@ -108,7 +81,6 @@
     }
 
     &.w-services{
-        flex-direction: column;
         justify-content: center;
     }
 
@@ -165,6 +137,10 @@
                 &.col-4{
                     padding-right: 5%;
                 }
+
+                &.col-6{
+                    padding-right: 10%;
+                }
             }
         }
 
@@ -190,9 +166,10 @@
     }
         
     &.w-team{
-        padding-top: 140px;
         align-items: flex-start;
         flex-direction: column;
+        justify-content: center;
+        padding-top: 70px;
 
         .col{
             &.col-5{
@@ -227,11 +204,11 @@
     
     .image-journal-inner{
 
-        width: 1024px;
+        // width: 1024px;
         margin: 40px auto 0;
 
         @media only screen and (max-width: 1100px) {
-            width: calc(100% - 10%)
+            // width: calc(100% - 10%)
         }
 
         @media only screen and (max-width: 600px) {
@@ -319,10 +296,6 @@
 
                 .col{
                     width: 100%;
-
-                    &.col-4{
-                        order: 2;
-                    }
                 }
            }
 
@@ -336,17 +309,7 @@
         }
 
         &.w-works{
-            height: 360px;
-
-            .title{
-                br{
-                    display: none;
-                }
-            }
-        }
-
-        &.w-giving{
-            height: 360px;
+            // height: 360px;
 
             .title{
                 br{
@@ -357,7 +320,7 @@
 
         &.w-work{
             padding-top: 120px;
-            height: 250px;
+            // height: 250px;
 
             .container-fluid{
                 padding: 0px 50px;
@@ -437,12 +400,12 @@
 
     @media( max-width: @screen-small ){
         &.w-about, &.w-works{
-            height: 310px;
+            // height: 310px;
             padding-top: 120px;
         }
 
         &.w-journal {
-            height: 210px;
+            // height: 210px;
             padding-top: 130px;
         }
 
@@ -549,8 +512,14 @@
            }
         }
 
+        &.w-press{
+            padding-top: 110px;
+            padding-bottom: 30px;
+        }
+
         &.w-giving{
-            height: 360px;
+            padding-top: 110px;
+            padding-bottom: 30px;
 
             .title{
                 br{
@@ -558,6 +527,7 @@
                 }
             }
         }
+
     }
 
 }
@@ -626,7 +596,7 @@
     }
 
     .paragraph {
-        font-size: 20px !important;
+        // font-size: 20px !important;
 
         @media only screen and (max-width: @screen-small) {
             font-size: 16px !important;

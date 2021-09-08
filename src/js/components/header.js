@@ -59,19 +59,15 @@ function onScroll(){
 
 	switch(_dataPage){
 		case 'home':
-			// if(scrollTop + wHeight >= dHeight - _headerH){
-			// 	$header.addClass('h-white');
-			// }else{
-			// 	if($header.hasClass('check-footer')){
-			// 		$header.removeClass('h-white');
-			// 	}
-			// }
+
 		break;
 		case 'about-mission':
 			if(scrollTop + wHeight >= dHeight - _headerH){
 				$header.removeClass('h-white');
+				$('.submenu').addClass('hide');
 			}else{
 				$header.addClass('h-white');
+				$('.submenu').removeClass('hide');
 			}
 		break;
 		case 'journal-inner':
@@ -105,9 +101,6 @@ function onScroll(){
 				$header.addClass('h-white');
 			}
 		break;
-		case 'services':
-			
-		break;
 		case 'service':
 			
 			var _scTop = $('.sc-testimonials').offset().top;
@@ -132,8 +125,10 @@ function onScroll(){
 				$header.addClass('h-white');
 			} else if(scrollTop >= _acJTop - _headerH && scrollTop + wHeight < dHeight - _headerH){
 				$header.removeClass('h-white');
+				$('.submenu').removeClass('hide');
 			}else if(scrollTop + wHeight >= dHeight - _headerH){
 				$header.addClass('h-white');
+				$('.submenu').addClass('hide');
 			}else{
 				$header.removeClass('h-white');
 			}
@@ -142,8 +137,10 @@ function onScroll(){
 		default:
 			if(scrollTop + wHeight >= dHeight - _headerH){
 				$header.addClass('h-white');
+				$('.submenu').addClass('hide');
 			}else{
 				$header.removeClass('h-white');
+				$('.submenu').removeClass('hide');
 			}
 	}
 	
@@ -153,13 +150,13 @@ function onScroll(){
 function showMenu(){
 	$header.addClass('show-menu');
 	$menu.addClass('show-menu');
-	$('.submenu').addClass('show-menu');
+	$('.submenu').addClass('hide');
 	$hmbrg.addClass('active');
 }
 
 function hideMenu(){
 	$header.removeClass('show-menu');
 	$menu.removeClass('show-menu');
-	$('.submenu').removeClass('show-menu');
+	$('.submenu').removeClass('hide');
 	$hmbrg.removeClass('active');
 }

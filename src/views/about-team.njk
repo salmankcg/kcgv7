@@ -1,5 +1,5 @@
 {% extends "./layouts/main.njk" %}
-{% set title        = 'KCG' %}
+{% set title        = 'KCG | Team' %}
 {% set page         = 'about-team' %}
 {% set header       = '' %}
 {% set footer       = '' %}
@@ -7,9 +7,6 @@
 
 {% block content %}
 
-
-<!-- BEGIN SECTION -->
-{# <section class="section-content"> #}
 
   <div class="scrolldown">
     <span>ALL TEAM</span>
@@ -33,24 +30,31 @@
       </div>
 
       <div class="container-fluid">
+          <div class="caption c-center">
+            <span>Team</span>
+          </div>
           <div class="row justify-content-center">
             <div class="col col-5">
               <h1 class="title t-medium t-people" >Meet <span class="name">the people</span> who <span class="area">make the <b>magic</b> happen</span></h1>
-              <a href="about-person.html" class="button b-black">
+              <div class="button b-black">
                 <div class="wrapper">
                   <span class="text">MEET OUR TEAM</span>
                 </div>
-              </a>
+              </div>
             </div>
             <div class="col col-5">
               <div class="people-scramble">
                 <div class="wrapper">
 
-                  {% set image = cycler(5,6,2,3,1,10,12,4) %}
                   <div class="images">
-                  {% for u in range(0,8) %}
-                    <figure data-target="{{u}}" style="background-image:url(assets/about/person-{{image.next()}}.png);"></figure>
-                  {% endfor %}
+                    <figure data-target="0" style="background-image:url(assets/about/people/djordje.png);"></figure>
+                    <figure data-target="1" style="background-image:url(assets/about/people/satyam.png);"></figure>
+                    <figure data-target="2" style="background-image:url(assets/about/people/andrea.png);"></figure>
+                    <figure data-target="3" style="background-image:url(assets/about/people/gabrielle.png);"></figure>
+                    <figure data-target="4" style="background-image:url(assets/about/people/ksenija.png);"></figure>
+                    <figure data-target="5" style="background-image:url(assets/about/people/filipa.png);"></figure>
+                    <figure data-target="6" style="background-image:url(assets/about/people/rita.png);"></figure>
+                    <figure data-target="7" style="background-image:url(assets/about/people/saul.png);"></figure>
                   </div>
 
                   {% set name = cycler('Djordje','Satyam','Andrea','Gaby','Ksenija','Filipa','Rita','Saul') %}
@@ -78,15 +82,15 @@
           <div class="row justify-content-center">
             <div class="col col-10">
               <div class="people">
-                {% set image = cycler(1,3,4,2,5,6,7,8) %}
-                {% set name = cycler('Ksenija Prijovic','Gaby Brogan','Saul Tesser','Andrea Djordjevic','Djordje','Satyam Dwivedi','Thiago Mota','Kate Gwinnett') %}
-                {% set occupation = cycler('CFO','Head of Content','CEO','Graphic & Web Designer', 'Designer', 'Developer', 'Designer', 'Head of Instructional Design') %}
-                {% set link = cycler('ksenija','gaby','saul','andrea', 'djordje', 'satyam', 'thiago', 'kate') %}
+                {% set image = cycler('saul','ksenija','filipa','kate','alice','gabrielle','liviu','salman','rita','nathan','thiago','cecilia','cem','luiz','satyam','marjorie','praveen','andrea','nicolai','russel','djordje','nazifa','waqas' ) %}
+                {% set link = cycler('saul','ksenija','filipa','kate','alice','gabrielle','liviu','salman','rita','nathan','thiago','cecilia','cem','luiz','satyam','marjorie','praveen','andrea','nicolai','russel','djordje','nazifa','waqas' ) %}
+                {% set name = cycler('Saul Tesser','Ksenija Prijovic','Filipa Borges','Kate Gwinnet','Alice Duval','Gabrielle Brogan','Liviu Stefan','Salman Ahmed','Rita Dias','Nathan Hemmingbrown','Thiago Mota','Cecilia Seiter','Cem Celik','Luiz Rodrigues','Satyam Sharma','Marjorie Vera','Praveen','Andrea Djordjevic','Nicolai Gheorghiev','Abu Sayed Russel','Djordje Jovanovic','Nazifa Rashid','Waqas Zafar') %}
+                {% set occupation = cycler('Founder & CEO','CFO','Engagement Manager','Head of Instructional Design','Project Manager','Head of Copywriting','Head of PPC and SEO','Head of Technology','Project Manager','Designer','Designer','Copywritter','Developer','Developer','Developer','Copywriter','Developer','Designer','System AWS Administrator','Developer','Designer & Developer','Developer','QA') %}
                       
-                {% for u in range(0,8) %}
-                <a href="about-p-{{link.next()}}.html" class="item">
+                {% for u in range(0,23) %}
+                <a href="about-p-{{image.next()}}.html" class="item">
                   <div class="i-wrapper">
-                    <img src="assets/about/person-{{image.next()}}.png" alt="" />
+                    <img src="assets/about/people/{{link.next()}}.png" alt="" />
                     <div class="infos">
                       <span class="name">{{name.next()}}</span>
                       <span class="occupation">{{occupation.next()}}</span>
@@ -105,13 +109,11 @@
       <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col col-10">
-              <div class="title t-center t-small" >Want to be a part of our team?<br>We are hiring! <strong>Check Here</strong></div>
+              <div class="title t-center t-small" >Want to be a part of our team?<br>We are hiring! <strong><a href="contact.html">Contact Us</a></strong></div>
             </div>
           </div>
       </div>
     </div>
 
-{# </section> #}
-<!-- END SECTION -->
 
 {% endblock %}

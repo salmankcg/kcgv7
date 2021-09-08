@@ -180,7 +180,7 @@ async function init() {
   renderer.autoClear = false;
   document.getElementById("canvas").appendChild(renderer.domElement);
 
-  scene     = await loadObject("assets/earth_and_water.json");
+  scene     = await loadObject("assets/earth/earth_and_water.json");
   scene.fog = new THREE.Fog( 0x000000, 1500, 2100 );
 
   const textureLoader = new THREE.TextureLoader();

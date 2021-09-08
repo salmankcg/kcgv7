@@ -1,5 +1,5 @@
 {% extends "./layouts/main.njk" %}
-{% set title        = 'KCG' %}
+{% set title        = 'KCG | Mission' %}
 {% set page         = 'about-mission' %}
 {% set header       = 'h-white' %}
 {% set footer       = 'f-white' %}
@@ -8,10 +8,6 @@
 {% block content %}
 
 
-<!-- BEGIN SECTION -->
-{# <section class="section-content"> #}
-
- 
 
   <div class="smooth-scroll" data-scroll-content>
     
@@ -30,13 +26,22 @@
         </div>
       </div>
 
+
       <div class="container-fluid">
+      
+        <div class="row justify-content-center">
+          <div class="col col-10">
+            <div class="caption c-center c-white">
+              <span>Mission</span>
+            </div>
+            <h1 class="title t-medium t-white t-center"><strong>Our innovate mission is centered<br>around three distinct phases</strong></h1>
+          </div>
+        </div>
+
         <div class="row justify-content-center">
 
           <div class="col col-10">
-
-            <h1 class="title t-medium t-white t-center"><strong>Our innovate mission is centered<br>around three distinct phases</strong></h1>
-
+          
             <div class="approach">
                 <div class="item" data-video="inovate">
                   <div class="wrapper">
@@ -106,10 +111,8 @@
           <video loop muted><source src="assets/about/video3.mp4" type="video/mp4"></video>
         </div>
       </div>
-    </div>
 
-{# </section> #}
-<!-- END SECTION -->
+    </div>
 
 
 {% endblock %} 

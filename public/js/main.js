@@ -26973,6 +26973,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
 /* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
 /* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
@@ -26995,6 +26996,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // import  "./components/services-items";
+
 
 
 
@@ -28041,6 +28043,15 @@ function onScroll() {
 
       break;
 
+    case 'services':
+      // if(scrollTop + wHeight >= dHeight - _headerH){
+      // 	$('.submenu').addClass('hide');
+      // }else{
+      // 	$header.removeClass('h-white');
+      // 	$('.submenu').removeClass('hide');
+      // }
+      break;
+
     case 'about':
       var _acBTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-black').offset().top;
       var _acJTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-journal').offset().top;
@@ -28150,6 +28161,51 @@ function hide() {
 
 
 
+
+/***/ }),
+
+/***/ "./src/js/components/modal.js":
+/*!************************************!*\
+  !*** ./src/js/components/modal.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $modal = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.modal'); // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+if ($modal.length) {
+  if (localStorage.getItem('loaded') != 'yes') {
+    setTimeout(function () {
+      $modal.fadeIn(400).css('display', 'flex');
+    }, 4000);
+    localStorage.setItem('loaded', 'yes');
+  }
+
+  $modal.find('.button').on('click', function () {
+    $modal.fadeOut(400);
+  });
+  $modal.find('.background').on('click', function () {
+    $modal.fadeOut(400);
+  });
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
 
 /***/ }),
 
@@ -34760,6 +34816,7 @@ function animate() {
     start: 'top 40%',
     onEnter: () => {
       $header.addClass('h-white');
+      $header.find('.submenu').addClass('sb-services').removeClass('sb-white');
       $scrollDown.addClass('s-white');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('.services-icons').find('.item').each(function (i, e) {
         gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e), 1.2, {
@@ -34771,6 +34828,7 @@ function animate() {
     },
     onLeaveBack: () => {
       $header.removeClass('h-white');
+      $header.find('.submenu').removeClass('sb-services').addClass('sb-white');
       $scrollDown.removeClass('s-white');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('.services-icons').find('.item').each(function (i, e) {
         gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e), 1.2, {
@@ -34795,19 +34853,42 @@ function animate() {
   gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_4__["ScrollTrigger"].batch(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-black'), {
     start: 'top 10%',
     onEnter: () => {
+      $header.find('.submenu').css({
+        background: '#141515'
+      });
+    },
+    onLeaveBack: () => {
+      $header.find('.submenu').css({
+        background: '#B27EE4'
+      });
+    }
+  });
+  gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_4__["ScrollTrigger"].batch(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-clients'), {
+    start: 'top 10%',
+    onEnter: () => {
       $header.removeClass('h-white');
+      $header.find('.submenu').removeClass('sb-services').addClass('sb-white');
+      $header.find('.submenu').css({
+        background: '#FFFFFF'
+      });
     },
     onLeaveBack: () => {
       $header.addClass('h-white');
+      $header.find('.submenu').addClass('sb-services').removeClass('sb-white');
+      $header.find('.submenu').css({
+        background: '#141515'
+      });
     }
   });
   gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_4__["ScrollTrigger"].batch(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-testimonials'), {
     start: 'bottom 10%',
     onEnter: () => {
       $header.addClass('h-white');
+      $header.find('.submenu').addClass('hide');
     },
     onLeaveBack: () => {
       $header.removeClass('h-white');
+      $header.find('.submenu').removeClass('hide');
     }
   });
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.each($slides, function (e, i) {
@@ -34822,11 +34903,18 @@ function animate() {
         $serviceBckg.css({
           background: _color
         });
+        $header.find('.submenu').css({
+          background: _color
+        });
         _sliderPos = _posScroll;
         slideMotionIn(i, _posScroll);
+        console.log(_posScroll);
       },
       onLeaveBack: () => {
         $serviceBckg.css({
+          background: _colorPrev
+        });
+        $header.find('.submenu').css({
           background: _colorPrev
         });
         slideMotionOut(i, _posScroll);

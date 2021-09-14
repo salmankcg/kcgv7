@@ -1,0 +1,130 @@
+.modal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    top: 0px; left: 0px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+
+    .background{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 100%;
+        transition: .5s all @custom;
+        overflow: hidden;
+        background: @blue;
+        display: block;
+        animation: gradient2 5s linear infinite;
+        opacity: .5;
+
+        &:before{
+            .ba;
+            .centerBoth;
+            width: 150rem;
+            height: 150rem;
+            border-radius: 100%;
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+            background:             
+                linear-gradient(45deg, rgba(117, 217, 243, .7) 0%, rgba(117, 217, 243, 0) 50%),
+                linear-gradient(225deg, rgba(251, 199, 89, .7) 0%, rgba(251, 199, 89, 0) 50%),
+                linear-gradient(90deg, rgba(178, 126, 228, .7) 0%, rgba(178, 126, 228, 0) 50%),
+                linear-gradient(135deg, rgba(45, 50, 148, .7) 0%,  rgba(45, 50, 148, 0) 50%),
+                linear-gradient(180deg, rgba(251, 103, 87, .7) 0%, rgba(251, 103, 87, 0) 50%);
+            animation: gradient 30s linear infinite;
+
+        }
+        
+    }
+
+    @keyframes gradient { 
+        0% {
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+        }
+        50% {
+            transform: translate(-50%,-50%) rotate(180deg) scale(1.4);
+        }
+        100% {
+            transform: translate(-50%,-50%) rotate(0deg) scale(1.4);
+        }
+    }
+
+    @keyframes gradient2 { 
+        0% {
+            background: @green;
+        }
+        25% {
+            background: @yellow;
+        }
+        50% {
+            background: @orange;
+        }
+        75% {
+            background: @yellow;
+        }
+        100% {
+            background: @green;
+        }
+    }
+    
+    .text{
+        color: @white;
+        .blackerLt;
+        font-size: 25px;
+
+        strong{
+            .blackerBd;
+        }
+    }
+
+    .m-wrapper{
+        position: relative;
+        background-color: @gray;
+        padding: 50px 90px;
+        border-radius: 15px;
+        width: 540px;
+    }
+
+    .button{
+        flex-direction: column;
+
+        .label{
+            margin-left: 0px;
+            margin-bottom: 20px;
+        }
+    }
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+    @media( max-width: @screen-small){
+        .m-wrapper{
+            width: 80%;
+            padding: 30px 50px;
+            border-radius: 10px;
+        }
+
+        .text{
+            font-size: 20px;
+        }
+
+        .button{
+            margin-top: 40px !important;
+        }
+    }
+}

@@ -28,6 +28,7 @@ import  "./components/about-scramble";
 import  "./components/smooth-scroll";
 import  "./components/gallery";
 import  "./components/video";
+import  "./components/modal";
 
 
 

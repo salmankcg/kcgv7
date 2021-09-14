@@ -116,6 +116,15 @@ function onScroll(){
 				$header.addClass('h-white');
 			}
 		break;
+		case 'services':
+			// if(scrollTop + wHeight >= dHeight - _headerH){
+			// 	$('.submenu').addClass('hide');
+			// }else{
+			// 	$header.removeClass('h-white');
+			// 	$('.submenu').removeClass('hide');
+			// }
+			
+		break;
 		case 'about':
 			
 			var _acBTop = $('.ac-black').offset().top;

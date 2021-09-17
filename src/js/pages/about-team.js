@@ -42,7 +42,6 @@ var _widthElm 	= $peopleScramble.find('.item').width();
 // ----------------------------------------- \\\
 function init(){
 
-
 	_fxName 	= new TextScramble($name);
 	_fxArea 	= new TextScramble($area);
 
@@ -80,6 +79,10 @@ function init(){
 
 
 	$scrollDown.on('click',function(){
+		gsap.to(window, 2, {scrollTo: {y: $(window).height() , ease: Power3.easeOut}});
+	});
+
+	$('.webdoor').find('.button').on('click',function(){
 		gsap.to(window, 2, {scrollTo: {y: $(window).height() , ease: Power3.easeOut}});
 	});
 	

@@ -26958,25 +26958,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_about__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/about */ "./src/js/pages/about.js");
 /* harmony import */ var _pages_about_approach__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/about-approach */ "./src/js/pages/about-approach.js");
 /* harmony import */ var _pages_about_team__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/about-team */ "./src/js/pages/about-team.js");
-/* harmony import */ var _pages_works__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/works */ "./src/js/pages/works.js");
-/* harmony import */ var _pages_work__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/work */ "./src/js/pages/work.js");
-/* harmony import */ var _pages_contact__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/contact */ "./src/js/pages/contact.js");
-/* harmony import */ var _pages_services__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/services */ "./src/js/pages/services.js");
-/* harmony import */ var _pages_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/service */ "./src/js/pages/service.js");
-/* harmony import */ var _pages_buzz__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/buzz */ "./src/js/pages/buzz.js");
-/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
-/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
-/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
-/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
-/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
-/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
-/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
-/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
+/* harmony import */ var _pages_about_person__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/about-person */ "./src/js/pages/about-person.js");
+/* harmony import */ var _pages_works__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/works */ "./src/js/pages/works.js");
+/* harmony import */ var _pages_work__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/work */ "./src/js/pages/work.js");
+/* harmony import */ var _pages_contact__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/contact */ "./src/js/pages/contact.js");
+/* harmony import */ var _pages_services__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/services */ "./src/js/pages/services.js");
+/* harmony import */ var _pages_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/service */ "./src/js/pages/service.js");
+/* harmony import */ var _pages_buzz__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/buzz */ "./src/js/pages/buzz.js");
+/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
+/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
+/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
+/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
+/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
+/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
+/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
+/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
+
 
 
 
@@ -27041,38 +27043,44 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
       break;
 
+    case 'about-person':
+      _pages_about_person__WEBPACK_IMPORTED_MODULE_8__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
+
+      break;
+
     case 'works':
-      _pages_works__WEBPACK_IMPORTED_MODULE_8__["init"]();
+      _pages_works__WEBPACK_IMPORTED_MODULE_9__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
 
     case 'work':
-      _pages_work__WEBPACK_IMPORTED_MODULE_9__["init"]();
+      _pages_work__WEBPACK_IMPORTED_MODULE_10__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
 
     case 'contact':
-      _pages_contact__WEBPACK_IMPORTED_MODULE_10__["init"]();
+      _pages_contact__WEBPACK_IMPORTED_MODULE_11__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
 
     case 'services':
-      _pages_services__WEBPACK_IMPORTED_MODULE_11__["init"]();
+      _pages_services__WEBPACK_IMPORTED_MODULE_12__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
 
     case 'service':
-      _pages_service__WEBPACK_IMPORTED_MODULE_12__["init"]();
+      _pages_service__WEBPACK_IMPORTED_MODULE_13__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
 
     case 'buzz':
-      _pages_buzz__WEBPACK_IMPORTED_MODULE_13__["init"]();
+      _pages_buzz__WEBPACK_IMPORTED_MODULE_14__["init"]();
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"](); // PageLoad.init();
 
       break;
@@ -27090,11 +27098,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
         break;
 
       case 'services':
-        _pages_services__WEBPACK_IMPORTED_MODULE_11__["resize"]();
+        _pages_services__WEBPACK_IMPORTED_MODULE_12__["resize"]();
         break;
 
       case 'service':
-        _pages_service__WEBPACK_IMPORTED_MODULE_12__["resize"]();
+        _pages_service__WEBPACK_IMPORTED_MODULE_13__["resize"]();
         break;
     } // console.log('resize');
 
@@ -33702,6 +33710,70 @@ function onMouseLeave() {
 
 /***/ }),
 
+/***/ "./src/js/pages/about-person.js":
+/*!**************************************!*\
+  !*** ./src/js/pages/about-person.js ***!
+  \**************************************/
+/*! exports provided: init, resize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resize", function() { return resize; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $scrollDown = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.scrolldown'); // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+function init() {
+  $scrollDown.on('click', function () {
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].to(window, 2, {
+      scrollTo: {
+        y: jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height(),
+        ease: gsap__WEBPACK_IMPORTED_MODULE_1__["Power3"].easeOut
+      }
+    });
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.about-person', onScroll);
+  onScroll();
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+
+
+function resize() {} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+
+
+function onScroll() {
+  var scrollTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).scrollTop();
+
+  if (scrollTop > 200) {
+    $scrollDown.addClass('hide');
+  } else {
+    $scrollDown.removeClass('hide');
+  }
+} // ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+
+
+
+/***/ }),
+
 /***/ "./src/js/pages/about-team.js":
 /*!************************************!*\
   !*** ./src/js/pages/about-team.js ***!
@@ -33789,6 +33861,14 @@ function init() {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.about-team', onScroll);
   onScroll();
   $scrollDown.on('click', function () {
+    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].to(window, 2, {
+      scrollTo: {
+        y: jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height(),
+        ease: gsap__WEBPACK_IMPORTED_MODULE_2__["Power3"].easeOut
+      }
+    });
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.webdoor').find('.button').on('click', function () {
     gsap__WEBPACK_IMPORTED_MODULE_2__["default"].to(window, 2, {
       scrollTo: {
         y: jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height(),

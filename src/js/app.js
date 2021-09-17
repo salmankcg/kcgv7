@@ -11,6 +11,7 @@ import * as Home        from './pages/home';
 import * as About       from './pages/about';
 import * as Approach    from './pages/about-approach';
 import * as Team        from './pages/about-team';
+import * as Person        from './pages/about-person';
 import * as Works       from './pages/works';
 import * as Work        from './pages/work';
 import * as Contact     from './pages/contact';
@@ -69,6 +70,11 @@ $(function() {
         break;
         case 'about-team':
             Team.init();
+            PageLoad.hide();
+            // PageLoad.init();
+        break;
+        case 'about-person':
+            Person.init();
             PageLoad.hide();
             // PageLoad.init();
         break;

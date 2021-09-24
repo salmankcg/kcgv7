@@ -74,7 +74,6 @@ function init(){
 	}
 	
 	$(window).on('scroll.about-team', onScroll);
-	
 	onScroll();
 
 

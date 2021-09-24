@@ -3,11 +3,14 @@
     height: 100vh;
     position: fixed;
     z-index: -1;
+    top: -100vh;
 
     /*------------------*/
     /*--- ATTRIBUTES ---*/
     /*------------------*/
-
+    &.disabled{
+        position: absolute
+    }
 
     /*----------------*/
     /*--- ELEMENTS ---*/
@@ -43,11 +46,13 @@
     /*------------------*/
 
     @media( max-width: @screen-large){
-        top: 50%;
+        top: -50vh;
     }
 
     @media( max-width: @screen-small ){
         top: 40%;
+        position: absolute;
+        z-index: 2;
     }
 
     @media( max-width: @screen-xsmall ){

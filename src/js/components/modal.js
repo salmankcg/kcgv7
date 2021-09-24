@@ -17,11 +17,11 @@ var $modal       	= $('.modal');
 if($modal.length){
 
 	if(localStorage.getItem('loaded') != 'yes'){
-		setTimeout(function(){
-			$modal.fadeIn(400).css('display','flex');
-		},4000);
+		// setTimeout(function(){
+		// 	$modal.fadeIn(400).css('display','flex');
+		// },4000);
 
-		localStorage.setItem('loaded', 'yes');
+		// localStorage.setItem('loaded', 'yes');
 	}
 
 	$modal.find('.button').on('click',function(){

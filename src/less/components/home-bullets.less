@@ -1,9 +1,12 @@
 .home-bullets{
-    .centerVert;
-    position: fixed;
+    position: absolute;
     left: 4.33%;
-    width: 40px;
+    width: 50px;
     z-index: 10;
+    height: 100vh;
+    top: -100vh;
+    display: flex;
+    align-items: center;
 
 
     /*------------------*/
@@ -27,7 +30,11 @@
     /*----------------*/
     /*--- ELEMENTS ---*/
     /*----------------*/
-    
+    .hb-wrapper{
+        position: relative;
+    }
+
+
     .button{
         position: relative;
         width: 50px; height: 30px;

@@ -12,102 +12,134 @@
   <div class="scrolldown s-white">
     <span>SCROLL</span>
   </div>
-
-  <div class="home-bullets">
-    <div data-target="slide-0" class="button b-bullet active">
-      <div class="wrapper"></div>
-    </div>
-    <div data-target="slide-1" class="button b-bullet">
-      <div class="wrapper"></div>
-    </div>
-    <div data-target="slide-2" class="button b-bullet">
-      <div class="wrapper"> </div>
-    </div>
-    <div data-target="slide-3" class="button b-bullet">
-      <div class="wrapper"></div>
-    </div>
-    <div data-target="slide-4" class="button b-bullet">
-      <div class="wrapper"></div>
-    </div>
-  </div>
-
-  <div class="home-bckg">
-    <div class="shape">
-      <div class="background"></div>
-    </div>
-    <div class="images">
-      <div class="img"></div>
-      <div class="img"><img src="assets/home/home-chess.png" alt=""/></div>
-      <div class="img"><img src="assets/home/home-phone.png" alt=""/></div>
-      <div class="img"><img src="assets/home/home-astronaut.png" alt=""/></div>
-    </div>
-  </div>
-
-  <div class="home-globe">
-    <div class="g-wrapper">
-      <div class="circle"></div>
-      <div id="canvas" class="canvas" data-people='[{"person":"Aline", "thumb":"assets/photos/person-1.png", "place":"south-america"},{"person":"Saul", "thumb":"assets/photos/person-2.png", "place":"europe"},{"person":"Rita", "thumb":"assets/photos/person-3.png", "place":"europe"},{"person":"Fillipa", "thumb":"assets/photos/person-4.png", "place":"north-america"},{"person":"Salman", "thumb":"assets/photos/person-5.png", "place":"asia"},{"person":"Russel", "thumb":"assets/photos/person-6.png", "place":"oceania"},{"person":"Luiz", "thumb":"assets/photos/person-7.png", "place":"africa"}, {"person":"Luiz", "thumb":"assets/photos/person-8.png", "place":"africa"}, {"person":"Luiz", "thumb":"assets/photos/person-9.png", "place":"africa"}]'></div>
-    </div>
-  </div>
-
-  <div class="home-infos">
-    <div class="steps" data-target="slide-1">
-      <h2 class="title t-white"><strong>Raise</strong> your game. Work with the world’s <strong>best talent</strong></h2>
-      <div class="i-wrapper">
-        <div class="paragraph p-rigth p-white">We transverse global boundaries to help our clients build a better world.</div>
-        <a href="about.html" class="button b-white">
-          <div class="wrapper">
-            <span class="text">READ ABOUT US</span>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="steps" data-target="slide-2">
-      <h2 class="title t-white">We plan <strong>intelligently</strong> to help you achieve <strong>your goals</strong></h2>
-      <div class="i-wrapper">
-        <div class="paragraph p-rigth p-white">Our global team helps you to launch into new areas with expert guidance.</div>
-        <a href="services-strategy.html" class="button b-white">
-          <div class="wrapper">
-            <span class="text">Strategy</span>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="steps" data-target="slide-3">
-      <h2 class="title t-white">We <strong>craft</strong> meaningful user experiences to capture <strong>hearts</strong></h2>
-      <div class="i-wrapper">
-        <div class="paragraph p-rigth p-white">Deliver on your value proposition with innovative, invigorating, and awe-inspiring products.</div>
-        <a href="services-product.html" class="button b-white">
-          <div class="wrapper">
-            <span class="text">Product</span>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="steps" data-target="slide-4">
-      <h2 class="title t-white">We <strong>amplify</strong> your story and share it with the <strong>people</strong> that count</h2>
-      <div class="i-wrapper">
-        <div class="paragraph p-rigth p-white">We generate content that not only gets viewed but is shared, time and time again.</div>
-        <a href="services-marketing.html" class="button b-white">
-          <div class="wrapper">
-            <span class="text">Marketing</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
   
   <div class="smooth-scroll" data-scroll-content>
 
+    <div class="home-bckg" data-type="desktop">
+      <div class="shape">
+        <div class="background"></div>
+      </div>
+      <div class="images">
+        <div class="img"></div>
+        <div class="img"><img src="assets/home/home-chess.png" alt=""/></div>
+        <div class="img"><img src="assets/home/home-phone.png" alt=""/></div>
+        <div class="img"><img src="assets/home/home-astronaut.png" alt=""/></div>
+      </div>
+    </div>
+    
+    <div class="home-bullets">
+      <div class="hb-wrapper">
+        <div data-target="slide-0" class="button b-bullet active">
+          <div class="wrapper"></div>
+        </div>
+        <div data-target="slide-1" class="button b-bullet">
+          <div class="wrapper"></div>
+        </div>
+        <div data-target="slide-2" class="button b-bullet">
+          <div class="wrapper"> </div>
+        </div>
+        <div data-target="slide-3" class="button b-bullet">
+          <div class="wrapper"></div>
+        </div>
+        <div data-target="slide-4" class="button b-bullet">
+          <div class="wrapper"></div>
+        </div>
+      </div>
+    </div>
+    
     <div class="home-content hc-slides">
 
-      <div class="infos" data-color="#141515" data-bkgColor="dark-blue" id="slide-1"></div>
+      <div class="infos" data-color="#141515" data-bkgColor="dark-blue" id="slide-1">
+        <div class="home-bckg" data-type="mobile">
+          <div class="shape"><div class="background" data-color="dark-blue"></div></div>
+        </div>
+        <div class="home-globe">
+          <div class="g-wrapper">
+            <div class="circle"></div>
+            <div id="canvas" class="canvas" data-people='[{"person":"Aline", "thumb":"assets/photos/person-1.png", "place":"south-america"},{"person":"Saul", "thumb":"assets/photos/person-2.png", "place":"europe"},{"person":"Rita", "thumb":"assets/photos/person-3.png", "place":"europe"},{"person":"Fillipa", "thumb":"assets/photos/person-4.png", "place":"north-america"},{"person":"Salman", "thumb":"assets/photos/person-5.png", "place":"asia"},{"person":"Russel", "thumb":"assets/photos/person-6.png", "place":"oceania"},{"person":"Luiz", "thumb":"assets/photos/person-7.png", "place":"africa"}, {"person":"Luiz", "thumb":"assets/photos/person-8.png", "place":"africa"}, {"person":"Luiz", "thumb":"assets/photos/person-9.png", "place":"africa"}]'></div>
+          </div>
+        </div>
+        <div class="home-infos">
+          <div class="steps" data-target="slide-1">
+            <h2 class="title t-white"><strong>Raise</strong> your game. Work with the world’s <strong>best talent</strong></h2>
+            <div class="i-wrapper">
+              <div class="paragraph p-rigth p-white">We transverse global boundaries to help our clients build a better world.</div>
+              <a href="about.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">READ ABOUT US</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="infos" data-color="#2D3294" data-bkgColor="green" id="slide-2"></div>
+      <div class="infos" data-color="#2D3294" data-bkgColor="green" id="slide-2">
+        <div class="home-bckg" data-type="mobile">
+          <div class="shape"><div class="background" data-color="green"></div></div>
+          <div class="images">
+            <div class="img"><img src="assets/home/home-chess.png" alt=""/></div>
+          </div>
+        </div>
+        <div class="home-infos">
+          <div class="steps" data-target="slide-2">
+            <h2 class="title t-white">We plan <strong>intelligently</strong> to help you achieve <strong>your goals</strong></h2>
+            <div class="i-wrapper">
+              <div class="paragraph p-rigth p-white">Our global team helps you to launch into new areas with expert guidance.</div>
+              <a href="services-strategy.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">Strategy</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="infos" data-color="#4C9F91" data-bkgColor="orange" id="slide-3"></div>
+      <div class="infos" data-color="#4C9F91" data-bkgColor="orange" id="slide-3">
+        <div class="home-bckg" data-type="mobile">
+          <div class="shape"><div class="background" data-color="orange"></div></div>
+          <div class="images">
+            <div class="img"><img src="assets/home/home-phone.png" alt=""/></div>
+          </div>
+        </div>
+        <div class="home-infos">
+          <div class="steps" data-target="slide-3">
+            <h2 class="title t-white">We <strong>craft</strong> meaningful user experiences to capture <strong>hearts</strong></h2>
+            <div class="i-wrapper">
+              <div class="paragraph p-rigth p-white">Deliver on your value proposition with innovative, invigorating, and awe-inspiring products.</div>
+              <a href="services-product.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">Product</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="infos" data-color="#B27EE4" data-bkgColor="blue" id="slide-4"></div>
+      <div class="infos" data-color="#B27EE4" data-bkgColor="blue" id="slide-4">
+        <div class="home-bckg" data-type="mobile">
+          <div class="shape"><div class="background" data-color="blue"></div></div>
+          <div class="images">
+            <div class="img"><img src="assets/home/home-astronaut.png" alt=""/></div>
+          </div>
+        </div>
+        <div class="home-infos">
+          <div class="steps" data-target="slide-4">
+            <h2 class="title t-white">We <strong>amplify</strong> your story and share it with the <strong>people</strong> that count</h2>
+            <div class="i-wrapper">
+              <div class="paragraph p-rigth p-white">We generate content that not only gets viewed but is shared, time and time again.</div>
+              <a href="services-marketing.html" class="button b-white">
+                <div class="wrapper">
+                  <span class="text">Marketing</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <div class="infos" id="slide-5">
         <div class="container-fluid">

@@ -63,3 +63,13 @@ main {
 	opacity: 0;
 	z-index: -99999;
 }
+
+.smooth-scroll{
+	opacity: 0;
+	transition: 2s opacity @custom;
+
+
+	&.motion-in{
+		opacity: 1;
+	}
+}

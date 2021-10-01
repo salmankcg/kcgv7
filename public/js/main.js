@@ -27603,7 +27603,8 @@ const atmosphereFragShader = ` varying float atmosphereThickness;
                                   float lightIntensity = max(dot(normal, lightDir) * 1.5, -0.7);
                                   gl_FragColor = vec4( (vec3(57.0, 97.0, 162.0) / 256.0) * (1.0 + lightIntensity), atmosphereThickness);
 
-                                }`; // ----------------------------------------- \\\
+                                }`;
+var _url = null; // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
 
@@ -27612,7 +27613,14 @@ async function init() {
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
   document.getElementById("canvas").appendChild(renderer.domElement);
-  scene = await loadObject("assets/earth/earth_and_water.json");
+
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com') {
+    _url = "wp-content/themes/kcg/assets/earth/";
+  } else {
+    _url = "assets/earth/";
+  }
+
+  scene = await loadObject(_url + "earth_and_water.json");
   scene.fog = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["Fog"](0x000000, 1500, 2100);
   const textureLoader = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["TextureLoader"]();
   group = new _libs_three_module__WEBPACK_IMPORTED_MODULE_1__["Group"]();
@@ -27722,23 +27730,23 @@ async function fixMaterials() {
   earthUniforms = {
     diffuseTexture: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_diffuse.jpg")
+      value: await loadTexture(_url + "earth_diffuse.jpg")
     },
     diffuseNight: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_diffuse_night.jpg")
+      value: await loadTexture(_url + "earth_diffuse_night.jpg")
     },
     normalMap: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_normal_map.jpg")
+      value: await loadTexture(_url + "earth_normal_map.jpg")
     },
     specularMap: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_specular_map.png")
+      value: await loadTexture(_url + "earth_specular_map.png")
     },
     cloudsMap: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_diffuse_clouds.jpg")
+      value: await loadTexture(_url + "earth_diffuse_clouds.jpg")
     }
   };
   update(0);
@@ -28346,7 +28354,11 @@ window.mobileAndTabletCheck = function () {
 
 if ($pages.length) {
   setTimeout(function () {
-    smoothScroll();
+    if (!mobileAndTabletCheck()) {
+      smoothScroll();
+    } else {
+      $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
+    }
   }, 300);
   window.addEventListener('resize', function () {
     _h = window.innerHeight;
@@ -28359,54 +28371,50 @@ function pinned(scrolled) {
   //______________ FOOTER PARALLAX
   _sizeDocument = jquery__WEBPACK_IMPORTED_MODULE_0___default()('[data-scroll-content]').height();
 
-  if (!mobileAndTabletCheck()) {
-    if (scrolled > _sizeDocument - _h * 2) {
-      let percentageFromTop = (_sizeDocument - _h - scrolled) / _h;
-      gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set($footer, {
-        y: -(_h * percentageFromTop)
-      });
-      gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set($footer, {
-        yPercent: percentageFromTop
-      });
+  if (scrolled > _sizeDocument - _h * 2) {
+    let percentageFromTop = (_sizeDocument - _h - scrolled) / _h;
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set($footer, {
+      y: -(_h * percentageFromTop)
+    });
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set($footer, {
+      yPercent: percentageFromTop
+    });
 
-      let _percentClass = Math.round(percentageFromTop * 100);
+    let _percentClass = Math.round(percentageFromTop * 100);
 
-      if (!$footer.hasClass('motion-in-3')) {
-        if (_percentClass >= 70) {
-          $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
-        }
+    if (!$footer.hasClass('motion-in-3')) {
+      if (_percentClass >= 70) {
+        $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
       }
-    } else {
-      if ($footer.hasClass('motion-in-3')) {
-        $footer.removeClass('motion-in-1').removeClass('motion-in-2').removeClass('motion-in-3');
-      }
-    }
-
-    if (_dataPage == 'home') {
-      $stickyHome.forEach(function (item, index) {
-        let itemPosition = item.getBoundingClientRect().top;
-        let itemBottom = item.getBoundingClientRect().bottom;
-        let fakeOffset = (scrolled * -1 - (itemPosition - window.innerHeight)) * -1;
-
-        if (itemPosition < window.innerHeight * 1.1 && itemBottom > 0) {
-          let percentageDuration = (scrolled - fakeOffset) / (fakeOffset + window.innerHeight * 1.5 - fakeOffset);
-          gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-bullets'), {
-            yPercent: 150 * percentageDuration
-          });
-          gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-infos'), {
-            yPercent: 150 * percentageDuration
-          });
-          gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-globe'), {
-            yPercent: 150 * percentageDuration
-          });
-          gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-bckg'), {
-            yPercent: 150 * percentageDuration
-          });
-        }
-      }); // console.log(scrolled);
     }
   } else {
-    $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
+    if ($footer.hasClass('motion-in-3')) {
+      $footer.removeClass('motion-in-1').removeClass('motion-in-2').removeClass('motion-in-3');
+    }
+  }
+
+  if (_dataPage == 'home') {
+    $stickyHome.forEach(function (item, index) {
+      let itemPosition = item.getBoundingClientRect().top;
+      let itemBottom = item.getBoundingClientRect().bottom;
+      let fakeOffset = (scrolled * -1 - (itemPosition - window.innerHeight)) * -1;
+
+      if (itemPosition < window.innerHeight * 1.1 && itemBottom > 0) {
+        let percentageDuration = (scrolled - fakeOffset) / (fakeOffset + window.innerHeight * 1.5 - fakeOffset);
+        gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-bullets'), {
+          yPercent: 150 * percentageDuration
+        });
+        gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-infos'), {
+          yPercent: 150 * percentageDuration
+        });
+        gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-globe'), {
+          yPercent: 150 * percentageDuration
+        });
+        gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.home-bckg'), {
+          yPercent: 150 * percentageDuration
+        });
+      }
+    }); // console.log(scrolled);
   }
 }
 
@@ -34208,18 +34216,52 @@ __webpack_require__.r(__webpack_exports__);
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $pressList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list'); // ----------------------------------------- \\\
+var $filter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.filter'); // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
 function init() {
   var elem = document.querySelector('.press-list');
 
+  var _dataAjax = $filter.data('ajax');
+
+  var msnry = null;
+
   if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() > 550) {
-    var msnry = new masonry_layout__WEBPACK_IMPORTED_MODULE_1___default.a(elem, {
+    msnry = new masonry_layout__WEBPACK_IMPORTED_MODULE_1___default.a(elem, {
       itemSelector: '.item'
     });
   }
+
+  console.log('ajax URL ' + object_kcg.siteurl);
+  $filter.find('.item').on('click', function (e) {
+    e.preventDefault();
+    $filter.find('.item').removeClass('active');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
+    var catID = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
+    var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: _dataAjax,
+      type: 'POST',
+      data: {
+        action: 'kcg_filter_buzz_by_category',
+        nonce: object_kcg.nonce,
+        'cat-id': catID
+      }
+    }).done(function (response) {
+      var _html = jquery__WEBPACK_IMPORTED_MODULE_0___default()(response).find('.press-list');
+
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list').fadeOut();
+      setTimeout(function () {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list').remove();
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-content').find('.col-11').append(_html);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.press-list').css('display', 'none').fadeIn();
+      }, 500);
+      console.log('ajax response ' + response['html']);
+    }).fail(function (response) {
+      console.log(response);
+    });
+  });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
@@ -34376,9 +34418,6 @@ function init() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('touchend', onInteractStop);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('wheel', onInteract);
   } else {
-    // $('#slide-5').find('.button').addClass('motion-in');
-    // Title.motionIn($('#slide-5'));
-    // gsap.to($('#slide-5').find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.home', onScroll);
     onScroll();
     animateMobile();
@@ -34557,25 +34596,18 @@ function animateMobile() {
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.each($slides, function (e, i) {
     let _posScroll = e;
     gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_4__["ScrollTrigger"].batch(jquery__WEBPACK_IMPORTED_MODULE_0___default()(i), {
-      start: 'top 40%',
+      start: 'top 90%',
       onEnter: () => {
         _sliderPos = _posScroll;
         slideMotionIn(i, _posScroll);
       },
-      onEnterBack: () => {// console.log(e + ' ENTER BACK');
-        // if(e == 0){
-        //     $(i).find('.title').addClass('motion-in');
-        //     $(i).find('.button').addClass('motion-in');
-        //     $(i).find('.home-globe').addClass('motion-in');
-        // }
-      },
+      onEnterBack: () => {},
       onLeaveBack: () => {
         slideMotionOut(i, _posScroll);
         _sliderPos = _posScroll - 1;
       },
-      onLeave: () => {
-        // $(i).find('.title').removeClass('motion-in');
-        console.log(e + ' LEAVE');
+      onLeave: () => {// $(i).find('.title').removeClass('motion-in');
+        // console.log(e + ' LEAVE');
       }
     });
   });
@@ -34631,13 +34663,12 @@ function slideMotionIn(_i, _posScroll) {
   }
 
   if (_posScroll == 4) {
-    // if($(window).width() > 500){
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.button').addClass('motion-in');
     _components_title__WEBPACK_IMPORTED_MODULE_2__["motionIn"](jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i));
     gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.image'), 2, {
       ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
       opacity: 1
-    }, 0); // }
+    }, 0);
   }
 }
 
@@ -34680,13 +34711,12 @@ function slideMotionOut(_i, _posScroll) {
   }
 
   if (_posScroll == 4) {
-    // if($(window).width() > 500){
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.button').removeClass('motion-in');
     _components_title__WEBPACK_IMPORTED_MODULE_2__["motionOut"](jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i));
     gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.image'), 1, {
       ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
       opacity: 0
-    }, 0); // }
+    }, 0);
   }
 }
 

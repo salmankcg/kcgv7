@@ -28,7 +28,11 @@ window.mobileAndTabletCheck = function() {
 if($pages.length){
 
     setTimeout(function(){
-       smoothScroll();
+      if(!mobileAndTabletCheck()){
+        smoothScroll();
+      }else{
+        $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
+      }
     },300);
 
     window.addEventListener('resize', function(){
@@ -42,50 +46,43 @@ function pinned(scrolled){
     //______________ FOOTER PARALLAX
     _sizeDocument =  $('[data-scroll-content]').height();
 
-    if(!mobileAndTabletCheck()){
+    if(scrolled > _sizeDocument - (_h * 2)) {
+      let percentageFromTop =  ((_sizeDocument - _h) - scrolled) / _h
+      
+      gsap.set($footer, { y: - (_h * percentageFromTop)})
+      gsap.set($footer, { yPercent:  (percentageFromTop)})
 
-      if(scrolled > _sizeDocument - (_h * 2)) {
-        let percentageFromTop =  ((_sizeDocument - _h) - scrolled) / _h
-        
-        gsap.set($footer, { y: - (_h * percentageFromTop)})
-        gsap.set($footer, { yPercent:  (percentageFromTop)})
+      let _percentClass = Math.round(percentageFromTop * 100);
 
-        let _percentClass = Math.round(percentageFromTop * 100);
-
-        if(!$footer.hasClass('motion-in-3')){
-          if(_percentClass >= 70){
-            $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
-          }
-        }
-
-      }else{
-        if($footer.hasClass('motion-in-3')){
-          $footer.removeClass('motion-in-1').removeClass('motion-in-2').removeClass('motion-in-3')
+      if(!$footer.hasClass('motion-in-3')){
+        if(_percentClass >= 70){
+          $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
         }
       }
-
-      if(_dataPage == 'home'){
-
-        $stickyHome.forEach(function(item, index){
-          let itemPosition  = item.getBoundingClientRect().top
-          let itemBottom    = item.getBoundingClientRect().bottom
-          let fakeOffset    = ((scrolled * -1) - (itemPosition - window.innerHeight)) * - 1
-
-          if(itemPosition <  (window.innerHeight * 1.1) && itemBottom > 0) {
-              let percentageDuration = (scrolled - fakeOffset) / ((fakeOffset + (window.innerHeight * 1.5)) - fakeOffset)
-              gsap.set($('.home-bullets'), { yPercent:  (150 * percentageDuration)});
-              gsap.set($('.home-infos'), { yPercent:  (150 * percentageDuration)});
-              gsap.set($('.home-globe'), { yPercent:  (150 * percentageDuration)});
-              gsap.set($('.home-bckg'), { yPercent:  (150 * percentageDuration)});
-          }
-        });
-
-        // console.log(scrolled);
-      }
-
 
     }else{
-      $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
+      if($footer.hasClass('motion-in-3')){
+        $footer.removeClass('motion-in-1').removeClass('motion-in-2').removeClass('motion-in-3')
+      }
+    }
+
+    if(_dataPage == 'home'){
+
+      $stickyHome.forEach(function(item, index){
+        let itemPosition  = item.getBoundingClientRect().top
+        let itemBottom    = item.getBoundingClientRect().bottom
+        let fakeOffset    = ((scrolled * -1) - (itemPosition - window.innerHeight)) * - 1
+
+        if(itemPosition <  (window.innerHeight * 1.1) && itemBottom > 0) {
+            let percentageDuration = (scrolled - fakeOffset) / ((fakeOffset + (window.innerHeight * 1.5)) - fakeOffset)
+            gsap.set($('.home-bullets'), { yPercent:  (150 * percentageDuration)});
+            gsap.set($('.home-infos'), { yPercent:  (150 * percentageDuration)});
+            gsap.set($('.home-globe'), { yPercent:  (150 * percentageDuration)});
+            gsap.set($('.home-bckg'), { yPercent:  (150 * percentageDuration)});
+        }
+      });
+
+      // console.log(scrolled);
     }
 
 }

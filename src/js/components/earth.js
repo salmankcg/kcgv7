@@ -168,7 +168,7 @@ const atmosphereFragShader    = ` varying float atmosphereThickness;
 
                                 }`;
 
-
+var _url                    = null;
 
 // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -180,7 +180,13 @@ async function init() {
   renderer.autoClear = false;
   document.getElementById("canvas").appendChild(renderer.domElement);
 
-  scene     = await loadObject("assets/earth/earth_and_water.json");
+  if(window.location.hostname == 'kcgv10.kingscrestglobal.com'){
+    _url = "wp-content/themes/kcg/assets/earth/";
+  }else{
+    _url = "assets/earth/";
+  }
+
+  scene     = await loadObject(_url+"earth_and_water.json");
   scene.fog = new THREE.Fog( 0x000000, 1500, 2100 );
 
   const textureLoader = new THREE.TextureLoader();
@@ -347,23 +353,23 @@ async function fixMaterials() {
 
     diffuseTexture: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_diffuse.jpg")
+      value: await loadTexture(_url+"earth_diffuse.jpg")
     },
     diffuseNight: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_diffuse_night.jpg")
+      value: await loadTexture(_url+"earth_diffuse_night.jpg")
     },
     normalMap: {
       type: "t",
-      value: await loadTexture("assets/earth/earth_normal_map.jpg")
+      value: await loadTexture(_url+"earth_normal_map.jpg")
     },
     specularMap: {
       type: "t",
-      value: await loadTexture( "assets/earth/earth_specular_map.png")
+      value: await loadTexture( _url+"earth_specular_map.png")
     },
     cloudsMap: {
       type: "t",
-      value: await loadTexture( "assets/earth/earth_diffuse_clouds.jpg")
+      value: await loadTexture( _url+"earth_diffuse_clouds.jpg")
     }
 
   }

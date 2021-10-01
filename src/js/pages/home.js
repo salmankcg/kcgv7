@@ -61,9 +61,6 @@ function init(){
         $(window).on('wheel', onInteract);
 
     }else{
-        // $('#slide-5').find('.button').addClass('motion-in');
-        // Title.motionIn($('#slide-5'));
-        // gsap.to($('#slide-5').find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
 
         $(window).on('scroll.home', onScroll);
 	    onScroll();
@@ -228,20 +225,12 @@ function animateMobile(){
         let _posScroll      = e;
         
 
-        ScrollTrigger.batch($(i), { start: 'top 40%',
+        ScrollTrigger.batch($(i), { start: 'top 90%',
             onEnter: () => { 
                 _sliderPos = _posScroll;
                 slideMotionIn(i, _posScroll);
             },
-            onEnterBack: () => { 
-                // console.log(e + ' ENTER BACK');
-
-                // if(e == 0){
-                //     $(i).find('.title').addClass('motion-in');
-                //     $(i).find('.button').addClass('motion-in');
-                //     $(i).find('.home-globe').addClass('motion-in');
-                // }
-            },
+            onEnterBack: () => {},
             onLeaveBack: () => { 
                 slideMotionOut(i, _posScroll);
 
@@ -249,7 +238,7 @@ function animateMobile(){
             },
             onLeave: () => { 
                 // $(i).find('.title').removeClass('motion-in');
-                console.log(e + ' LEAVE');
+                // console.log(e + ' LEAVE');
             }
         })
 
@@ -293,11 +282,9 @@ function slideMotionIn(_i, _posScroll){
     }
 
     if( _posScroll == 4){
-        // if($(window).width() > 500){
-            $(_i).find('.button').addClass('motion-in');
-            Title.motionIn($(_i));
-            gsap.to($(_i).find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
-        // }
+        $(_i).find('.button').addClass('motion-in');
+        Title.motionIn($(_i));
+        gsap.to($(_i).find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
     }
 }
 
@@ -325,11 +312,9 @@ function slideMotionOut(_i, _posScroll){
     }
 
     if( _posScroll == 4){
-        // if($(window).width() > 500){
-            $(_i).find('.button').removeClass('motion-in');
-            Title.motionOut($(_i));
-            gsap.to($(_i).find('.image'), 1, {ease: Power3.easeOut, opacity: 0},0);
-        // }
+        $(_i).find('.button').removeClass('motion-in');
+        Title.motionOut($(_i));
+        gsap.to($(_i).find('.image'), 1, {ease: Power3.easeOut, opacity: 0},0);
     }
 }
 
@@ -339,7 +324,6 @@ function motionScroll(_target){
 
 function killScroll(){
     if( _gsapScroll) _gsapScroll.kill();
-    
 }
 
 function onScroll(){

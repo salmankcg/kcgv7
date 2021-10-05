@@ -18,7 +18,6 @@ if($testimonial.length){
   $testimonial.find('.slides').slick({
     infinite        : true,
     lazyLoad        : 'ondemand',
-    slidesToShow	  : 3,
     slidesToScroll	: 1,
     arrows          : false,
     dots            : true,
@@ -44,6 +43,8 @@ if($testimonial.length){
   $testimonial.find('.t-next').on('click',function(){
     $testimonial.find('.slides').slick('slickNext');
   });  
+
+  
 
 }
 

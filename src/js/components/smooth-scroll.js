@@ -33,7 +33,7 @@ if($pages.length){
       }else{
         $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
       }
-    },300);
+    },1000);
 
     window.addEventListener('resize', function(){
       _h = window.innerHeight;
@@ -140,6 +140,8 @@ function smoothScroll() {
       
         setHeight() {
           document.body.style.height = `${this.dom.content.offsetHeight}px`
+          
+          console.log(`${this.dom.content.offsetHeight}px`);
         }
       
         // resize() {
@@ -204,6 +206,7 @@ function smoothScroll() {
         resize() {
           this.setHeight();
           this.scroll();
+
         }
       
         addEvents() {

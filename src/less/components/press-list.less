@@ -1,15 +1,38 @@
 .press-list{
     position: relative;
     margin: 0px -40px;
+    transition: 1s all @custom;
 
     /*------------------*/
     /*--- ATTRIBUTES ---*/
     /*------------------*/
-
+    &.loading{
+        height: 600px !important;
+        opacity: 0;
+    }
 
     /*----------------*/
     /*--- ELEMENTS ---*/
     /*----------------*/
+
+    .ajax-loader{
+        width: 100%;
+        height: 90px;
+        position: absolute;
+        top: 0px;
+
+        svg{
+            width: 100%;
+            height: 100%
+        }
+    }
+
+    .message{
+        .blackerLt;
+        font-size: 18px;
+        text-align: center;
+        color: @black;
+    }
 
     .item{
         position: relative;

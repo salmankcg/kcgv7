@@ -77806,9 +77806,12 @@ async function init() {
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
 
-  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').hasClass('page-template-default')) {
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement);
+
+    if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').hasClass('elementor-editor-active')) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement);
+    }
   } else {
     _url = "assets/earth/";
     document.getElementById("canvas").appendChild(renderer.domElement);

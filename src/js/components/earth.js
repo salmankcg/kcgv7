@@ -182,10 +182,11 @@ async function init() {
   renderer.autoClear = false;
   
 
-  if($('body').hasClass('page-template-default')){
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
-    $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
-    
+    if($('body').hasClass('elementor-editor-active')){
+      $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
+    }
   }else{
     _url = "assets/earth/";
     document.getElementById("canvas").appendChild(renderer.domElement);

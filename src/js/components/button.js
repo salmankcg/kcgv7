@@ -2,8 +2,8 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-import gsap, {TimelineMax, Power3, Power2, Expo, Elastic} from "gsap";
-gsap.config({ nullTargetWarn: false });
+import gsap, {Power2, Elastic} from "gsap";
+gsap.config({ nullTargetWarn: false, force3D: true });
 
 
 

@@ -1,0 +1,107 @@
+.clients-content{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 60px 0px;
+
+
+    /*------------------*/
+    /*--- ATTRIBUTES ---*/
+    /*------------------*/
+
+
+    /*----------------*/
+    /*--- ELEMENTS ---*/
+    /*----------------*/
+    .category{
+        position: relative;
+        padding-bottom: 120px;
+        margin-bottom: 120px;
+
+        &:after{
+            .ba;
+            width: 100%;
+            height: 1px;
+            background: rgba(0,0,0,.1);
+            position: absolute;
+            bottom: 0px;
+        }
+    }
+
+    .cc-top{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 80px;
+
+        .paragraph{
+            width: 67%;
+        }
+
+        .caption{
+            width: 30%;
+        }
+    }
+
+    .cc-list{
+        margin: 0px -30px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .item{
+        width: 33.3333%;
+        float: left;
+        padding: 0px 30px;
+        margin-bottom: 40px;
+
+        .paragraph{
+            margin: 12px 0px;
+        }
+    }
+
+
+
+    /*------------------*/
+    /*--- RESPONSIVE ---*/
+    /*------------------*/
+
+    @media( max-width: @screen-large ){
+       padding-top: 0px;
+
+       .item{
+           width: 50%;
+
+           img{
+               height: 50px;
+           }
+       }
+
+       .category{
+            padding-bottom: 70px;
+            margin-bottom: 90px;
+       }
+
+    }
+
+    @media( max-width: @screen-small ){
+        padding-top: 40px;
+
+        .item{
+            width: 100%;
+        }
+
+        .cc-top{
+            flex-direction: column;
+            margin-bottom: 50px;
+
+            .paragraph{
+                width: 100%;
+            }
+
+            .caption{
+                width: 100%;
+            }
+        }
+
+    }
+
+}

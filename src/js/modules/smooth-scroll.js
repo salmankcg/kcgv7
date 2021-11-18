@@ -9,13 +9,12 @@ gsap.config({ nullTargetWarn: false, force3D: false });
 // ------------------------------ \\\
 // ------------ VARS ------------ \\\
 // ------------------------------ \\\
-let $pages          = $('.pages');
-let $footer         = $('footer.footer');
-let _dataPage       = $('main').data('page');
-let _h              = window.innerHeight;
-let _sizeDocument   = $('[data-scroll-content]').height();
-
-let $stickyHome      = document.querySelectorAll('.home-content');
+let $pages            = null;
+let $footer           = null;
+let _dataPage         = null;
+let _h                = null;
+let _sizeDocument     = null;
+let $stickyHome       = null;
 
 window.mobileAndTabletCheck = function() {
 	let check = false;
@@ -26,34 +25,35 @@ window.mobileAndTabletCheck = function() {
 // ------------------------------ \\\
 // ------------ INIT ------------ \\\
 // ------------------------------ \\\
-if($pages.length){
+function init(){
 
-  console.log('_sizeDocument '+ _sizeDocument);
+  $pages            = $('.pages');
+  $footer           = $('footer.footer');
+  _dataPage         = $('main').data('page');
+  _h                = window.innerHeight;
+  _sizeDocument     = $('[data-scroll-content]').height();
+  $stickyHome       = document.querySelectorAll('.home-content');
 
-    setTimeout(function(){
+  console.log('_sizeDocument 00 '+ _sizeDocument);
 
-      _sizeDocument   = $('[data-scroll-content]').height();
-      $pages          = $('.pages');
-      $footer         = $('footer.footer');
-      _dataPage       = $('main').data('page');
-
-      console.log('_sizeDocument 444 '+ _sizeDocument);
-
-      if(!mobileAndTabletCheck()){
-        smoothScroll();
-      }else{
-        $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
-      }
+  if(!mobileAndTabletCheck()){
+    smoothScroll();
+  }else{
+    $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
+  }
 
 
-
-    }, 5000 );
-
-    window.addEventListener('resize', function(){
-      _h = window.innerHeight;
-    }, { passive: true })
-
+  console.log('Smooth Scroll');
 }
+
+function resize() {
+  _h = window.innerHeight;
+}
+
+
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
 
 function pinned(scrolled){
 
@@ -235,3 +235,9 @@ function smoothScroll() {
       const smooth = new Smooth()
     }
 }
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

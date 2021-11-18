@@ -29,6 +29,8 @@ function init(){
 		$(window).scrollTop(0);
 	}, i);
 
+	console.log($menu.length);
+
 	Loader.initMotion();
 	
 	setTimeout(function(){

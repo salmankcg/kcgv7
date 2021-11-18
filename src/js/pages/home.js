@@ -41,7 +41,11 @@ function init(){
 
     $pages.find('.infos').height(window.innerHeight);
     $pages.find('.circle').css({'width':window.innerHeight/1.8, 'height':window.innerHeight/1.8});
-    Earth.init();
+
+    setTimeout(function(){
+        Earth.init();
+    }, 1000);
+    
 
     Title.init($slides.find('.title'));
 
@@ -61,10 +65,8 @@ function init(){
         $(window).on('wheel', onInteract);
 
     }else{
-
         $(window).on('scroll.home', onScroll);
 	    onScroll();
-
         animateMobile();
     }
 

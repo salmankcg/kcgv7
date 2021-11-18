@@ -3,6 +3,7 @@
 // ----------------------------------------- \\\
 import $ from "jquery";
 import * as MouseMove from  "../components/mouse-move";
+import * as Testimonial from  "../components/testimonial";
 import gsap, {TweenMax, TimelineMax} from "gsap";
 
 
@@ -44,6 +45,8 @@ let _shuOc          = _oceania.sort(() => 0.5 - Math.random());
 function init(){
 
     addPopPeople();
+    
+    Testimonial.init();
 
     if($(window).width() >= 860){
         MouseMove.init($highlights.find('img'));

@@ -11,13 +11,13 @@ import * as Home        from './pages/home';
 import * as About       from './pages/about';
 import * as Approach    from './pages/about-approach';
 import * as Team        from './pages/about-team';
-import * as Person        from './pages/about-person';
+import * as Person      from './pages/about-person';
 import * as Works       from './pages/works';
 import * as Work        from './pages/work';
 import * as Contact     from './pages/contact';
 import * as Services    from './pages/services';
 import * as Service     from './pages/service';
-import * as Buzz       from './pages/buzz';
+import * as Buzz        from './pages/buzz';
 
 import  './components/button';
 import  './components/footer';
@@ -48,7 +48,6 @@ const _pages = $('main').data('page');
 $(function() {
     'use strict';
 
-    // console.log('INIT');
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -61,60 +60,50 @@ $(function() {
         case 'about':
             About.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'about-mission':
             Approach.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'about-team':
             Team.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'about-person':
             Person.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'works':
             Works.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'work':
             Work.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'contact':
             Contact.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'services':
             Services.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'service':
             Service.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         case 'buzz':
             Buzz.init();
             PageLoad.hide();
-            // PageLoad.init();
         break;
         default:
             PageLoad.hide();
-            // PageLoad.init();
             break;
     }
 
     $( window ).on('resize', function() {
+        
         switch(_pages){
             case 'home':
                 Home.resize();
@@ -127,7 +116,6 @@ $(function() {
             break;
         }
 
-        // console.log('resize');
     });
 
 });

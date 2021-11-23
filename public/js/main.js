@@ -77814,17 +77814,8 @@ async function init() {
 
   document.getElementById("canvas").appendChild(renderer.domElement);
 
-<<<<<<< HEAD
   if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
-
-    if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').hasClass('elementor-editor-active')) {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement);
-    }
-=======
-  if (window.location.hostname == 'kcgv10.kingscrestglobal.com') {
-    _url = "wp-content/themes/kcg/assets/earth/";
->>>>>>> 8e73fcfb560ca4ed5d4f02682311629031b8befc
   } else {
     _url = "assets/earth/";
   }

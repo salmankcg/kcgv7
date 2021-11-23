@@ -80311,13 +80311,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/mouse-move */ "./src/js/components/mouse-move.js");
-/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/testimonial */ "./src/js/components/testimonial.js");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 
-
+ // import * as Testimonial from  "../components/testimonial";
 
  // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
@@ -80357,8 +80356,7 @@ let _shuOc = _oceania.sort(() => 0.5 - Math.random()); // ----------------------
 
 
 function init() {
-  addPopPeople();
-  _components_testimonial__WEBPACK_IMPORTED_MODULE_2__["init"]();
+  addPopPeople(); // Testimonial.init();
 
   if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
     _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($highlights.find('img'));
@@ -80432,11 +80430,11 @@ function scramblePos(_this, _place) {
 function motionIn(_this, _class) {
   var $item = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this);
   var $figure = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).find('img');
-  new gsap__WEBPACK_IMPORTED_MODULE_3__["TimelineMax"]({
+  new gsap__WEBPACK_IMPORTED_MODULE_2__["TimelineMax"]({
     onComplete: function () {
-      gsap__WEBPACK_IMPORTED_MODULE_3__["TweenMax"].killTweensOf($figure);
+      gsap__WEBPACK_IMPORTED_MODULE_2__["TweenMax"].killTweensOf($figure);
     }
-  }).add([gsap__WEBPACK_IMPORTED_MODULE_3__["TweenMax"].to($figure, 5, {
+  }).add([gsap__WEBPACK_IMPORTED_MODULE_2__["TweenMax"].to($figure, 5, {
     scale: 1,
     ease: 'Elastic.easeOut'
   })]);

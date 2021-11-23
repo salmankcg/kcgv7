@@ -175,20 +175,28 @@ var _url                    = null;
 // ----------------------------------------- \\\
 async function init() {
 
-  console.log('threeJS 67890');
+  // console.log('threeJS 67890');
 
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
   
 
-  if($('body').hasClass('page-template-default')){
-    _url = "wp-content/themes/kcg/assets/earth/";
-    $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
+  // if($('body').hasClass('page-template-default')){
+  //   _url = "wp-content/themes/kcg/assets/earth/";
+  //   $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
     
-  }else{
+  // }else{
+  //   _url = "assets/earth/";
+  //   document.getElementById("canvas").appendChild(renderer.domElement);
+  // }
+
+  document.getElementById("canvas").appendChild(renderer.domElement);
+
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com') {
+    _url = "wp-content/themes/kcg/assets/earth/";
+  } else {
     _url = "assets/earth/";
-    document.getElementById("canvas").appendChild(renderer.domElement);
   }
 
   

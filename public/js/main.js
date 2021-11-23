@@ -77801,17 +77801,23 @@ var _url = null; // ----------------------------------------- \\\
 // ----------------------------------------- \\\
 
 async function init() {
-  console.log('threeJS 67890'); // initialize the renderer
-
+  // console.log('threeJS 67890');
+  // initialize the renderer
   renderer.setSize(_width, _height);
-  renderer.autoClear = false;
+  renderer.autoClear = false; // if($('body').hasClass('page-template-default')){
+  //   _url = "wp-content/themes/kcg/assets/earth/";
+  //   $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
+  // }else{
+  //   _url = "assets/earth/";
+  //   document.getElementById("canvas").appendChild(renderer.domElement);
+  // }
 
-  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').hasClass('page-template-default')) {
+  document.getElementById("canvas").appendChild(renderer.domElement);
+
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement);
   } else {
     _url = "assets/earth/";
-    document.getElementById("canvas").appendChild(renderer.domElement);
   }
 
   amount = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#canvas').data('people');
@@ -80848,6 +80854,7 @@ function animateDesktop() {
       },
       onLeaveBack: () => {
         slideMotionIn(i, _posScroll);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(i).find('.home-infos').addClass('enabled');
       }
     });
     gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_4__["ScrollTrigger"].batch(jquery__WEBPACK_IMPORTED_MODULE_0___default()(i), {
@@ -80897,9 +80904,7 @@ function animateMobile() {
         slideMotionOut(i, _posScroll);
         _sliderPos = _posScroll - 1;
       },
-      onLeave: () => {// $(i).find('.title').removeClass('motion-in');
-        // console.log(e + ' LEAVE');
-      }
+      onLeave: () => {}
     });
   });
 }
@@ -80961,6 +80966,8 @@ function slideMotionIn(_i, _posScroll) {
       opacity: 1
     }, 0);
   }
+
+  console.log('nqjkbejknblfknbfehgirjwifjwk ' + _target);
 }
 
 function slideMotionOut(_i, _posScroll) {

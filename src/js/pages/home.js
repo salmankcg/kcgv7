@@ -192,6 +192,7 @@ function animateDesktop() {
             },
             onLeaveBack: () => { 
                 slideMotionIn(i, _posScroll);
+                $(i).find('.home-infos').addClass('enabled');
             }
         })
 
@@ -238,10 +239,7 @@ function animateMobile(){
 
                 _sliderPos = _posScroll - 1;
             },
-            onLeave: () => { 
-                // $(i).find('.title').removeClass('motion-in');
-                // console.log(e + ' LEAVE');
-            }
+            onLeave: () => { }
         })
 
     
@@ -288,6 +286,8 @@ function slideMotionIn(_i, _posScroll){
         Title.motionIn($(_i));
         gsap.to($(_i).find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
     }
+
+    console.log('nqjkbejknblfknbfehgirjwifjwk '+_target);
 }
 
 function slideMotionOut(_i, _posScroll){

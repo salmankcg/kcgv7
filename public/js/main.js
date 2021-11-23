@@ -80965,9 +80965,8 @@ function slideMotionIn(_i, _posScroll) {
       ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
       opacity: 1
     }, 0);
-  }
+  } // console.log('nqjkbejknblfknbfehgirjwifjwk '+_target);
 
-  console.log('nqjkbejknblfknbfehgirjwifjwk ' + _target);
 }
 
 function slideMotionOut(_i, _posScroll) {

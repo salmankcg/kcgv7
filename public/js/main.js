@@ -81524,7 +81524,8 @@ __webpack_require__.r(__webpack_exports__);
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $workList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-list'); // ----------------------------------------- \\\
+var $workList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-list');
+var $filter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter'); // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
@@ -81532,6 +81533,90 @@ function init() {
   if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
     _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
   }
+
+  $filter.find('.item').on('click', function (e) {
+    e.preventDefault();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove();
+    $filter.find('.item').removeClass('active');
+    $workList.addClass('loading');
+    $workList.html('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+    $workList.find('.message').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
+    var type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
+    var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: object_kcg.siteurl,
+      type: 'POST',
+      data: {
+        action: 'kcg_load_works_types',
+        nonce: object_kcg.nonce,
+        'type': type,
+        'posts_per_page': limit
+      }
+    }).done(function (response) {
+      if (response['html'] == '') {
+        $workList.html('<div class="message">Sorry, we don\'t have any item yet.</div>');
+      } else {
+        $workList.html(response['html']);
+      }
+
+      $workList.find('.ajax-loader').remove();
+      $workList.removeClass('loading');
+      setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+      }, 1000);
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+        _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+      }
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').length == 0) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
+      }
+    }).fail(function (response) {
+      console.log(response);
+    });
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.load-more-works', function (e) {
+    e.preventDefault();
+    var page = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('page');
+    var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
+    var currentType = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('current-type');
+    var maxPages = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('max-pages');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: object_kcg.siteurl,
+      type: 'POST',
+      data: {
+        action: 'kcg_load_more_works',
+        nonce: object_kcg.nonce,
+        'posts_per_page': limit,
+        'work-type': currentType,
+        'page': page
+      },
+      beforeSend: function (xhr) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works .label').text('Loading...'); // change the button text, you can also add a preloader image
+      }
+    }).done(function (response) {
+      $workList.append(response['html']);
+      setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+      }, 1000);
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+        _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+      }
+
+      page = parseInt(page) + 1;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works .label').text('LOAD MORE');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').data('page', page);
+
+      if (page == maxPages) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove(); // if last page, remove the button
+      }
+    }).fail(function (response) {
+      console.log(response);
+    });
+  });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\

@@ -78246,7 +78246,7 @@ function onScroll() {
       break;
 
     case 'service':
-      var _scTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-testimonials').offset().top;
+      var _scTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-testimonials').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sc-testimonials').offset().top : 0;
 
       if (scrollTop >= _scTop - _headerH) {
         if (scrollTop + wHeight >= dHeight - _headerH) {
@@ -78270,8 +78270,9 @@ function onScroll() {
       break;
 
     case 'about':
-      var _acBTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-black').offset().top;
-      var _acJTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-journal').offset().top;
+      var _acBTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-black').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-black').offset().top : 0;
+
+      var _acJTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-journal').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.ac-journal').offset().top : 0;
 
       if (scrollTop >= _acBTop - _headerH && scrollTop < _acJTop - _headerH) {
         $header.addClass('h-white');

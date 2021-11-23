@@ -103,7 +103,7 @@ function onScroll(){
 		break;
 		case 'service':
 			
-			var _scTop = $('.sc-testimonials').offset().top;
+			var _scTop = ($('.sc-testimonials').length > 0) ? $('.sc-testimonials').offset().top : 0;
 
 			if(scrollTop >= _scTop - _headerH){
 				if(scrollTop + wHeight >= dHeight - _headerH){
@@ -127,8 +127,8 @@ function onScroll(){
 		break;
 		case 'about':
 			
-			var _acBTop = $('.ac-black').offset().top;
-			var _acJTop = $('.ac-journal').offset().top;
+			var _acBTop = ($('.ac-black').length > 0) ? $('.ac-black').offset().top : 0;
+			var _acJTop = ($('.ac-journal').length > 0) ? $('.ac-journal').offset().top : 0;
 
 			if(scrollTop >= _acBTop - _headerH && scrollTop < _acJTop - _headerH){
 				$header.addClass('h-white');

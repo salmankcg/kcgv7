@@ -287,7 +287,7 @@ function slideMotionIn(_i, _posScroll){
         gsap.to($(_i).find('.image'), 2, {ease: Power3.easeOut, opacity: 1},0);
     }
 
-    console.log('nqjkbejknblfknbfehgirjwifjwk '+_target);
+    // console.log('nqjkbejknblfknbfehgirjwifjwk '+_target);
 }
 
 function slideMotionOut(_i, _posScroll){

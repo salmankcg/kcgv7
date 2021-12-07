@@ -67,7 +67,17 @@ function init(){
     }else{
         $(window).on('scroll.home', onScroll);
 	    onScroll();
-        animateMobile();
+     //    animateMobile();
+        animateDesktop();
+        
+        $(window).on('scroll',onScroll);
+        $(window).on('keydown', onInteractStart );
+        $(window).on('keyup', onInteractStop );
+        $(window).on('mousedown', onInteractStart );
+        $(window).on('mouseup', onInteractStop );
+        $(window).on('touchstart', onInteractStart );
+        $(window).on('touchend', onInteractStop );
+        $(window).on('wheel', onInteract);
     }
 
     
@@ -83,6 +93,18 @@ function resize() {
         $pages.find('.infos').height(window.innerHeight);
         $pages.find('.circle').css({'width':window.innerHeight/1.8, 'height':window.innerHeight/1.8});
         Earth.resize();
+    }
+    directOrientation();
+}
+
+function directOrientation() {
+    var winWidth = $(window).width();
+    if( (screen.orientation['type'] == 'landscape-primary') && (winWidth < 850) && (winWidth > 767) ) {
+        var circleSize = window.innerHeight/0.8;
+        $pages.find('.circle').css({'width':circleSize, 'height':circleSize});
+    } else if( (screen.orientation['type'] == 'landscape-primary') && (winWidth < 767) ) {
+        var circleSize = window.innerHeight/0.8 + 40;
+        $pages.find('.circle').css({'width':circleSize, 'height':circleSize});
     }
 }
 
@@ -271,13 +293,19 @@ function slideMotionIn(_i, _posScroll){
 
     if( _posScroll == 0){
         gsap.to($('.home-globe').find('.g-wrapper'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
+        // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '0%' },0);
     }else{
+        // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
         if(!mobileAndTabletCheck()){
             gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 1},0);
             gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '0%', opacity: 1},0);
         }else{
             gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 1},0);
             gsap.to($(_i).find('.img').find('img'), 2, {x: '0%', opacity: 1},0);
+        }
+        if(screen.orientation['type'] == 'landscape-primary') {
+            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 1},0);
+            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '0%', opacity: 1},0);
         }
     }
 
@@ -303,13 +331,19 @@ function slideMotionOut(_i, _posScroll){
 
     if( _posScroll == 0){
         gsap.to($('.home-globe').find('.g-wrapper'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '-10%' },0);
+        // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '0%' },0);
     }else{
+        // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
         if(!mobileAndTabletCheck()){
             gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 0},0);
             gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '-20%', opacity: 0},0);
         }else{
             gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 0},0);
             gsap.to($(_i).find('.img').find('img'), 2, {x: '-20%', opacity: 0},0);
+        }
+        if(screen.orientation['type'] == 'landscape-primary') {
+            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 0},0);
+            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '-20%', opacity: 0},0);
         }
     }
 

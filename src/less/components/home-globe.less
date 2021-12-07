@@ -45,17 +45,21 @@
     /*--- RESPONSIVE ---*/
     /*------------------*/
 
-    @media( max-width: @screen-large){
+    @media( max-width: @screen-large) and (orientation: portrait) {
         top: -50vh;
     }
 
-    @media( max-width: @screen-small ){
+    @media( max-width: @screen-small ) and (orientation: portrait) {
         top: 40%;
         position: absolute;
         z-index: 2;
     }
 
-    @media( max-width: @screen-xsmall ){
+    @media( max-width: @screen-xsmall ) and (orientation: portrait) {
+    }
+
+    @media only screen and (max-width: @screen-large) and (orientation:landscape) {
+        top: 15%;
     }
 }
 

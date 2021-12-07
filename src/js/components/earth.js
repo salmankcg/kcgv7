@@ -14,8 +14,13 @@ var renderer                = new THREE.WebGLRenderer({alpha:true, antialias: tr
 var clock                   = new THREE.Clock(true);
 
 var scene                   = null;
-var _width                  = window.innerHeight;
-var _height                 = window.innerHeight;
+if(screen.orientation['type'] == 'landscape-primary') {
+  var _width                  = window.innerHeight + 450;
+  var _height                 = window.innerHeight + 450;
+} else {
+  var _width                  = window.innerHeight;
+  var _height                 = window.innerHeight;
+}
 var aspect                  = _width / _height;
 var camera                  = new THREE.PerspectiveCamera(45, aspect, 1, 1000);
 var earth                   = null;
@@ -180,6 +185,7 @@ async function init() {
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
+
   
 
   // if($('body').hasClass('page-template-default')){

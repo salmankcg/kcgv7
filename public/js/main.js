@@ -77648,8 +77648,16 @@ var renderer = new three__WEBPACK_IMPORTED_MODULE_1__["WebGLRenderer"]({
 });
 var clock = new three__WEBPACK_IMPORTED_MODULE_1__["Clock"](true);
 var scene = null;
-var _width = window.innerHeight;
-var _height = window.innerHeight;
+
+if (screen.orientation['type'] == 'landscape-primary') {
+  var _width = window.innerHeight + 450;
+
+  var _height = window.innerHeight + 450;
+} else {
+  var _width = window.innerHeight;
+  var _height = window.innerHeight;
+}
+
 var aspect = _width / _height;
 var camera = new three__WEBPACK_IMPORTED_MODULE_1__["PerspectiveCamera"](45, aspect, 1, 1000);
 var earth = null;
@@ -80715,8 +80723,17 @@ function init() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('wheel', onInteract);
   } else {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.home', onScroll);
-    onScroll();
-    animateMobile();
+    onScroll(); //    animateMobile();
+
+    animateDesktop();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll', onScroll);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('keydown', onInteractStart);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('keyup', onInteractStop);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('mousedown', onInteractStart);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('mouseup', onInteractStop);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('touchstart', onInteractStart);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('touchend', onInteractStop);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('wheel', onInteract);
   }
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -80731,6 +80748,26 @@ function resize() {
       'height': window.innerHeight / 1.8
     });
     _components_earth__WEBPACK_IMPORTED_MODULE_1__["resize"]();
+  }
+
+  directOrientation();
+}
+
+function directOrientation() {
+  var winWidth = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width();
+
+  if (screen.orientation['type'] == 'landscape-primary' && winWidth < 850 && winWidth > 767) {
+    var circleSize = window.innerHeight / 0.8;
+    $pages.find('.circle').css({
+      'width': circleSize,
+      'height': circleSize
+    });
+  } else if (screen.orientation['type'] == 'landscape-primary' && winWidth < 767) {
+    var circleSize = window.innerHeight / 0.8 + 40;
+    $pages.find('.circle').css({
+      'width': circleSize,
+      'height': circleSize
+    });
   }
 } // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
@@ -80934,8 +80971,9 @@ function slideMotionIn(_i, _posScroll) {
       ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
       opacity: 1,
       y: '0%'
-    }, 0);
+    }, 0); // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '0%' },0);
   } else {
+    // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
     if (!mobileAndTabletCheck()) {
       gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {
         ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
@@ -80951,6 +80989,17 @@ function slideMotionIn(_i, _posScroll) {
         opacity: 1
       }, 0);
       gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.img').find('img'), 2, {
+        x: '0%',
+        opacity: 1
+      }, 0);
+    }
+
+    if (screen.orientation['type'] == 'landscape-primary') {
+      gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {
+        ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
+        opacity: 1
+      }, 0);
+      gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {
         x: '0%',
         opacity: 1
       }, 0);
@@ -80983,8 +81032,9 @@ function slideMotionOut(_i, _posScroll) {
       ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
       opacity: 0,
       y: '-10%'
-    }, 0);
+    }, 0); // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '0%' },0);
   } else {
+    // gsap.to($('.home-bckg').attr('data-type', 'desktop'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
     if (!mobileAndTabletCheck()) {
       gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {
         ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
@@ -81000,6 +81050,17 @@ function slideMotionOut(_i, _posScroll) {
         opacity: 0
       }, 0);
       gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(_i).find('.img').find('img'), 2, {
+        x: '-20%',
+        opacity: 0
+      }, 0);
+    }
+
+    if (screen.orientation['type'] == 'landscape-primary') {
+      gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {
+        ease: gsap__WEBPACK_IMPORTED_MODULE_3__["Power3"].easeOut,
+        opacity: 0
+      }, 0);
+      gsap__WEBPACK_IMPORTED_MODULE_3__["default"].to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {
         x: '-20%',
         opacity: 0
       }, 0);

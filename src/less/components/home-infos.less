@@ -108,7 +108,7 @@
     /*--- RESPONSIVE ---*/
     /*------------------*/
 
-    @media( max-width: @screen-large) and (orientation: portrait) {
+    @media( max-width: @screen-large){
         .paragraph{
             display: none;
         }
@@ -144,7 +144,7 @@
         }
     }
 
-    @media( max-width: @screen-small ) and (orientation: portrait) {
+    @media( max-width: @screen-small ){
         top: 0px;
         position: absolute;
 
@@ -171,24 +171,6 @@
     }
 
     @media( max-width: @screen-xsmall ){
-    }
-
-    @media only screen and (max-width: @screen-large) and (orientation:landscape) {
-        top: 0;
-
-        .title {
-            font-size: 30px;
-            line-height: 35px;
-        }
-    }
-
-    @media only screen and (max-width: @screen-medium) and (orientation:landscape) {
-        .steps {
-            .title {
-                font-size: 20px;
-                line-height: 25px;
-            }
-        }
     }
 }
 

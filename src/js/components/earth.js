@@ -14,13 +14,8 @@ var renderer                = new THREE.WebGLRenderer({alpha:true, antialias: tr
 var clock                   = new THREE.Clock(true);
 
 var scene                   = null;
-if(screen.orientation['type'] == 'landscape-primary') {
-  var _width                  = window.innerHeight + 450;
-  var _height                 = window.innerHeight + 450;
-} else {
-  var _width                  = window.innerHeight;
-  var _height                 = window.innerHeight;
-}
+var _width                  = window.innerHeight;
+var _height                 = window.innerHeight;
 var aspect                  = _width / _height;
 var camera                  = new THREE.PerspectiveCamera(45, aspect, 1, 1000);
 var earth                   = null;
@@ -185,7 +180,6 @@ async function init() {
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
-
   
 
   // if($('body').hasClass('page-template-default')){
@@ -273,10 +267,28 @@ async function init() {
 
 }
 
+const globeHeightWidth = function(){
+  if((window.innerWidth>window.innerHeight) && (window.innerWidth >715 && window.innerWidth<=725) ){
+      let globeHeight = $(window).height()*2 ;
+      return globeHeight;
+  }
+  else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      let globeHeight = $(window).height()*2.5 ;
+      return globeHeight;
+  }else{
+    let globeHeight = $(window).height();
+    return globeHeight;
+  }
+  
+}
+
+
 function resize() {
 
-  _width    = $(window).height();
-  _height   = $(window).height();
+  
+
+  _width    = globeHeightWidth();
+  _height   = globeHeightWidth();
 
   renderer.setSize(_width, _height);
 

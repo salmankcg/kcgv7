@@ -272,6 +272,10 @@ const globeHeightWidth = function(){
       let globeHeight = $(window).height()*2 ;
       return globeHeight;
   }
+  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1115) ){
+    let globeHeight = $(window).height()*1.9 ;
+    return globeHeight;
+}
   else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       let globeHeight = $(window).height()*2.5 ;
       return globeHeight;

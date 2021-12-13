@@ -95,12 +95,12 @@
    
         .container-fluid{
             .row{
-            flex-direction: column;
-            align-items: center;
+                flex-direction: column;
+                align-items: center;
             }
             
             .col{
-            width: 60%;
+                width: 60%;
             }
         }
     
@@ -126,6 +126,9 @@
             align-items: flex-start;
             .container-fluid{
                 margin-top: 110px;
+            }
+            &:nth-of-type(1) .paragraph{
+                display: none;
             }
 
             &:nth-of-type(5){
@@ -224,8 +227,15 @@
             }
 
             .images{
+                top: 80%;
+                height: 300px;
+
                 .img{
                     top: 20%;
+
+                    img {
+                        max-width: 80%;
+                    }
                 }
             }
         }

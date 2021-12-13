@@ -44,6 +44,10 @@ const globeHeightWidth = function(){
         let globeHeight = window.innerHeight*1.1 ;
         return globeHeight;
     }
+    else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
+        let globeHeight = window.innerHeight*1.03 ;
+        return globeHeight;
+    }
     else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         let globeHeight = window.innerHeight*1.4 ;
         return globeHeight;

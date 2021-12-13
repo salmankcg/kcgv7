@@ -77865,6 +77865,9 @@ const globeHeightWidth = function () {
   if (window.innerWidth > window.innerHeight && window.innerWidth > 715 && window.innerWidth <= 725) {
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 2;
     return globeHeight;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1115) {
+    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 1.9;
+    return globeHeight;
   } else if (window.innerWidth > window.innerHeight && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 2.5;
     return globeHeight;
@@ -80706,6 +80709,9 @@ const globeHeightWidth = function () {
   if (window.innerWidth > window.innerHeight && window.innerWidth > 715 && window.innerWidth <= 725) {
     let globeHeight = window.innerHeight * 1.1;
     return globeHeight;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1120) {
+    let globeHeight = window.innerHeight * 1.03;
+    return globeHeight;
   } else if (window.innerWidth > window.innerHeight && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     let globeHeight = window.innerHeight * 1.4;
     return globeHeight;
@@ -81574,6 +81580,7 @@ function init() {
     $workList.html('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
     $workList.find('.message').remove();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').addClass('active');
     var type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
     var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
@@ -81587,7 +81594,7 @@ function init() {
       }
     }).done(function (response) {
       if (response['html'] == '') {
-        $workList.html('<div class="message">Sorry, we don\'t have any item yet.</div>');
+        $workList.html('<div class="message">Sorry, we don\'t have any items yet.</div>');
       } else {
         $workList.html(response['html']);
       }

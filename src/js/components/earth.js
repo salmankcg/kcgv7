@@ -5,6 +5,28 @@ import $ from "jquery";
 import * as THREE from 'three';
 import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
+const globeHeightWidth = function(){
+  if((window.innerWidth>window.innerHeight) && (window.innerWidth >715 && window.innerWidth<=725) ){
+   
+      let globeHeight = $(window).height()*2 ;
+      return globeHeight;
+  }
+  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1115) ){
+    
+    let globeHeight = $(window).height()*1.9 ;
+    return globeHeight;
+}
+  else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+ 
+      let globeHeight = $(window).height()*2.5 ;
+      return globeHeight;
+  }else{
+    let globeHeight = $(window).height();
+    return globeHeight;
+  }
+  
+}
+
 
 
 // ------------------------------ \\\
@@ -14,8 +36,8 @@ var renderer                = new THREE.WebGLRenderer({alpha:true, antialias: tr
 var clock                   = new THREE.Clock(true);
 
 var scene                   = null;
-var _width                  = window.innerHeight;
-var _height                 = window.innerHeight;
+var _width                  = globeHeightWidth();
+var _height                 = globeHeightWidth();
 var aspect                  = _width / _height;
 var camera                  = new THREE.PerspectiveCamera(45, aspect, 1, 1000);
 var earth                   = null;
@@ -267,24 +289,7 @@ async function init() {
 
 }
 
-const globeHeightWidth = function(){
-  if((window.innerWidth>window.innerHeight) && (window.innerWidth >715 && window.innerWidth<=725) ){
-      let globeHeight = $(window).height()*2 ;
-      return globeHeight;
-  }
-  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1115) ){
-    let globeHeight = $(window).height()*1.9 ;
-    return globeHeight;
-}
-  else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-      let globeHeight = $(window).height()*2.5 ;
-      return globeHeight;
-  }else{
-    let globeHeight = $(window).height();
-    return globeHeight;
-  }
-  
-}
+
 
 
 function resize() {

@@ -37,13 +37,16 @@ const mobileAndTabletCheck = function() {
 };
 
 const globeHeightWidth = function(){
-    if((window.innerWidth>window.innerHeight) && (window.innerWidth >715 && window.innerWidth<=725) ){
-        console.log('checking globe width 1')
-        let globeHeight = window.innerHeight*1.1 ;
+
+    console.log('height6', window.innerHeight)
+    console.log('width', window.innerWidth)
+
+    if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
+        console.log('portrait width 1')
+        let globeHeight = window.innerHeight/2.4;
         return globeHeight;
     }
     else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
-        console.log('checking globe width 2')
         let globeHeight = window.innerHeight*1.03 ;
         return globeHeight;
     }
@@ -52,7 +55,7 @@ const globeHeightWidth = function(){
         let globeHeight = window.innerHeight*1.4 ;
         return globeHeight;
     }else{
-        console.log('checking globe width 3')
+        console.log('checking globe width last1')
         let globeHeight = window.innerHeight/1.8;
         return globeHeight;
     }

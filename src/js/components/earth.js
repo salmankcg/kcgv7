@@ -6,9 +6,9 @@ import * as THREE from 'three';
 import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 const globeHeightWidth = function(){
-  if((window.innerWidth>window.innerHeight) && (window.innerWidth >715 && window.innerWidth<=725) ){
-   
-      let globeHeight = $(window).height()*2 ;
+  if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
+    console.log('portrait earth 1')
+      let globeHeight = $(window).height()/1.3 ;
       return globeHeight;
   }
   else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1115) ){
@@ -21,6 +21,7 @@ const globeHeightWidth = function(){
       let globeHeight = $(window).height()*2.5 ;
       return globeHeight;
   }else{
+    console.log('last one')
     let globeHeight = $(window).height();
     return globeHeight;
   }

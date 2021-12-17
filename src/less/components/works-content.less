@@ -90,13 +90,22 @@
         margin-bottom: 40px;
     }
 
+    .onscroll-load-works {
+        display: grid;
+        justify-content: center;
+        padding: 30px 0;
+
+        .ajax-loader {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
 
     /*------------------*/
     /*--- RESPONSIVE ---*/
     /*------------------*/
     @media( max-width: @screen-large){
-        padding: 60px 0px;
-
         &:nth-of-type(4){
             padding-top: 0px;
         }
@@ -140,9 +149,11 @@
 
     }
 
-    @media( max-width: @screen-small ){
+    @media( max-width: @screen-medium ) {
+        padding: 60px 0px;
+    }
 
-        
+    @media( max-width: @screen-small ){
         .container-fluid{
             padding: 0px 30px;
         }

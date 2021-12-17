@@ -1,7 +1,8 @@
 .journal-list{
     display: flex;
     position: relative;
-    margin: 0px -40px;
+    justify-content: space-around;
+    margin: 0 -24px;
     flex-wrap: wrap;
 
     /*------------------*/
@@ -16,10 +17,9 @@
 
     .item{
         position: relative;
-        width: 33.333%;
+        width: ~'calc(33.333% - 54px)';
         cursor: pointer;
-        padding: 0px 40px;
-        margin-bottom: 80px;
+        margin: 0 0 80px;
 
         &:hover{
             &:before{
@@ -143,8 +143,7 @@
 
         .item{
             width: 100%;
-            margin: 0px;
-            margin-bottom: 80px;
+            margin: 0px 0 30px;
         }
 
         .j-title{
@@ -164,10 +163,12 @@
     @media( max-width: @screen-small ){
         .item{
             padding: 0px;
-            margin-bottom: 30px;
 
             &::before{
                 width: 100%;
+            }
+            &:not(:first-child) {
+                margin-top: 30px;
             }
         }
 

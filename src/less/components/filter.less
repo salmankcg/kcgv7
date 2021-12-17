@@ -19,7 +19,21 @@
     .work-filter-nav {
         display: none;
         position: relative;
+        align-self: flex-start;
         z-index: 5;
+    }
+    .work-filter-dropdown-nav {
+        display: none;
+        position: absolute;
+        top: 45px;
+        z-index: 5;
+
+        &.work-dropdown-left-arrow {
+            left: 10px;
+        }
+        &.work-dropdown-right-arrow {
+            right: 10px;
+        }
     }
     .works-filter-menu {
         position: relative;
@@ -42,7 +56,9 @@
             }
         }
         li.active .filter-dropdown {
-            display: block;
+            display: flex;
+            flex-flow: wrap row;
+            grid-gap: 10px;
         }
         li.active > .item span {
             color: #000000;
@@ -165,17 +181,21 @@
             box-sizing: border-box;
             width: 1000px;
 
+            &li .item {
+                padding-bottom: 10px;
+            }
             li.active {
                 .filter-dropdown {
                     display: flex;
                     flex-flow: nowrap;
                     grid-gap: 10px;
-                    top: 35px;
+                    top: 25px;
                 }
             }
 
             .filter-dropdown {
                 padding: 20px 0;
+                width: 1000px;
 
                 li {
                     padding: 0;

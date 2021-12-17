@@ -106262,7 +106262,10 @@ __webpack_require__.r(__webpack_exports__);
 // ----------------------------------------- \\\
 
 var $workList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-list');
-var $filter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter'); // ----------------------------------------- \\\
+var $filter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter');
+var $scrollload = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-works-items');
+var $infinitescoll = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works') : '';
+var scrollTrigger = true; // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
@@ -106274,6 +106277,7 @@ function init() {
   $filter.find('.item').on('click', function (e) {
     e.preventDefault();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove();
+    var winWidth = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width();
     $filter.find('.item').removeClass('active');
     $filter.find('li').removeClass('active');
     $workList.addClass('loading');
@@ -106281,6 +106285,17 @@ function init() {
     $workList.find('.message').remove();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').addClass('active');
+
+    if (winWidth < 737) {
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li').find('.filter-dropdown').length > 0 || jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li.active').find('.filter-dropdown').length > 0) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-dropdown-nav').fadeIn();
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-dropdown-nav').fadeOut();
+      }
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-dropdown-nav').fadeOut();
+    }
+
     var type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
     var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
@@ -106290,7 +106305,8 @@ function init() {
         action: 'kcg_load_works_types',
         nonce: object_kcg.nonce,
         'type': type,
-        'posts_per_page': limit
+        'posts_per_page': limit,
+        'onscroll': $scrollload.data('infinite-scroll')
       }
     }).done(function (response) {
       if (response['html'] == '') {
@@ -106309,7 +106325,11 @@ function init() {
         }
       }, 1000);
 
-      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').length == 0) {
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').length == 0 && $scrollload.data('infinite-scroll') == 0) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
+      }
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').length == 0 && $scrollload.data('infinite-scroll') == 1) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
       }
     }).fail(function (response) {
@@ -106354,6 +106374,65 @@ function init() {
     }).fail(function (response) {
       console.log(response);
     });
+  }); // INFINITE SCROLL LOAD
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll', function () {
+    if ($scrollload.data('infinite-scroll') == 1) {
+      var page = $infinitescoll.data('page');
+      var limit = $infinitescoll.data('limit');
+      var currentType = $infinitescoll.data('current-type');
+      var maxPages = $infinitescoll.data('max-pages');
+      var scrollPoint = $infinitescoll.offset().top - 80;
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).scrollTop() >= scrollPoint - jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height()) {
+        if (page < maxPages && scrollTrigger == true) {
+          scrollTrigger = false;
+          jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+            url: object_kcg.siteurl,
+            type: 'POST',
+            data: {
+              action: 'kcg_load_works_onscroll',
+              nonce: object_kcg.nonce,
+              'posts_per_page': limit,
+              'work-type': currentType,
+              'page': page
+            },
+            beforeSend: function (xhr) {
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').html('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+            }
+          }).done(function (response) {
+            $workList.append(response['html']);
+            page = parseInt(page) + 1;
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works .ajax-loader').remove();
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('page', page);
+
+            if (page == maxPages) {
+              scrollTrigger = false; // $('.onscroll-load-works').remove(); // if last page, remove the button
+            } else {
+              scrollTrigger = true;
+            }
+
+            setTimeout(function () {
+              window.dispatchEvent(new Event('resize'));
+
+              if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+                _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+              }
+            }, 1000);
+          }).fail(function (response) {
+            console.log(response);
+          });
+        } else {
+          setTimeout(function () {
+            window.dispatchEvent(new Event('resize'));
+
+            if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+              _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+            }
+          }, 1000);
+        }
+      }
+    }
   });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\

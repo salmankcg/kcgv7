@@ -2,24 +2,31 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-import * as Title from "../components/title"
-import * as MouseMove from  "../components/mouse-move";
 import gsap, {TimelineMax, Power3} from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger }    from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+
+import * as Title           from "../components/title"
+import * as MouseMove       from  "../components/mouse-move";
+import * as Testimonial     from  "../components/testimonial";
+import * as ScramblePeople  from  "../components/scrample-people";
+import * as Button          from "../components/button";
+import * as SubMenu         from "../components/sub-menu";
+
+
 
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-let $pages       	= $('.pages');
-let $highlights     = $('.highlights');
-let $slides       	= $('.sc-slides').find('.infos');
-let $serviceBckg    = $('.services-bckg');
-let $header         = $('.header');
-let $scrollDown     = $('.scrolldown');
-let $btIcons        = $slides.find('.services-icons').find('.item');
+let $pages       	= null;
+let $highlights     = null;
+let $slides       	= null;
+let $serviceBckg    = null;
+let $header         = null;
+let $scrollDown     = null;
+let $btIcons        = null;
 
 let _sliderPos     = 0;
 
@@ -28,6 +35,14 @@ let _sliderPos     = 0;
 // ----------------------------------------- \\\
 function init(){
 
+    $pages       	= $('.pages');
+    $highlights     = $('.highlights');
+    $slides       	= $('.sc-slides').find('.infos');
+    $serviceBckg    = $('.services-bckg');
+    $header         = $('.header');
+    $scrollDown     = $('.scrolldown');
+    $btIcons        = $slides.find('.services-icons').find('.item');
+
     $pages.find('.infos').height(window.innerHeight);
 
     Title.init($('#slide-1').find('.title'));
@@ -35,6 +50,11 @@ function init(){
 
     setScrollTo();
     animate();
+
+    Testimonial.init();
+    ScramblePeople.init();
+    Button.init();
+    SubMenu.init();
 
     $btIcons.on('click',function(){
         let _target = $(this).attr('data-target').split('slide-')[1];

@@ -8,19 +8,35 @@ import $ from "jquery";
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $header       	= $('.header');
+var $cont       	= $('.header');
 var $menu       	= $('.menu');
-var $hmbrg      	= $header.find('.hmbrg');
+var $hmbrg      	= $cont.find('.hmbrg');
 
 var _dataPage		= $('main').data('page');
 var _headerH		= $('.header').find('.logo').height() + (($('.header').height()-$('.header').find('.logo').height())/2);
 
+
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($header.length){
+function init(){
+	setHeader();
+}
 
-	$header.find('.menu').css({'height':window.innerHeight});
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){
+	$cont.find('.menu').css({'height':window.innerHeight});
+}
+
+
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+function setHeader(){
+	$cont.find('.menu').css({'height':window.innerHeight});
 	$hmbrg.on('click', function(){
 		if($(this).hasClass('active')){
 			hideMenu();
@@ -31,23 +47,8 @@ if($header.length){
 	});
 
 	$(window).on('scroll.header', onScroll);
-	$(window).on('resize', onResize);
+	$(window).on('resize', resize);
 	onScroll();
-}
-
-
-
-// ----------------------------------------- \\\
-// ------------ PUBLIC FUNCIONS ------------ \\\
-// ----------------------------------------- \\\
-
-
-
-// ----------------------------------------- \\\
-// ------------ PRIVATE FUNCIONS ----------- \\\
-// ----------------------------------------- \\\
-function onResize(){
-	$header.find('.menu').css({'height':window.innerHeight});
 }
 
 function onScroll(){
@@ -63,42 +64,42 @@ function onScroll(){
 		break;
 		case 'about-mission':
 			if(scrollTop + wHeight >= dHeight - _headerH){
-				$header.removeClass('h-white');
+				$cont.removeClass('h-white');
 				$('.submenu').addClass('hide');
 			}else{
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 				$('.submenu').removeClass('hide');
 			}
 		break;
 		case 'journal-inner':
 			if(scrollTop  >= (wHeight * 0.80) - _headerH){
 				if(scrollTop + wHeight >= dHeight - _headerH){
-					$header.addClass('h-white');
+					$cont.addClass('h-white');
 				}else{
-					$header.removeClass('h-white');
+					$cont.removeClass('h-white');
 				}
 			}else{
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 			}
 			
 		break;
 		case 'press-inner':
 			if(scrollTop  >= (wHeight * 0.80) - _headerH){
 				if(scrollTop + wHeight >= dHeight - _headerH){
-					$header.addClass('h-white');
+					$cont.addClass('h-white');
 				}else{
-					$header.removeClass('h-white');
+					$cont.removeClass('h-white');
 				}
 			}else{
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 			}
 			
 		break;
 		case 'contact':
 			if(scrollTop + wHeight >= dHeight - _headerH){
-				$header.removeClass('h-white');
+				$cont.removeClass('h-white');
 			}else{
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 			}
 		break;
 		case 'service':
@@ -107,20 +108,20 @@ function onScroll(){
 
 			if(scrollTop >= _scTop - _headerH){
 				if(scrollTop + wHeight >= dHeight - _headerH){
-					$header.addClass('h-white');
+					$cont.addClass('h-white');
 				}else{
-					$header.removeClass('h-white');
+					$cont.removeClass('h-white');
 				}
 
 			}else{
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 			}
 		break;
 		case 'services':
 			// if(scrollTop + wHeight >= dHeight - _headerH){
 			// 	$('.submenu').addClass('hide');
 			// }else{
-			// 	$header.removeClass('h-white');
+			// 	$cont.removeClass('h-white');
 			// 	$('.submenu').removeClass('hide');
 			// }
 			
@@ -131,24 +132,24 @@ function onScroll(){
 			var _acJTop = $('.ac-journal').offset().top;
 
 			if(scrollTop >= _acBTop - _headerH && scrollTop < _acJTop - _headerH){
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 			} else if(scrollTop >= _acJTop - _headerH && scrollTop + wHeight < dHeight - _headerH){
-				$header.removeClass('h-white');
+				$cont.removeClass('h-white');
 				$('.submenu').removeClass('hide');
 			}else if(scrollTop + wHeight >= dHeight - _headerH){
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 				$('.submenu').addClass('hide');
 			}else{
-				$header.removeClass('h-white');
+				$cont.removeClass('h-white');
 			}
 
 		break;
 		default:
 			if(scrollTop + wHeight >= dHeight - _headerH){
-				$header.addClass('h-white');
+				$cont.addClass('h-white');
 				$('.submenu').addClass('hide');
 			}else{
-				$header.removeClass('h-white');
+				$cont.removeClass('h-white');
 				$('.submenu').removeClass('hide');
 			}
 	}
@@ -157,15 +158,21 @@ function onScroll(){
 }
 
 function showMenu(){
-	$header.addClass('show-menu');
+	$cont.addClass('show-menu');
 	$menu.addClass('show-menu');
 	$('.submenu').addClass('hide');
 	$hmbrg.addClass('active');
 }
 
 function hideMenu(){
-	$header.removeClass('show-menu');
+	$cont.removeClass('show-menu');
 	$menu.removeClass('show-menu');
 	$('.submenu').removeClass('hide');
 	$hmbrg.removeClass('active');
 }
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

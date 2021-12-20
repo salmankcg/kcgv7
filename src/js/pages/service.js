@@ -2,25 +2,28 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-import * as Title from "../components/title"
-import * as MouseMove from  "../components/mouse-move";
-import * as ScrollMagic from  'scrollmagic';
-import * as Form from  "../components/form";
-import gsap, { Power3 } from "gsap";
+import * as Title           from "../components/title"
+import * as MouseMove       from  "../components/mouse-move";
+import * as ScrollMagic     from  'scrollmagic';
+import * as Form            from  "../components/form";
+import * as Testimonial     from  "../components/testimonial";
+import * as Button          from "../components/button";
+import * as SubMenu         from "../components/sub-menu";
+import gsap, { Power3 }     from "gsap";
 
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $pages       	    = $('.pages');
-var $header             = $('.header');
-var $scrollDown         = $('.scrolldown');
-var $workList		    = $('.works-list');
-var $btLearn            = $('.i-service').find('.button')
-var $btDownload         = $('.services-download').find('.bt-download')
-var $btClose            = $('.services-download').find('.bt-close')
-var $input              = $('.services-download').find('.input');
+let $pages       	    = null;
+let $header             = null;
+let $scrollDown         = null;
+let $workList		    = null;
+let $btLearn            = null;
+let $btDownload         = null;
+let $btClose            = null;
+let $input              = null;
 
 var _controller         = null;
 var _scrollPos          = 0;
@@ -33,14 +36,22 @@ var _scrollValues       = [];
 // ----------------------------------------- \\\
 function init(){
 
-    // $pages.find('.sc-slides').find('.infos').height(window.innerHeight);
+    $pages       	    = $('.pages');
+    $header             = $('.header');
+    $scrollDown         = $('.scrolldown');
+    $workList		    = $('.works-list');
+    $btLearn            = $('.i-service').find('.button')
+    $btDownload         = $('.services-download').find('.bt-download')
+    $btClose            = $('.services-download').find('.bt-close')
+    $input              = $('.services-download').find('.input');
 
     Title.init($pages.find('.sc-slides').find('.title'));
     MouseMove.init($workList.find('.item').find('.wrapper'));
 
-    // addScrollMagic();
-    // setScrollTo();
     Form.init($input);
+    Button.init();
+    Testimonial.init();
+    SubMenu.init();
 
     $scrollDown.on('click',function(){
         gsap.to(window, 2, {scrollTo: {y: $(window).height() , ease: Power3.easeOut}});
@@ -70,10 +81,7 @@ function init(){
 // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
-function resize() {
-    // $pages.find('.sc-slides').find('.infos').height(window.innerHeight);
-    // _controller.update(true);
-}
+function resize() {}
 
 
 

@@ -3,7 +3,7 @@
 // ------------------------------ \\\
 import $ from "jquery";
 import * as THREE from 'three';
-import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
+// import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 
 
@@ -175,33 +175,22 @@ var _url                    = null;
 // ----------------------------------------- \\\
 async function init() {
 
-  // console.log('threeJS 67890');
 
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
   
-
-  // if($('body').hasClass('page-template-default')){
-  //   _url = "wp-content/themes/kcg/assets/earth/";
-  //   $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
-    
-  // }else{
-  //   _url = "assets/earth/";
-  //   document.getElementById("canvas").appendChild(renderer.domElement);
-  // }
-
-  document.getElementById("canvas").appendChild(renderer.domElement);
-
-  if (window.location.hostname == 'kcgv10.kingscrestglobal.com') {
+  if($('body').hasClass('page-template-default')){
     _url = "wp-content/themes/kcg/assets/earth/";
-  } else {
+    $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement)  
+    // amount = $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').data('people');
+  }else{
     _url = "assets/earth/";
+    document.getElementById("canvas").appendChild(renderer.domElement);  
   }
 
-  
-  amount = $('#canvas').data('people');
 
+  amount    = $('#canvas').data('people');
   scene     = await loadObject(_url+"earth_and_water.json");
   scene.fog = new THREE.Fog( 0x000000, 1500, 2100 );
 
@@ -209,34 +198,24 @@ async function init() {
 	
   group = new THREE.Group();
 
+
   for ( let a = 0; a < amount.length; a ++ ) {
 
     const x = Math.random() - 0.5;
     const y = getRandomInt(-0.15, 0.15);
     const z = Math.random() - 0.5;
     
-
     if(amount[0].place == 'south-america'){
-
     } else if(amount[0].place == 'north-america'){
-
     } else if(amount[0].place == 'europe'){
-      
     } else if(amount[0].place == 'asia'){
-      
     } else if(amount[0].place == 'africa'){
-      
-    } else if(amount[0].place == 'oceania'){
-      
-    }
+    } else if(amount[0].place == 'oceania'){}
     
 
     let material;
-
     mapC          = textureLoader.load( amount[a].thumb );
-
     material      = new THREE.SpriteMaterial( { map: mapC, color: 0xffffff, fog: true } );
-
     const sprite  = new THREE.Sprite( material );
 
     sprite.position.set( x, y, z );
@@ -265,6 +244,7 @@ async function init() {
     render();
   });
 
+  
 }
 
 function resize() {
@@ -273,8 +253,6 @@ function resize() {
   _height   = $(window).height();
 
   renderer.setSize(_width, _height);
-
-  // console.log(_width)
 
   if(camera != null) {
     camera.aspect = _width / _height;
@@ -342,11 +320,8 @@ async function loadTexture(texture){
 
       
       if(_countLoad >= 4){
-        // console.log('LOADER ASSETS');
         $(window).trigger('LOADER_ALL');
       }
-
-      // console.log(_countLoad);
 
       _countLoad++;
     
@@ -358,11 +333,9 @@ async function fixMaterials() {
 
 
   atmosphereUniforms = {
-
     earthCenter: new THREE.Uniform(earth.position),
     earthRadius: new THREE.Uniform(10.0),
     atmosphereRadius: new THREE.Uniform(10.4),
-
   }
 
   earthUniforms = {
@@ -392,7 +365,7 @@ async function fixMaterials() {
 
   update(0);
 
-  BufferGeometryUtils.computeTangents(earth.geometry);
+  // BufferGeometryUtils.computeTangents(earth.geometry);
 
   earth.material      = new THREE.ShaderMaterial({
     uniforms          : earthUniforms,

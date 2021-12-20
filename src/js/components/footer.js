@@ -9,8 +9,8 @@ import gsap from "gsap";
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $footer       	= $('.footer');
-var $scrollup   	= $footer.find('.scrollup');
+var $cont       	= $('.footer');
+var $scrollup   	= $cont.find('.scrollup');
 var dHeight 		= null;
 var wHeight			= null;
 
@@ -18,8 +18,28 @@ var wHeight			= null;
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($footer.length){
-	$footer.css({'height':wHeight});
+function init(){
+	setFooter();
+}
+
+
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){
+	wHeight = window.innerHeight;
+	dHeight = $(document).height();
+
+	$cont.css({'height':window.innerHeight});
+}
+
+
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+function setFooter(){
+	$cont.css({'height':wHeight});
 
     $scrollup.find('.button').on('click', function(){
 		gsap.to(window, 1, {scrollTo: {y: 0 , ease: 'Power3.easeOut'}});
@@ -28,26 +48,14 @@ if($footer.length){
 	wHeight = window.innerHeight;
 	dHeight = $(document).height();
 
-	$(window).on('resize', onResize);
+	$(window).on('resize', resize);
 	
-	onResize();
-
-}
-
-
-
-// ----------------------------------------- \\\
-// ------------ PUBLIC FUNCIONS ------------ \\\
-// ----------------------------------------- \\\
-function onResize(){
-	wHeight = window.innerHeight;
-	dHeight = $(document).height();
-
-	$footer.css({'height':window.innerHeight});
+	resize();
 }
 
 
 // ----------------------------------------- \\\
-// ------------ PRIVATE FUNCIONS ----------- \\\
+// ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
+export { init, resize }
 

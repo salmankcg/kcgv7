@@ -7,37 +7,49 @@ import 'slick-carousel';
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $gallery       = $('.gallery');
+var $cont       = $('.gallery');
+var $slides      = $cont.find('.slides');
+
 
 
 
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($gallery.length){
-
-    var $slides       	= $gallery.find('.slides');
-
-    $slides.slick({
-		arrows		    : false,
-		dots		    : true,
-		infinite	    : false,
-		padding		    : '120px',
-        // variableWidth   : true,
-	});
-
-    $gallery.find('.t-prev').on('click',function(){
-        $slides.slick('slickPrev');
-    });
-
-    $gallery.find('.t-next').on('click',function(){
-        $slides.slick('slickNext');
-    });
+function init(){
+    setGallery();
 }
+
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){}
 
 
 
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
+function setGallery(){
+    $slides.slick({
+		arrows		    : false,
+		dots		    : true,
+		infinite	    : false,
+		padding		    : '120px',
+	});
 
+    $cont.find('.t-prev').on('click',function(){
+        $slides.slick('slickPrev');
+    });
+
+    $cont.find('.t-next').on('click',function(){
+        $slides.slick('slickNext');
+    });
+}
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

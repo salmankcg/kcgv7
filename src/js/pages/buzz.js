@@ -3,12 +3,12 @@
 // ----------------------------------------- \\\
 import $ from "jquery";
 import Masonry from "masonry-layout";
-
+import * as Button from "../components/button";
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $filter         = $('.filter');
+let $filter         = null;
 
 
 
@@ -17,10 +17,12 @@ var $filter         = $('.filter');
 // ----------------------------------------- \\\
 function init(){
 
-    var elem        = document.querySelector('.press-list');
-    var _dataAjax   = $filter.data('ajax');
-    var msnry       = null;
-     var _toggleClick    = false;;
+    $filter     = $('.filter');
+
+    let elem            = document.querySelector('.press-list');
+    let _dataAjax       = $filter.data('ajax');
+    let msnry           = null;
+    let _toggleClick    = false;;
 
     if($(window).width() > 550){
 
@@ -38,8 +40,7 @@ function init(){
         }, 500 );
     }
 
-    console.log('init 2');
-
+    Button.init();
 
     $filter.find('.item').on('click', function(e){
         e.preventDefault();

@@ -3,12 +3,13 @@
 // ----------------------------------------- \\\
 import $ from "jquery";
 import * as MouseMove from  "../components/mouse-move";
+import * as Button from "../components/button";
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $workList		= $('.works-list');
+let $workList		= null;
 
 
 
@@ -17,6 +18,10 @@ var $workList		= $('.works-list');
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 function init(){
+
+    $workList		= $('.works-list');
+
+    Button.init();
 
     if($(window).width() >= 860){
         MouseMove.init($workList.find('.item').find('.wrapper'));

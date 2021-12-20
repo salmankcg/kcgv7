@@ -2,56 +2,53 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-import * as Form from  "../components/form";
-import * as Button from "../components/button";
-import gsap, {Power3} from "gsap";
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
-gsap.registerPlugin(ScrollToPlugin);
-
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-let $contact		= null;
-let $input          = null;
-let $scrollDown     = null;
+var $cont       	= $('.modal');
+
 
 
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 function init(){
-
-    $contact		= $('.contact');
-    $input          = $contact.find('.input');
-    $scrollDown     = $('.scrolldown');
-
-    Form.init($input);
-    Button.init();
-
-    $scrollDown.on('click',function(){
-        $(this).addClass('hide');
-        gsap.to(window, .5, {scrollTo: {y: $(window).height() , ease: Power3.easeOut}});
-    });
+	setModal();
 }
+
 
 
 // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
-function resize() {
-    
-}
+function resize(){}
 
 
 
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
+function setModal(){
 
+	if(localStorage.getItem('loaded') != 'yes'){
+		setTimeout(function(){
+			$cont.fadeIn(400).css('display','flex');
+		},4000);
 
+		localStorage.setItem('loaded', 'yes');
+	}
 
+	$cont.find('.button').on('click',function(){
+		$cont.fadeOut(400);
+	});
+
+	$cont.find('.background').on('click',function(){
+		$cont.fadeOut(400);
+	});
+
+}
 
 
 // ----------------------------------------- \\\

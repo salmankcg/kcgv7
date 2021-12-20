@@ -8,8 +8,8 @@ import $ from "jquery";
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $video      	= $('.video-play');
-var $videoFrame 	= $('.video-frame');
+var $cont      		= $('.video-play');
+var $contFrame 		= $('.video-frame');
 
 var _inter			= null;
 var player      	= null;
@@ -19,28 +19,39 @@ var player      	= null;
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($video.length){
-	$video.on( 'click', function(){
-		openVideo($(this).data('youtube'));
-	});
-
-	$videoFrame.find('.bt-close').on( 'click', function(){
-		closeVideo();
-	});
+function init(){
+	setVideo()
 }
 
 
 
+
 // ----------------------------------------- \\\
-// ------------ PUBLIC FUNCIONS ----------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
+function resize(){}
+
+
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+function setVideo(){
+	$cont.on( 'click', function(){
+		openVideo($(this).data('youtube'));
+	});
+
+	$contFrame.find('.bt-close').on( 'click', function(){
+		closeVideo();
+	});
+}
+
 function openVideo(_youtube){
 
-	$videoFrame.fadeIn(200);
+	$contFrame.fadeIn(200);
 
 	var id 			= 'vd' + parseInt(Math.random() * 1e9);
 	var youtubeID 	= _youtube;
-	$('<div/>').attr('id', id).appendTo($videoFrame);
+	$('<div/>').attr('id', id).appendTo($contFrame);
 
 
 	onYTLoad(function(){
@@ -66,17 +77,13 @@ function openVideo(_youtube){
 
 function closeVideo(){
 	stop();
-	$videoFrame.fadeOut(200);
+	$contFrame.fadeOut(200);
 	setTimeout(function(){
-		$videoFrame.find('iframe').remove();
+		$contFrame.find('iframe').remove();
 	},200);
 	clearInterval(_inter);
 }
 
-
-// ----------------------------------------- \\\
-// ------------ PRIVATE FUNCIONS ----------- \\\
-// ----------------------------------------- \\\
 function onStateChange(e){
 
 	if (e.data == -1 || e.data == 0 || e.data == 2) {
@@ -143,4 +150,4 @@ function loadScript(src, callback){
 // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
-// export { openVideo, closeVideo }
+export { init, resize }

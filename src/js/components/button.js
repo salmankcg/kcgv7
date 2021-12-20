@@ -10,27 +10,34 @@ gsap.config({ nullTargetWarn: false, force3D: true });
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $button       = $('.button');
+var $cont       = $('.button');
 
 
 
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($button.length){
-    // $button.on('mouseenter', mouseEnter);
-    // $button.on('mouseleave', mouseLeave);
-
-    $button.each(function(){
-        mouseMagnetic(this);
-    });
+function init(){
+  setButton();
 }
 
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){}
 
 
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
+function setButton(){
+  $cont.each(function(){
+    mouseMagnetic(this);
+  });
+}
+
+
 function mouseMagnetic(item) {
 
     var $item = $(item);
@@ -104,3 +111,7 @@ function mouseMagnetic(item) {
     });
 };
   
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

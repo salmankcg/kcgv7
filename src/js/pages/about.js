@@ -2,8 +2,12 @@
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
 import $ from "jquery";
-import * as MouseMove from  "../components/mouse-move";
-// import * as Testimonial from  "../components/testimonial";
+import * as MouseMove       from  "../components/mouse-move";
+import * as Testimonial     from  "../components/testimonial";
+import * as ScramblePeople  from  "../components/scrample-people";
+import * as Button          from "../components/button";
+import * as SubMenu         from "../components/sub-menu";
+
 import gsap, {TweenMax, TimelineMax} from "gsap";
 
 
@@ -11,12 +15,9 @@ import gsap, {TweenMax, TimelineMax} from "gsap";
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $abtWorld       = $('.about-world');
-var $people         = $abtWorld.find('.item');
-var $highlights     = $('.highlights');
-
-let h               = window.innerHeight
-let $footer         = $('footer.footer')
+let $abtWorld       = null;
+let $people         = null;
+let $highlights     = null;
 
 let _countNA        = 0;
 let _countSA        = 0;
@@ -44,9 +45,16 @@ let _shuOc          = _oceania.sort(() => 0.5 - Math.random());
 // ----------------------------------------- \\\
 function init(){
 
+    $abtWorld       = $('.about-world');
+    $people         = $abtWorld.find('.item');
+    $highlights     = $('.highlights');
+
     addPopPeople();
     
-    // Testimonial.init();
+    Testimonial.init();
+    ScramblePeople.init();
+    Button.init();
+    SubMenu.init();
 
     if($(window).width() >= 860){
         MouseMove.init($highlights.find('img'));

@@ -1,46 +1,45 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
+import * as Gallery     from  "../components/gallery";
+import * as Video       from  "../components/video";
+import * as Button      from "../components/button";
+import * as SubMenu      from "../components/sub-menu";
+
 
 
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $modal       	= $('.modal');
-
 
 
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($modal.length){
+function init(){
 
-	if(localStorage.getItem('loaded') != 'yes'){
-		setTimeout(function(){
-			$modal.fadeIn(400).css('display','flex');
-		},4000);
+    Gallery.init();
+    Video.init();
+    Button.init();
+    SubMenu.init();
 
-		localStorage.setItem('loaded', 'yes');
-	}
-
-	$modal.find('.button').on('click',function(){
-		$modal.fadeOut(400);
-	});
-
-	$modal.find('.background').on('click',function(){
-		$modal.fadeOut(400);
-	});
 }
-
 
 
 // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
+function resize() {}
+
 
 
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
 
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

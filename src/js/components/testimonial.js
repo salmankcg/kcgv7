@@ -1,21 +1,38 @@
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
 import $ from "jquery";
 import "slick-carousel";
 
 
 
-// ------------------------------ \\\
-// ------------ VARS ------------ \\\
-// ------------------------------ \\\
-var $testimonial       = $('.testimonial:not(.no-slick)');
+// ----------------------------------------- \\\
+// ------------------ VARS ----------------- \\\
+// ----------------------------------------- \\\
+var $cont       = $('.testimonial:not(.no-slick)');
 
 
 
-// ------------------------------ \\\
-// ------------ INIT ------------ \\\
-// ------------------------------ \\\
-if($testimonial.length){
+// ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+function init(){
+  initSlider();
+}
 
-  $testimonial.find('.slides').slick({
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){}
+
+
+
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+function initSlider(){
+  $cont.find('.slides').slick({
     infinite        : true,
     lazyLoad        : 'ondemand',
     slidesToScroll	: 1,
@@ -23,28 +40,28 @@ if($testimonial.length){
     dots            : true,
     centerMode		: true,
     variableWidth: true,
-    responsive: [
-    {
+    responsive: [{
       breakpoint: 768,
       settings: {
-      arrows: false,
-      centerMode: true,
-      slidesToShow: 1,
-      adaptiveHeight: true
-      }
-    }
-    ]
+        arrows: false,
+        centerMode: true,
+        slidesToShow: 1,
+        adaptiveHeight: true
+        }
+      }]
   });
 
-  $testimonial.find('.t-prev').on('click',function(){
-    $testimonial.find('.slides').slick('slickPrev');
+  $cont.find('.t-prev').on('click',function(){
+    $cont.find('.slides').slick('slickPrev');
   });
 
-  $testimonial.find('.t-next').on('click',function(){
-    $testimonial.find('.slides').slick('slickNext');
+  $cont.find('.t-next').on('click',function(){
+    $cont.find('.slides').slick('slickNext');
   });  
-
-  
-
 }
 
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

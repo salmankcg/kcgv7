@@ -3,7 +3,7 @@
 // ------------------------------ \\\
 import $ from "jquery";
 import * as THREE from 'three';
-// import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
+import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 
 
@@ -180,12 +180,12 @@ async function init() {
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
   
-  if($('body').hasClass('page-template-default')){
+  if(/wp-admin/.test(parent.window.location.href)){
     _url = "wp-content/themes/kcg/assets/earth/";
     $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement)  
     // amount = $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').data('people');
   }else{
-    _url = "assets/earth/";
+    _url = "wp-content/themes/kcg/assets/earth/";
     document.getElementById("canvas").appendChild(renderer.domElement);  
   }
 
@@ -365,7 +365,7 @@ async function fixMaterials() {
 
   update(0);
 
-  // BufferGeometryUtils.computeTangents(earth.geometry);
+  BufferGeometryUtils.computeTangents(earth.geometry);
 
   earth.material      = new THREE.ShaderMaterial({
     uniforms          : earthUniforms,

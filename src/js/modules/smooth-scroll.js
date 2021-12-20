@@ -23,7 +23,7 @@ let $stickyHome       = null;
 // ------------------------------ \\\
 function init(){
 
-  if($('body').hasClass('page-template-default')){
+  if(/wp-admin/.test(parent.window.location.href)){
     
     $pages            = $('#elementor-preview-iframe', window.parent.document).contents().find('.pages');
     $footer           = $('#elementor-preview-iframe', window.parent.document).contents().find('footer.footer');
@@ -65,7 +65,7 @@ function resize() {
 function pinned(scrolled){
 
     //______________ FOOTER PARALLAX
-    if($('body').hasClass('page-template-default')){
+    if(/wp-admin/.test(parent.window.location.href)){
       _sizeDocument =  $('#elementor-preview-iframe', window.parent.document).contents().find('[data-scroll-content]').height();
     } else {
       _sizeDocument =  $('[data-scroll-content]').height();
@@ -137,7 +137,7 @@ function smoothScroll() {
           last: 0
         }
         
-        if($('body').hasClass('page-template-default')){
+        if(/wp-admin/.test(parent.window.location.href)){
           var iframe        = parent.document.getElementById("elementor-preview-iframe");
 
           this.dom = {
@@ -172,7 +172,7 @@ function smoothScroll() {
       }
     
       setHeight() {
-        if($('body').hasClass('page-template-default')){
+        if(/wp-admin/.test(parent.window.location.href)){
           var iframe        = parent.document.getElementById("elementor-preview-iframe");
           iframe.contentWindow.document.body.style.height = `${this.dom.content.offsetHeight}px`;
 

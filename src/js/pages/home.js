@@ -45,7 +45,7 @@ function init(){
     $header         = $('.header');
     $scrollDown     = $('.scrolldown');
 
-    if($('body').hasClass('page-template-default')){
+    if(/wp-admin/.test(parent.window.location.href)){
         $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.infos').height(window.parent.innerHeight);
         $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.circle').css({'width':window.parent.innerHeight/1.8, 'height':window.parent.innerHeight/1.8});
     }else{
@@ -88,7 +88,7 @@ function init(){
 // ----------------------------------------- \\\
 function resize() {
     if(!checkDevices.check()){
-        if($('body').hasClass('page-template-default')){
+        if(/wp-admin/.test(parent.window.location.href)){
             $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.infos').height(window.parent.innerHeight);
         $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.circle').css({'width':window.parent.innerHeight/1.8, 'height':window.parent.innerHeight/1.8});
         }else{

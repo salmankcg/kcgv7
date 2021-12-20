@@ -48,9 +48,10 @@ $(function() {
         history.scrollRestoration = 'manual';
     }
 
-    if($('body').hasClass('page-template-default')){
+    if(/wp-admin/.test(parent.window.location.href)){
         _timeOut = 2000;
     }
+
 
     setTimeout( function(){
 

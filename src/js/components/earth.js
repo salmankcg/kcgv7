@@ -6,7 +6,23 @@ import * as THREE from 'three';
 import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 const globeHeightWidth = function(){
-  if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
+  const ua = window.navigator.userAgent.toLowerCase();
+    const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
+
+
+
+    if(isiPad && window.innerWidth > window.innerHeight){
+        console.log('ipad landscape')
+        let globeHeight = $(window).height()*1.3 ;
+        return globeHeight;
+    }
+    else if(isiPad){
+        console.log('ipad portrait')
+        let globeHeight = $(window).height() ;
+        return globeHeight;
+    }
+
+  else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
     console.log('portrait earth 1')
       let globeHeight = $(window).height()/1.3 ;
       return globeHeight;

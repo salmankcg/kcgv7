@@ -39,13 +39,29 @@ const mobileAndTabletCheck = function() {
 };
 
 
+window.addEventListener("orientationchange", function() {
+    console.log('orientationchange ')
+    location.reload()
+}, false);
+
+
+function isSurface() {
+    const isWindows = navigator.userAgent.indexOf('Windows') > -1;
+    const maxTouchPoints = navigator.maxTouchPoints || navigator.msMaxTouchPoints;
+    const isTouchable = 'ontouchstart' in window
+      || maxTouchPoints > 0
+      || window.matchMedia && matchMedia('(any-pointer: coarse)').matches;
+  
+    return isWindows && isTouchable;
+  }
+
 const globeHeightWidth = function(){
 
     
     const ua = window.navigator.userAgent.toLowerCase();
     const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
 
-
+   
 
     if(isiPad && window.innerWidth > window.innerHeight){
         console.log('ipad landscape')
@@ -64,6 +80,7 @@ const globeHeightWidth = function(){
         return globeHeight;
     }
     else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
+        console.log('surface duo')
         let globeHeight = window.innerHeight*1.03 ;
         return globeHeight;
     }

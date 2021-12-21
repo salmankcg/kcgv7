@@ -7,6 +7,8 @@ import * as Title from "../components/title"
 import gsap, {TimelineMax, Power3} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { info } from "autoprefixer";
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -36,12 +38,27 @@ const mobileAndTabletCheck = function() {
 	return check;
 };
 
+
 const globeHeightWidth = function(){
 
-    console.log('height6', window.innerHeight)
-    console.log('width', window.innerWidth)
+    
+    const ua = window.navigator.userAgent.toLowerCase();
+    const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
 
-    if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
+
+
+    if(isiPad && window.innerWidth > window.innerHeight){
+        console.log('ipad landscape')
+        $('body').addClass('ipad-landscape')
+        let globeHeight = window.innerHeight/1.4;
+        return globeHeight;
+    }
+    else if(isiPad){
+        console.log('ipad portrait')
+        $('body').addClass('ipad-portrait')
+        let globeHeight = window.innerHeight/1.8;
+        return globeHeight;
+    }else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
         console.log('portrait width 1')
         let globeHeight = window.innerHeight/2.4;
         return globeHeight;

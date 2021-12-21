@@ -68,6 +68,9 @@ function init(){
 
 
 
+// ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
 function setFirstLoader(){
 
 	setTimeout(function(){

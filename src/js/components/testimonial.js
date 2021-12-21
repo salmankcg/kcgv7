@@ -9,7 +9,7 @@ import "slick-carousel";
 // ----------------------------------------- \\\
 // ------------------ VARS ----------------- \\\
 // ----------------------------------------- \\\
-var $cont       = $('.testimonial:not(.no-slick)');
+var $cont       = null;
 
 
 
@@ -17,6 +17,7 @@ var $cont       = $('.testimonial:not(.no-slick)');
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 function init(){
+  $cont = $('.testimonial:not(.no-slick)');
   initSlider();
 }
 

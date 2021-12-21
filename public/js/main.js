@@ -76865,6 +76865,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   }
 
   setTimeout(function () {
+    _modules_svg__WEBPACK_IMPORTED_MODULE_1__["init"]();
     _modules_modal__WEBPACK_IMPORTED_MODULE_3__["init"]();
     _components_header__WEBPACK_IMPORTED_MODULE_5__["init"]();
     _components_footer__WEBPACK_IMPORTED_MODULE_6__["init"]();
@@ -76992,11 +76993,12 @@ gsap__WEBPACK_IMPORTED_MODULE_1__["default"].config({
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.button'); // ----------------------------------------- \\\
+var $cont = null; // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
 function init() {
+  $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.button');
   setButton();
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -78000,18 +78002,19 @@ __webpack_require__.r(__webpack_exports__);
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.people-scramble');
-var $itemScramble = $cont.find('.item');
+var $cont = null;
+var $itemScramble = null;
 var _arrPos = [[12.5 * 0, 12.5 * 1, 12.5 * 1, 12.5 * 0], [12.5 * 1, 12.5 * 2, 12.5 * 2, 12.5 * 1], [12.5 * 2, 12.5 * 3, 12.5 * 3, 12.5 * 2], [12.5 * 3, 12.5 * 4, 12.5 * 4, 12.5 * 3], [12.5 * 4, 12.5 * 5, 12.5 * 5, 12.5 * 4], [12.5 * 5, 12.5 * 6, 12.5 * 6, 12.5 * 5], [12.5 * 6, 12.5 * 7, 12.5 * 7, 12.5 * 6], [12.5 * 7, 12.5 * 8, 12.5 * 8, 12.5 * 7]];
 var _arryPos = [];
 var _posElm = 0;
-
-var _widthElm = $cont.find('.item').width(); // ----------------------------------------- \\\
+var _widthElm = null; // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
-
 function init() {
+  $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.people-scramble');
+  $itemScramble = $cont.find('.item');
+  _widthElm = $cont.find('.item').width();
   setScramble();
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -78201,11 +78204,12 @@ __webpack_require__.r(__webpack_exports__);
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
 
-var $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu'); // ----------------------------------------- \\\
+var $cont = null; // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
 function init() {
+  $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submenu');
   setSubMenu();
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -78273,11 +78277,12 @@ __webpack_require__.r(__webpack_exports__);
 // ------------------ VARS ----------------- \\\
 // ----------------------------------------- \\\
 
-var $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.testimonial:not(.no-slick)'); // ----------------------------------------- \\\
+var $cont = null; // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
 function init() {
+  $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.testimonial:not(.no-slick)');
   initSlider();
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
@@ -79318,7 +79323,10 @@ function init() {
     // console.log('LOAD ALL');
     setFirstLoader();
   });
-}
+} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+
 
 function setFirstLoader() {
   setTimeout(function () {
@@ -79631,23 +79639,27 @@ function smoothScroll() {
 /*!*******************************!*\
   !*** ./src/js/modules/svg.js ***!
   \*******************************/
-/*! no exports provided */
+/*! exports provided: init */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // ------------------------------ \\\
 // ---------- IMPORTS ----------- \\\
 // ------------------------------ \\\
  // ----------------------------------------- \\\
-// ---------------- INIT'S ----------------- \\\
+// ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.svg').each(startClass); // ----------------------------------------- \\\
+function init() {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.svg').each(startClass);
+} // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
+
 
 function startClass() {
   var $icon = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
@@ -79656,7 +79668,12 @@ function startClass() {
   if (bg && bg != 'none') jquery__WEBPACK_IMPORTED_MODULE_0___default.a.get(bg, function (resp) {
     $icon.html(jquery__WEBPACK_IMPORTED_MODULE_0___default()(resp).find('svg')).addClass('svg-inline').trigger('svg-ready');
   });
-}
+} // ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+
+
 
 /***/ }),
 

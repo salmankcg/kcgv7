@@ -3,7 +3,7 @@
 // ----------------------------------------- \\\
 import $ from 'jquery';
 
-import './modules/svg';
+import * as svgObj            from './modules/svg';
 import * as PageLoad            from './modules/page-load';
 import * as Modal               from './modules/modal';
 import * as SmoothScroll        from './modules/smooth-scroll';
@@ -55,6 +55,7 @@ $(function() {
 
     setTimeout( function(){
 
+        svgObj.init();
         Modal.init();
         Header.init();
         Footer.init();

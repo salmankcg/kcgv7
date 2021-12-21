@@ -9,8 +9,8 @@ import * as checkDevices  from "../modules/check-devices";
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-var $cont			= $('.people-scramble');
-var $itemScramble 	= $cont.find('.item');
+var $cont			= null;
+var $itemScramble 	= null;
 
 var _arrPos 		= [ 
               		  [12.5 * 0, 12.5 * 1, 12.5 * 1, 12.5 * 0],
@@ -26,7 +26,7 @@ var _arrPos 		= [
 					
 var _arryPos		= [];
 var _posElm 		= 0;
-var _widthElm 		= $cont.find('.item').width();
+var _widthElm 		= null;
 
 
 
@@ -35,6 +35,11 @@ var _widthElm 		= $cont.find('.item').width();
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 function init(){
+	$cont			= $('.people-scramble');
+	$itemScramble 	= $cont.find('.item');
+	
+	_widthElm 		= $cont.find('.item').width();
+
 	setScramble();
 }
 

@@ -25,8 +25,17 @@ function init(){
         MouseMove.init($workList.find('.item').find('.wrapper'));
     }
 
-    var topPadding = $('.works-filter-menu > li.active').find('.filter-dropdown').outerHeight() + 14;
-    $('.works-content').css({'padding-top': topPadding+'px'});
+    var dropContainer = $('.works-filter-menu > li.active').find('.filter-dropdown').outerWidth();
+    var dropOuter = $('.works-filter-menu > li.active').find('.filter-dropdown li').last().position().left;
+    if(dropOuter > dropContainer) {
+        $('.work-filter-dropdown-nav').show();
+    }
+
+    var filterContainer = $('.works-filter-menu').outerWidth();
+    var filterOuter = $('.works-filter-menu > li').last().position().left;
+    if(filterOuter > filterContainer) {
+        $('.work-filter-nav').show();
+    }
 
     $filter.find('.item').on('click', function(e){
         e.preventDefault();
@@ -37,12 +46,14 @@ function init(){
             $('.onscroll-load-works').remove();
         }
         $('.kcg-case-study-wrapper').html('<div class="works-list"></div>');
-        $('.kcg-case-study-wrapper .works-list').hide();
         $('.kcg-case-study-wrapper').append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
         $(this).addClass('active');
         $(this).closest('.works-filter-menu > li').addClass('active');
-        var topPadding = $(this).closest('.works-filter-menu > li').find('.filter-dropdown').outerHeight() + 14;
-        $('.works-content').css({'padding-top': topPadding+'px'});
+        var dropContainer = $(this).closest('.works-filter-menu > li').find('.filter-dropdown').outerWidth();
+        var dropOuter = $(this).closest('.works-filter-menu > li').find('.filter-dropdown li').last().position().left;
+        if(dropOuter > dropContainer) {
+            $('.work-filter-dropdown-nav').show();
+        }
         var type = $(this).data('id');
         var limit = $(this).data('limit');
         $.ajax({
@@ -56,25 +67,27 @@ function init(){
                 'onscroll': $scrollload.data('infinite-scroll'),
             },
         }).done(function(response) {
-            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
             if(response['html'] == ''){
-                $('.kcg-case-study-wrapper .works-list').html('<div class="message">Sorry, we don\'t have any items yet.</div>');
+                $('.kcg-case-study-wrapper').find('.works-list').html('<div class="message">Sorry, we don\'t have any items yet.</div>');
             } else {
-                $('.kcg-case-study-wrapper .works-list').html(response['html']);
+                $('.kcg-case-study-wrapper').find('.works-list').html(response['html']);
             }
-            $('.kcg-case-study-wrapper .works-list').fadeIn('slow');
+            $('.kcg-case-study-wrapper').find('.ajax-loader').fadeOut(2000);
             setTimeout(function(){
                 window.dispatchEvent(new Event('resize'));
                 if($(window).width() >= 860){
-                    MouseMove.init($workList.find('.item').find('.wrapper'));
+                    MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
                 }
-            }, 1000);
+            }, 2000);
+            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
             if($('.load-more-works').length == 0 && $scrollload.data('infinite-scroll') == 0) {
                 $('.works-content').append(response['load-more']);
             }
             if( (response['load-more'] != '') && ($scrollload.data('infinite-scroll') == 1) ) {
                 $('.works-content').append(response['load-more']);
                 scrollTrigger   = true;
+            } else {
+                scrollTrigger = false;
             }
         }).fail(function(response) {
             console.log(response);
@@ -105,7 +118,7 @@ function init(){
             setTimeout(function(){
                 window.dispatchEvent(new Event('resize'));
                 if($(window).width() >= 860){
-                    MouseMove.init($workList.find('.item').find('.wrapper'));
+                    MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
                 }
             }, 1000);
             page = parseInt(page) + 1;
@@ -131,8 +144,7 @@ function init(){
                 if(page < maxPages && (scrollTrigger == true)) {
                     scrollTrigger = false;
                     $('.kcg-case-study-wrapper').append('<div class="works-list"></div>');
-                    $('.works-list').last().hide();
-                    $('.onscroll-load-works').html('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+                    $('.works-list').last().append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
                     $.ajax({
                         url: object_kcg.siteurl,
                         type: 'POST',
@@ -144,11 +156,8 @@ function init(){
                             'page': page,
                         },
                     }).done(function(response) {
-                        $('.kcg-case-study-wrapper .works-list').last().html(response['html']);
-                        setTimeout(function(){
-                            $('.onscroll-load-works').html('');
-                        }, 1000);
-                        $('.kcg-case-study-wrapper .works-list').last().fadeIn('slow');
+                        $('.kcg-case-study-wrapper .works-list').last().append(response['html']);
+                        $('.kcg-case-study-wrapper .works-list').last().find('.ajax-loader').fadeOut(2000);
                         page = parseInt(page) + 1;
                         $('.onscroll-load-works').data('page', page);
                         if (page == maxPages){
@@ -158,11 +167,12 @@ function init(){
                             scrollTrigger = true;
                         }
                         setTimeout(function(){
+                            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
                             window.dispatchEvent(new Event('resize'));
                             if($(window).width() >= 860){
-                                MouseMove.init($workList.find('.item').find('.wrapper'));
+                                MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
                             }
-                        }, 1000);
+                        }, 2000);
                     }).fail(function(response) {
                         console.log(response);
                     });
@@ -170,10 +180,17 @@ function init(){
                     setTimeout(function(){
                         window.dispatchEvent(new Event('resize'));
                         if($(window).width() >= 860){
-                            MouseMove.init($workList.find('.item').find('.wrapper'));
+                            MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
                         }
-                    }, 1000);
+                    }, 2000);
                 }
+            } else {
+                setTimeout(function(){
+                    window.dispatchEvent(new Event('resize'));
+                    if($(window).width() >= 860){
+                        MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
+                    }
+                }, 2000);
             }
         } 
     });

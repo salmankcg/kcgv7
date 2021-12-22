@@ -106307,10 +106307,20 @@ function init() {
     _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
   }
 
-  var topPadding = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter-menu > li.active').find('.filter-dropdown').outerHeight() + 14;
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').css({
-    'padding-top': topPadding + 'px'
-  });
+  var dropContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter-menu > li.active').find('.filter-dropdown').outerWidth();
+  var dropOuter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter-menu > li.active').find('.filter-dropdown li').last().position().left;
+
+  if (dropOuter > dropContainer) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-dropdown-nav').show();
+  }
+
+  var filterContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter-menu').outerWidth();
+  var filterOuter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-filter-menu > li').last().position().left;
+
+  if (filterOuter > filterContainer) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-nav').show();
+  }
+
   $filter.find('.item').on('click', function (e) {
     e.preventDefault();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove();
@@ -106322,14 +106332,16 @@ function init() {
     }
 
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').html('<div class="works-list"></div>');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').hide();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').addClass('active');
-    var topPadding = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').find('.filter-dropdown').outerHeight() + 14;
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').css({
-      'padding-top': topPadding + 'px'
-    });
+    var dropContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').find('.filter-dropdown').outerWidth();
+    var dropOuter = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.works-filter-menu > li').find('.filter-dropdown li').last().position().left;
+
+    if (dropOuter > dropContainer) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-dropdown-nav').show();
+    }
+
     var type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
     var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
@@ -106343,22 +106355,21 @@ function init() {
         'onscroll': $scrollload.data('infinite-scroll')
       }
     }).done(function (response) {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').remove();
-
       if (response['html'] == '') {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').html('<div class="message">Sorry, we don\'t have any items yet.</div>');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').html('<div class="message">Sorry, we don\'t have any items yet.</div>');
       } else {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').html(response['html']);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').html(response['html']);
       }
 
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').fadeIn('slow');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').fadeOut(2000);
       setTimeout(function () {
         window.dispatchEvent(new Event('resize'));
 
         if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
-          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
         }
-      }, 1000);
+      }, 2000);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').remove();
 
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').length == 0 && $scrollload.data('infinite-scroll') == 0) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
@@ -106367,6 +106378,8 @@ function init() {
       if (response['load-more'] != '' && $scrollload.data('infinite-scroll') == 1) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
         scrollTrigger = true;
+      } else {
+        scrollTrigger = false;
       }
     }).fail(function (response) {
       console.log(response);
@@ -106397,7 +106410,7 @@ function init() {
         window.dispatchEvent(new Event('resize'));
 
         if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
-          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
         }
       }, 1000);
       page = parseInt(page) + 1;
@@ -106424,8 +106437,7 @@ function init() {
         if (page < maxPages && scrollTrigger == true) {
           scrollTrigger = false;
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').append('<div class="works-list"></div>');
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-list').last().hide();
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').html('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-list').last().append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
           jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
             url: object_kcg.siteurl,
             type: 'POST',
@@ -106437,11 +106449,8 @@ function init() {
               'page': page
             }
           }).done(function (response) {
-            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').last().html(response['html']);
-            setTimeout(function () {
-              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').html('');
-            }, 1000);
-            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').last().fadeIn('slow');
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').last().append(response['html']);
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .works-list').last().find('.ajax-loader').fadeOut(2000);
             page = parseInt(page) + 1;
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('page', page);
 
@@ -106453,12 +106462,13 @@ function init() {
             }
 
             setTimeout(function () {
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').remove();
               window.dispatchEvent(new Event('resize'));
 
               if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
-                _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+                _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
               }
-            }, 1000);
+            }, 2000);
           }).fail(function (response) {
             console.log(response);
           });
@@ -106467,10 +106477,18 @@ function init() {
             window.dispatchEvent(new Event('resize'));
 
             if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
-              _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($workList.find('.item').find('.wrapper'));
+              _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
             }
-          }, 1000);
+          }, 2000);
         }
+      } else {
+        setTimeout(function () {
+          window.dispatchEvent(new Event('resize'));
+
+          if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+            _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
+          }
+        }, 2000);
       }
     }
   });

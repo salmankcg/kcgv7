@@ -25,14 +25,14 @@ function init(){
         MouseMove.init($workList.find('.item').find('.wrapper'));
     }
 
-    var dropContainer = $('.works-filter-menu > li.active').find('.filter-dropdown').outerWidth();
-    var dropOuter = $('.works-filter-menu > li.active').find('.filter-dropdown li').last().position().left;
+    var dropContainer = ($('.works-filter-menu').length > 0) ? $('.works-filter-menu > li.active').find('.filter-dropdown').outerWidth() : '';
+    var dropOuter = ($('.works-filter-menu').length > 0) ? $('.works-filter-menu > li.active').find('.filter-dropdown li').last().position().left : '';
     if(dropOuter > dropContainer) {
         $('.work-filter-dropdown-nav').show();
     }
 
-    var filterContainer = $('.works-filter-menu').outerWidth();
-    var filterOuter = $('.works-filter-menu > li').last().position().left;
+    var filterContainer = ($('.works-filter-menu').length > 0) ? $('.works-filter-menu').outerWidth() : '';
+    var filterOuter = ($('.works-filter-menu').length > 0) ? $('.works-filter-menu > li').last().position().left : '';
     if(filterOuter > filterContainer) {
         $('.work-filter-nav').show();
     }
@@ -46,11 +46,12 @@ function init(){
             $('.onscroll-load-works').remove();
         }
         $('.kcg-case-study-wrapper').html('<div class="works-list"></div>');
+        $('.kcg-case-study-wrapper').find('.works-list').hide();
         $('.kcg-case-study-wrapper').append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
         $(this).addClass('active');
         $(this).closest('.works-filter-menu > li').addClass('active');
-        var dropContainer = $(this).closest('.works-filter-menu > li').find('.filter-dropdown').outerWidth();
-        var dropOuter = $(this).closest('.works-filter-menu > li').find('.filter-dropdown li').last().position().left;
+        var dropContainer = ($(this).closest('.works-filter-menu > li.active').find('.filter-dropdown').length > 0) ? $(this).closest('.works-filter-menu > li.active').find('.filter-dropdown').outerWidth() : '';
+        var dropOuter = ($(this).closest('.works-filter-menu > li.active').find('.filter-dropdown').length > 0) ? $(this).closest('.works-filter-menu > li.active').find('.filter-dropdown li').last().position().left : '';
         if(dropOuter > dropContainer) {
             $('.work-filter-dropdown-nav').show();
         }
@@ -67,19 +68,19 @@ function init(){
                 'onscroll': $scrollload.data('infinite-scroll'),
             },
         }).done(function(response) {
+            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
             if(response['html'] == ''){
-                $('.kcg-case-study-wrapper').find('.works-list').html('<div class="message">Sorry, we don\'t have any items yet.</div>');
+                $('.kcg-case-study-wrapper').find('.works-list').append('<div class="message">Sorry, we don\'t have any items yet.</div>');
             } else {
-                $('.kcg-case-study-wrapper').find('.works-list').html(response['html']);
+                $('.kcg-case-study-wrapper').find('.works-list').append(response['html']);
             }
-            $('.kcg-case-study-wrapper').find('.ajax-loader').fadeOut(2000);
             setTimeout(function(){
                 window.dispatchEvent(new Event('resize'));
                 if($(window).width() >= 860){
                     MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));
                 }
             }, 2000);
-            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
+            $('.kcg-case-study-wrapper').find('.works-list').fadeIn(2000);
             if($('.load-more-works').length == 0 && $scrollload.data('infinite-scroll') == 0) {
                 $('.works-content').append(response['load-more']);
             }

@@ -61,6 +61,7 @@ const globeHeightWidth = function(){
     const ua = window.navigator.userAgent.toLowerCase();
     const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
 
+    console.log('sur', isSurface())
    
 
     if(isiPad && window.innerWidth > window.innerHeight){
@@ -74,19 +75,27 @@ const globeHeightWidth = function(){
         $('body').addClass('ipad-portrait')
         let globeHeight = window.innerHeight/1.8;
         return globeHeight;
-    }else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
+    }
+    else if((window.innerWidth > window.innerHeight) && (window.innerWidth > 710 && window.innerWidth <= 725)){
+        
+        let globeHeight = window.innerHeight/1.4;
+        return globeHeight;
+    }
+   
+    else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
         console.log('portrait width 1')
         let globeHeight = window.innerHeight/2.4;
         return globeHeight;
     }
     else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
         console.log('surface duo')
-        let globeHeight = window.innerHeight*1.03 ;
+        $('body').addClass('unf-surface-landscape');
+        let globeHeight = window.innerHeight/1.09 ;
         return globeHeight;
     }
     else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         console.log('checking globe width')
-        let globeHeight = window.innerHeight*1.4 ;
+        let globeHeight = window.innerHeight*1.2 ;
         return globeHeight;
     }else{
         console.log('checking globe width last1')

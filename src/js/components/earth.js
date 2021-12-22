@@ -5,6 +5,11 @@ import $ from "jquery";
 import * as THREE from 'three';
 import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
+
+if (window.navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) {
+    console.log('surface')
+}
+
 const globeHeightWidth = function(){
   const ua = window.navigator.userAgent.toLowerCase();
     const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
@@ -21,20 +26,25 @@ const globeHeightWidth = function(){
         let globeHeight = $(window).height() ;
         return globeHeight;
     }
+    else if((window.innerWidth > window.innerHeight) && (window.innerWidth > 710 && window.innerWidth <= 725)){
+      
+      let globeHeight = $(window).height()*1.3 ;
+      return globeHeight;
+  }
 
   else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
     console.log('portrait earth 1')
       let globeHeight = $(window).height()/1.3 ;
       return globeHeight;
   }
-  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1115) ){
+  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
     
-    let globeHeight = $(window).height()*1.9 ;
+    let globeHeight = $(window).height()*1.6 ;
     return globeHeight;
 }
   else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
  
-      let globeHeight = $(window).height()*2.5 ;
+      let globeHeight = $(window).height()*2.2 ;
       return globeHeight;
   }else{
     console.log('last one')

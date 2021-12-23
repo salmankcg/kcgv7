@@ -109,11 +109,11 @@
 }
 .kcg-case-study-wrapper .ajax-loader {
     position: absolute;
+    background-color: #ffffff;
     top: -15px;
     left: -15px;
     width: ~"calc(100% + 30px)";
     height: ~"calc(100% + 30px)";
-    background-color: #ffffff;
     text-align: center;
     z-index: 2;
 }
@@ -176,7 +176,25 @@
     }
 }
 
-
+//SINGLE WORK TEMPLATE STYLE
 .single-works .testimonial {
     padding-bottom: 0;
+}
+.single-works .works-content {
+    min-height: inherit;
+}
+
+
+//CULTURE PAGE STYLE
+@media screen and (max-width: 575px) {
+    .elementor-widget .elementor-icon-list-item {
+        flex-flow: wrap row;
+    }
+    .elementor-icon-list-icon {
+        width: 100%;
+    }
+    .elementor-icon-list-text {
+        width: 100%;
+        margin-top: 30px;
+    }
 }

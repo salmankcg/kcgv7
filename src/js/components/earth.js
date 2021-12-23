@@ -6,8 +6,18 @@ import * as THREE from 'three';
 import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 
-if (window.navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) {
-    console.log('surface')
+
+function iOsDetector() {
+  return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+  ].includes(navigator.platform)
+  // iPad on iOS 13 detection
+  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
 
 const globeHeightWidth = function(){
@@ -15,17 +25,25 @@ const globeHeightWidth = function(){
     const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
 
 
-
+    if(iOsDetector() && window.innerHeight < 560){
+            let globeHeight = $(window).height()*1.6 ;
+            return globeHeight;
+    }
     if(isiPad && window.innerWidth > window.innerHeight){
         console.log('ipad landscape')
         let globeHeight = $(window).height()*1.3 ;
         return globeHeight;
     }
-    else if(isiPad){
-        console.log('ipad portrait')
-        let globeHeight = $(window).height() ;
+    else if(window.innerWidth>window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925){
+        // All Device From 1300 to 1900 with 1080 Height
+        let globeHeight = window.innerHeight/1.4;
         return globeHeight;
     }
+    else if(isiPad && window.innerHeight > window.innerWidth && window.innerHeight > 560){
+        console.log('all device')
+        let globeHeight = $(window).height() ;
+        return globeHeight;
+    } 
     else if((window.innerWidth > window.innerHeight) && (window.innerWidth > 710 && window.innerWidth <= 725)){
       
       let globeHeight = $(window).height()*1.3 ;

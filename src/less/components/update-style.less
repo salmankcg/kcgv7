@@ -46,8 +46,11 @@
     display: flex;
     flex-flow: nowrap;
     width: 100%;
-    grid-gap: 40px;
     z-index: 4;
+
+    > li {
+        padding: 0 20px;
+    }
 
     li.active > .item::before {
         width: 100%;
@@ -65,7 +68,6 @@
     li.active .filter-dropdown {
         display: flex;
         flex-flow: nowrap;
-        grid-gap: 10px;
     }
     li.active > .item > span {
         color: #000000;
@@ -74,14 +76,16 @@
 .filter-dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    left: 20px;
+    width: ~"calc(100% - 40px)";
     padding: 20px 0;
+    margin: 0 -10px;
     display: none;
     overflow: hidden;
 
     li {
         display: inline-block;
+        padding: 0 5px;
 
         .item {
             padding: 5px 10px;
@@ -128,7 +132,18 @@
     align-items: center;
     min-height: 200px;
 }
-@media( max-width: @screen-medium ) {
+@media screen and (max-width: 1120px) and (orientation: landscape) {
+    .filter .work-filter-dropdown-nav .button.b-icon .wrapper .arrow {
+        height: 20px;
+        width: 20px;
+    }
+}
+@media screen and ( max-width: @screen-large ) {
+    .about-content .journal-list .item:not(:first-child) {
+        margin-top: 50px;
+    }
+}
+@media screen and ( max-width: @screen-medium ) {
     .works-filter-menu {
         padding-bottom: 45px;
     }
@@ -149,11 +164,11 @@
         padding-bottom: 75px;
         overflow: hidden;
         box-sizing: border-box;
-        width: 1000px;
 
         &li .item {
             padding-bottom: 10px;
         }
+
         li.active {
             .filter-dropdown {
                 top: 25px;
@@ -161,17 +176,8 @@
         }
 
         .filter-dropdown {
-            width: 1000px;
-
-            li {
-                padding: 0;
-
-                .item {
-                    margin: 0;
-                    border: none;
-                    min-width: initial;
-                }
-            }
+            width: ~"calc(100% - 20px)";
+            left: 10px;
         }
     }
 }
@@ -197,4 +203,14 @@
         width: 100%;
         margin-top: 30px;
     }
+}
+
+//ELEMENTOR EDITOR
+.elementor-editor-active .main-content.pages {
+    z-index: 999;
+}
+
+//CLIENT LOGO CAROUSEL WIDGETS STYLE
+.clients .line .image::after, .clients .line .image::before {
+    background: transparent;
 }

@@ -1,5 +1,96 @@
 
-// All Landscape Device is Here 
+@media screen and (max-width:1150px){
+    .clients.c-home .image:before,
+    .clients.c-home .image:after{
+        background: transparent;
+    }
+}
+// Iphone 5 portrait 
+@media screen and (orientation: portrait) and (max-width:340px) {
+    .home-content #slide-2 .images .img {
+        max-width: 300px !important;
+        top: -14%;
+    }
+    #slide-4 img,
+    #slide-3 img {
+        max-width: 190px !important;
+    }
+    .home .modal .text {
+        font-size: 16px;
+    }
+    .footer .f-menu.f-social{
+        margin: 30px 10px 20px 0px;
+    }
+    .home .button .wrapper {
+        padding: 7px 25px 9px;
+    }
+    .home .button .text {
+        font-size: 10px;
+    }
+    .clients.c-home .image:before{
+        background-color: transparent;
+    }
+    .footer .button:not(.b-icon) {
+        margin: 20px auto;
+    }
+    .footer .scrollup {
+        position: relative;
+        width: 100%;
+        height: 27px;
+    }
+}
+
+@media screen and (orientation:landscape) and (max-width:570px) and (max-height:270px){
+    .footer .container-fluid:first-child {
+        padding-top: 0;
+        position: relative;
+        top: -50px;
+    }
+    .home-content #slide-2 .images .img {
+        max-width: 193px !important;
+    }
+    
+    .footer .scrollup {
+        height: 26px;
+    }
+    .footer.motion-in-3 .legals {
+        padding-bottom: 20px !important;
+    }
+}
+// iphone quaries landscape
+@media screen and (orientation:landscape) and (max-width:926px) and (max-height:430px) and (min-width:700px) {
+    .home-content #slide-2 .images .img {
+        max-width: 230px !important;
+    }
+    .clients.c-home .image:before,
+    .clients.c-home .image:after{
+        background: transparent;
+    }
+    .footer .container-fluid .row:nth-child(2) {
+        margin-top: -44px;
+    }
+    
+    .footer .container-fluid .row:first-of-type {
+        top: -10px;
+        position: relative;
+    }
+}
+
+// Iphone Queries for Portrait
+@media screen and (orientation:portrait) and (min-width:340px) and (max-width:430px) and (max-height:926px){
+    .home-content #slide-2 .images .img {
+        max-width: 75%  !important;
+        top: 0% !important;
+    }
+    .clients.c-home .image:before,
+    .clients.c-home .image:after{
+        background: transparent;
+    }
+    #slide-1 .home-infos .steps {
+        top: 30%;
+    }
+}
+
 
 
 @media screen and (orientation: landscape) and (max-width:1120px) {
@@ -15,7 +106,7 @@
         display: none;
     }
     
-    .modal .text {
+    .home .modal .text {
         font-size: 14px;
         line-height: 20px;
     }
@@ -243,7 +334,7 @@
         left: 50%;
     }
     
-    .button .wrapper {
+    .home .button .wrapper {
         padding: 9px 17px 12px;
     }
     .home-infos .button {
@@ -252,7 +343,7 @@
     #slide-1 .steps {
         width: 70%;
     }
-    .button .wrapper .text {
+    .home .button .wrapper .text {
         font-size: 10px !important;
     }
     #slide-1 .shape {
@@ -381,7 +472,7 @@
         font-size: 70% !important;
     }
     
-    .button .arrow {
+    .home .button .arrow {
         height: 30px;
         width: 30px;
         display: inline-flex;
@@ -389,7 +480,7 @@
         justify-content: center;
     }
     
-    .button .arrow svg {
+    .home .button .arrow svg {
         top: 3px;
         left: 2px;
     }
@@ -502,12 +593,12 @@
     .home-content #slide-2 .images .img{
         top: 62%;
     }
-    .modal .b-icon .wrapper {
+    .home .modal .b-icon .wrapper {
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
-    .modal .button .arrow svg {
+    .home .modal .button .arrow svg {
         position: static;
     }
 }
@@ -516,7 +607,7 @@
 
 //
 @media screen and (orientation:landscape) and (max-width: 820px) {
-    .button.b-align-center{
+    .home .button.b-align-center{
         margin-top: 27px!important;
     }
     #slide-5 .home-infos .steps .title,
@@ -851,7 +942,7 @@
         bottom: -42%!important;
         top: initial !important;
     }
-    .title {
+    .home .title {
         font-size: 200% !important;
         line-height: 121% !important;
     }
@@ -1193,7 +1284,7 @@
         .home-content #slide-4 .images .img img {
             max-width: 212px;
         }
-        .title {
+        .home-content .title {
             font-size: 180% !important;
             line-height: 115% !important;
         }
@@ -1233,7 +1324,7 @@
         #slide-1 .steps {
             width: 70%;
         }
-        .button .wrapper .text {
+        .home-content .button .wrapper .text {
             font-size: 10px !important;
         }
         #slide-1 .shape {
@@ -1371,7 +1462,7 @@
             font-size: 70% !important;
         }
         
-        .button .arrow {
+        .home-content .button .arrow {
             height: 30px;
             width: 30px;
             display: inline-flex;
@@ -1379,7 +1470,7 @@
             justify-content: center;
         }
         
-        .button .arrow svg {
+        .home-content .button .arrow svg {
             top: 3px;
             left: 2px;
         }
@@ -1550,23 +1641,89 @@
 
 @media screen and (orientation:portrait) and (min-width:1070px) and (max-width:1085px) and (max-height:1980px) {
     
-    .steps {
-        left: 50% !important;
+   
+    .home-bckg[data-type=desktop], .smooth-scroll>.home-bckg>.shape {
+        display: block;
     }
-    #slide-2, #slide-3, #slide-4, #slide-5,footer {
-        height: 1000px !important;
+    .home-bckg[data-type=desktop]{
+        z-index: 9;
     }
-    #slide-2 .steps, #slide-3 .steps, #slide-4 .steps, #slide-5 .steps{
-        top: 10% !important;
+    .home-globe {
+        top: -72vh !important;
     }
-    #slide-4 .img {
-        max-width: 67%;
+    
+    .home-infos {
+        top: -100vh;
+        left: 50%;
     }
-    .clients.c-home .image:before,
-    .clients.c-home .image:after{
-        background-color: transparent;
+
+    .home-bckg .shape {
+        top: 69%;
+        padding-left: 0;
+        height: 62%;
+        width: 70%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        border-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
-    .home-bckg .shape{
-        height: 70%;
+    
+    
+    .home-bckg .images .img:nth-of-type(2) {
+        width: 66%;
+        left: 15%;
     }
+    
+    
+    .home-bckg .images .img:nth-of-type(3) {
+        left: 15%;
+        height: 310%;
+        top: auto;
+        bottom: -115%;
+    }
+    
+    .home-bckg .images .img:nth-of-type(4) {
+        height: 400%;
+        bottom: -113%;
+        left: 24%;
+    }
+    
+    .home-bckg .shape {
+        height: 62%;
+    }
+    .home-content .infos,
+    .home-content{
+        background: transparent !important;
+    }
+    .home-bckg[data-type=desktop] {
+        position: fixed;
+    }
+    .home-content .infos{
+        z-index: 10;
+    }
+    .home-bckg {
+        width: 100%;
+        height: 100vh;
+        transition: background 2s cubic-bezier(.55,.085,0,.99);
+        top: -100vh;
+        z-index: 9!important;
+    }
+   
+    .home-content .infos:nth-of-type(5) {
+        background: #fff !important;
+        overflow: hidden;
+    }
+    .clients.c-home {
+        width: 100%;
+        position: relative;
+        left: -35%;
+    }
+    .footer{
+        z-index: 9;
+    }
+    .home-content .infos:before {
+        display: none;
+    }
+    
 }

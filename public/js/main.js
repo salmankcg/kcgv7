@@ -105462,6 +105462,8 @@ const globeHeightWidth = function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('ipad-portrait');
     let globeHeight = window.innerHeight / 1.8;
     return globeHeight;
+  } else if (window.innerHeight > window.innerWidth && window.screen.height * window.devicePixelRatio >= 2700 && window.screen.height * window.devicePixelRatio <= 3000) {
+    alert('I am a surface Pro device & resolution height ', window.screen.height * window.devicePixelRatio, 'I am a surface Pro device & resolution width ', window.screen.width * window.devicePixelRatio);
   } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925) {
     // All Device From 1300 to 1900 with 1080 Height
     console.log('testing all device');
@@ -105474,7 +105476,7 @@ const globeHeightWidth = function () {
     console.log('portrait width 1');
     let globeHeight = window.innerHeight / 2.4;
     return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1120) {
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1150) {
     console.log('surface duo');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('unf-surface-landscape');
     let globeHeight = window.innerHeight / 1.09;

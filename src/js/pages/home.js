@@ -45,6 +45,7 @@ window.addEventListener("orientationchange", function() {
 }, false);
 
 
+
 function isSurface() {
     const isWindows = navigator.userAgent.indexOf('Windows') > -1;
     const maxTouchPoints = navigator.maxTouchPoints || navigator.msMaxTouchPoints;
@@ -79,7 +80,7 @@ const globeHeightWidth = function(){
     
     const ua = window.navigator.userAgent.toLowerCase();
     const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
-
+    
     
     if(iOsDetector() && window.innerHeight < 560){
         $('body').addClass('iphone-landscape')
@@ -94,10 +95,14 @@ const globeHeightWidth = function(){
     }
     else if(isiPad && window.innerHeight > window.innerWidth && window.innerWidth < 1300){
         console.log('ipad portrait')
-        $('body').addClass('ipad-portrait')
+        $('body').addClass('ipad-portrait') 
         let globeHeight = window.innerHeight/1.8;
         return globeHeight;
-    }else if((window.innerWidth>window.innerHeight) && (window.innerWidth > 1300) && (window.innerWidth <= 1925)){
+    }
+    else if((window.innerHeight>window.innerWidth) && (window.screen.height * window.devicePixelRatio) >=2700 &&  (window.screen.height * window.devicePixelRatio) <=3000){
+        alert('I am a surface Pro device & resolution height ',window.screen.height * window.devicePixelRatio,'I am a surface Pro device & resolution width ',window.screen.width * window.devicePixelRatio);
+    }
+    else if((window.innerWidth>window.innerHeight) && (window.innerWidth > 1300) && (window.innerWidth <= 1925)){
         // All Device From 1300 to 1900 with 1080 Height
         console.log('testing all device')
         let globeHeight = window.innerHeight/2.5;
@@ -114,7 +119,7 @@ const globeHeightWidth = function(){
         let globeHeight = window.innerHeight/2.4;
         return globeHeight;
     }
-    else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
+    else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1150) ){
         console.log('surface duo')
         $('body').addClass('unf-surface-landscape');
         let globeHeight = window.innerHeight/1.09 ;

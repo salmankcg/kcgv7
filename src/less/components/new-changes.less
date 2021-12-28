@@ -74,6 +74,14 @@
         top: -10px;
         position: relative;
     }
+    .footer .arrow.svg.svg-inline {
+        height: 100%;
+        width: 100%;
+    }
+    .clients.c-home .image {
+        height: 50px;
+        margin: 10px 0;
+    }
 }
 
 // Iphone Queries for Portrait
@@ -1639,7 +1647,7 @@
     }
 }
 
-@media screen and (orientation:portrait) and (min-width:1070px) and (max-width:1085px) and (max-height:1980px) {
+@media screen and (orientation:portrait) and (min-width:1070px)  {
     
    
     .home-bckg[data-type=desktop], .smooth-scroll>.home-bckg>.shape {
@@ -1727,3 +1735,9 @@
     }
     
 }
+
+@media (screen-spanning: single-fold-vertical) {
+    .home-globe {
+        top: 30%!important;
+    }
+ }

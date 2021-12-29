@@ -104,7 +104,6 @@ $(function() {
         break;
         default:
             PageLoad.hide();
-            break;
     }
 
     $( window ).on('resize', function() {
@@ -128,6 +127,8 @@ $(function() {
             case 'careers':
                 Careers.resize();
             break;
+            default:
+                console.log('resize');
         }
 
     });

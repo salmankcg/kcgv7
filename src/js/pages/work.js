@@ -170,7 +170,7 @@ function init(){
                             scrollTrigger = true;
                         }
                         setTimeout(function(){
-                            $('.kcg-case-study-wrapper').find('.ajax-loader').remove();
+                            $('.kcg-case-study-wrapper').delay('slow').find('.ajax-loader').remove();
                             window.dispatchEvent(new Event('resize'));
                             if($(window).width() >= 860){
                                 MouseMove.init($('.kcg-case-study-wrapper').find('.works-list').find('.item').find('.wrapper'));

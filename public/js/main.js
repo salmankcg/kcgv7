@@ -101858,19 +101858,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_services__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/services */ "./src/js/pages/services.js");
 /* harmony import */ var _pages_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/service */ "./src/js/pages/service.js");
 /* harmony import */ var _pages_buzz__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/buzz */ "./src/js/pages/buzz.js");
-/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
-/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
-/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
-/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
-/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
-/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
-/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
-/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
+/* harmony import */ var _pages_careers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/careers */ "./src/js/pages/careers.js");
+/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
+/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
+/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
+/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
+/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
+/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
+/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
+/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
+
 
 
 
@@ -101968,6 +101970,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
       break;
 
+    case 'careers':
+      _pages_careers__WEBPACK_IMPORTED_MODULE_15__["init"]();
+      _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
+      break;
+
     default:
       _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
       break;
@@ -101985,6 +101992,18 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
       case 'service':
         _pages_service__WEBPACK_IMPORTED_MODULE_13__["resize"]();
+        break;
+
+      case 'works':
+        _pages_works__WEBPACK_IMPORTED_MODULE_9__["resize"]();
+        break;
+
+      case 'work':
+        _pages_work__WEBPACK_IMPORTED_MODULE_10__["resize"]();
+        break;
+
+      case 'careers':
+        _pages_careers__WEBPACK_IMPORTED_MODULE_15__["resize"]();
         break;
     }
   });
@@ -103112,7 +103131,22 @@ function hide() {
   $loader.css({
     'display': 'none'
   });
-  $loader.removeClass('motion-out-1').removeClass('motion-out-2').removeClass('motion-in');
+  $loader.removeClass('motion-out-1').removeClass('motion-out-2').removeClass('motion-in'); // LOAD MORE CHRISTMASS EFFECT SCRIPT
+
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.snowfall-flakes').length > 0) {
+    setTimeout(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.snowfall-flakes').fadeOut(1000);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').find('script').each(function () {
+        var scriptID = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id');
+
+        if (scriptID) {
+          if (scriptID.startsWith('awplife-we-snow')) {
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + scriptID).remove();
+          }
+        }
+      }); // $('.snowfall-flakes').remove();
+    }, 5000);
+  }
 } // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
@@ -105306,6 +105340,229 @@ function resize() {} // ----------------------------------------- \\\
 
 /***/ }),
 
+/***/ "./src/js/pages/careers.js":
+/*!*********************************!*\
+  !*** ./src/js/pages/careers.js ***!
+  \*********************************/
+/*! exports provided: init, resize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resize", function() { return resize; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/mouse-move */ "./src/js/components/mouse-move.js");
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+ // ----------------------------------------- \\\
+// ----------------- VARS ------------------ \\\
+// ----------------------------------------- \\\
+
+var $jobsList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-list');
+var $filter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-filter');
+var $scrollload = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-job-listing-wrapper');
+var scrollTrigger = true; // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+function init() {
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+    _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($jobsList.find('.item').find('.wrapper'));
+  }
+
+  var filterContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-filter-menu').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-filter-menu').outerWidth() : '';
+  var filterOuter = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-filter-menu').length > 0 ? jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-filter-menu > li').last().position().left : '';
+
+  if (filterOuter > filterContainer) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.work-filter-nav').show();
+  }
+
+  $filter.find('.item').on('click', function (e) {
+    e.preventDefault();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove();
+    $filter.find('.item').removeClass('active');
+    $filter.find('li').removeClass('active');
+
+    if ($scrollload.data('infinite-scroll') == 1) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').remove();
+    }
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').html('<div class="jobs-list"></div>');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').hide();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('active');
+    var type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
+    var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: object_kcg.siteurl,
+      type: 'POST',
+      data: {
+        action: 'kcg_load_works_types',
+        nonce: object_kcg.nonce,
+        'type': type,
+        'posts_per_page': limit,
+        'onscroll': $scrollload.data('infinite-scroll')
+      }
+    }).done(function (response) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').remove();
+
+      if (response['html'] == '') {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').append('<div class="message">Sorry, we don\'t have any items yet.</div>');
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').append(response['html']);
+      }
+
+      setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+
+        if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').find('.item').find('.wrapper'));
+        }
+      }, 2000);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').fadeIn(2000);
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').length == 0 && $scrollload.data('infinite-scroll') == 0) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
+      }
+
+      if (response['load-more'] != '' && $scrollload.data('infinite-scroll') == 1) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.works-content').append(response['load-more']);
+        scrollTrigger = true;
+      } else {
+        scrollTrigger = false;
+      }
+    }).fail(function (response) {
+      console.log(response);
+    });
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.load-more-works', function (e) {
+    e.preventDefault();
+    var page = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('page');
+    var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('limit');
+    var currentType = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('current-type');
+    var maxPages = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('max-pages');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+      url: object_kcg.siteurl,
+      type: 'POST',
+      data: {
+        action: 'kcg_load_more_works',
+        nonce: object_kcg.nonce,
+        'posts_per_page': limit,
+        'work-type': currentType,
+        'page': page
+      },
+      beforeSend: function (xhr) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works .label').text('Loading...'); // change the button text, you can also add a preloader image
+      }
+    }).done(function (response) {
+      $jobsList.append(response['html']);
+      setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+
+        if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+          _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').find('.item').find('.wrapper'));
+        }
+      }, 1000);
+      page = parseInt(page) + 1;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works .label').text('LOAD MORE');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').data('page', page);
+
+      if (page == maxPages) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.load-more-works').remove(); // if last page, remove the button
+      }
+    }).fail(function (response) {
+      console.log(response);
+    });
+  }); // INFINITE SCROLL LOAD
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll', function () {
+    if ($scrollload.data('infinite-scroll') == 1 && jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').length > 0) {
+      var page = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('page');
+      var limit = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('limit');
+      var currentType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('current-type');
+      var maxPages = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('max-pages');
+      var scrollPoint = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').offset().top - 80;
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).scrollTop() >= scrollPoint - jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height()) {
+        if (page < maxPages && scrollTrigger == true) {
+          scrollTrigger = false;
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').append('<div class="jobs-list"></div>');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.jobs-list').last().append('<div class="ajax-loader"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"><path fill="#000" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform></path></svg></div>');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+            url: object_kcg.siteurl,
+            type: 'POST',
+            data: {
+              action: 'kcg_load_works_onscroll',
+              nonce: object_kcg.nonce,
+              'posts_per_page': limit,
+              'work-type': currentType,
+              'page': page
+            }
+          }).done(function (response) {
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .jobs-list').last().append(response['html']);
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper .jobs-list').last().find('.ajax-loader').fadeOut(2000);
+            page = parseInt(page) + 1;
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').data('page', page);
+
+            if (page == maxPages) {
+              scrollTrigger = false;
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.onscroll-load-works').remove(); // if last page, remove the button
+            } else {
+              scrollTrigger = true;
+            }
+
+            setTimeout(function () {
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.ajax-loader').remove();
+              window.dispatchEvent(new Event('resize'));
+
+              if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+                _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').find('.item').find('.wrapper'));
+              }
+            }, 2000);
+          }).fail(function (response) {
+            console.log(response);
+          });
+        } else {
+          setTimeout(function () {
+            window.dispatchEvent(new Event('resize'));
+
+            if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+              _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').find('.item').find('.wrapper'));
+            }
+          }, 2000);
+        }
+      } else {
+        setTimeout(function () {
+          window.dispatchEvent(new Event('resize'));
+
+          if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).width() >= 860) {
+            _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"](jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-case-study-wrapper').find('.jobs-list').find('.item').find('.wrapper'));
+          }
+        }, 2000);
+      }
+    }
+  });
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+
+
+function resize() {} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+
+
+
+/***/ }),
+
 /***/ "./src/js/pages/contact.js":
 /*!*********************************!*\
   !*** ./src/js/pages/contact.js ***!
@@ -105462,8 +105719,6 @@ const globeHeightWidth = function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('ipad-portrait');
     let globeHeight = window.innerHeight / 1.8;
     return globeHeight;
-  } else if (window.innerHeight > window.innerWidth && window.screen.height * window.devicePixelRatio >= 2700 && window.screen.height * window.devicePixelRatio <= 3000) {
-    alert('I am a surface Pro device & resolution height ', window.screen.height * window.devicePixelRatio, 'I am a surface Pro device & resolution width ', window.screen.width * window.devicePixelRatio);
   } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925) {
     // All Device From 1300 to 1900 with 1080 Height
     console.log('testing all device');

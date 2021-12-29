@@ -18,6 +18,7 @@ import * as Contact     from './pages/contact';
 import * as Services    from './pages/services';
 import * as Service     from './pages/service';
 import * as Buzz        from './pages/buzz';
+import * as Careers     from './pages/careers';
 
 import  './components/button';
 import  './components/footer';
@@ -97,6 +98,10 @@ $(function() {
             Buzz.init();
             PageLoad.hide();
         break;
+        case 'careers':
+            Careers.init();
+            PageLoad.hide();
+        break;
         default:
             PageLoad.hide();
             break;
@@ -113,6 +118,15 @@ $(function() {
             break;
             case 'service':
                 Service.resize();
+            break;
+            case 'works':
+                Works.resize();
+            break;
+            case 'work':
+                Work.resize();
+            break;
+            case 'careers':
+                Careers.resize();
             break;
         }
 

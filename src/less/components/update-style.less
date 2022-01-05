@@ -286,11 +286,11 @@
       radial-gradient(circle at 6.7% 75%, rgba(0,0,255,.5), rgba(0,0,255,0) 70.71%),
       radial-gradient(circle at 93.3% 75%, rgba(0,255,0,.5), rgba(0,255,0,0) 70.71%) beige;
     border-radius: 50%;
-    animation: gradient 30s ease infinite;
+    animation: jobgradient 30s ease infinite;
     border-radius: 100%;
     z-index: -1;
 }
-@keyframes gradient {
+@keyframes jobgradient {
     from {
         transform: rotate(0deg);
     }
@@ -298,7 +298,7 @@
         transform: rotate(360deg);
     }
 }
-@-webkit-keyframes gradient {
+@-webkit-keyframes jobgradient {
     from {
         transform: rotate(0deg);
     }
@@ -306,7 +306,7 @@
         transform: rotate(360deg);
     }
 }
-@-o-keyframes slidein {
+@-o-keyframes jobgradient {
     from {
         transform: rotate(0deg);
     }
@@ -314,7 +314,7 @@
         transform: rotate(360deg);
     }
 }
-@-ms-keyframes slidein {
+@-ms-keyframes jobgradient {
     from {
         transform: rotate(0deg);
     }
@@ -322,7 +322,7 @@
         transform: rotate(360deg);
     }
 }
-@-moz-keyframes slidein {
+@-moz-keyframes jobgradient {
     from {
         transform: rotate(0deg);
     }
@@ -424,4 +424,12 @@
     .main-content .about-content .title.t-center {
         padding: 0;
     }
+}
+
+//HEADER STYLE
+.header.header-white .logo .ico path, .header.header-white .logo .text path {
+    fill: #fff;
+}
+.header.header-white .hmbrg:after, .header.header-white .hmbrg:before {
+    background: #fff;
 }

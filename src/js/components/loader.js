@@ -63,7 +63,7 @@ function hide(){
                 }   
             });
             // $('.snowfall-flakes').remove();
-        }, 5000);
+        }, 2000);
     }
 }
 

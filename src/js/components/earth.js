@@ -7,68 +7,30 @@ import {BufferGeometryUtils} from "../libs/BufferGeometryUtils";
 
 
 
-function iOsDetector() {
-  return [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod'
-  ].includes(navigator.platform)
-  // iPad on iOS 13 detection
-  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-}
 
 const globeHeightWidth = function(){
-  const ua = window.navigator.userAgent.toLowerCase();
-    const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
 
 
-    if(iOsDetector() && window.innerHeight < 560){
-            let globeHeight = $(window).height()*1.6 ;
-            return globeHeight;
-    }
-    if(isiPad && window.innerWidth > window.innerHeight){
-        console.log('ipad landscape')
-        let globeHeight = $(window).height()*1.3 ;
+    if(window.innerWidth>window.innerHeight && window.innerWidth >= 1024){
+        // landscape
+        let globeHeight = $(window).height();
         return globeHeight;
     }
-    else if(window.innerWidth>window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925){
-        // All Device From 1300 to 1900 with 1080 Height
-        let globeHeight = window.innerHeight/1.4;
+    else if(window.innerWidth<window.innerHeight && window.innerWidth >= 1024){
+        // portrait
+        let globeHeight = $(window).height()/1.3;
         return globeHeight;
     }
-    else if(isiPad && window.innerHeight > window.innerWidth && window.innerHeight > 560){
-        console.log('all device')
-        let globeHeight = $(window).height() ;
+    else if(window.innerWidth>window.innerHeight && window.innerWidth < 1024){
+        // landscape
+        let globeHeight = $(window).height()/1.3;
         return globeHeight;
-    } 
-    else if((window.innerWidth > window.innerHeight) && (window.innerWidth > 710 && window.innerWidth <= 725)){
-      
-      let globeHeight = $(window).height()*1.3 ;
-      return globeHeight;
-  }
+    }
+    else {
+        let globeHeight = $(window).height()/1.3;
+        return globeHeight;
+    }
 
-  else if((window.innerHeight>window.innerWidth) && (window.innerWidth >100 && window.innerWidth<=1150) ){
-    console.log('portrait earth 1')
-      let globeHeight = $(window).height()/1.3 ;
-      return globeHeight;
-  }
-  else if((window.innerWidth>window.innerHeight) && (window.innerWidth >1110 && window.innerWidth<=1120) ){
-    
-    let globeHeight = $(window).height()*1.6 ;
-    return globeHeight;
-}
-  else if((window.innerWidth>window.innerHeight) && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
- 
-      let globeHeight = $(window).height()*2.2 ;
-      return globeHeight;
-  }else{
-    console.log('last one')
-    let globeHeight = $(window).height();
-    return globeHeight;
-  }
   
 }
 
@@ -260,11 +222,8 @@ async function init() {
 
   document.getElementById("canvas").appendChild(renderer.domElement);
 
-  if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {
-    _url = "wp-content/themes/kcg/assets/earth/";
-  } else {
-    _url = "assets/earth/";
-  }
+  // _url = "assets/earth/";
+  if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {    _url = "wp-content/themes/kcg/assets/earth/";  } else {    _url = "assets/earth/";  }
 
   
   amount = $('#canvas').data('people');

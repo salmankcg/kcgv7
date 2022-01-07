@@ -102351,48 +102351,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function iOsDetector() {
-  return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(navigator.platform) // iPad on iOS 13 detection
-  || navigator.userAgent.includes("Mac") && "ontouchend" in document;
-}
-
 const globeHeightWidth = function () {
-  const ua = window.navigator.userAgent.toLowerCase();
-  const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
-
-  if (iOsDetector() && window.innerHeight < 560) {
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 1.6;
-    return globeHeight;
-  }
-
-  if (isiPad && window.innerWidth > window.innerHeight) {
-    console.log('ipad landscape');
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 1.3;
-    return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925) {
-    // All Device From 1300 to 1900 with 1080 Height
-    let globeHeight = window.innerHeight / 1.4;
-    return globeHeight;
-  } else if (isiPad && window.innerHeight > window.innerWidth && window.innerHeight > 560) {
-    console.log('all device');
+  if (window.innerWidth > window.innerHeight && window.innerWidth >= 1024) {
+    // landscape
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height();
     return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 710 && window.innerWidth <= 725) {
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 1.3;
-    return globeHeight;
-  } else if (window.innerHeight > window.innerWidth && window.innerWidth > 100 && window.innerWidth <= 1150) {
-    console.log('portrait earth 1');
+  } else if (window.innerWidth < window.innerHeight && window.innerWidth >= 1024) {
+    // portrait
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() / 1.3;
     return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1120) {
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 1.6;
-    return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 2.2;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1024) {
+    // landscape
+    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() / 1.3;
     return globeHeight;
   } else {
-    console.log('last one');
-    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height();
+    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() / 1.3;
     return globeHeight;
   }
 }; // ------------------------------ \\\
@@ -102573,7 +102546,7 @@ async function init() {
   //   document.getElementById("canvas").appendChild(renderer.domElement);
   // }
 
-  document.getElementById("canvas").appendChild(renderer.domElement);
+  document.getElementById("canvas").appendChild(renderer.domElement); // _url = "assets/earth/";
 
   if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
@@ -103133,22 +103106,7 @@ function hide() {
   $loader.css({
     'display': 'none'
   });
-  $loader.removeClass('motion-out-1').removeClass('motion-out-2').removeClass('motion-in'); // LOAD MORE CHRISTMASS EFFECT SCRIPT
-
-  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.snowfall-flakes').length > 0) {
-    setTimeout(function () {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.snowfall-flakes').fadeOut(1000);
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').find('script').each(function () {
-        var scriptID = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id');
-
-        if (scriptID) {
-          if (scriptID.startsWith('awplife-we-snow')) {
-            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + scriptID).remove();
-          }
-        }
-      }); // $('.snowfall-flakes').remove();
-    }, 2000);
-  }
+  $loader.removeClass('motion-out-1').removeClass('motion-out-2').removeClass('motion-in');
 } // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
@@ -104566,7 +104524,24 @@ function hide() {
 
 function activeMenus(page) {
   $menu.find('.item').removeClass('active');
-  $menu.find('.item').filter('[data-target="' + page + '"]').addClass('active');
+  $menu.find('.item').filter('[data-target="' + page + '"]').addClass('active'); // LOAD MORE CHRISTMASS EFFECT SCRIPT
+
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.weather-effect-image').length > 0) {
+    setTimeout(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.weather-effect-image').fadeOut(1000);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').find('script').each(function () {
+        var scriptID = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id');
+
+        if (scriptID) {
+          if (scriptID.startsWith('awplife-we-snow')) {
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + scriptID).remove();
+          }
+        }
+      }); // $('.snowfall-flakes').remove();
+    }, 2000);
+  }
+
+  console.log(jquery__WEBPACK_IMPORTED_MODULE_0___default()('.weather-effect-image').length);
 } // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
@@ -105605,13 +105580,14 @@ let _scrollPos = 0;
 let _gsapScroll = null;
 
 const mobileAndTabletCheck = function () {
-  let check = false;
+  if (window.innerWidth < 768) {
+    //Device With is more than 768 is Mobile
+    return true;
+  } else if (window.innerWidth < 991 & window.innerHeight < 550) {
+    return true;
+  }
 
-  (function (a) {
-    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
-  })(navigator.userAgent || navigator.vendor || window.opera);
-
-  return check;
+  return false;
 };
 
 window.addEventListener("orientationchange", function () {
@@ -105619,64 +105595,24 @@ window.addEventListener("orientationchange", function () {
   location.reload();
 }, false);
 
-function isSurface() {
-  const isWindows = navigator.userAgent.indexOf('Windows') > -1;
-  const maxTouchPoints = navigator.maxTouchPoints || navigator.msMaxTouchPoints;
-  const isTouchable = 'ontouchstart' in window || maxTouchPoints > 0 || window.matchMedia && matchMedia('(any-pointer: coarse)').matches;
-  return isWindows && isTouchable;
-}
-
-function iOsDetector() {
-  return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(navigator.platform) // iPad on iOS 13 detection
-  || navigator.userAgent.includes("Mac") && "ontouchend" in document;
-}
-
-if (iOsDetector()) {
-  console.log('hello checvk');
-}
-
 const globeHeightWidth = function () {
-  const ua = window.navigator.userAgent.toLowerCase();
-  const isiPad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
-
-  if (iOsDetector() && window.innerHeight < 560) {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('iphone-landscape');
-    let globeHeight = window.innerHeight / 1.1;
-    return globeHeight;
-  } else if (isiPad && window.innerWidth > window.innerHeight) {
-    console.log('ipad landscape');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('ipad-landscape');
-    let globeHeight = window.innerHeight / 1.4;
-    return globeHeight;
-  } else if (isiPad && window.innerHeight > window.innerWidth && window.innerWidth < 1300) {
-    console.log('ipad portrait');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('ipad-portrait');
+  if (window.innerWidth > window.innerHeight && window.innerWidth >= 1024) {
+    // landscape
     let globeHeight = window.innerHeight / 1.8;
     return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1300 && window.innerWidth <= 1925) {
-    // All Device From 1300 to 1900 with 1080 Height
-    console.log('testing all device');
-    let globeHeight = window.innerHeight / 2.5;
+  } else if (window.innerWidth < window.innerHeight && window.innerWidth >= 1024) {
+    console.log('calling portrait'); // portrait
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('desktop-portrait');
+    let globeHeight = window.innerHeight / 2.3;
     return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 710 && window.innerWidth <= 725) {
-    let globeHeight = window.innerHeight / 1.4;
-    return globeHeight;
-  } else if (window.innerHeight > window.innerWidth && window.innerWidth > 100 && window.innerWidth <= 1150) {
-    console.log('portrait width 1');
-    let globeHeight = window.innerHeight / 2.4;
-    return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 1110 && window.innerWidth <= 1150) {
-    console.log('surface duo');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('unf-surface-landscape');
-    let globeHeight = window.innerHeight / 1.09;
-    return globeHeight;
-  } else if (window.innerWidth > window.innerHeight && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    console.log('checking globe width');
-    let globeHeight = window.innerHeight * 1.2;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1024) {
+    // landscape
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('mobile-landscape');
+    let globeHeight = window.innerHeight / 2.3;
     return globeHeight;
   } else {
-    console.log('checking globe width last1');
-    let globeHeight = window.innerHeight / 1.8;
+    let globeHeight = window.innerHeight / 2.3;
     return globeHeight;
   }
 }; // ----------------------------------------- \\\
@@ -105697,6 +105633,7 @@ function init() {
   _components_title__WEBPACK_IMPORTED_MODULE_2__["init"]($slides.find('.title'));
   resize();
   setScrollTo();
+  console.log('mobile check', mobileAndTabletCheck());
 
   if (!mobileAndTabletCheck()) {
     animateDesktop();

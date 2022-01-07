@@ -109,6 +109,23 @@ function hide(){
 function activeMenus(page){
 	$menu.find('.item').removeClass('active');
 	$menu.find('.item').filter('[data-target="'+page+'"]').addClass('active');
+
+    // LOAD MORE CHRISTMASS EFFECT SCRIPT
+    if($('.weather-effect-image').length > 0){
+        setTimeout( function() {
+            $('.weather-effect-image').fadeOut(1000);
+            $('html').find('script').each(function(){
+                var scriptID = $(this).attr('id');
+                if(scriptID) {             
+                    if(scriptID.startsWith('awplife-we-snow')) {
+                        $('#'+scriptID).remove();
+                    }
+                }   
+            });
+            // $('.snowfall-flakes').remove();
+        }, 2000);
+    }
+    console.log($('.weather-effect-image').length);
 }
 
 // ----------------------------------------- \\\

@@ -30,9 +30,6 @@
             overflow: hidden;
 
             .button{
-                position: absolute;
-                top: 60%;
-                left: 12%;
             }
         }
     }
@@ -52,7 +49,7 @@
     }
 
     .title{
-        .centerVert;
+        // .centerVert;
         width: 38%;
         left: 12%;
 
@@ -91,7 +88,7 @@
     /*--- RESPONSIVE ---*/
     /*------------------*/
 
-    @media( max-width: @screen-large){
+    @media( max-width: 767px){
    
         .container-fluid{
             .row{
@@ -150,7 +147,7 @@
         }
     }
 
-    @media( max-width: @screen-small ){
+    @media screen and (orientation:portrait) and ( max-width:767px){
         .container-fluid{
             .col{
             width: 100%;
@@ -212,9 +209,6 @@
 
             .images{
                 .img{
-                    .centerHoriz;
-                    top: -16%;
-                    width: 105%;
                 }
             }
         }
@@ -228,10 +222,8 @@
 
             .images{
                 .img{
-                    top: 20%;
-
                     img {
-                        max-width: 75%;
+                        max-width: 100%;
                     }
                 }
             }
@@ -246,8 +238,10 @@
 
             .images{
                 .img{
-                    transform: translateY(-50%) rotate(45deg);
+                    transform: translateY(-50%) rotate(50deg);
                     left: -70px;
+                    top: 65%;
+                    height: 100vw;
                 }
             }
         }

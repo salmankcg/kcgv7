@@ -49,22 +49,6 @@ function hide(){
     $loader.css({'display':'none'});
     $loader.removeClass('motion-out-1').removeClass('motion-out-2').removeClass('motion-in');
     
-
-    // LOAD MORE CHRISTMASS EFFECT SCRIPT
-    if($('.snowfall-flakes').length > 0){
-        setTimeout( function() {
-            $('.snowfall-flakes').fadeOut(1000);
-            $('html').find('script').each(function(){
-                var scriptID = $(this).attr('id');
-                if(scriptID) {             
-                    if(scriptID.startsWith('awplife-we-snow')) {
-                        $('#'+scriptID).remove();
-                    }
-                }   
-            });
-            // $('.snowfall-flakes').remove();
-        }, 2000);
-    }
 }
 
 

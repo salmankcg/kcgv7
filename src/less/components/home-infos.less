@@ -1,7 +1,8 @@
 .home-infos{
     .fill;
     height: 100vh;
-    top: -100vh;
+    top: 0;
+    transform: none !important;
     // border: 1px solid red;
 
     /*------------------*/
@@ -13,20 +14,22 @@
 
     &.enabled{
         z-index: 2;
-        position: fixed;
     }
 
     /*----------------*/
     /*--- ELEMENTS ---*/
     /*----------------*/
     .steps{
-        position: absolute;
-        width: 100%;
+        position: relative;
+        width: 90%;
         height: 100%;
         top: 0px;
-        left: 0px;
+        left: 50%;
         z-index: 1;
-        
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         &.active{
             z-index: 2;
         }
@@ -34,8 +37,7 @@
 
     .i-wrapper{
         width: 280px;
-        right: 5%;
-        .centerVert;
+        position: static;
     }
 
     .button{
@@ -55,14 +57,13 @@
     }
 
     .title{
-        .centerVert;
-        width: 30%;
-        left: 12%;
-
+        position: static;
+        transform: none;
         .words{
         display: inline-block;
         position: relative;
         overflow: hidden;
+        padding-left: 5px;
 
         &.w-block{
             display: block;
@@ -91,7 +92,6 @@
 
     .paragraph{
         opacity: 0;
-        transform: translateY(50px);
         transition: .5s all @custom;
         transition-delay: 0s;
         
@@ -108,16 +108,55 @@
     /*--- RESPONSIVE ---*/
     /*------------------*/
 
-    @media( max-width: @screen-large){
+    // large screen portrait and and tablet
+    @media screen and (orientation:portrait) and (min-width:768px)  {
+        .steps {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            flex-flow: column;
+            justify-content: flex-start;
+            padding-top: 15%;
+        }
+        .title {
+            width: 100% !important;
+            .words{
+                padding-left: 12px;
+            }
+        }
+        .i-wrapper{
+            text-align: center;
+            width: 350px;
+        }
+        .paragraph{
+            text-align: center;
+        }
+        #slide-1 .paragraph{
+            display: none;
+        }
+        #slide-1{
+            .paragraph{
+                display: none;
+            }
+
+        }
+        .button{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+    }
+
+    @media screen and (orientation:portrait) and (max-width:767px)  {
         .paragraph{
             text-align: center;
         }
 
         .steps{
             height: auto;
-            width: 60%;
-            .centerHoriz;
-            top: 20%;
+            justify-content: center;
+            flex-flow: column;
+            top: 10%;
         }
     
         .title{
@@ -127,6 +166,8 @@
             left: auto;
             width: 100%;
             top: auto;
+            font-size: 6vw;
+            line-height: 9vw;
             
         }
         
@@ -143,35 +184,6 @@
             width: 100%;
             margin-top: 30px;
         }
-    }
-
-    @media( max-width: @screen-small ){
-        top: 0px;
-        position: absolute;
-
-        .button{
-            margin-top: 40px;
-            // opacity: 0;
-            // transform: none;
-        }
-
-        .steps{
-            padding: 0px 30px;
-            width: 100%;
-            top: 15%;
-        }
-
-        .title{
-            .words{
-                span{
-                    transition-delay: 0s;
-                }
-            }
-        }
-
-    }
-
-    @media( max-width: @screen-xsmall ){
     }
 }
 

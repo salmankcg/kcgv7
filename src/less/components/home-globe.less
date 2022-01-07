@@ -1,9 +1,10 @@
 .home-globe{
     .fill;
     height: 100vh;
-    position: fixed;
+    position: absolute;
     z-index: -1;
-    top: -100vh;
+    top: 0;
+    transform: none !important;
 
     /*------------------*/
     /*--- ATTRIBUTES ---*/
@@ -44,18 +45,15 @@
     /*------------------*/
     /*--- RESPONSIVE ---*/
     /*------------------*/
-
-    @media( max-width: @screen-large){
-        top: -50vh;
+     // large screen portrait and and tablet
+     @media screen and (orientation:portrait) and (min-width:768px)  {
+        top: 30%;
     }
 
-    @media( max-width: @screen-small ){
+    @media screen and (orientation:portrait) and (max-width: 767px){
         top: 40%;
-        position: absolute;
-        z-index: 2;
     }
 
-    @media( max-width: @screen-xsmall ){
-    }
+    
 }
 

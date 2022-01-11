@@ -88,7 +88,7 @@
     /*--- RESPONSIVE ---*/
     /*------------------*/
 
-    @media( max-width: 767px){
+    @media screen and (orientation:portrait) and ( max-width: 767px){
    
         .container-fluid{
             .row{
@@ -223,7 +223,7 @@
             .images{
                 .img{
                     img {
-                        max-width: 100%;
+                        max-width: 71%;
                     }
                 }
             }
@@ -242,6 +242,9 @@
                     left: -70px;
                     top: 65%;
                     height: 100vw;
+                    img{
+                        max-width: 100%;
+                    }
                 }
             }
         }

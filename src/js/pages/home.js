@@ -21,6 +21,7 @@ let $slides       	= $('.hc-slides').find('.infos');
 let $homeInfos      = $('.home-infos');
 let $homeBullets    = $('.home-bullets');
 let $homeBckg       = $('.home-bckg');
+let $homeBckgImg = $('.home-bckg img');
 let $header         = $('.header');
 let $scrollDown     = $('.scrolldown');
 
@@ -68,7 +69,7 @@ const globeHeightWidth = function(){
     else if(window.innerWidth>window.innerHeight && window.innerWidth < 1024){
         // landscape
         $('body').addClass('mobile-landscape');
-        let globeHeight = window.innerHeight/2.3;
+        let globeHeight = window.innerHeight*1.2;
         return globeHeight;
     }
     else {
@@ -328,11 +329,24 @@ function slideMotionIn(_i, _posScroll){
         gsap.to($('.home-globe').find('.g-wrapper'), 0.4, { ease: Power3.easeOut, opacity: 1, y: '0%' },0);
     }else{
         if(!mobileAndTabletCheck()){
-            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 1},0);
-            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '0%', opacity: 1},0);
-        }else{
+            // gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 1},0);
+            // gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '0%', opacity: 1},0);
+            // gsap.to($homeBckgImg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 1},0);
+            // gsap.to($homeBckgImg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '0%', opacity: 1},0);
+
             gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 1},0);
             gsap.to($(_i).find('.img').find('img'), 2, {x: '0%', opacity: 1},0);
+
+
+        }else{
+            if(_target == 'slide-2'){
+                gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 1},0);
+                gsap.to($(_i).find('.img').find('img'), 2, {x: '-22%', opacity: 1},0);
+            }else{
+                gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 1},0);
+                gsap.to($(_i).find('.img').find('img'), 2, {x: '0%', opacity: 1},0);
+            }
+            
         }
     }
 
@@ -360,11 +374,23 @@ function slideMotionOut(_i, _posScroll){
         gsap.to($('.home-globe').find('.g-wrapper'), 0.4, { ease: Power3.easeOut, opacity: 0, y: '-10%' },0);
     }else{
         if(!mobileAndTabletCheck()){
-            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 0},0);
-            gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '-20%', opacity: 0},0);
-        }else{
+            // gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll), 0.5, {ease: Power3.easeOut, opacity: 0},0);
+            // gsap.to($homeBckg.find('.images').find('.img').eq(_posScroll).find('img'), 2, {x: '-20%', opacity: 0},0);
             gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 0},0);
             gsap.to($(_i).find('.img').find('img'), 2, {x: '-20%', opacity: 0},0);
+            
+        }else{
+            
+            if(_target === 'slide-2'){
+                gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 0},0);
+                gsap.to($(_i).find('.img').find('img'), 2, {x: '20%', opacity: 0},0);
+            }else{
+                gsap.to($(_i).find('.img'), 0.5, {ease: Power3.easeOut, opacity: 0},0);
+                gsap.to($(_i).find('.img').find('img'), 2, {x: '-20%', opacity: 0},0);  
+            }
+
+            
+            
         }
     }
 

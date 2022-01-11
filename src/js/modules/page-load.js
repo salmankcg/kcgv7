@@ -66,6 +66,10 @@ function init(){
 
 }
 
+function unsetCookie(){
+    Cookies.remove('work_type');
+}
+
 
 
 function setFirstLoader(){
@@ -125,10 +129,12 @@ function activeMenus(page){
             // $('.snowfall-flakes').remove();
         }, 2000);
     }
-    console.log($('.weather-effect-image').length);
+    setTimeout( function() {
+        $('.weather-effect-image').remove();
+    }, 2000);
 }
 
 // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\
-export { init, hide }
+export { init, hide, unsetCookie }

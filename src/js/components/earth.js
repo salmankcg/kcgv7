@@ -23,7 +23,7 @@ const globeHeightWidth = function(){
     }
     else if(window.innerWidth>window.innerHeight && window.innerWidth < 1024){
         // landscape
-        let globeHeight = $(window).height()/1.3;
+        let globeHeight = $(window).height()*2.1;
         return globeHeight;
     }
     else {
@@ -211,19 +211,15 @@ async function init() {
   renderer.autoClear = false;
   
 
-  // if($('body').hasClass('page-template-default')){
-  //   _url = "wp-content/themes/kcg/assets/earth/";
-  //   $('#elementor-preview-iframe').contents().find('#canvas').append(renderer.domElement)
-    
-  // }else{
-  //   _url = "assets/earth/";
-  //   document.getElementById("canvas").appendChild(renderer.domElement);
-  // }
-
   document.getElementById("canvas").appendChild(renderer.domElement);
 
-  // _url = "assets/earth/";
-  if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'rhrtest.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com') {    _url = "wp-content/themes/kcg/assets/earth/";  } else {    _url = "assets/earth/";  }
+//_url = "assets/earth/";
+if(window.location.href === 'https://kcgv10.kingscrestglobal.com/html-test/'){
+   _url = "assets/earth/";
+}
+else if (window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com' || window.location.hostname == '5jan.kingscrestglobal.com') {   
+   _url = "wp-content/themes/kcg/assets/earth/";  
+}else {     _url = "assets/earth/";  }
 
   
   amount = $('#canvas').data('people');

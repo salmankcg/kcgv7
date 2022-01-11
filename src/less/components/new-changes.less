@@ -34,12 +34,40 @@
     }
 
     // before after remove
-    .home-bckg .background::before,
-    .home-bckg .background::after{
-        display: none;
+    
+    .home-bckg .background:before {
+        opacity: 0;
     }
-    #slide-1 .shape {
-        display: none;
+
+    // bckg image
+    #slide-2{
+        .img{
+            align-items: center !important;
+            img{
+                max-width: 128%;
+            }
+        }
+    }
+    #slide-3{
+        .img{
+            img{
+                max-width: 115%;
+            }
+        }
+    }
+    #slide-4{
+        .img{
+            align-items: flex-end !important;
+            justify-content: flex-start;
+            img{
+                max-width: 127%;
+            }
+        }
+    }
+    #slide-5{
+        .img{
+            img{}
+        }
     }
 
     // 
@@ -56,15 +84,31 @@
 }
 
 
+@media screen and (orientation:landscape) and (min-width:768px) {
+    .home-bullets {
+        display: flex;
+    }
+    .home-content{
+        .title {
+            font-size: 3vw;
+            line-height: 7vh;
+        }
+    }
+}
+
+
 @media screen and (orientation:portrait) and (min-width:768px)  {
     #slide-1 .paragraph{
         display: none;
     }
-
+   
     // 
     .home-content{
         #slide-5 .col-5 {
-            width: 100%;
+            width: 60%;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         #slide-5 .title {
@@ -121,15 +165,56 @@
             width: auto;
             height: 100%;
         }
+        .title {
+            font-size: 4.2vw;
+            line-height: 4vh;
+        }
     }
+}
+
+// only When there is no dots
+@media screen and (orientation: portrait) and (min-width:768px) and (max-width:1024px) {
+    .home-content #slide-5 .i-wrapper, .home-content .home-infos .steps {
+        padding-left: 0px;
+    }
+    .home-content{
+        #slide-2{
+            .img{
+                img{
+                    max-width: 103%;
+                }
+            }
+        }
+        #slide-3{
+            .img{
+                img{
+                    max-width: 103%;
+                }
+            }
+        }
+        #slide-4{
+            .img{
+                img{
+                    max-width: 103%;
+                    position: relative;
+                    right: -24%;
+                }
+            }
+        }
+        #slide-5{
+            .img{
+                img{
+                    max-width: 103%;
+                }
+            }
+        }
+    }
+    
+    
 }
 
 @media screen and (orientation:portrait) and (max-width:767px)  {
     .home-content{
-        #slide-1 .shape {
-            display: none;
-        }
-        
         #slide-1 .home-infos .steps {
             top: 20%;
         }
@@ -152,15 +237,27 @@
         #slide-5 .i-wrapper{
             padding-left: 0px;
         }
+        // 
+        #slide-2 img{
+            transform: translate(0%,0%) scaleX(-1);
+        }
         
     }
+    
 }
 
 @media screen and (orientation:landscape) and (max-width:991px) and (max-height:550px)  {
     .portrait{
         display: none;
     }
+    .scrolldown{
+        display: none;
+    }
     .home-content{
+        .i-wrapper {
+            width: 30%;
+            position: static;
+        }
         .title {
             font-size: 3vw;
             line-height: 8vh;
@@ -212,6 +309,24 @@
         #slide-5 .home-bckg{
             background: #fff;
         }
+        .home-bckg img {
+            max-width: 120%;
+            max-height: 114%;
+        }
+        .home-bckg img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .home-bckg .images,
+        .home-bckg .shape{
+            height: 75%;
+        }
+        .home-globe{
+            top: 50%;
+        }
+        #slide-2 img{
+            transform: translate(0%,0%) scaleX(-1);
+        }
         // 
         .infos:before {
             content: "";
@@ -231,6 +346,7 @@
         0deg,#2d3294,#141515);
             height: 160px;
             bottom: -160px;
+            z-index: 5;
         }
          #slide-2:before {
             background: linear-gradient(
@@ -252,7 +368,53 @@
         }
         #slide-5 .i-wrapper{
             padding-left: 0px;
+            padding-top: 10%;
         }
+
+        // 
+        .clients.c-home .image {
+            width: auto;
+            display: inline-block;
+            height: 52px;
+            margin: 10px auto;
+        }
+        
+        .clients.c-home {
+            top: 115%;
+        }
+
+        // slide-1 Code Starts From here
+        #slide-1 .title,#slide-1 .i-wrapper {
+            width: 70%;
+            position: relative;
+            text-align: center;
+            left: initial;
+        }
+        
+        #slide-1 .paragraph {
+            display: none;
+        }
+        
+        #slide-1 .steps {
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 15%;
+        }
+        
+        #slide-1 .i-wrapper .button {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+        }
+        
+        #slide-1 .shape {
+            width: 60%;
+            top: 64%;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        // slide-1 Codes Ends Here
         
     }
     .footer .title {
@@ -263,13 +425,91 @@
         margin-top: 15px;
     }
     .footer .button .wrapper{
-        padding: 11px 25px 13px;
+        padding: 8px 25px 8px;
     }
     .modal .text {font-size: 15px;}
 
     .modal  .button.b-align-center {
         margin-top: 30px !important;
     }
+    .footer .container-fluid .row:first-of-type{
+        padding-bottom: 10px;
+    }
+    // 
+    .footer .item, .footer .f-infos a, .footer .f-infos  span {
+        font-size: 1.5vw;
+        line-height: 5vh;
+    }
+    
+    .footer .legals {
+        padding-bottom: 10px;
+    }
+    
+    .footer .scrollup {
+        height: 14px;
+    }
+    
+    .footer.motion-in-3 .scrollup .button {
+        margin-top: -7px;
+    }
+    
+    .footer .scrollup .button .wrapper {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    // 
+    
     
 }
 
+@media screen and (orientation:landscape) and (max-width:600px) {
+    .home-content{
+        .clients.c-home .image {
+            height: 30px;
+        }
+        .button .wrapper {
+            padding: 8px 25px 10px;
+        }
+        .button .label, .button .text {
+            font-size: 9px;
+        }
+        
+    }
+    .footer .scrollup .button.b-icon .wrapper {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+@media screen and (orientation:portrait) and (max-width:320px) {
+    .home-content{
+        .home-infos .button {
+            margin: 10px auto 0;
+        }
+        .home-infos .title .words {
+            padding-left: 0px;
+        }
+        .title {
+            font-size: 25px;
+            line-height: 32px;
+        }
+        .home-infos .paragraph {
+            font-size: 13px;
+        }
+        .button .wrapper {
+            padding: 10px 30px 9px;
+        }
+        .button .label, .button .text {
+            font-size: 10px;
+        }
+        .modal .text {
+            font-size: 15px;
+        }
+        .home-infos .steps {
+            top: 0%;
+        }
+    }
+}

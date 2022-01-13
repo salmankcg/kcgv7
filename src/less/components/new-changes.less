@@ -35,10 +35,7 @@
         position: relative;
         left: -38%;
     }
-    #slide-4 .images .img img{
-        position: relative;
-        right: -21%;
-    }
+   
     // before after remove
     
     .home-bckg .background:before {
@@ -48,6 +45,7 @@
     // bckg image
     #slide-1{
         .shape{
+            display: none;
             .background{
                 .bg2('/home/reactangle-1.png');
             }
@@ -61,8 +59,10 @@
         }
         .img{
             align-items: center !important;
+            width: 128%;
+            overflow: hidden;
             img{
-                max-width: 128%;
+                max-width: 100% 
             }
         }
     }
@@ -73,8 +73,10 @@
             }
         }
         .img{
+            width: 115%;
+            overflow: hidden;
             img{
-                max-width: 115%;
+                max-width: 100%
             }
         }
     }
@@ -86,10 +88,17 @@
             }
         }
         .img{
-            align-items: flex-end !important;
+            align-items: flex-end!important;
             justify-content: flex-end;
+            max-width: 121%;
+            overflow: hidden;
+            max-height: 111% !important;
+            width: 110%;
             img{
-                max-width: 85%;
+                max-width: 100%;
+                position: relative;
+                right: 0;
+                max-height: 84%;
                 
             }
         }
@@ -227,7 +236,7 @@
         #slide-2{
             .img{
                 img{
-                    max-width: 103%;
+                    max-width: 100%;
                 }
             }
         }
@@ -235,6 +244,7 @@
             .img{
                 img{
                     max-width: 103%;
+                    max-height: 100%;
                 }
             }
         }
@@ -243,7 +253,7 @@
                 img{
                     max-width: 103%;
                     position: relative;
-                    right: -24%;
+                    right: 0;
                     max-height: 100%;
                 }
             }
@@ -324,18 +334,21 @@
             position: static;
         }
         .title {
-            font-size: 3vw;
-            line-height: 8vh;
+            font-size: 1.2rem;
+            line-height: 24px;
         }
         .paragraph {
-            font-size: 2vw;
-            line-height: 7vh;
+            font-size: 13px;
+            line-height: 21px;
         }
         .button{
             margin-top: 30px;
         }
         .button .wrapper{
-            padding: 11px 25px 13px;
+            padding: 9px 17px 12px;
+        }
+        .button .wrapper .text {
+            font-size: 10px!important;
         }
         .home-bckg .images .img{
             padding-bottom: 10px;
@@ -344,10 +357,7 @@
             padding-bottom: 0px;
             justify-content: flex-end;
         }
-        #slide-4 .home-bckg .images .img img{
-            position: relative;
-            right: -21%;
-        }
+        
         #slide-5 .container-fluid{
             height: 100vh;
         }
@@ -389,10 +399,11 @@
         }
         .home-bckg .images,
         .home-bckg .shape{
-            height: 75%;
+            height: 70vh;
         }
         .home-globe{
-            top: 50%;
+            top: 35%;
+            z-index: 0;
         }
         #slide-2 img{
             transform: translate(0%,0%) scaleX(-1);
@@ -484,6 +495,95 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
+        .clients.c-home{
+            transform: translate(-50%,-50%);
+            width: 100%;
+        }
+        .clients.c-home .wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            transform: rotate(
+        -2.7deg
+        );
+        }
+        .clients.c-home .line {
+            width: 100%;
+            margin: 0;
+            transform: none;
+        }
+        .clients.c-home .logos {
+            display: inline-block;
+        }
+        .clients.c-home .line:first-of-type .logos {
+            transform: none;
+            -webkit-animation: marquee 180s linear 0s infinite normal none running;
+            animation: marquee 180s linear 0s infinite normal none running;
+        }
+        .clients.c-home .image img {
+            width: auto;
+            height: 100%;
+        }
+        .clients.c-home .image:before, 
+        .clients.c-home .image:after {
+            background: transparent;
+        }
+        #slide-1{
+            &::before{
+                z-index: 0;
+            }
+            z-index: 5;
+            .images{
+                .img{
+                    img{
+                        
+                    }
+                }
+            }
+        }
+        #slide-1 .title {
+            font-size: 180%!important;
+            line-height: 115%!important;
+            margin-bottom: 11px;
+        }
+        #slide-2 .home-bckg, #slide-2 .home-infos {
+            padding-top: 8%;
+        }
+        #slide-2{
+            .shape{
+                top: 62%;
+            }
+            .images{
+                top: 66%;
+                .img{
+                    right: 0;
+                    left: initial;
+                    img{
+                        position: relative;
+                        right: -23%;
+                    }
+                }
+            }
+        }
+        #slide-3{
+            .images{
+                .img{
+                    img{
+                        
+                    }
+                }
+            }
+        }
+        #slide-4{
+            .images{
+                .img{
+                    img{
+                        position: relative;
+                        right: 0;
+                    }
+                }
+            }
+        }
         // slide-1 Codes Ends Here
         
     }
@@ -539,6 +639,15 @@
     .footer-ontop .header {
         height: 70px;
         padding: 20px 0;
+    }
+    .footer .button .text {
+        font-size: 12px;
+    }
+    .footer .scrollup .button.b-icon .wrapper {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: inline-block;
     }
     
     

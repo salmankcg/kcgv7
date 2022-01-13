@@ -209,9 +209,15 @@
 
             .images{
                 .img{
-                    align-items: flex-start !important;
+                    align-items: flex-start!important;
+                    left: auto;
+                    right: 0%;
+                    height: 100%;
+                    width: 112%;
                     img{
-                        max-width: 128%;
+                        max-width: 100%;
+                        position: relative;
+                        right: -22%;
                     }
                 }
             }
@@ -227,6 +233,7 @@
             .images{
                 .img{
                     img {
+                        max-height: 100%;
                         max-width: 74%;
                     }
                 }
@@ -245,12 +252,13 @@
                     transform: translateY(-50%) rotate(
                         41deg
                         );
-                        left: -50%;
-                        top: 29%;
-                        height: 113vw;
+                            left: -39%;
+                            top: 29%;
+                            height: initial;
+                            max-height: 150%!important;
                     img{
-                        max-width: 100%;
-                        max-height: 125%;
+                        max-width: 60%;
+                        max-height: 50%;
                     }
                 }
             }

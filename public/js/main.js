@@ -105658,7 +105658,21 @@ function init() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.home', onScroll);
     onScroll();
     animateMobile();
-  }
+  } // window on scroll
+
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll', function () {
+    var scrollTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).scrollTop(),
+        elementOffset = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.footer').offset().top,
+        distance = elementOffset - scrollTop;
+    console.log('distance', distance);
+
+    if (distance < 50) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('footer-ontop');
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').removeClass('footer-ontop');
+    }
+  });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\

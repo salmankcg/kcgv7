@@ -119,8 +119,28 @@ function init(){
         animateMobile();
     }
 
+
+
+
+
+    // window on scroll
+    $(window).on('scroll',function(){
+        var scrollTop     = $(this).scrollTop(),
+        elementOffset = $('.footer').offset().top,
+        distance      = (elementOffset - scrollTop);
+        console.log('distance', distance)
+        if(distance<50){
+            $('body').addClass('footer-ontop');
+        }else{
+            $('body').removeClass('footer-ontop');
+        }
+    })
+
     
 }
+
+
+
 
 
 

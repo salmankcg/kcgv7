@@ -2,7 +2,10 @@
 	background: url('../../img/@{path}') no-repeat center center;
 	background-size: @size;
 }
-
+.bg2(@path, @size: contain){
+	background: url('../../@{path}') no-repeat center center;
+	background-size: cover;
+}
 .cover(){
 	background: no-repeat center center;
 	background-size: cover;

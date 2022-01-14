@@ -44,6 +44,11 @@
 
     // bckg image
     #slide-1{
+        .home-infos{
+            .steps{
+
+            }
+        }
         .shape{
             display: none;
             .background{
@@ -52,6 +57,11 @@
         }
     }
     #slide-2{
+        .home-infos{
+            .steps{
+                
+            }
+        }
         .shape{
             .background{
                 .bg2('/home/reactangle-2.png');
@@ -67,6 +77,11 @@
         }
     }
     #slide-3{
+        .home-infos{
+            .steps{
+                
+            }
+        }
         .shape{
             .background{
                 .bg2('/home/reactangle-3.png');
@@ -81,6 +96,11 @@
         }
     }
     #slide-4{
+        .home-infos{
+            .steps{
+                
+            }
+        }
         .shape{
             .background{
                 .bg2('/home/reactangle-4.png');
@@ -113,6 +133,9 @@
     .background::after{
         display: none;
     }
+    
+    //
+    
 
     // 
     @media screen and (min-width:768px) {
@@ -134,10 +157,12 @@
     }
     
     .home-content{
+        
         .title {
-            font-size: 3vw;
-            line-height: 7vh;
+            font-size: 60px;
+            line-height: 60px;
         }
+        
         
     }
 }
@@ -148,6 +173,10 @@
         display: flex;
         position: fixed;
         top: 0;
+    }
+    .home-content .title {
+        font-size: 40px;
+        line-height: 49px;
     }
 }
 
@@ -334,11 +363,12 @@
             position: static;
         }
         .title {
-            font-size: 1.2rem;
-            line-height: 24px;
+            font-size: 30px;
+            line-height: 34px;
+            width: 30%;
         }
         .paragraph {
-            font-size: 13px;
+            font-size: 14px;
             line-height: 21px;
         }
         .button{
@@ -400,6 +430,7 @@
         .home-bckg .images,
         .home-bckg .shape{
             height: 70vh;
+            width: 28%;
         }
         .home-globe{
             top: 35%;
@@ -446,6 +477,14 @@
         }
         .home-infos .steps{
             padding-left: 0px;
+            
+        }
+        #slide-2  .home-infos .steps,
+        #slide-3  .home-infos .steps,
+        #slide-4  .home-infos .steps,
+        #slide-5  .home-infos .steps{
+            align-items: flex-start;
+            top: 25% ;
         }
         #slide-5 .i-wrapper{
             padding-left: 0px;
@@ -463,6 +502,11 @@
         .clients.c-home {
             top: 115%;
         }
+        .clients  .wrapper{
+            transform: rotate(-2.7deg);
+        }
+
+        
 
         // slide-1 Code Starts From here
         #slide-1 .title,#slide-1 .i-wrapper {
@@ -560,7 +604,8 @@
                     left: initial;
                     img{
                         position: relative;
-                        right: -23%;
+                        right: -32%;
+                        max-width: 88%;
                     }
                 }
             }

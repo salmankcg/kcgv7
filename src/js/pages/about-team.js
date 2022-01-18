@@ -1,9 +1,9 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as MouseMove from  "../components/mouse-move";
-import gsap, {TweenMax, Elastic, Power3} from "gsap";
+import $ from 'jquery';
+import * as MouseMove from  '../components/mouse-move';
+import gsap, {TweenMax, Elastic, Power3} from 'gsap';
 
 
 

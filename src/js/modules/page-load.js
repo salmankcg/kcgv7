@@ -1,9 +1,10 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as Load from "./load"
-import * as Loader from "../components/loader"
+import $ from 'jquery';
+import * as Load from './load';
+import * as Loader from '../components/loader';
+import Cookies from 'js-cookie';
 
 
 

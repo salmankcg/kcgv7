@@ -1,8 +1,8 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as MouseMove from  "../components/mouse-move";
+import $ from 'jquery';
+import * as MouseMove from  '../components/mouse-move';
 
 
 // ----------------------------------------- \\\

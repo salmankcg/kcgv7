@@ -1,11 +1,11 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as Title from "../components/title"
-import * as MouseMove from  "../components/mouse-move";
-import gsap, {TimelineMax, Power3} from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import $ from 'jquery';
+import * as Title from '../components/title';
+import * as MouseMove from  '../components/mouse-move';
+import gsap, {TimelineMax, Power3} from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 

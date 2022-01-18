@@ -428,3 +428,42 @@
 .header.header-white .hmbrg:after, .header.header-white .hmbrg:before {
     background: #fff;
 }
+
+//PEOPLE SCRAMBLE STYLE
+.mobile-device {
+    @media (orientation: portrait) {
+        .webdoor.w-team {
+            height: auto;
+            min-height: inherit;
+            padding-top: 170px;
+
+            .button{
+                display: none;
+            }
+
+            .row{
+                flex-direction: column;
+                padding: 0px 30px;
+                align-items: center;
+            }
+
+            .col{
+                padding: 0px !important;
+                width: 70%;
+                
+                .title{
+                    text-align: center;
+                }
+
+                &:first-of-type{
+                    order: 2;
+                }
+
+                &:last-of-type{
+                    order: 1;
+                    margin-bottom: 40px;
+                }
+            }
+        }
+    }
+}

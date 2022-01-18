@@ -1,8 +1,8 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import Masonry from "masonry-layout";
+import $ from 'jquery';
+//import Masonry from 'masonry-layout';
 
 
 // ----------------------------------------- \\\

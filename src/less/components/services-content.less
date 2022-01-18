@@ -816,7 +816,7 @@
             }
         }
 
-        &.is-stratetgy{
+        &.is-strategy{
             img{
                 object-position: right;
             }
@@ -1165,9 +1165,10 @@
             height: auto;
             right: auto;
             top: auto;
+            align-self: self-end;
             transform: none;
 
-            &.is-stratetgy{
+            &.is-strategy{
                 float: right;
                 width: 100%;
 
@@ -1177,7 +1178,8 @@
             }
 
             &.is-product{
-                left: -20vw;
+                left: -20px;
+                align-self: flex-start;
 
                 img{
                     transform: translateX(0px) rotateY(180deg);
@@ -1185,14 +1187,14 @@
             }
 
             &.is-marketing{
-
                 top: -80px;
-                left: -22vw;
+                left: -14vw;
+                align-self: flex-start;
 
                 img{
                     object-position: center;
                     width: 80%;
-                    transform: translateY(10vh) translateX(0px) rotate(45deg) rotateY(190deg);
+                    transform: translateY(10vh) translateX(0) rotate(39deg) rotateY(190deg);
                 }
             }
         }

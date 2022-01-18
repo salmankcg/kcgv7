@@ -1,10 +1,10 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as MouseMove from  "../components/mouse-move";
-// import * as Testimonial from  "../components/testimonial";
-import gsap, {TweenMax, TimelineMax} from "gsap";
+import $ from 'jquery';
+import * as MouseMove from  '../components/mouse-move';
+// import * as Testimonial from  '../components/testimonial';
+import gsap, {TweenMax, TimelineMax} from 'gsap';
 
 
 

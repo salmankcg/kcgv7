@@ -1,8 +1,8 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import gsap, {TweenMax, Elastic, Power3} from "gsap";
+import $ from 'jquery';
+import gsap, {TweenMax, Elastic, Power3} from 'gsap';
 
 
 

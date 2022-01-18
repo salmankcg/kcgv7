@@ -1,10 +1,10 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as MouseMove from  "../components/mouse-move";
-import gsap, {TweenMax, TimelineMax, Power3, Expo} from "gsap";
-import "slick-carousel";
+import $ from 'jquery';
+import * as MouseMove from  '../components/mouse-move';
+import gsap, {TweenMax, TimelineMax, Power3, Expo} from 'gsap';
+import 'slick-carousel';
 
 
 // ----------------------------------------- \\\

@@ -1,12 +1,12 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as Earth from "../components/earth"
-import * as Title from "../components/title"
-import gsap, {TimelineMax, Power3} from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { info } from "autoprefixer";
+import $ from 'jquery';
+import * as Earth from '../components/earth';
+import * as Title from '../components/title';
+import gsap, {TimelineMax, Power3} from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { info } from 'autoprefixer';
 
 
 gsap.registerPlugin(ScrollTrigger);

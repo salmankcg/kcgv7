@@ -1,10 +1,10 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as Form from  "../components/form";
-import gsap, {Power3} from "gsap";
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import $ from 'jquery';
+import * as Form from  '../components/form';
+import gsap, {Power3} from 'gsap';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 gsap.registerPlugin(ScrollToPlugin);
 
 

@@ -1,12 +1,12 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from "jquery";
-import * as Title from "../components/title"
-import * as MouseMove from  "../components/mouse-move";
+import $ from 'jquery';
+import * as Title from '../components/title';
+import * as MouseMove from  '../components/mouse-move';
 import * as ScrollMagic from  'scrollmagic';
-import * as Form from  "../components/form";
-import gsap, { Power3 } from "gsap";
+import * as Form from  '../components/form';
+import gsap, { Power3 } from 'gsap';
 
 
 

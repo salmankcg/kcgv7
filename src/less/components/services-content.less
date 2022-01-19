@@ -802,12 +802,13 @@
 
     .image-services{
         .centerVert;
-        width: 60%;
+        width: 50%;
         height: 100vh;
-        // right: -100px;
+        right: -100%;
         top: 60%;
         z-index: 2;
-        right: 0;
+        //right: 0;
+        transition: all 1100ms ease 0s;
 
         &.is-product{
             img{
@@ -830,7 +831,7 @@
 
             img{
                 object-position: 50% 20vh;
-                transform: translateY(10vh) rotate(-15deg);
+                transform: translateY(20vh) rotate(-25deg);
             }
         }
 
@@ -1168,12 +1169,18 @@
             align-self: self-end;
             transform: none;
 
+            img {
+                position: relative;
+                transition: all 1100ms ease 0s;
+            }
+
             &.is-strategy{
                 float: right;
                 width: 100%;
 
                 img{
                     object-position: right;
+                    right: -100%;
                 }
             }
 
@@ -1182,6 +1189,7 @@
                 align-self: flex-start;
 
                 img{
+                    left: -100%;
                     transform: translateX(0px) rotateY(180deg);
                 }
             }
@@ -1192,6 +1200,7 @@
                 align-self: flex-start;
 
                 img{
+                    left: -100%;
                     object-position: center;
                     width: 80%;
                     transform: translateY(10vh) translateX(0) rotate(39deg) rotateY(190deg);

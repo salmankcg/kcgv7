@@ -396,23 +396,23 @@ async function fixMaterials() {
 
     diffuseTexture: {
       type: "t",
-      value: await loadTexture(_url+"earth_diffuse.jpg")
+      value: await loadTexture(_url+"earth_diffuse.webp")
     },
     diffuseNight: {
       type: "t",
-      value: await loadTexture(_url+"earth_diffuse_night.jpg")
+      value: await loadTexture(_url+"earth_diffuse_night.webp")
     },
     normalMap: {
       type: "t",
-      value: await loadTexture(_url+"earth_normal_map.jpg")
+      value: await loadTexture(_url+"earth_normal_map.webp")
     },
     specularMap: {
       type: "t",
-      value: await loadTexture( _url+"earth_specular_map.png")
+      value: await loadTexture( _url+"earth_specular_map.webp")
     },
     cloudsMap: {
       type: "t",
-      value: await loadTexture( _url+"earth_diffuse_clouds.jpg")
+      value: await loadTexture( _url+"earth_diffuse_clouds.webp")
     }
 
   }

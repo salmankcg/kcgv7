@@ -36,6 +36,7 @@
     "webpack-glob-folder-entries": "^1.0.0"
   },
   "dependencies": {
+    "detect-it": "^4.0.1",
     "gsap": "^3.6.1",
     "jquery": "^3.4.1",
     "js-cookie": "^3.0.1",

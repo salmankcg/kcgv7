@@ -1,10 +1,16 @@
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
-import $ from 'jquery';
-import * as MouseMove from  '../components/mouse-move';
-import gsap, {TweenMax, Elastic, Power3} from 'gsap';
-
+import $ from "jquery";
+import * as MouseMove from  "../components/mouse-move";
+import gsap, {TweenMax, Elastic, Power3} from "gsap";
+import {
+	deviceType,
+	primaryInput,
+	supportsPointerEvents,
+	supportsTouchEvents,
+	supportsPassiveEvents,
+  } from 'detect-it';
 
 
 // ----------------------------------------- \\\
@@ -31,6 +37,26 @@ window.mobileAndTabletCheck = function() {
 	return check;
 };
 
+
+
+
+function isSurface() {
+	const isWindows = navigator.userAgent.indexOf('Windows') > -1;
+	const maxTouchPoints = navigator.maxTouchPoints || navigator.msMaxTouchPoints;
+	const isTouchable = 'ontouchstart' in window
+	  || maxTouchPoints > 0
+	  || window.matchMedia && matchMedia('(any-pointer: coarse)').matches;
+  
+	return isWindows && isTouchable;
+}
+
+
+function is_touch_enabled() {
+    return ( 'ontouchstart' in window ) || 
+           ( navigator.maxTouchPoints > 0 ) || 
+           ( navigator.msMaxTouchPoints > 0 );
+}
+
 var _arryPos	= [];
 var _posElm 	= 0;
 var _widthElm 	= $peopleScramble.find('.item').width();
@@ -47,7 +73,10 @@ function init(){
 
 	MouseMove.init($peopleList.find('.item').find('.i-wrapper'));
 
-	if(!mobileAndTabletCheck()){
+
+
+	if(primaryInput === 'mouse'){
+		$('body').removeClass('mobile-device')
 		$itemScramble.on('mouseenter',function(){
 			var _this = this;
 			mouseEnter(_this);
@@ -57,8 +86,8 @@ function init(){
 			_fxName.setText('the people');
 			_fxArea.setText('make the <b>magic</b> happen');
 		});
-
 	}else{
+		$('body').addClass('mobile-device')
 		$peopleScramble.on('touchmove',checkPosTouch);
 		$itemScramble.on('touchstart',function(){
 			var _this = this;
@@ -72,7 +101,8 @@ function init(){
 			_arryPos.push( (_posElm +_padding)  )
 		});
 	}
-	
+
+
 	$(window).on('scroll.about-team', onScroll);
 	onScroll();
 
@@ -166,7 +196,8 @@ class TextScramble {
 
 
 function checkPosTouch(e){
-	var _touchX = Math.round(e.touches[0].clientX);
+	var _touchX = Math.round(e.touches[0].clientX) - $peopleScramble.offset().left;
+
 
 	$.each(_arryPos, function(i){
 		if(_touchX > _arryPos[i] && _touchX < (_arryPos[i] + _widthElm) ){

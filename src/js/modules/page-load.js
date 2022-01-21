@@ -15,6 +15,7 @@ var $menu 		= $('.menu');
 var $header 	= $('.header');
 var $cont 		= $('.main-content');
 var $main 		= $('main');
+var $popup 		= $('.kcg-contacts-modal');
 
 var _loadDelay 	= 0;
 var _dataPage	= $main.data('page');
@@ -88,6 +89,7 @@ function setFirstLoader(){
 				
 				$menu.trigger('enter').addClass('motion-in');
 				$header.addClass('motion-in');
+				$popup.addClass('motion-in');
 				$cont.find('> *').trigger('enter').addClass('motion-in');
 		
 				activeMenus(_dataPage);
@@ -105,6 +107,7 @@ function hide(){
 	setTimeout(function(){
 		$menu.trigger('enter').addClass('motion-in');
 		$header.addClass('motion-in');
+		$popup.addClass('motion-in');
 		$cont.find('> *').trigger('enter').addClass('motion-in');
 
 		activeMenus(_dataPage);
@@ -128,11 +131,11 @@ function activeMenus(page){
                 }   
             });
             // $('.snowfall-flakes').remove();
-        }, 2000);
+        }, 1000);
     }
     setTimeout( function() {
         $('.weather-effect-image').remove();
-    }, 2000);
+    }, 500);
 }
 
 // ----------------------------------------- \\\

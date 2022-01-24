@@ -929,7 +929,7 @@
     right: 0;
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.55,0.085,0,0.99);
-    z-index: 9999;
+    z-index: -1;
 
     &::before {
         content: "";
@@ -945,10 +945,12 @@
     }
     &.motion-in{
         opacity: 1;
+        z-index: 9;
     }
     &.active {
         width: 100%;
         height: 100%;
+        z-index: 9999;
 
         &::before {
             width: 100%;
@@ -959,11 +961,11 @@
             transition: all .5s cubic-bezier(0.55,0.085,0,0.99);
         }
         .contacts-open-icon {
-            img {
+            .kcg-modal-open {
                 display: none;
             }
             .hmbrg {
-                opacity: 1;
+                display: block;
             }
         }
     }
@@ -981,6 +983,18 @@
         cursor: pointer;
         z-index: 9;
 
+        .kcg-modal-open {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+        }
+
         .hmbrg {
             position: absolute;
             left: 50%;
@@ -988,9 +1002,8 @@
             transform: translate(-50%, -50%);
             width: 30px; 
             height: 15px;
-            display: block;
+            display: none;
             cursor: pointer;
-            opacity: 0;
             z-index: 2;
 
             &.active{
@@ -1059,15 +1072,11 @@
         width: 90%;
         height: 100%;
         margin: 0 auto;
-        opacity: 0;
-        display: grid;
+        display: none;
         align-items: center;
         justify-content: center;
         z-index: 1;
 
-        &.motion-in{
-            opacity: 1;
-        }
         .kcg-moral-header {
             position: absolute;
             top: 50px;
@@ -1085,10 +1094,20 @@
         .kcg-moral-contents-wrapper {
             max-height: ~"calc(100% - 180px)";
             height: auto;
+            max-width: 960px;
 
             .kcg-modal-title {
                 text-align: center;
 
+                .caption {
+                    color: #ffffff;
+                    justify-content: center;
+                    margin: 0 0 20px;
+                    font-family: 'Blacker Sans Pro Book', sans-serif;
+                    font-size: 18px;
+                    letter-spacing: 0.3px;
+                    font-weight: 400;
+                }
                 .title {
                     font-family: 'Blacker Sans Pro Book', sans-serif;
                     font-weight: 400;
@@ -1096,6 +1115,39 @@
                     line-height: 60px;
                     letter-spacing: 0.5px;
                     color: #ffffff;
+                }
+            }
+            .kcg-modal-content-area {
+                margin-top: 50px;
+
+                .popup-menu-list {
+                    display: flex;
+                    flex-flow: wrap row;
+                    max-width: 80%;
+                    margin: 0 auto;
+                    justify-content: center;
+
+                    li {
+                        padding: 10px;
+
+                        a {
+                            display: flex;
+                            flex-flow: wrap row;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 15px 33px;
+                            font-family: 'Blacker Sans Pro Medium';
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 14px;
+                            color: #ffffff;
+                            text-transform: uppercase;
+                            letter-spacing: 0.3px;
+                            border: 1px solid #ffffff;
+                            border-radius: 25px;
+                            box-sizing: border-box;
+                        }
+                    }
                 }
             }
         }
@@ -1116,8 +1168,14 @@
 
                 a {
                     text-underline-position: under;
+                    display: inline-block;
                 }
             }
+        }
+        .kcg-popup-back-button {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
         }
     }
 }

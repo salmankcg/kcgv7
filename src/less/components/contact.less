@@ -14,206 +14,211 @@
 @fontPlace: 'Blacker Sans Pro Medium';
 @errorColor: @error;
 
-.contact{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 70px;
-
-    /*------------------*/
-    /*--- ATTRIBUTES ---*/
-    /*------------------*/
-
-
-    /*----------------*/
-    /*--- ELEMENTS ---*/
-    /*----------------*/
-
-    .infos{
-        .blackerLt;
-        color: @white;
-        margin-top: 80px;
-        line-height: 40px;
-        font-size: 28px;
-    }
-
-    a{
-        display: block;
-    }
-
-    form{
-        width: 30vw;
-    }
-
-    .input{
-        position: relative;
+.main-content {
+    .contact{
+        display: flex;
         width: 100%;
-        margin-bottom: 30px;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 70px;
 
-        &.add-focus{
-            &::after{
-                width: 100%;
-            }
-
-            span{
-                transform: scale(.6) translateY(-40px);
-                opacity: .5;
-            }
-        }
-        
-        input{
-            position: relative;
-            width: 100%;
-            padding: 17px 0px;
-            background: transparent;
-            display: block;
-            transition: .3s all @custom;
-            position: relative;
-            font-size: 16px;
-            .fontRegular;
-            color: @white;
-            border-bottom: 1px solid rgba(255,255,255,.2);
-            z-index: 1;
-
-            &:focus{
-                outline: none;                
-            }
-        }
-
-        textarea{
-            position: relative;
-            width: 100%; height: 180px;
-            padding: 17px 0px;
-            background: transparent;
-            display: block;
-            transition: .3s all @custom;
-            position: relative;
-            font-size: 16px;
-            .fontRegular;
-            color: @white;
-            border-bottom: 1px solid rgba(255,255,255,.2);
-            z-index: 1;
-
-            &:focus{
-                outline: none;                
-            }
-        }
-
-        &::after{
-            .ba;
-            position: absolute;
-            width: 0%; height: 1px;
-            background: @white;
-            bottom: 0px;
-            z-index: 2;
-            transition: .5s all @custom;
-        }
-
-        span{
-            .fontLight();
-            color: @white;
-            position: absolute;
-            font-size: 20px;
-            line-height: 54px;
-            top: 0px;
-            display: block;
-            transition: .5s all @custom;
-            transform-origin: 0%;
-        }
-
-    }
-
-    .button{
-        margin-right: 0px;
-        margin-left: auto;
-    }
-
-    .social{
-        .blackerMd;
-        font-size: 14px;
-        line-height: 40px;
-        text-align: right;
-        margin-bottom: 40px;
-        
-        a{
-            display: block;
-            color: @white;
-
-            span{
-                transition: .5s all @custom;
-                opacity: 1;
-                display: block;
-            }
-    
-            &:hover{
-                span{
-                    opacity: .2;
-                    
-                }
-            }
-        }
-        
-        .modal .button {
-            margin: 0 auto;
-        }
-    }
+        /*------------------*/
+        /*--- ATTRIBUTES ---*/
+        /*------------------*/
 
 
-    /*------------------*/
-    /*--- RESPONSIVE ---*/
-    /*------------------*/
-
-    @media( max-width: @screen-large ){
-        flex-direction: column;
-
-        .right{
-            width: 100%;
-        }
-
-        .left{
-            width: 100%;
-        }
-
-        .title{
-            text-align: center;
-        }
+        /*----------------*/
+        /*--- ELEMENTS ---*/
+        /*----------------*/
 
         .infos{
-            text-align: center;
+            .blackerLt;
+            color: @white;
+            margin-top: 80px;
+            line-height: 40px;
+            font-size: 28px;
+        }
+
+        a{
+            display: block;
+        }
+        
+           
+
+        .input{
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+
+            &.add-focus{
+                &::after{
+                    width: 100%;
+                }
+
+                span{
+                    transform: scale(.6) translateY(-40px);
+                    opacity: .5;
+                }
+            }
+            
+            input{
+                position: relative;
+                width: 100%;
+                padding: 17px 0px;
+                background: transparent;
+                display: block;
+                transition: .3s all @custom;
+                position: relative;
+                font-size: 16px;
+                .fontRegular;
+                color: @white;
+                border-bottom: 1px solid rgba(255,255,255,.2);
+                z-index: 1;
+
+                &:focus{
+                    outline: none;                
+                }
+            }
+
+            textarea{
+                position: relative;
+                width: 100%; height: 180px;
+                padding: 17px 0px;
+                background: transparent;
+                display: block;
+                transition: .3s all @custom;
+                position: relative;
+                font-size: 16px;
+                .fontRegular;
+                color: @white;
+                border-bottom: 1px solid rgba(255,255,255,.2);
+                z-index: 1;
+
+                &:focus{
+                    outline: none;                
+                }
+            }
+
+            &::after{
+                .ba;
+                position: absolute;
+                width: 0%; height: 1px;
+                background: @white;
+                bottom: 0px;
+                z-index: 2;
+                transition: .5s all @custom;
+            }
+
+            span{
+                .fontLight();
+                color: @white;
+                position: absolute;
+                font-size: 20px;
+                line-height: 54px;
+                top: 0px;
+                display: block;
+                transition: .5s all @custom;
+                transform-origin: 0%;
+            }
+
+        }
+
+        .button{
+            margin-right: 0px;
+            margin-left: auto;
         }
 
         .social{
-            display: flex;
-            justify-content: center;
-            margin: 60px 0px;
-
+            .blackerMd;
+            font-size: 14px;
+            line-height: 40px;
+            text-align: right;
+            margin-bottom: 40px;
+            
             a{
-                margin: 0px 20px;
+                display: block;
+                color: @white;
+
+                span{
+                    transition: .5s all @custom;
+                    opacity: 1;
+                    display: block;
+                }
+        
+                &:hover{
+                    span{
+                        opacity: .2;
+                        
+                    }
+                }
+            }
+            
+            .modal .button {
+                margin: 0 auto;
             }
         }
 
-        .form{
-            width: 100%;
-        }
-    }
 
-    @media( max-width: @screen-small ){
-        margin-top: 0px;
+        /*------------------*/
+        /*--- RESPONSIVE ---*/
+        /*------------------*/
 
-        .infos{
-            line-height: 30px;
-            font-size: 18px;
-            margin-top: 40px;
+        @media( min-width: @screen-large ){
+            form{
+                width: 30vw;
+            }
+        }
+        @media( max-width: @screen-large ){
+            flex-direction: column;
+
+            .right{
+                width: 100%;
+            }
+
+            .left{
+                width: 100%;
+            }
+
+            .title{
+                text-align: center;
+            }
+
+            .infos{
+                text-align: center;
+            }
+
+            .social{
+                display: flex;
+                justify-content: center;
+                margin: 60px 0px;
+
+                a{
+                    margin: 0px 20px;
+                }
+            }
+
+            .form{
+                width: 100%;
+            }
         }
 
-        .col{
-            width: 100%;
-        }
+        @media( max-width: @screen-small ){
+            margin-top: 0px;
 
-        .row{
-            padding: 0px 30px;
+            .infos{
+                line-height: 30px;
+                font-size: 18px;
+                margin-top: 40px;
+            }
+
+            .col{
+                width: 100%;
+            }
+
+            .row{
+                padding: 0px 30px;
+            }
+            
         }
-        
     }
 }

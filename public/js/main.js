@@ -100479,15 +100479,9 @@ async function init() {
   if (/wp-admin/.test(parent.window.location.href)) {
     _url = "wp-content/themes/kcg/assets/earth/";
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement); // amount = $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').data('people');
-  }
-
-  if (window.location.href === 'https://kcgv10.kingscrestglobal.com/html-test/') {
-    _url = "assets/earth/";
-  } else if (window.location.hostname === 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'test.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com' || window.location.hostname == '5jan.kingscrestglobal.com') {
-    _url = "wp-content/themes/kcg/assets/earth/";
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement);
   } else {
-    _url = "assets/earth/";
+    _url = "wp-content/themes/kcg/assets/earth/";
+    document.getElementById("canvas").appendChild(renderer.domElement);
   }
 
   amount = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#canvas').data('people');

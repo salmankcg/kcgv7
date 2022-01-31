@@ -18,7 +18,22 @@ var wHeight			= null;
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($footer.length){
+function init(){
+	setFooter();
+}
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){
+	wHeight = window.innerHeight;
+	dHeight = $(document).height();
+
+	$footer.css({'height':window.innerHeight});
+}
+
+
+function setFooter(){
 	$footer.css({'height':wHeight});
 
     $scrollup.find('.button').on('click', function(){
@@ -28,26 +43,23 @@ if($footer.length){
 	wHeight = window.innerHeight;
 	dHeight = $(document).height();
 
-	$(window).on('resize', onResize);
+	$(window).on('resize', resize);
 	
-	onResize();
+	resize();
 
 }
 
 
 
-// ----------------------------------------- \\\
-// ------------ PUBLIC FUNCIONS ------------ \\\
-// ----------------------------------------- \\\
-function onResize(){
-	wHeight = window.innerHeight;
-	dHeight = $(document).height();
-
-	$footer.css({'height':window.innerHeight});
-}
 
 
 // ----------------------------------------- \\\
 // ------------ PRIVATE FUNCIONS ----------- \\\
 // ----------------------------------------- \\\
 
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

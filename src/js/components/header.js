@@ -15,10 +15,25 @@ var $hmbrg      	= $header.find('.hmbrg');
 var _dataPage		= $('main').data('page');
 var _headerH		= $('.header').find('.logo').height() + (($('.header').height()-$('.header').find('.logo').height())/2);
 
+
 // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
-if($header.length){
+function init(){
+	setHeader();
+}
+
+
+// ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+function resize(){
+	$header.find('.menu').css({'height':window.innerHeight});
+}
+
+
+
+function setHeader(){
 
 	$header.find('.menu').css({'height':window.innerHeight});
 	$hmbrg.on('click', function(){
@@ -31,7 +46,7 @@ if($header.length){
 	});
 
 	$(window).on('scroll.header', onScroll);
-	$(window).on('resize', onResize);
+	$(window).on('resize', resize);
 	onScroll();
 }
 
@@ -41,14 +56,6 @@ if($header.length){
 // ------------ PUBLIC FUNCIONS ------------ \\\
 // ----------------------------------------- \\\
 
-
-
-// ----------------------------------------- \\\
-// ------------ PRIVATE FUNCIONS ----------- \\\
-// ----------------------------------------- \\\
-function onResize(){
-	$header.find('.menu').css({'height':window.innerHeight});
-}
 
 function onScroll(){
 
@@ -169,3 +176,10 @@ function hideMenu(){
 	$('.submenu').removeClass('hide');
 	$hmbrg.removeClass('active');
 }
+
+
+
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+export { init, resize }

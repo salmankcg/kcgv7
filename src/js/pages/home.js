@@ -16,14 +16,13 @@ gsap.registerPlugin(ScrollTrigger);
 // ----------------------------------------- \\\
 // ----------------- VARS ------------------ \\\
 // ----------------------------------------- \\\
-let $pages       	= $('.pages');
-let $slides       	= $('.hc-slides').find('.infos');
-let $homeInfos      = $('.home-infos');
-let $homeBullets    = $('.home-bullets');
-let $homeBckg       = $('.home-bckg');
-let $homeBckgImg = $('.home-bckg img');
-let $header         = $('.header');
-let $scrollDown     = $('.scrolldown');
+let $pages       	= null;
+let $slides       	= null;
+let $homeInfos      = null;
+let $homeBullets    = null;
+let $homeBckg       = null;
+let $header         = null;
+let $scrollDown     = null;
 
 let _sliderPos      = 0;
 let _scrollTimeout  = null;
@@ -85,14 +84,27 @@ const globeHeightWidth = function(){
 
 
 function init(){
-    console.log('init called')
-    $pages.find('.infos').height(window.innerHeight);
-    $pages.find('.circle').css({'width':globeHeightWidth(), 'height':globeHeightWidth()});
+
+
+    $pages       	= $('.pages');
+    $slides       	= $('.hc-slides').find('.infos');
+    $homeInfos      = $('.home-infos');
+    $homeBullets    = $('.home-bullets');
+    $homeBckg       = $('.home-bckg');
+    $header         = $('.header');
+    $scrollDown     = $('.scrolldown');
+
+    if(/wp-admin/.test(parent.window.location.href)){
+        $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.infos').height(window.parent.innerHeight);
+        $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.circle').css({'width':window.parent.innerHeight/1.8, 'height':window.parent.innerHeight/1.8});
+    }else{
+        $pages.find('.infos').height(window.innerHeight);
+        $pages.find('.circle').css({'width': globeHeightWidth(), 'height': globeHeightWidth()});
+    }
 
     setTimeout(function(){
         Earth.init();
     }, 1000);
-    
 
     Title.init($slides.find('.title'));
 
@@ -150,9 +162,18 @@ function init(){
 function resize() {
 
     if(!mobileAndTabletCheck()){
-        $pages.find('.infos').height(window.innerHeight);
-        $pages.find('.circle').css({'width':globeHeightWidth(), 'height':globeHeightWidth()});
+
+        if(/wp-admin/.test(parent.window.location.href)){
+            $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.infos').height(window.parent.innerHeight);
+            $('#elementor-preview-iframe', window.parent.document).contents().find('.pages').find('.circle').css({'width':window.parent.innerHeight/1.8, 'height':window.parent.innerHeight/1.8});
+        }else{
+            $pages.find('.infos').height(window.innerHeight);
+            $pages.find('.circle').css({'width':globeHeightWidth(), 'height':globeHeightWidth()});
+        }
         Earth.resize(); 
+
+
+
     }else{
         $(window).on('scroll.home', onScroll);
 	    onScroll();

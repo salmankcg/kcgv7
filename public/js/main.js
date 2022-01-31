@@ -100475,7 +100475,6 @@ async function init() {
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
-  document.getElementById("canvas").appendChild(renderer.domElement);
 
   if (/wp-admin/.test(parent.window.location.href)) {
     _url = "wp-content/themes/kcg/assets/earth/";
@@ -100486,6 +100485,7 @@ async function init() {
     _url = "assets/earth/";
   } else if (window.location.hostname === 'kcgv10.kingscrestglobal.com' || window.location.hostname == 'test.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com' || window.location.hostname == '5jan.kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement);
   } else {
     _url = "assets/earth/";
   }

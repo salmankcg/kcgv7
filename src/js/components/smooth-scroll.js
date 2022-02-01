@@ -61,7 +61,10 @@ function init(){
     smoothScroll();
   }else{
     $footer.addClass('motion-in-3').addClass('motion-in-2').addClass('motion-in-1');
-    iframe.contentWindow.document.body.style.height = `${_sizeDocument}px`;
+    if(/wp-admin/.test(parent.window.location.href)){
+      iframe.contentWindow.document.body.style.height = `${_sizeDocument}px`;
+    }
+    
   }
 }, 5000 );
   

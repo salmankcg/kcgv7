@@ -476,6 +476,19 @@
 
 
 //SERVICE PAGE STYLE
+.services-marketing{
+    .services-content {
+        &.sc-inner {
+            .col-10 {
+                padding-right: 40%;
+
+                @media( max-width: @screen-large){
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
 .motion-in {
     .services-content { 
         .image-services {
@@ -728,7 +741,7 @@
                 .feed-item {
                     position: relative;
                     padding: 20px;
-                    margin: 0 12px;
+                    margin: 12px;
                     border: 1px solid #000000;
                     border-radius: 8px;
 
@@ -1222,4 +1235,10 @@
             left: 0;
         }
     }
+}
+
+
+// CLIENT PAGE STYLE
+body.clients {
+    padding: 0;
 }

@@ -830,7 +830,7 @@
             overflow: hidden;
 
             img{
-                object-position: 50% 20vh;
+                object-position: 90% 20vh;
                 transform: translateY(20vh) rotate(-25deg);
             }
         }
@@ -929,6 +929,13 @@
     /*------------------*/
     /*--- RESPONSIVE ---*/
     /*------------------*/
+    @media( max-width: @screen-big){
+        &.sc-inner{
+            .col-10{
+                padding-right: 45%;
+            }
+        }
+    }
     @media( max-width: @screen-large){
         padding: 60px 0px;
 
@@ -1386,11 +1393,18 @@
             border-radius: 20px;
 
             &.show-inputs{
+                min-height: 300px;
 
                 .sd-inputs{
+                    .group {
+                        flex-flow: wrap row;
 
-                    .input{
-                        margin-bottom: 10px;
+                        .input{
+                            margin-bottom: 25px;
+                        }
+                    }
+                    .button {
+                        margin-top: 10px;
                     }
                 }
 
@@ -1431,13 +1445,11 @@
             }
     
             .sd-inputs{
-    
                 .paragraph{
                     margin-bottom: 10px;
                 }
-    
                 .input{
-                    margin-bottom: 0px;
+                    margin-bottom: 0;
                     margin-right: 10px;
                     
                     input{

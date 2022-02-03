@@ -65,6 +65,10 @@ const globeHeightWidth = function(){
         let globeHeight = window.innerHeight/2.3;
         return globeHeight;
     }
+    else if(window.innerWidth>window.innerHeight && window.innerWidth > 768 && window.innerWidth < 1024){
+        let globeHeight = window.innerHeight/1.8;
+        return globeHeight;
+    }
     else if(window.innerWidth>window.innerHeight && window.innerWidth < 1024){
         // landscape
         $('body').addClass('mobile-landscape');

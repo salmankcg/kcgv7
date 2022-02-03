@@ -42,7 +42,7 @@ function init(){
         adaptiveHeight  : true
       }
     },{
-      breakpoint: 430,
+      breakpoint: 575,
       settings: {
         dots            : true,
         slidesToShow    : 1,

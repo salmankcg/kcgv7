@@ -167,6 +167,19 @@
     }
 }
 
+//
+@media screen and (orientation:landscape) and (min-width:768px) and (max-width:1150px) and (max-height:800px) {
+    .home-content{
+        .title {
+            font-size: 36px;
+            line-height: 40px;
+        }
+        .home-infos .steps {
+            padding-left: 0;
+        }
+    }
+}
+
 // 
 @media screen and (orientation:landscape) and (min-width:768px) and (max-width:1200px) and (min-height:600px) {
     .home-bullets {
@@ -175,8 +188,8 @@
         top: 0;
     }
     .home-content .title {
-        font-size: 40px;
-        line-height: 49px;
+        font-size: 32px;
+        line-height: 40px;
     }
 }
 
@@ -339,6 +352,21 @@
         #slide-1 .home-bckg .shape {
             top: 75%;
             height: 35%;
+        }
+        .infos{
+            flex-flow: column-reverse !important;
+            height: initial !important;
+        }
+        .home-bckg[data-type=mobile] {
+            position: static !important;
+        }
+        .home-infos{
+            position: static !important;
+        }
+        #slide-4{
+            .img{
+                overflow: visible !important;
+            }
         }
     }
     
@@ -752,9 +780,7 @@
 // iphone and mobile portrait device
 @media screen and (orientation:portrait) and (min-width:350px) and (max-width:767px) {
     .home-content{
-        .infos {
-            height: 95vh!important;
-        }
+        
         .home-infos .steps {
             top: 7%;
         }
@@ -789,6 +815,33 @@
                 .img {
                     left: -50%;
                     top: 13%;
+                    max-height: 200%!important;
+                    transform: translateY(-50%) rotate(43deg);
+                    img{
+                        max-width: 51%;
+                    }
+                }
+            }
+        }
+        #slide-2{
+            .images{
+                .img{
+                    width: 100%;
+                    max-width: 80%;
+                }
+            }
+        }
+    }
+}
+// iphone and mobile portrait device
+@media screen and (orientation:portrait) and (min-width:600px) and (max-width:767px) {
+    .home-content{
+       
+        #slide-4 {
+            .images{
+                .img {
+                    left: -50%;
+                    top: 6%;
                     max-height: 200%!important;
                     transform: translateY(-50%) rotate(43deg);
                     img{

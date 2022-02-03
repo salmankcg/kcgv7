@@ -100296,6 +100296,9 @@ const globeHeightWidth = function () {
     // portrait
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() / 1.3;
     return globeHeight;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 768 && window.innerWidth < 1024) {
+    let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height();
+    return globeHeight;
   } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1024) {
     // landscape
     let globeHeight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).height() * 2.1;
@@ -100475,13 +100478,19 @@ async function init() {
   // initialize the renderer
   renderer.setSize(_width, _height);
   renderer.autoClear = false;
+  document.getElementById("canvas").appendChild(renderer.domElement);
 
   if (/wp-admin/.test(parent.window.location.href)) {
     _url = "wp-content/themes/kcg/assets/earth/";
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').append(renderer.domElement); // amount = $('#elementor-preview-iframe', window.parent.document).contents().find('#canvas').data('people');
-  } else {
+  }
+
+  if (window.location.href === 'https://kcgv10.kingscrestglobal.com/html-test/') {
+    _url = "assets/earth/";
+  } else if (window.location.hostname == 'test.kingscrestglobal.com' || window.location.hostname == 'kingscrestglobal.com' || window.location.hostname == 'kcgv10.kingscrestglobal.com' || window.location.hostname == '5jan.kingscrestglobal.com') {
     _url = "wp-content/themes/kcg/assets/earth/";
-    document.getElementById("canvas").appendChild(renderer.domElement);
+  } else {
+    _url = "assets/earth/";
   }
 
   amount = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#canvas').data('people');
@@ -102676,7 +102685,7 @@ function init() {
         adaptiveHeight: true
       }
     }, {
-      breakpoint: 430,
+      breakpoint: 575,
       settings: {
         dots: true,
         slidesToShow: 1,
@@ -103624,6 +103633,9 @@ const globeHeightWidth = function () {
 
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').addClass('desktop-portrait');
     let globeHeight = window.innerHeight / 2.3;
+    return globeHeight;
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth > 768 && window.innerWidth < 1024) {
+    let globeHeight = window.innerHeight / 1.8;
     return globeHeight;
   } else if (window.innerWidth > window.innerHeight && window.innerWidth < 1024) {
     // landscape

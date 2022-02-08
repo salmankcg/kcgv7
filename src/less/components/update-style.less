@@ -981,146 +981,6 @@
 }
 
 
-// POPUP PAGE STYLE
-html.kcg-popup-element {
-    display: flex;
-    flex-flow: wrap row;
-}
-.kcg-popup-element {
-    background-color: transparent;
-
-    /* Scrollbar Styling */
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-     
-    &::-webkit-scrollbar-track {
-        background-color: transparent;
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-        background-color: rtransparent;
-    }
-}
-body.kcg-popup-element {
-    display: flex;
-    flex-flow: wrap row;
-    align-items: center;
-    justify-content: center;
-
-
-    .kcg-modal-title {
-        text-align: center;
-
-        .caption {
-            color: #ffffff;
-            justify-content: center;
-            margin: 0 0 20px;
-            font-family: 'Blacker Sans Pro Book', sans-serif;
-            font-size: 18px;
-            letter-spacing: 0.3px;
-            font-weight: 400;
-        }
-        .title {
-            font-family: 'Blacker Sans Pro Book', sans-serif;
-            font-weight: 400;
-            font-size: 50px;
-            line-height: 60px;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-        }
-    }
-    .kcg-modal-content-area {
-        width: 100%;
-        margin-top: 20px;
-
-        .mf-form-shortcode .metform-form-main-wrapper {
-            .mf-input-label {
-                font-family: 'Blacker Sans Pro Light', sans-serif;
-                font-weight: 400;
-                font-size: 20px;
-                line-height: 36px;
-                letter-spacing: 0.3px;
-                color: #ffffff;
-
-                .mf-input-required-indicator {
-                    color: #ffffff;
-                }
-            }
-            .mf-input {
-                background-color: rgba(0,0,0,0.1);
-                border: none;
-                resize: none;
-            }
-            .metform-btn {
-                font-family: 'Blacker Sans Pro Medium', sans-serif;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 14px;
-                letter-spacing: 0.5px;
-                color: #C4C4C4;
-                text-transform: uppercase;
-                background-color: #ffffff;
-                border-radius: 25px;
-                min-width: 170px;
-                padding: 0;
-                height: 50px;
-                box-shadow: none;
-                overflow: hidden;
-                z-index: 1;
-
-                span::before {
-                    content: "";
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: #000000;
-                    transition: all 0.2s ease 0s;
-                    z-index: -1;
-                }
-                &:hover span::before {
-                    top: 0;
-                }
-            }
-        }
-
-        .popup-menu-list {
-            display: flex;
-            flex-flow: wrap row;
-            max-width: 80%;
-            margin: 0 auto;
-            justify-content: center;
-
-            li {
-                padding: 10px;
-
-                a {
-                    display: flex;
-                    flex-flow: wrap row;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 15px 33px;
-                    font-family: 'Blacker Sans Pro Medium';
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 14px;
-                    color: #ffffff;
-                    text-transform: uppercase;
-                    letter-spacing: 0.3px;
-                    border: 1px solid #ffffff;
-                    border-radius: 25px;
-                    box-sizing: border-box;
-                }
-            }
-        }
-    }
-}
 
 //POPUP MODAL STYLE
 .kcg-contacts-modal {
@@ -1269,78 +1129,81 @@ body.kcg-popup-element {
         }
     }
 
-    &[data-slide="kcg-modal-popup-1"] {
-        .kcg-contacts-modal-wrapper {
-            align-items: center;
-
-            .kcg-moral-contents-wrapper {
-                max-height: ~"calc(100% - 180px)";
-                height: auto;
-                padding: 0;
-            }
-        }
-    }
-
-    .kcg-contacts-modal-wrapper {
+    .kcg-contacts-modal-contents-wrapper {
         position: relative;
         width: 90%;
         height: 100%;
         margin: 0 auto;
         display: none;
         justify-content: center;
+        align-items: center;
         grid-template-columns: 100%;
-        z-index: 1;
+        padding: 50px 0;
 
-        .kcg-moral-footer {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
+        .kcg-contacts-modal-wrapper {
+            position: relative;
+            width: 100%;
+            max-height: 100%;
+            margin: 0 auto;
+            overflow-y: auto;
+            display: none;
+            z-index: 1;
 
-            p {
-                font-family: 'Blacker Sans Pro Book';
-                font-size: 18px;
-                line-height: 22px;
-                font-weight: 400;
-                letter-spacing: 1px;
-                color: #ffffff;
+            /* Scrollbar Styling */
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+             
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+            }
 
-                a {
-                    text-underline-position: under;
+            &::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                background-color: rtransparent;
+            }
+
+            .kcg-moral-footer {
+                position: relative;
+                text-align: center;
+                margin-top: 50px;
+
+                p {
+                    font-family: 'Blacker Sans Pro Book', sans-serif;
+                    font-size: 18px;
+                    line-height: 22px;
+                    font-weight: 400;
+                    letter-spacing: 1px;
+                    color: #ffffff;
                     display: inline-block;
+
+                    a {
+                        text-underline-position: under;
+                        display: inline-block;
+                    }
                 }
             }
         }
+
         .kcg-popup-back-button {
             position: absolute;
             bottom: 50px;
             left: 0;
+            display: none;
+            z-index: 9;
         }
     }
 }
 
-
-.kcg-moral-contents-wrapper {
-    max-height: ~"calc(100% - 120px)";
+.kcg-modal-contents-wrapper {
     height: 100%;
     max-width: 960px;
     width: 100%;
     position: relative;
-    padding: 95px 0 0;
     margin: 0 auto;
-
-    iframe {
-        height: ~"calc(100% - 60px)";
-    }
-
-    &.kcg-popup-footer-removed {
-        max-height: ~"calc(100% - 50px)";
-
-            iframe {
-                height: 100%;
-            }
-    }
 
     .kcg-modal-title {
         text-align: center;
@@ -1395,11 +1258,161 @@ body.kcg-popup-element {
                 }
             }
         }
+        .jobs-menu-list {
+            display: flex;
+            flex-flow: wrap row;
+            max-width: 80%;
+            margin: 0 auto;
+            justify-content: center;
+
+            li {
+                padding: 10px;
+
+                a {
+                    display: flex;
+                    flex-flow: wrap row;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 15px 33px;
+                    font-family: 'Blacker Sans Pro Medium';
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 14px;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    letter-spacing: 0.3px;
+                    border: 1px solid #ffffff;
+                    border-radius: 25px;
+                    box-sizing: border-box;
+                }
+            }
+        }
     }
 }
+
+//JOBS POPUP STYLE
+.kcg-jobs-modal-wrapper {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+    transition: all 1100ms ease 0s;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-end;
+    z-index: 999999;
+
+    .kcg-jobs-popup-contents-wrapper {
+        position: relative;
+        width: 80%;
+        height: 100%;
+
+        .hmbrg {
+            position: absolute;
+            top: 50px;
+            left: -100px;
+            width: 30px; 
+            height: 15px;
+            cursor: pointer;
+            z-index: 2;
+
+            &.active{
+                .text{
+                    opacity: 1;
+                    left: -70px;
+                }
+
+                &:before{
+                    width: 100%;
+                    transform: rotate(45deg) translate(5px, 4px);
+                }
+
+                &:after{
+                    width: 100%;
+                    transform: rotate(-45deg) translate(5px,-4px);
+                }
+            }
+            .close-bg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 60px;
+                height: 60px;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                border-radius: 100%;
+                margin-top: -3px;
+                z-index: -1;
+            }
+
+            .text{
+                .centerVert;
+                display: block;
+                left: 0;
+                .blackerBk;
+                font-size: 14px;
+                color: #ffffff;
+                opacity: 0;
+                transition: .5s all @custom;
+            }
+
+            &:before, &:after{
+                .ba;
+                position: absolute;
+                width: 100%; height: 1px;
+                top: 0px;
+                display: block;
+                right: 0px;
+                background: #c4c4c4;
+                transition: .5s all @custom;
+
+            }
+
+            &:after{
+                bottom: 0px;
+                top: auto;
+                width: 80%;
+            }
+        }
+
+        .kcg-jobs-popup-contents {
+            position: relative;
+            background-color: #fff;
+            padding: 150px 88px 50px;
+            height: 100%;
+            overflow-y: auto;
+
+            .kcg-jobs-popup-content-wrapper {
+                .paragraph {
+                    &:not(:first-child) {
+                        margin-top: 30px;
+                    }
+                    h3 {
+                        &:not(:first-child) {
+                            margin-top: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .show-popup {
     .header {
         z-index: 99999;
+
+        &.popup-active {
+            position: relative;
+            z-index: unset;
+
+            .logo {
+                position: relative;
+                z-index: 99999;
+            }
+        }
 
         .logo {
             .ico path {
@@ -1414,6 +1427,74 @@ body.kcg-popup-element {
         }
         .hmbrg {
             display: none;
+        }
+    }
+}
+
+//POPUP FORM STYLE
+.kcg-popup-form-wrapper {
+    .kcgform-field-group {
+        display: flex;
+        flex-flow: wrap row;
+        justify-content: space-between;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+
+        .kcg-form-field {
+            width: ~"calc(50% - 50px)";
+
+            &:not(:first-child) {
+                margin: 0;
+            }
+        }
+    }
+    .kcg-form-field {
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            font-family: 'Blacker Sans Pro Book', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 36px;
+            letter-spacing: 0.3px;
+            opacity: 0.8;
+            color: #ffffff;
+        }
+        input, select, textarea {
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            border: 1px solid transparent;
+            padding: 16px 15px;
+        }
+        textarea {
+            min-height: 210px;
+            resize: none;
+        }
+    }
+    .kcg-form-submission {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        .btn {
+            min-width: 170px;
+            min-height: 50px;
+            display: inline-flex;
+            flex-flow: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 25px;
+            font-family: 'Blacker Sans Pro Medium', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #C4C4C4;
         }
     }
 }

@@ -15,7 +15,7 @@ var $menu 		= $('.menu');
 var $header 	= $('.header');
 var $cont 		= $('.main-content');
 var $main 		= $('main');
-var $popup 		= $('.kcg-contacts-modal[data-slide="kcg-modal-popup-1"]');
+var $popup 		= $('.kcg-contacts-modal');
 
 var _loadDelay 	= 0;
 var _dataPage	= $main.data('page');

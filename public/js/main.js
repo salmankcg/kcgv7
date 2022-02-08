@@ -102461,7 +102461,7 @@ var $menu = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.menu');
 var $header = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.header');
 var $cont = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.main-content');
 var $main = jquery__WEBPACK_IMPORTED_MODULE_0___default()('main');
-var $popup = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-contacts-modal[data-slide="kcg-modal-popup-1"]');
+var $popup = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.kcg-contacts-modal');
 var _loadDelay = 0;
 
 var _dataPage = $main.data('page'); // ----------------------------------------- \\\

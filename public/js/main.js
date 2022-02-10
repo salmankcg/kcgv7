@@ -99753,19 +99753,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/service */ "./src/js/pages/service.js");
 /* harmony import */ var _pages_buzz__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/buzz */ "./src/js/pages/buzz.js");
 /* harmony import */ var _pages_careers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/careers */ "./src/js/pages/careers.js");
-/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
-/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
-/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
-/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
-/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
-/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
-/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
-/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
+/* harmony import */ var _pages_clients__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pages/clients */ "./src/js/pages/clients.js");
+/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/button */ "./src/js/components/button.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/header */ "./src/js/components/header.js");
+/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/footer */ "./src/js/components/footer.js");
+/* harmony import */ var _components_sub_menu__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/sub-menu */ "./src/js/components/sub-menu.js");
+/* harmony import */ var _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/smooth-scroll */ "./src/js/components/smooth-scroll.js");
+/* harmony import */ var _components_testimonial__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/testimonial */ "./src/js/components/testimonial.js");
+/* harmony import */ var _components_about_scramble__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/about-scramble */ "./src/js/components/about-scramble.js");
+/* harmony import */ var _components_gallery__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/gallery */ "./src/js/components/gallery.js");
+/* harmony import */ var _components_video__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/video */ "./src/js/components/video.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/modal */ "./src/js/components/modal.js");
 // ----------------------------------------- \\\
 // ---------------- IMPORTS ---------------- \\\
 // ----------------------------------------- \\\
+
 
 
 
@@ -99806,7 +99808,7 @@ let _timeOut = 0; // ----------------------------------------- \\\
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   'use strict';
 
-  _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__["init"]();
+  _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_21__["init"]();
 
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -99817,9 +99819,9 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   }
 
   setTimeout(function () {
-    _components_header__WEBPACK_IMPORTED_MODULE_17__["init"]();
-    _components_footer__WEBPACK_IMPORTED_MODULE_18__["init"]();
-    _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_20__["init"]();
+    _components_header__WEBPACK_IMPORTED_MODULE_18__["init"]();
+    _components_footer__WEBPACK_IMPORTED_MODULE_19__["init"]();
+    _components_smooth_scroll__WEBPACK_IMPORTED_MODULE_21__["init"]();
 
     switch (_pages) {
       case 'home':
@@ -99882,6 +99884,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
         _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
         break;
 
+      case 'clients':
+        _pages_clients__WEBPACK_IMPORTED_MODULE_16__["init"]();
+        _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
+        break;
+
       default:
         _modules_page_load__WEBPACK_IMPORTED_MODULE_1__["hide"]();
         break;
@@ -99911,6 +99918,10 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
         case 'careers':
           _pages_careers__WEBPACK_IMPORTED_MODULE_15__["resize"]();
+          break;
+
+        case 'clients':
+          _pages_clients__WEBPACK_IMPORTED_MODULE_16__["resize"]();
           break;
 
         default:
@@ -103482,6 +103493,65 @@ function init() {
     }).fail(function (response) {
       console.log(response);
     });
+  });
+} // ----------------------------------------- \\\
+// ------------ PUBLIC FUNCIONS ------------ \\\
+// ----------------------------------------- \\\
+
+
+function resize() {} // ----------------------------------------- \\\
+// ------------ PRIVATE FUNCIONS ----------- \\\
+// ----------------------------------------- \\\
+// ----------------------------------------- \\\
+// ---------------- EXPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+
+
+
+/***/ }),
+
+/***/ "./src/js/pages/clients.js":
+/*!*********************************!*\
+  !*** ./src/js/pages/clients.js ***!
+  \*********************************/
+/*! exports provided: init, resize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resize", function() { return resize; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
+// ----------------------------------------- \\\
+// ---------------- IMPORTS ---------------- \\\
+// ----------------------------------------- \\\
+
+ // ----------------------------------------- \\\
+// ------------------ INIT ----------------- \\\
+// ----------------------------------------- \\\
+
+function init() {
+  // REDIRECT WITH FILTER CASE STUDY FROM CLIENT PAGE
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.kcg-clients-content .button', function (e) {
+    e.preventDefault();
+    let link = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('href');
+    let type = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('id');
+
+    if (type) {
+      js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.set('work_type', type);
+      console.log(js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('work_type'));
+      window.location.href = link;
+      return true;
+    } else {
+      js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.set('work_type', '');
+      console.log(js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('work_type'));
+      window.location.href = link;
+      return true;
+    }
   });
 } // ----------------------------------------- \\\
 // ------------ PUBLIC FUNCIONS ------------ \\\

@@ -20,6 +20,7 @@ import * as Services    from './pages/services';
 import * as Service     from './pages/service';
 import * as Buzz        from './pages/buzz';
 import * as Careers     from './pages/careers';
+import * as Clients     from './pages/clients';
 
 import  './components/button';
 import * as Header              from './components/header';
@@ -113,6 +114,10 @@ $(function() {
                 Careers.init();
                 PageLoad.hide();
             break;
+            case 'clients':
+                Clients.init();
+                PageLoad.hide();
+            break;
             default:
                 PageLoad.hide();
                 break;
@@ -138,6 +143,9 @@ $(function() {
                 break;
                 case 'careers':
                     Careers.resize();
+                break;
+                case 'clients':
+                    Clients.resize();
                 break;
                 default:
                     console.log('resize');

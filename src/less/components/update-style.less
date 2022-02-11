@@ -1719,3 +1719,60 @@ body.clients {
         }
     }
 }
+
+
+// FOOTER STYLE
+.footer {
+    .f-social {
+        .item {
+            position: relative;
+            width: auto;
+
+            .icon{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0px; 
+                left: 0px;
+                display: none;
+
+                &.i-facebook{
+                    .bg('ico-facebook.svg');
+                }
+
+                &.i-instagram{
+                    .bg('ico-instagram.svg');
+                }
+                &.i-twitter{
+                    .bg('ico-twitter.svg');
+                }
+                &.i-linkedin{
+                    .bg('ico-linkedin.svg');
+                }
+                &.i-pinterest{
+                    .bg('ico-pinterest.svg');
+                }
+            }
+            @media( max-width: @screen-medium ){
+                width: 20px;
+                height: 20px;
+
+                &:not(:first-child) {
+                    margin-top: 10px !important;
+                }
+
+                .icon{
+                    display: block;
+                }
+                span {
+                    display: none;
+                }
+            }
+            @media screen and (max-width: 575px) {
+                &:not(:first-child) {
+                    margin-top: 0px !important;
+                }
+            }
+        }
+    }
+}

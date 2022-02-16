@@ -135,6 +135,9 @@ function activeMenus(page){
     }
     setTimeout( function() {
         $('.weather-effect-image').remove();
+	  //   setTimeout( function() {
+			// $('html').removeClass('initiate');
+	  //   }, 3000);
     }, 500);
 }
 

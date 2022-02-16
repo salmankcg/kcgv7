@@ -64,7 +64,7 @@ $(function() {
     setTimeout( function(){
         Header.init();
         Footer.init();
-        SmoothScroll.init()
+        SmoothScroll.init();
         switch(_pages){
             case 'home':
                 PageLoad.init();

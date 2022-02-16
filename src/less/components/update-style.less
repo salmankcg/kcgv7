@@ -1,3 +1,6 @@
+//LOAD INITIATE
+
+
 .kcg-case-study-wrapper {
     position: relative;
     min-height: 100px;
@@ -346,14 +349,17 @@
 }
 .jobs-icon-wrapper {
     display: flex;
+    flex-flow: wrap row;
     align-items: center;
     justify-content: center;
-    min-height: 400px;
+    padding: 50px;
+    height: 400px;
     border-radius: 10px;
     overflow: hidden;
 }
-.jobs-icon-wrapper img {
-    max-height: 200px;
+.elementor .jobs-icon-wrapper img {
+    max-width: 180px;
+    height: auto;
 }
 .jobs-list .infos {
     margin-top: 20px;
@@ -396,15 +402,20 @@
         margin-top: 60px;
     }
 }
+@media screen and (max-width: @screen-small) {
+    .works-content .jobs-icon-wrapper.image {
+        height: auto;
+    }
+}
 
 //SINGLE JOBS TEMPLATE
 .single-jobs .jobs-icon-wrapper {
-    min-height: initial;
-    height: 100%;
     padding: 80px;
+    height: 100%;
 }
 .single-jobs .jobs-icon-wrapper .wp-post-image {
-    max-height: initial;
+    max-width: 200px;
+    height: auto;
 }
 .single-jobs .webdoor.w-person .infos {
     justify-content: flex-start;
@@ -421,6 +432,19 @@
 }
 .kcg-apply-button {
     text-align: center;
+}
+@media screen and (max-width: @screen-large) {
+    .single-jobs .jobs-icon-wrapper {
+        height: auto;
+    }
+    .single-jobs .webdoor.w-person .infos {
+        margin-top: 30px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .single-jobs .button {
+        display: table;
+    }
 }
 
 //HEADING WIDGETS STYLE
@@ -1127,6 +1151,15 @@
             }
             
         }
+        @media screen and (max-width: @screen-medium) {
+            bottom: 20px;
+            right: 20px;
+
+            &::before {
+                right: 20px;
+                bottom: 20px;
+            }
+        }
     }
 
     .kcg-contacts-modal-contents-wrapper {
@@ -1523,6 +1556,7 @@ body.clients {
 
             .kcg-clients-content-wrapper {
                 grid-column: 2;
+                padding-left: 50px;
             }
             .kcg-clients-video-wrapper {
                 grid-column: 1;
@@ -1535,6 +1569,7 @@ body.clients {
             align-items: center;
             justify-content: center;
             align-self: center;
+            padding-right: 50px;
 
             .kcg-clients-content {
                 max-width: 450px;
@@ -1574,7 +1609,7 @@ body.clients {
                 .kcg-client-video {
                     position: relative;
                     border-radius: 15px;
-                    min-height: 600px;
+                    min-height: 700px;
                     overflow: hidden;
 
                     &::after {
@@ -1621,7 +1656,7 @@ body.clients {
 
                         .client-logo-item {
                             position: relative;
-                            margin: 20px;
+                            margin: 15px;
 
                             &:hover {
                                 .client-logo-text {
@@ -1659,13 +1694,14 @@ body.clients {
                                 opacity: 0;
                                 transition: all .3s ease 0s;
                                 position: absolute;
-                                bottom: ~"calc(100% + 10px)";
+                                bottom: 100%;
                                 right: 20%;
                                 z-index: -1;
                             }
                             .client-logo {
                                 position: relative;
-                                min-height: 80px;
+                                width: 160px;
+                                height: 100px;
                                 text-align: center;
                                 margin: 0 auto;
 
@@ -1673,7 +1709,39 @@ body.clients {
                                     fill: #ffffff;
                                 }
                                 img {
-                                    max-height: 80px;
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: @screen-large) {
+            .kcg-clients-video-wrapper {
+                .kcg-clients-video-contents {
+                    .kcg-clients-logos {
+                        .kcg-client-logo-wrapper {
+                            .client-logo-item {
+                                .client-logo {
+                                    width: 100px;
+                                    height: 80px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: @screen-large) and (orientation: landscape) {
+            .kcg-clients-video-wrapper {
+                .kcg-clients-video-contents {
+                    .kcg-clients-logos {
+                        .kcg-client-logo-wrapper {
+                            .client-logo-item {
+                                .client-logo-text {
+                                    display: none;
                                 }
                             }
                         }
@@ -1687,19 +1755,48 @@ body.clients {
             grid-template-columns: initial;
             align-items: initial;
 
+            &.kcg-clients-reverse {
+                .kcg-clients-content-wrapper {
+                    padding: 0;
+                }
+            }
+            .kcg-clients-content-wrapper {
+                padding: 0;
+                order: 2;
+
+                .kcg-clients-content {
+                    max-width: 91%;
+
+                    .title {
+                        display: none;
+                    }
+                }
+            }
+
             .kcg-clients-video-wrapper {
                 order: 1;
 
                 .title {
                     display: block;
                 }
-
-                .kcg-client-video {
-                    min-height: 395px;
-                    border-radius: 0;
+                .kcg-clients-video-contents {
+                    .kcg-client-video {
+                        min-height: 395px;
+                        border-radius: 0;
+                    }
+                    .kcg-clients-logos {
+                        .kcg-client-logo-wrapper {
+                            .client-logo-item {
+                                .client-logo-text {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .kcg-clients-content-wrapper {
+                padding: 0;
                 order: 2;
 
                 .kcg-clients-content {

@@ -102566,7 +102566,9 @@ function activeMenus(page) {
   }
 
   setTimeout(function () {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.weather-effect-image').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.weather-effect-image').remove(); //   setTimeout( function() {
+    // $('html').removeClass('initiate');
+    //   }, 3000);
   }, 500);
 } // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\

@@ -6,6 +6,10 @@
 	background: url('../../@{path}') no-repeat center center;
 	background-size: cover;
 }
+.bg3(@path, @size: contain){
+	background: url('../../@{path}') no-repeat center center;
+	background-size: @size;
+}
 .cover(){
 	background: no-repeat center center;
 	background-size: cover;

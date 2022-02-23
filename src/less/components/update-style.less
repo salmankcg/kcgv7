@@ -1078,6 +1078,11 @@
                 display: block;
             }
         }
+        @media screen and (max-width: @screen-large) {
+            &::before {
+                transform: scale(2);
+            }
+        }
     }
 
     .contacts-open-icon {
@@ -1178,11 +1183,6 @@
         @media screen and (max-width: @screen-medium) {
             bottom: 20px;
             right: 20px;
-
-            &::before {
-                right: 20px;
-                bottom: 20px;
-            }
         }
     }
 
@@ -1251,6 +1251,12 @@
             left: 0;
             display: none;
             z-index: 9;
+        }
+    }
+    @media screen and (max-width: @screen-medium) {
+        &::before {
+            right: 20px;
+            bottom: 20px;
         }
     }
 }
@@ -1361,6 +1367,8 @@
     justify-content: flex-end;
     z-index: 999999;
 
+
+
     .kcg-jobs-popup-contents-wrapper {
         position: relative;
         width: 80%;
@@ -1467,6 +1475,7 @@
 
             .logo {
                 position: relative;
+                opacity: 0.5;
                 z-index: 99999;
             }
         }
@@ -1896,4 +1905,45 @@ body.clients {
             }
         }
     }
+    @media( max-width: @screen-medium ){
+        &.f-white {
+            .f-social {
+                .item {
+                    .icon{
+                        svg path {
+                            fill: rgba(0,0,0,0.7);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//SINGLE BLOG STYLE
+.single .webdoor.w-journal-inner .paragraph {
+    font-family: "Blacker Sans Pro Book", sans-serif;
+}
+.single .journal-content .single-journal-content-wrapper p strong {
+    font-family: "Blacker Sans Pro Book", sans-serif;
+}
+.single .single-journal-content-wrapper p {
+    font-family: "Blacker Sans Pro Book", sans-serif;
+}
+.single-journal-content-wrapper ol, .single-journal-content-wrapper ul {
+    padding-left: 15px;
+    margin-top: 30px;
+}
+.single-journal-content-wrapper ol li, .single-journal-content-wrapper ul li {
+    font-family: "Blacker Sans Pro Book", sans-serif;
+    font-size: 20px;
+    line-height: 34px;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    color: #141515;
+}
+.single-journal-content-wrapper ol li:not(:first-child), .single-journal-content-wrapper ul li:not(:first-child) {
+    margin-top: 15px;
 }

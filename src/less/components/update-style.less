@@ -469,9 +469,33 @@
     .single-jobs .footer .button:not(.b-icon) {
         display: table;
     }
+    .single-jobs .jobs-icon-wrapper .wp-post-image {
+        max-width: 150px;
+    }
 }
 
-//HEADING WIDGETS STYLE
+
+// SINGLE TEAM STYLE
+@media screen and (max-width: @screen-large) {
+    .single-teams .webdoor.w-person .infos {
+        padding-right: 0;
+    }
+}
+@media screen and (max-width: @screen-large) and (orientation: landscape) {
+    .single-teams .main-content .webdoor.w-person {
+        padding-bottom: 0;
+    }
+    .single-teams .about-content.abt-person {
+        padding-top: 0;
+    }
+    .single-teams .abt-person .col-5:last-child .paragraph {
+        margin-top: 30px;
+    }
+}
+
+
+
+// HEADING WIDGETS STYLE
 @media( max-width: @screen-small ){
     .main-content .about-content .title.t-center {
         padding: 0;

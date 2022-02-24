@@ -379,6 +379,11 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
 }
+@media screen and (max-width: @screen-big) {
+    .jobs-list {
+        grid-template-columns: repeat(2, ~"calc(50% + 4px)");
+    }
+}
 @media screen and (max-width: @screen-medium) {
     .job-filter-menu-wrapper {
         width: 100%;
@@ -401,10 +406,16 @@
     .jobs-list .item:not(:first-child) {
         margin-top: 60px;
     }
+    .works-content .jobs-list .image {
+        height: 400px;
+    }
+    .elementor .jobs-list .jobs-icon-wrapper img {
+        max-width: 150px;
+    }
 }
 @media screen and (max-width: @screen-small) {
     .works-content .jobs-icon-wrapper.image {
-        height: auto;
+        height: 370px;
     }
 }
 

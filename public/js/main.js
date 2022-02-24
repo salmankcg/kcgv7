@@ -101293,7 +101293,7 @@ function init() {
         iframe.contentWindow.document.body.style.height = `${_sizeDocument}px`;
       }
     }
-  }, 5000);
+  }, 1000);
 }
 
 function resize() {

@@ -22,6 +22,7 @@ var _area 			= null;
 var _fxName 		= null;
 var _fxArea 		= null;
 var $scrollDown		= $('.scrolldown');
+var $peopleList     = $('.people');
 
 
 
@@ -29,8 +30,13 @@ var $scrollDown		= $('.scrolldown');
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 function init(){
+    
+    MouseMove.init($peopleList.find('.item').find('.i-wrapper'));
 
 	kcgScramble();
+
+    $(window).on('scroll.about-team', onScroll);
+    onScroll();
 
 	$scrollDown.on('click',function(){
 		gsap.to(window, 2, {scrollTo: {y: $(window).height() , ease: Power3.easeOut}});
@@ -262,6 +268,15 @@ class TextScramble {
     }
     randomChar() {
       return this.chars[Math.floor(Math.random() * this.chars.length)]
+    }
+}
+
+function onScroll(){
+    var scrollTop       = $(window).scrollTop();
+    if (scrollTop > 200) {
+        $scrollDown.addClass('hide');
+    } else{
+        $scrollDown.removeClass('hide');
     }
 }
 

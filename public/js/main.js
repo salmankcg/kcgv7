@@ -102884,12 +102884,16 @@ var _name = null;
 var _area = null;
 var _fxName = null;
 var _fxArea = null;
-var $scrollDown = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.scrolldown'); // ----------------------------------------- \\\
+var $scrollDown = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.scrolldown');
+var $peopleList = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.people'); // ----------------------------------------- \\\
 // ------------------ INIT ----------------- \\\
 // ----------------------------------------- \\\
 
 function init() {
+  _components_mouse_move__WEBPACK_IMPORTED_MODULE_1__["init"]($peopleList.find('.item').find('.i-wrapper'));
   kcgScramble();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('scroll.about-team', onScroll);
+  onScroll();
   $scrollDown.on('click', function () {
     gsap__WEBPACK_IMPORTED_MODULE_2__["default"].to(window, 2, {
       scrollTo: {
@@ -103193,6 +103197,16 @@ class TextScramble {
     return this.chars[Math.floor(Math.random() * this.chars.length)];
   }
 
+}
+
+function onScroll() {
+  var scrollTop = jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).scrollTop();
+
+  if (scrollTop > 200) {
+    $scrollDown.addClass('hide');
+  } else {
+    $scrollDown.removeClass('hide');
+  }
 } // ----------------------------------------- \\\
 // ---------------- EXPORTS ---------------- \\\
 // ----------------------------------------- \\\

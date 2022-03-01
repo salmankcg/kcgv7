@@ -1118,6 +1118,18 @@
                 transform: scale(2);
             }
         }
+        @media screen and (max-width: @screen-medium) and (orientation: portrait) {
+            &::before {
+                transform: scale(5);
+            }
+            .contacts-open-icon {
+                .close-popup {
+                    .text {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 
     .contacts-open-icon {
@@ -1295,6 +1307,24 @@
         }
     }
 }
+.mobile-device {
+    .kcg-contacts-modal {
+        &.active {
+            @media screen and (max-width: @screen-medium) and (orientation: portrait) {
+                &::before {
+                    transform: scale(5);
+                }
+                .contacts-open-icon {
+                    .close-popup {
+                        .text {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 .kcg-modal-contents-wrapper {
     height: 100%;
@@ -1342,6 +1372,7 @@
                     flex-flow: wrap row;
                     justify-content: center;
                     align-items: center;
+                    text-align: center;
                     padding: 15px 33px;
                     font-family: 'Blacker Sans Pro Medium';
                     font-weight: 400;
@@ -1371,6 +1402,7 @@
                     flex-flow: wrap row;
                     justify-content: center;
                     align-items: center;
+                    text-align: center;
                     padding: 15px 33px;
                     font-family: 'Blacker Sans Pro Medium';
                     font-weight: 400;
@@ -1497,6 +1529,19 @@
                 }
             }
         }
+        @media( max-width: @screen-medium ){
+            .hmbrg {
+                left: -50px;
+
+                .text{
+                    display: none;
+                }
+            }
+
+            .kcg-jobs-popup-contents {
+                padding: 50px 20px;
+            }
+        }
     }
 }
 
@@ -1511,7 +1556,7 @@
             .logo {
                 position: relative;
                 opacity: 0.5;
-                z-index: 99999;
+                z-index: -1;
             }
         }
 
@@ -1534,6 +1579,15 @@
 
 //POPUP FORM STYLE
 .kcg-popup-form-wrapper {
+    .error {
+        .kcg-form-submission {
+            .btn {
+                min-width: 72px;
+                background-color: #FF002E;
+                color: #ffffff;
+            }
+        }
+    }
     .kcgform-field-group {
         display: flex;
         flex-flow: wrap row;
@@ -1555,6 +1609,16 @@
         &:not(:first-child) {
             margin-top: 20px;
         }
+        &.error {
+            label {
+                color: #FF002E;
+                opacity: 1;
+            }
+            .kcg-input {
+                border: 1px solid #FF002E;
+                background-color: rgba(255, 0, 46, 0.1);
+            }
+        }
         label {
             display: block;
             font-family: 'Blacker Sans Pro Book', sans-serif;
@@ -1565,11 +1629,26 @@
             opacity: 0.8;
             color: #ffffff;
         }
+        /* Change autocomplete styles in WebKit */
+        .kcg-input:-webkit-autofill,
+        .kcg-input:-webkit-autofill:hover, 
+        .kcg-input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #ffffff !important;
+            box-shadow: 0 0 0px 1000px transparent inset;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
         input, select, textarea {
             width: 100%;
             background-color: rgba(0,0,0,0.1);
             border: 1px solid transparent;
             padding: 16px 15px;
+            font-family: 'Blacker Sans Pro Book', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: 0.3px;
+            color: #ffffff;
         }
         textarea {
             min-height: 210px;
@@ -1578,8 +1657,27 @@
     }
     .kcg-form-submission {
         display: flex;
+        flex-flow: wrap row;
         justify-content: center;
         margin-top: 20px;
+        
+        .status-message {
+            width: 100%;
+            font-family: 'Blacker Sans Pro Book', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 14px;
+            font-style: normal;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            padding: 15px 26px;
+            background-color: #FF002E;
+            margin-bottom: 50px;
+
+            &.success {
+                background-color: #00A624;
+            }
+        }
 
         .btn {
             min-width: 170px;

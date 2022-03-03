@@ -1231,6 +1231,21 @@
             bottom: 20px;
             right: 20px;
         }
+        @media screen and (max-width: 575px) {
+            width: 50px;
+            height: 50px;
+
+            .kcg-modal-open {
+                width: 50px;
+                height: 50px;
+            }
+            .hmbrg {
+                .close-bg {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
     }
 
     .kcg-contacts-modal-contents-wrapper {
@@ -1289,6 +1304,17 @@
                         display: inline-block;
                     }
                 }
+
+                @media screen and (max-width: @screen-medium) {
+                    p {
+                        font-size: 14px;
+                        line-height: 20px;
+
+                        br {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
 
@@ -1304,6 +1330,20 @@
         &::before {
             right: 20px;
             bottom: 20px;
+            width: 50px;
+            height: 50px;
+        }
+    }
+    @media screen and (max-width: 575px) {
+        &::before {
+            width: 50px;
+            height: 50px;
+        }
+
+        .kcg-contacts-modal-contents-wrapper {
+            .kcg-popup-back-button {
+                bottom: 20px;
+            }
         }
     }
 }
@@ -1353,6 +1393,15 @@
             letter-spacing: 0.5px;
             color: #ffffff;
         }
+        @media screen and (max-width: @screen-medium) and (orientation: portrait) {
+            .caption {
+                font-size: 16x;
+            }
+            .title {
+                font-size: 30px;
+                line-height: 35px;
+            }
+        }
     }
     .kcg-modal-content-area {
         margin-top: 50px;
@@ -1386,6 +1435,14 @@
                     box-sizing: border-box;
                 }
             }
+            @media screen and (max-width: @screen-medium) and (orientation: portrait) {
+                max-width: 100%;
+
+                li {
+                    max-width: 350px;
+                    width: 100%;
+                }
+            }
         }
         .jobs-menu-list {
             display: flex;
@@ -1414,6 +1471,14 @@
                     border: 1px solid #ffffff;
                     border-radius: 25px;
                     box-sizing: border-box;
+                }
+            }
+            @media screen and (max-width: @screen-medium) and (orientation: portrait) {
+                max-width: 100%;
+
+                li {
+                    max-width: 350px;
+                    width: 100%;
                 }
             }
         }
@@ -1533,6 +1598,10 @@
             .hmbrg {
                 left: -50px;
 
+                .close-bg {
+                    width: 50px;
+                    height: 50px;
+                }
                 .text{
                     display: none;
                 }
@@ -1601,7 +1670,17 @@
             width: ~"calc(50% - 50px)";
 
             &:not(:first-child) {
-                margin: 0;
+                margin-top: 0;
+            }
+
+        }
+        @media( max-width: @screen-medium ){
+            .kcg-form-field {
+                width: 100%;
+
+                &:not(:first-child) {
+                    margin-top: 20px;
+                }
             }
         }
     }
@@ -1618,6 +1697,12 @@
                 border: 1px solid #FF002E;
                 background-color: rgba(255, 0, 46, 0.1);
             }
+            .kcg-upload-resume-wrapper {
+                label {
+                    border: 1px solid #FF002E;
+                    background-color: rgba(255, 0, 46, 0.1);
+                }
+            }
         }
         label {
             display: block;
@@ -1628,6 +1713,27 @@
             letter-spacing: 0.3px;
             opacity: 0.8;
             color: #ffffff;
+        }
+        .kcg-upload-resume-wrapper {
+            label {
+                display: grid;
+                grid-template-columns: ~"calc(100% - 20px)" 16px;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                background-color: rgba(0,0,0,0.1);
+                border: 1px solid transparent;
+                padding: 16px 15px;
+                font-family: 'Blacker Sans Pro Book', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 20px;
+                letter-spacing: 0.3px;
+                color: #ffffff;
+            }
+        }
+        .kcg-input[type="file"] {
+            display: none;
         }
         /* Change autocomplete styles in WebKit */
         .kcg-input:-webkit-autofill,
@@ -1650,9 +1756,27 @@
             letter-spacing: 0.3px;
             color: #ffffff;
         }
+        select {
+            .bgimg('down-arrow.png');
+            background-repeat: no-repeat;
+            background-position: top 50% right 15px;
+            appearance: none;
+            -webkit-appearance: none;
+
+            option {
+                background-color: rgba(0,0,0,.5);
+                line-height: 30px;
+            }
+        }
         textarea {
             min-height: 210px;
             resize: none;
+        }
+        @media( max-width: @screen-medium ){
+            label {
+                font-size: 16px;
+                line-height: 24px;
+            }
         }
     }
     .kcg-form-submission {

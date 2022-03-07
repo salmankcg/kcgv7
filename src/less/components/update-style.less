@@ -2208,3 +2208,69 @@ body.clients {
 .single-journal-content-wrapper ol li:not(:first-child), .single-journal-content-wrapper ul li:not(:first-child) {
     margin-top: 15px;
 }
+
+//UPDATE MOBILE SUB-MENU STYLE
+.mobile-device {
+    .testimonial {
+        @media screen and ( max-width: 850px ){
+            .slick-slide {
+                opacity: 0;
+                
+                &.slick-active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .submenu{
+        @media screen and ( max-width: 850px ){
+            padding: 10px;
+            border-radius: 54px;
+            .centerHoriz;
+            top: -5px;
+            width: 46px;
+
+            &.open-submenu{
+                transition: 0s;
+                transition-delay: 0s;
+                
+                .sb-button{
+                    .svg{
+                        &.i-close{
+                            display: block;
+                        }
+        
+                        &.i-open{
+                            display: none;
+                        }
+                    }    
+                }
+
+                border-radius: 20px;
+                width: 170px;
+            }
+
+            .sb-wrapper{
+                display: none;
+            }
+
+            .sb-button{
+                display: block;
+            }
+
+            &:before{
+                .ba;
+                width: 100%;
+                display: block;
+            }
+
+            .item{
+                margin: 0px;
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+        }
+    }
+}

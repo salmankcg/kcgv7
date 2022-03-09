@@ -20,6 +20,8 @@ var _area 			= null;
 var _fxName 		= null;
 var _fxArea 		= null;
 
+var instance = $.fn.deviceDetector;
+
 
 function kcgScramble(){
 
@@ -33,19 +35,20 @@ function kcgScramble(){
         }
         return false;
     }
+    
 
     if(hasTextScramble()){
-        _fxName 	= new TextScramble($name);
-        _fxArea 	= new TextScramble($area);
+        _fxName     = new TextScramble($name);
+        _fxArea     = new TextScramble($area);
     }
 
     // ----------------------------------------- \\\
     // ----------------- VARS ------------------ \\\
     // ----------------------------------------- \\\
-    var $peopleScramble	= $('.people-scramble');
-    var $itemScramble 	= $peopleScramble.find('.item');
+    var $peopleScramble = $('.people-scramble');
+    var $itemScramble   = $peopleScramble.find('.item');
 
-    var _arrPos 		= [ 
+    var _arrPos         = [ 
         [12.5 * 0, 12.5 * 1, 12.5 * 1, 12.5 * 0],
         [12.5 * 1, 12.5 * 2, 12.5 * 2, 12.5 * 1],
         [12.5 * 2, 12.5 * 3, 12.5 * 3, 12.5 * 2],
@@ -56,12 +59,14 @@ function kcgScramble(){
         [12.5 * 7, 12.5 * 8, 12.5 * 8, 12.5 * 7]
     ]
 
-    var _arryPos	= [];
-    var _posElm 	= 0;
-    var _widthElm 	= $peopleScramble.find('.item').width();
+    var _arryPos    = [];
+    var _posElm     = 0;
+    var _widthElm   = $peopleScramble.find('.item').width();
+
 
     if($peopleScramble.length){
-        if(is_touch_enabled()){
+        // surface duo 2
+        if(window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'mouse' &&  is_touch_enabled()  ){
             $itemScramble.bind( "tap", tapHandler );
             function tapHandler( event ){
                 event.preventDefault()
@@ -75,7 +80,7 @@ function kcgScramble(){
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
             });
             
-            $itemScramble.on('touchend', function(){
+            $itemScramble.on('touchend',function(){
                 var _this = this;
                 onMouseLeaveScramble(_this);
                 $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
@@ -84,10 +89,12 @@ function kcgScramble(){
             $itemScramble.each(function(i,e){
                 _posElm = Math.round($(e).width() * ( i ));
                 var _padding = 30;
+
                 _arryPos.push( (_posElm +_padding)  )
             });
-        } else{
-            $itemScramble.on('mouseenter', function(){
+        }
+        if(window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'mouse'){
+            $itemScramble.on('mouseenter',function(){
                 var _this = this;
                 onMouseEnterScramble(_this);
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
@@ -96,7 +103,76 @@ function kcgScramble(){
                 var _this = this;
                 onMouseLeaveScramble(_this);
                 $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
+                // text
+                if(hasTextScramble()){
+                    _fxName.setText('the people');
+                    _fxArea.setText('make the <b>magic</b> happen');
+                }
+            });
+        } else if(window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'touch'){
+            $itemScramble.bind( "tap", tapHandler );
+            function tapHandler( event ){
+                event.preventDefault()
+                return false;
+            }
+            $peopleScramble.on('touchmove',checkPosTouchScramble);
+            $peopleScramble.on('touchend',onTouchEndScramble);
+            $itemScramble.on('touchstart',function(){
+                var _this = this;
+                onMouseEnterScramble(_this);
+                $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+            });
+            
+            $itemScramble.on('touchend',function(){
+                var _this = this;
+                onMouseLeaveScramble(_this);
+                $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
+            });
 
+            $itemScramble.each(function(i,e){
+                _posElm = Math.round($(e).width() * ( i ));
+                var _padding = 30;
+
+                _arryPos.push( (_posElm +_padding)  )
+            });
+        }
+        else if(is_touch_enabled()){
+            $itemScramble.bind( "tap", tapHandler );
+            function tapHandler( event ){
+                event.preventDefault()
+                return false;
+            }
+            $peopleScramble.on('touchmove',checkPosTouchScramble);
+            $peopleScramble.on('touchend',onTouchEndScramble);
+            $itemScramble.on('touchstart',function(){
+                var _this = this;
+                onMouseEnterScramble(_this);
+                $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+            });
+            
+            $itemScramble.on('touchend',function(){
+                var _this = this;
+                onMouseLeaveScramble(_this);
+                $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
+            });
+
+            $itemScramble.each(function(i,e){
+                _posElm = Math.round($(e).width() * ( i ));
+                var _padding = 30;
+
+                _arryPos.push( (_posElm +_padding)  )
+            });
+        }
+        else{
+            $itemScramble.on('mouseenter',function(){
+                var _this = this;
+                onMouseEnterScramble(_this);
+                $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+            });
+            $itemScramble.on('mouseleave',function(){
+                var _this = this;
+                onMouseLeaveScramble(_this);
+                $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
                 // text
                 if(hasTextScramble()){
                     _fxName.setText('the people');
@@ -105,36 +181,35 @@ function kcgScramble(){
             });
         }
 
-        var _icoCursor = new TimelineLite({delay:0.5, onComplete:function(){
-            setTimeout(function(){
-                _icoCursor.restart();
-            }, 4000);
-        }})
+    var _icoCursor = new TimelineLite({delay:0.5, onComplete:function(){
+        setTimeout(function(){
+            _icoCursor.restart();
+        }, 4000);
+    }})
 
-        _icoCursor.fromTo($peopleScramble.find('.pc-pointer'), 2, {opacity: 0 }, {opacity: 1, ease: Power3.easeInOut}, 0)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 2)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 3)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 4)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 5)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 6)
-        _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 7)
-        _icoCursor.fromTo($peopleScramble.find('.pc-pointer'), 2, {opacity: 1 }, {opacity: 0, ease: Power3.easeInOut}, 8)
+    _icoCursor.fromTo($peopleScramble.find('.pc-pointer'), 2, {opacity: 0 }, {opacity: 1, ease: Power3.easeInOut}, 0)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 2)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 3)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 4)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 5)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: 10, ease: Power3.easeInOut}, 6)
+    _icoCursor.to($peopleScramble.find('.ico'), 1, {x: -10, ease: Power3.easeInOut}, 7)
+    _icoCursor.fromTo($peopleScramble.find('.pc-pointer'), 2, {opacity: 1 }, {opacity: 0, ease: Power3.easeInOut}, 8)
     }
 
     function onMouseEnterScramble(_this){
         var _target = $(_this).data('target');
-        console.log('hasTextScramble()',hasTextScramble());
 
         // text
         if(hasTextScramble()){
-            _name 	= $(_this).data('name');
-            _area 	= $(_this).data('area');
+            _name   = $(_this).data('name');
+            _area   = $(_this).data('area');
 
             _fxName.setText(_name);
             _fxArea.setText(_area);
         }
-
         // text
+
         $itemScramble.each(function(i,e){
             var $figure = $peopleScramble.find('.wrapper').find('figure').eq(i);
             TweenMax.killTweensOf($figure);
@@ -147,11 +222,11 @@ function kcgScramble(){
                     TweenMax.to($figure, 1, { ease: Power3.easeOut, "clip-path": "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)"});
                 }
             }
-        });	
+        }); 
     }
 
     function onMouseLeaveScramble(_this){
-        var $this 	= $(_this);
+        var $this   = $(_this);
         $itemScramble.each(function(i,e){
             var _target = $(this).data('target');
             var $figure = $this.closest('.wrapper').find('figure').eq(_target);
@@ -168,9 +243,9 @@ function kcgScramble(){
 
     function checkPosTouchScramble(e){
         var _touchX =  Math.round(e.touches[0].clientX) - $peopleScramble.offset().left;
-
+        $('#distance').text(_touchX);
         $.each(_arryPos, function(i){
-            if(_touchX > _arryPos[i] && _touchX < (_arryPos[i] + _widthElm) ){
+            if(_touchX > _arryPos[i] && _touchX < (_arryPos[i] + _widthElm)){
                 onMouseEnterScramble($peopleScramble.find('.item').eq(i));
             }
         });
@@ -180,23 +255,22 @@ function kcgScramble(){
 
 
 class TextScramble {
-
     constructor(el) {
-      this.el 		= el
-      this.chars 	= 'abcdefghijlkmnopqrstuvxz'
-      this.update 	= this.update.bind(this)
+      this.el       = el
+      this.chars    = 'abcdefghijlkmnopqrstuvxz'
+      this.update   = this.update.bind(this)
     }
-
+    
     setText(newText) {
       const oldText = this.el.innerText
-      const length 	= Math.max(oldText.length, newText.length)
+      const length  = Math.max(oldText.length, newText.length)
       const promise = new Promise((resolve) => this.resolve = resolve)
       this.queue = []
       for (let i = 0; i < length; i++) {
         const from = oldText[i] || ''
         const to = newText[i] || ''
-        const start = Math.floor(Math.random() * 40)
-        const end = start + Math.floor(Math.random() * 40)
+        const start = Math.floor(Math.random() * 10)
+        const end = start + Math.floor(Math.random() * 10)
         this.queue.push({ from, to, start, end })
       }
       cancelAnimationFrame(this.frameRequest)
@@ -237,5 +311,5 @@ class TextScramble {
 
 
 $(window).on('load resize', function () {
-    kcgScramble()
+    kcgScramble();
 });

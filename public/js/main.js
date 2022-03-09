@@ -99866,6 +99866,7 @@ var _name = null;
 var _area = null;
 var _fxName = null;
 var _fxArea = null;
+var instance = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.deviceDetector;
 
 function kcgScramble() {
   // ------------------------//
@@ -99897,7 +99898,85 @@ function kcgScramble() {
   var _widthElm = $peopleScramble.find('.item').width();
 
   if ($peopleScramble.length) {
-    if (is_touch_enabled()) {
+    // surface duo 2
+    if (window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'mouse' && is_touch_enabled()) {
+      $itemScramble.bind("tap", tapHandler);
+
+      function tapHandler(event) {
+        event.preventDefault();
+        return false;
+      }
+
+      $peopleScramble.on('touchmove', checkPosTouchScramble);
+      $peopleScramble.on('touchend', onTouchEndScramble);
+      $itemScramble.on('touchstart', function () {
+        var _this = this;
+
+        onMouseEnterScramble(_this);
+        $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+      });
+      $itemScramble.on('touchend', function () {
+        var _this = this;
+
+        onMouseLeaveScramble(_this);
+        $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
+      });
+      $itemScramble.each(function (i, e) {
+        _posElm = Math.round(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e).width() * i);
+        var _padding = 30;
+
+        _arryPos.push(_posElm + _padding);
+      });
+    }
+
+    if (window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'mouse') {
+      $itemScramble.on('mouseenter', function () {
+        var _this = this;
+
+        onMouseEnterScramble(_this);
+        $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+      });
+      $itemScramble.on('mouseleave', function () {
+        var _this = this;
+
+        onMouseLeaveScramble(_this);
+        $itemScramble.closest('.people-scramble').removeClass('mouse-enter'); // text
+
+        if (hasTextScramble()) {
+          _fxName.setText('the people');
+
+          _fxArea.setText('make the <b>magic</b> happen');
+        }
+      });
+    } else if (window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'touch') {
+      $itemScramble.bind("tap", tapHandler);
+
+      function tapHandler(event) {
+        event.preventDefault();
+        return false;
+      }
+
+      $peopleScramble.on('touchmove', checkPosTouchScramble);
+      $peopleScramble.on('touchend', onTouchEndScramble);
+      $itemScramble.on('touchstart', function () {
+        var _this = this;
+
+        onMouseEnterScramble(_this);
+        $itemScramble.closest('.people-scramble').addClass('mouse-enter');
+      });
+      $itemScramble.on('touchend', function () {
+        var _this = this;
+
+        onMouseLeaveScramble(_this);
+        $itemScramble.closest('.people-scramble').removeClass('mouse-enter');
+      });
+      $itemScramble.each(function (i, e) {
+        _posElm = Math.round(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e).width() * i);
+        var _padding = 30;
+
+        _arryPos.push(_posElm + _padding);
+      });
+    } else if (is_touch_enabled()) {
       $itemScramble.bind("tap", tapHandler);
 
       function tapHandler(event) {
@@ -100001,9 +100080,8 @@ function kcgScramble() {
   }
 
   function onMouseEnterScramble(_this) {
-    var _target = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).data('target');
+    var _target = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).data('target'); // text
 
-    console.log('hasTextScramble()', hasTextScramble()); // text
 
     if (hasTextScramble()) {
       _name = jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this).data('name');
@@ -100063,6 +100141,7 @@ function kcgScramble() {
   function checkPosTouchScramble(e) {
     var _touchX = Math.round(e.touches[0].clientX) - $peopleScramble.offset().left;
 
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#distance').text(_touchX);
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.each(_arryPos, function (i) {
       if (_touchX > _arryPos[i] && _touchX < _arryPos[i] + _widthElm) {
         onMouseEnterScramble($peopleScramble.find('.item').eq(i));
@@ -100087,8 +100166,8 @@ class TextScramble {
     for (let i = 0; i < length; i++) {
       const from = oldText[i] || '';
       const to = newText[i] || '';
-      const start = Math.floor(Math.random() * 40);
-      const end = start + Math.floor(Math.random() * 40);
+      const start = Math.floor(Math.random() * 10);
+      const end = start + Math.floor(Math.random() * 10);
       this.queue.push({
         from,
         to,

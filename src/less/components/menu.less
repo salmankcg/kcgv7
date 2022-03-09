@@ -243,6 +243,9 @@
                 }
                 &.i-linkedin{
                     .bg('ico-linkedin.svg');
+                    width: 30px;
+                    height: 30px;
+                    top: -6px;
                 }
                 &.i-pinterest{
                     .bg('ico-pinterest.svg');
@@ -311,7 +314,14 @@
 
         
     }
+}
 
-    @media( max-width: @screen-xsmall ){
+.mobile-device {
+    .menu{
+        @media( max-width: @screen-big ){
+            .social{
+                justify-content: center;
+            }
+        }
     }
 }

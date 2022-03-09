@@ -1080,10 +1080,10 @@
         width: 80px;
         height: 80px;
         right: 50px;
-        bottom: 50px;
+        bottom: 70px;
         border-radius: 100%;
         background-color: #63CDD2;
-        transition: all .5s cubic-bezier(0.55, 0.085, 0, 0.99);
+        transition: all 0.5s cubic-bezier(0.55, 0.085, 0, 0.99);
         z-index: -1;
     }
     &.motion-in{
@@ -1103,7 +1103,6 @@
             transform: scale(1.5);
             right: 0;
             bottom: 0;
-            transition: all .5s cubic-bezier(0.55,0.085,0,0.99);
         }
         .contacts-open-icon {
             .kcg-modal-open {
@@ -1134,7 +1133,7 @@
 
     .contacts-open-icon {
         position: absolute;
-        bottom: 50px;
+        bottom: 70px;
         right: 50px;
         width: 80px;
         height: 80px;
@@ -1171,7 +1170,7 @@
             &.active{
                 .text{
                     opacity: 1;
-                    left: -70px;
+                    left: -80px;
                 }
 
                 &:before{
@@ -1188,12 +1187,11 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
                 transform: translate(-50%, -50%);
                 background-color: #ffffff;
                 border-radius: 100%;
-                margin-top: -3px;
                 z-index: -1;
             }
 
@@ -1227,22 +1225,18 @@
             }
             
         }
-        @media screen and (max-width: @screen-medium) {
-            bottom: 20px;
-            right: 20px;
-        }
         @media screen and (max-width: 575px) {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
 
             .kcg-modal-open {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
             }
             .hmbrg {
                 .close-bg {
-                    width: 50px;
-                    height: 50px;
+                    width: 60px;
+                    height: 60px;
                 }
             }
         }
@@ -1326,24 +1320,10 @@
             z-index: 9;
         }
     }
-    @media screen and (max-width: @screen-medium) {
-        &::before {
-            right: 20px;
-            bottom: 20px;
-            width: 50px;
-            height: 50px;
-        }
-    }
     @media screen and (max-width: 575px) {
         &::before {
-            width: 50px;
-            height: 50px;
-        }
-
-        .kcg-contacts-modal-contents-wrapper {
-            .kcg-popup-back-button {
-                bottom: 20px;
-            }
+            width: 60px;
+            height: 60px;
         }
     }
 }
@@ -1518,7 +1498,7 @@
             &.active{
                 .text{
                     opacity: 1;
-                    left: -70px;
+                    left: -80px;
                 }
 
                 &:before{
@@ -2139,9 +2119,15 @@ body.clients {
                 }
                 &.i-linkedin{
                     .bg('ico-linkedin.svg');
+                    width: 30px;
+                    height: 30px;
+                    top: -6px;
                 }
                 &.i-pinterest{
                     .bg('ico-pinterest.svg');
+                }
+                svg path {
+                    fill: @white;
                 }
             }
             @media( max-width: @screen-medium ){
@@ -2166,14 +2152,13 @@ body.clients {
             }
         }
     }
-    @media( max-width: @screen-medium ){
-        &.f-white {
-            .f-social {
-                .item {
-                    .icon{
-                        svg path {
-                            fill: rgba(0,0,0,0.7);
-                        }
+
+    &.f-white {
+        .f-social {
+            .item {
+                .icon{
+                    svg path {
+                        fill: rgba(0,0,0,0.7);
                     }
                 }
             }

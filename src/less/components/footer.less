@@ -303,8 +303,8 @@
         }
 
         .title{
-            font-size: 48px;
-            line-height: 50px;
+            font-size: 40px;
+            line-height: 45px;
         }
 
         .item{
@@ -366,11 +366,12 @@
             .row{
                 flex-direction: column;
                 align-items: center;
-            }
 
-            .row{
                 &:nth-of-type(1){
                     padding-bottom: 10px;
+                }
+                .col-6 {
+                    width: 100%;
                 }
             }
 
@@ -422,7 +423,7 @@
                     width: 20px;
                     height: 20px;
                     text-indent: -9999px;
-                    margin: 0px 20px;
+                    margin: 0px 10px;
                 }
             }
         }
@@ -438,11 +439,84 @@
     }
     @media( max-width: 320px ){
         .title{
-            font-size: 180%!important;
-            line-height: 150%!important;
+            font-size: 170%;
+            line-height: 140%;
         }
         .button:not(.b-icon){
             margin: 20px auto;
+        }
+    }
+}
+
+.mobile-device {
+    .footer {
+        .container-fluid{
+            .row{
+                flex-direction: column;
+                align-items: center;
+
+                &:nth-of-type(1){
+                    padding-bottom: 10px;
+                }
+                .col-6 {
+                    width: 100%;
+                }
+            }
+
+            .col{
+                &.col-4, &.col-3{
+                    width: 100%;
+                }
+            }
+        }
+
+        .f-menu:not(.f-social){
+            display: none;
+        }
+
+        .title{
+            text-align: center;
+            padding: 0px 40px;
+            width: 100%;
+        }
+        
+        .button:not(.b-icon){
+            margin: 40px auto;
+        }
+
+        .f-infos{
+            text-align: center;
+
+            a{
+                text-align: center;
+                width: 100%;
+            }
+
+            br{
+                display: block;
+            }
+        }
+
+        .f-menu{
+            &.f-social{
+                float: none;
+                margin: 0 auto;
+                width: fit-content;
+                text-align: center;
+                margin-top: 30px;
+                flex-direction: row;
+
+                .item{
+                    width: 20px;
+                    height: 20px;
+                    text-indent: -9999px;
+                    margin: 0px 10px;
+
+                    .icon {
+                        display: block;
+                    }
+                }
+            }
         }
     }
 }

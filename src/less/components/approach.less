@@ -126,10 +126,15 @@
     span{
         .blackerLt;
         font-size: 22px;
+        font-weight: 400;
         letter-spacing: 1px;
         margin-bottom: 20px;
         display: block;
         text-align: center;
+
+        strong {
+            font-weight: 400;
+        }
     }
 
 
@@ -148,7 +153,9 @@
     }
 
     @media( max-width: @screen-large){
-
+        span{
+            font-size: 18px;
+        }
     }
 
     @media( max-width: @screen-small ){

@@ -201,6 +201,44 @@
 .w-team .title {
     word-break: break-word;
 }
+.about-process-area {
+    .highlights {
+        .h-text {
+            &.about-scramble-heading {
+                width: 50%;
+            }
+        }
+        .people-scramble {
+            width: 50%;
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .highlights {
+            .h-text {
+                padding: 45px;
+                width: 45%;
+            }
+            .people-scramble {
+                width: 50%;
+            }
+        }
+    }
+    @media screen and (max-width: @screen-large) {
+        .highlights {
+            .h-text {
+                padding: 80px 0;
+                width: 100%;
+
+                &.about-scramble-heading {
+                    width: 100%;
+                }
+            }
+            .people-scramble {
+                width: 100%;
+            }
+        }
+    }
+}
 
 
 //CULTURE PAGE STYLE
@@ -1127,6 +1165,11 @@
                         display: none;
                     }
                 }
+            }
+        }
+        @media screen and (min-width: @screen-medium) and (orientation: portrait) {
+            &::before {
+                transform: scale(3);
             }
         }
     }
@@ -2135,7 +2178,7 @@ body.clients {
                 height: 20px;
 
                 &:not(:first-child) {
-                    margin-top: 10px !important;
+                    margin-top: 10px;
                 }
 
                 .icon{
@@ -2209,6 +2252,10 @@ body.clients {
     }
 
     .submenu{
+        &.hide {
+            transform: translate(-50%,-300%);
+            transition-delay: 0s;
+        }
         @media screen and ( max-width: 850px ){
             padding: 10px;
             border-radius: 54px;

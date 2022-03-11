@@ -518,5 +518,76 @@
                 }
             }
         }
+        @media screen and (orientation: portrait) {
+            .title {
+                padding: 0;
+                margin-bottom: 15px;
+            }
+            .button:not(.b-icon) {
+                margin: 15px auto;
+
+                .wrapper {
+                    padding: 10px 30px;
+                }
+            }
+        }
+        @media screen and (orientation: landscape) {
+            .container-fluid {
+                &:first-child {
+                    padding-top: 30px;
+                    padding-bottom: 55px;
+                }
+            }
+            .title {
+                font-size: 25px;
+                line-height: 35px;
+            }
+            .button:not(.b-icon){
+                margin: 20px auto;
+
+                .wrapper {
+                    padding: 10px 30px;
+                }
+            }
+            .f-menu{
+                &.f-social{
+                    margin-top: 20px;
+                }
+            }
+            .f-infos {
+                line-height: 15px;
+            }
+            .scrollup {
+                height: 35px;
+
+                .button {
+                    .wrapper {
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+            .legals {
+                padding: 0 0 20px;
+            }
+        }
+        @media screen and (max-width: 575px) and (orientation: landscape) {
+            .title {
+                font-size: 20px;
+                line-height: 30px;
+            }
+            .button:not(.b-icon){
+                margin: 15px auto;
+            }
+            .f-infos {
+                line-height: 10px;
+            }
+            .scrollup {
+                height: 30px;
+            }
+            .legals {
+                padding: 0 0 15px;
+            }
+        }
     }
 }

@@ -1386,6 +1386,44 @@
                 }
             }
         }
+        @media screen and (max-width: 575px) {
+            &::before {
+                right: 20px;
+                bottom: 50px;
+            }
+            .contacts-open-icon {
+                bottom: 50px;
+                right: 20px;
+            }
+            .kcg-modal-contents-wrapper {
+                .kcg-modal-title {
+                    .title {
+                        font-size: 25px;
+                        line-height: 30px;
+                    }
+                }
+                .kcg-modal-content-area {
+                    margin-top: 20px;
+
+                    .popup-menu-list {
+                        li {
+                            a {
+                                padding: 12px 20px;
+                            }
+                        }
+                    }
+                }
+                .kcg-moral-footer {
+                    margin-top: 20px;
+                    padding: 0 55px 0 40px;
+                }
+            }
+        }
+        @media screen and (max-width: 575px) and (orientation: portrait) {
+            .kcg-contacts-modal-contents-wrapper {
+                padding: 70px 0 40px;
+            }
+        }
     }
 }
 

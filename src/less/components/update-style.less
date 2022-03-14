@@ -1213,7 +1213,7 @@
             &.active{
                 .text{
                     opacity: 1;
-                    left: -80px;
+                    left: -70px;
                 }
 
                 &:before{
@@ -1230,8 +1230,8 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 80px;
-                height: 80px;
+                width: 60px;
+                height: 60px;
                 transform: translate(-50%, -50%);
                 background-color: #ffffff;
                 border-radius: 100%;
@@ -1330,7 +1330,7 @@
                 p {
                     font-family: 'Blacker Sans Pro Book', sans-serif;
                     font-size: 18px;
-                    line-height: 22px;
+                    line-height: 24px;
                     font-weight: 400;
                     letter-spacing: 1px;
                     color: #ffffff;
@@ -1357,10 +1357,17 @@
 
         .kcg-popup-back-button {
             position: absolute;
-            bottom: 50px;
+            bottom: 80px;
             left: 0;
             display: none;
             z-index: 9;
+
+            .button {
+                .wrapper {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
         }
     }
     @media screen and (max-width: 575px) {
@@ -1418,10 +1425,53 @@
                     padding: 0 55px 0 40px;
                 }
             }
+            .kcg-contacts-modal-contents-wrapper {
+                .kcg-popup-back-button {
+                    bottom: 50px;
+                }
+            }
+        }
+        @media screen and (max-width: 575px) and (orientation: portrait) and (max-height: 480px) {
+            &::before {
+                bottom: 20px;
+            }
+            .contacts-open-icon {
+                bottom: 20px;
+            }
+            .kcg-modal-contents-wrapper {
+                .kcg-moral-footer {
+                    margin-top: 20px;
+                    padding: 0;
+                }
+            }
+            &.active {
+                .kcg-contacts-modal-contents-wrapper {
+                    padding: 70px 0 90px;
+
+                    .kcg-popup-back-button {
+                        bottom: 20px;
+                    }
+                }
+            }
         }
         @media screen and (max-width: 575px) and (orientation: portrait) {
             .kcg-contacts-modal-contents-wrapper {
                 padding: 70px 0 40px;
+            }
+        }
+        @media screen and (orientation: landscape) {
+            &::before {
+                bottom: 20px;
+            }
+            .contacts-open-icon {
+                bottom: 20px;
+            }
+            &.active {
+                .kcg-contacts-modal-contents-wrapper {
+                    .kcg-popup-back-button {
+                        bottom: 20px;
+                    }
+                }
             }
         }
     }

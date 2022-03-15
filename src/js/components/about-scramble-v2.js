@@ -20,15 +20,17 @@ var _area 			= null;
 var _fxName 		= null;
 var _fxArea 		= null;
 
+
+
 var instance = $.fn.deviceDetector;
 
 
 function kcgScramble(){
-
     // ------------------------//
     // ------------------------//
     // ------------------------//
     // ---------text---------------//
+
     function hasTextScramble(){
         if($('.name').length >0  && $('.area').length > 0){
             return true;
@@ -36,7 +38,6 @@ function kcgScramble(){
         return false;
     }
     
-
     if(hasTextScramble()){
         _fxName     = new TextScramble($name);
         _fxArea     = new TextScramble($area);
@@ -62,8 +63,9 @@ function kcgScramble(){
     var _arryPos    = [];
     var _posElm     = 0;
     var _widthElm   = $peopleScramble.find('.item').width();
-
-
+    const totalItem = $('.people-scramble .images').children().length;
+    const peopleScrambleWidth = $peopleScramble.width();
+    
     if($peopleScramble.length){
         // surface duo 2
         if(window.DetectIt.deviceType === 'hybrid' && window.DetectIt.primaryInput === 'mouse' &&  is_touch_enabled()  ){
@@ -77,6 +79,7 @@ function kcgScramble(){
             $itemScramble.on('touchstart',function(){
                 var _this = this;
                 onMouseEnterScramble(_this);
+                
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
             });
             
@@ -97,6 +100,7 @@ function kcgScramble(){
             $itemScramble.on('mouseenter',function(){
                 var _this = this;
                 onMouseEnterScramble(_this);
+               
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
             });
             $itemScramble.on('mouseleave',function(){
@@ -120,6 +124,7 @@ function kcgScramble(){
             $itemScramble.on('touchstart',function(){
                 var _this = this;
                 onMouseEnterScramble(_this);
+                
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
             });
             
@@ -147,6 +152,7 @@ function kcgScramble(){
             $itemScramble.on('touchstart',function(){
                 var _this = this;
                 onMouseEnterScramble(_this);
+                //textScramble(_this);
                 $itemScramble.closest('.people-scramble').addClass('mouse-enter');
             });
             
@@ -181,6 +187,7 @@ function kcgScramble(){
             });
         }
 
+
     var _icoCursor = new TimelineLite({delay:0.5, onComplete:function(){
         setTimeout(function(){
             _icoCursor.restart();
@@ -197,9 +204,10 @@ function kcgScramble(){
     _icoCursor.fromTo($peopleScramble.find('.pc-pointer'), 2, {opacity: 1 }, {opacity: 0, ease: Power3.easeInOut}, 8)
     }
 
+
     function onMouseEnterScramble(_this){
         var _target = $(_this).data('target');
-
+        
         // text
         if(hasTextScramble()){
             _name   = $(_this).data('name');
@@ -241,15 +249,17 @@ function kcgScramble(){
         });    
     }
 
+    var touchpos = 0;
     function checkPosTouchScramble(e){
         var _touchX =  Math.round(e.touches[0].clientX) - $peopleScramble.offset().left;
         $('#distance').text(_touchX);
+        let perPiece = peopleScrambleWidth/totalItem;
         $.each(_arryPos, function(i){
-            if(_touchX > _arryPos[i] && _touchX < (_arryPos[i] + _widthElm)){
+            //console.log('_arryPos',_arryPos[i])
+            if(_touchX > _arryPos[i] && _touchX < (_arryPos[i] + _widthElm) ){
                 onMouseEnterScramble($peopleScramble.find('.item').eq(i));
             }
         });
-
     }
 }
 
@@ -260,7 +270,7 @@ class TextScramble {
       this.chars    = 'abcdefghijlkmnopqrstuvxz'
       this.update   = this.update.bind(this)
     }
-    
+
     setText(newText) {
       const oldText = this.el.innerText
       const length  = Math.max(oldText.length, newText.length)
@@ -269,8 +279,8 @@ class TextScramble {
       for (let i = 0; i < length; i++) {
         const from = oldText[i] || ''
         const to = newText[i] || ''
-        const start = Math.floor(Math.random() * 10)
-        const end = start + Math.floor(Math.random() * 10)
+        const start = Math.floor(Math.random() * 1)
+        const end = start + Math.floor(Math.random() * 1)
         this.queue.push({ from, to, start, end })
       }
       cancelAnimationFrame(this.frameRequest)
@@ -287,7 +297,7 @@ class TextScramble {
           complete++
           output += to
         } else if (this.frame >= start) {
-          if (!char || Math.random() < 0.28) {
+          if (!char || Math.random() < 0) {
             char = this.randomChar()
             this.queue[i].char = char
           }

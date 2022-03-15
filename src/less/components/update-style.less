@@ -1,6 +1,4 @@
 //LOAD INITIATE
-
-
 .kcg-case-study-wrapper {
     position: relative;
     min-height: 100px;
@@ -1115,8 +1113,8 @@
     &::before {
         content: "";
         position: fixed;
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         right: 50px;
         bottom: 70px;
         border-radius: 100%;
@@ -1178,8 +1176,8 @@
         position: absolute;
         bottom: 70px;
         right: 50px;
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1191,8 +1189,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1392,15 +1390,24 @@
                     }
                 }
             }
+
+            .contacts-open-icon {
+                .hmbrg {
+                    .close-bg {
+                        width: 50px;
+                        height: 50px;
+                    }
+                }
+            }
         }
         @media screen and (max-width: 575px) {
             &::before {
-                right: 20px;
-                bottom: 50px;
+                right: 15px;
+                bottom: 20px;
             }
             .contacts-open-icon {
-                bottom: 50px;
-                right: 20px;
+                bottom: 20px;
+                right: 15px;
             }
             .kcg-modal-contents-wrapper {
                 .kcg-modal-title {
@@ -1426,37 +1433,26 @@
                 }
             }
             .kcg-contacts-modal-contents-wrapper {
+                padding: 70px 0 90px;
+
                 .kcg-popup-back-button {
-                    bottom: 50px;
+                    bottom: 25px;
+
+                    .button {
+                        .wrapper {
+                            width: 50px;
+                            height: 50px;
+                        }
+                    }
                 }
             }
         }
         @media screen and (max-width: 575px) and (orientation: portrait) and (max-height: 480px) {
-            &::before {
-                bottom: 20px;
-            }
-            .contacts-open-icon {
-                bottom: 20px;
-            }
             .kcg-modal-contents-wrapper {
                 .kcg-moral-footer {
                     margin-top: 20px;
                     padding: 0;
                 }
-            }
-            &.active {
-                .kcg-contacts-modal-contents-wrapper {
-                    padding: 70px 0 90px;
-
-                    .kcg-popup-back-button {
-                        bottom: 20px;
-                    }
-                }
-            }
-        }
-        @media screen and (max-width: 575px) and (orientation: portrait) {
-            .kcg-contacts-modal-contents-wrapper {
-                padding: 70px 0 40px;
             }
         }
         @media screen and (orientation: landscape) {
@@ -1469,7 +1465,7 @@
             &.active {
                 .kcg-contacts-modal-contents-wrapper {
                     .kcg-popup-back-button {
-                        bottom: 20px;
+                        bottom: 25px;
                     }
                 }
             }

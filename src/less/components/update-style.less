@@ -238,6 +238,29 @@
     }
 }
 
+.mobile-device {
+    .about-process-area {
+        @media screen and (min-width: 850px) {
+            .highlights {
+                .h-text {
+                    width: 45%;
+                    padding: 50px;
+                }
+            }
+            .people-scramble {
+                min-height: 30vh;
+            }
+        }
+    }
+}
+.system-device {
+    @media screen and (max-width: 1400px) {
+        .people-scramble {
+            min-height: 30vh;
+        }
+    }
+}
+
 
 //CULTURE PAGE STYLE
 @media screen and (max-width: 575px) {
@@ -2289,6 +2312,15 @@ body.clients {
                     }
                 }
             }
+        }
+    }
+}
+
+// FOOTER MOBILE STYLE
+.mobile-device {
+    .footer {
+        .col {
+            margin: 0;
         }
     }
 }

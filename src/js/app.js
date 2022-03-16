@@ -32,7 +32,7 @@ import * as SmoothScroll        from './components/smooth-scroll';
 import  "./components/testimonial";
 // import  "./components/services-items";
 // import  "./components/about-scramble";
-import  "./components/about-scramble-v2";
+// import  "./components/about-scramble-v2";
 import  "./components/gallery";
 import  "./components/video";
 import  "./components/modal";

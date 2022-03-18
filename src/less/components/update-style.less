@@ -254,12 +254,13 @@
     }
 }
 .system-device {
-    @media screen and (max-width: 1400px) {
+    @media screen and (max-width: 1200px) {
         .people-scramble {
-            min-height: 30vh;
+            min-height: 50vh;
         }
     }
 }
+
 
 
 //CULTURE PAGE STYLE
@@ -576,7 +577,7 @@
 .header.header-white .logo .ico path, .header.header-white .logo .text path {
     fill: #fff;
 }
-.header.header-white .hmbrg:after, .header.header-white .hmbrg:before {
+.header.header-white .hmbrg:after, .header.header-white .hmbrg::before {
     background: #fff;
 }
 
@@ -1136,8 +1137,8 @@
     &::before {
         content: "";
         position: fixed;
-        width: 70px;
-        height: 70px;
+        width: 55px;
+        height: 55px;
         right: 50px;
         bottom: 70px;
         border-radius: 100%;
@@ -1199,8 +1200,8 @@
         position: absolute;
         bottom: 70px;
         right: 50px;
-        width: 70px;
-        height: 70px;
+        width: 55px;
+        height: 55px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1212,12 +1213,17 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 100%;
+
+            img {
+                width: 20px;
+                height: auto;
+            }
         }
 
         .hmbrg {
@@ -1225,8 +1231,8 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 30px; 
-            height: 15px;
+            width: 25px; 
+            height: 14px;
             display: none;
             cursor: pointer;
             z-index: 2;
@@ -1237,22 +1243,22 @@
                     left: -70px;
                 }
 
-                &:before{
+                &::before{
                     width: 100%;
                     transform: rotate(45deg) translate(5px, 4px);
                 }
 
-                &:after{
+                &::after{
                     width: 100%;
-                    transform: rotate(-45deg) translate(5px,-4px);
+                    transform: rotate(-45deg) translate(5px, -5px);
                 }
             }
             .close-bg {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
                 transform: translate(-50%, -50%);
                 background-color: #ffffff;
                 border-radius: 100%;
@@ -1270,7 +1276,7 @@
                 transition: .5s all @custom;
             }
 
-            &:before, &:after{
+            &::before, &::after{
                 .ba;
                 position: absolute;
                 width: 100%; height: 1px;
@@ -1282,7 +1288,7 @@
 
             }
 
-            &:after{
+            &::after{
                 bottom: 0px;
                 top: auto;
                 width: 80%;
@@ -1290,17 +1296,17 @@
             
         }
         @media screen and (max-width: 575px) {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
 
             .kcg-modal-open {
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
             }
             .hmbrg {
                 .close-bg {
-                    width: 60px;
-                    height: 60px;
+                    width: 55px;
+                    height: 55px;
                 }
             }
         }
@@ -1359,6 +1365,7 @@
 
                     a {
                         text-underline-position: under;
+                        text-decoration: underline;
                         display: inline-block;
                     }
                 }
@@ -1378,23 +1385,23 @@
 
         .kcg-popup-back-button {
             position: absolute;
-            bottom: 80px;
+            bottom: 70px;
             left: 0;
             display: none;
             z-index: 9;
 
             .button {
                 .wrapper {
-                    width: 60px;
-                    height: 60px;
+                    width: 55px;
+                    height: 55px;
                 }
             }
         }
     }
     @media screen and (max-width: 575px) {
         &::before {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
         }
     }
 }
@@ -1410,15 +1417,6 @@
                         .text {
                             display: none;
                         }
-                    }
-                }
-            }
-
-            .contacts-open-icon {
-                .hmbrg {
-                    .close-bg {
-                        width: 50px;
-                        height: 50px;
                     }
                 }
             }
@@ -1460,13 +1458,6 @@
 
                 .kcg-popup-back-button {
                     bottom: 25px;
-
-                    .button {
-                        .wrapper {
-                            width: 50px;
-                            height: 50px;
-                        }
-                    }
                 }
             }
         }
@@ -1535,6 +1526,7 @@
     }
     .kcg-modal-content-area {
         margin-top: 50px;
+        text-align: center;
 
         .popup-menu-list {
             display: flex;
@@ -1575,14 +1567,16 @@
             }
         }
         .jobs-menu-list {
-            display: flex;
+            display: inline-flex;
             flex-flow: wrap row;
-            max-width: 80%;
-            margin: 0 auto;
-            justify-content: center;
+            margin: 0 -25px 0 -25px;
 
             li {
                 padding: 10px;
+
+                &:not(:first-child) {
+                    margin-left: 50px;
+                }
 
                 a {
                     display: flex;
@@ -1629,8 +1623,6 @@
     justify-content: flex-end;
     z-index: 999999;
 
-
-
     .kcg-jobs-popup-contents-wrapper {
         position: relative;
         width: 80%;
@@ -1639,9 +1631,9 @@
         .hmbrg {
             position: absolute;
             top: 50px;
-            left: -100px;
-            width: 30px; 
-            height: 15px;
+            left: -90px;
+            width: 25px; 
+            height: 14px;
             cursor: pointer;
             z-index: 2;
 
@@ -1651,12 +1643,12 @@
                     left: -80px;
                 }
 
-                &:before{
+                &::before{
                     width: 100%;
                     transform: rotate(45deg) translate(5px, 4px);
                 }
 
-                &:after{
+                &::after{
                     width: 100%;
                     transform: rotate(-45deg) translate(5px,-4px);
                 }
@@ -1665,8 +1657,8 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
                 transform: translate(-50%, -50%);
                 background-color: #ffffff;
                 border-radius: 100%;
@@ -1685,7 +1677,7 @@
                 transition: .5s all @custom;
             }
 
-            &:before, &:after{
+            &::before, &::after{
                 .ba;
                 position: absolute;
                 width: 100%; height: 1px;
@@ -1697,7 +1689,7 @@
 
             }
 
-            &:after{
+            &::after{
                 bottom: 0px;
                 top: auto;
                 width: 80%;
@@ -1726,12 +1718,8 @@
         }
         @media( max-width: @screen-medium ){
             .hmbrg {
-                left: -50px;
+                left: -55px;
 
-                .close-bg {
-                    width: 50px;
-                    height: 50px;
-                }
                 .text{
                     display: none;
                 }
@@ -1843,6 +1831,7 @@
             letter-spacing: 0.3px;
             opacity: 0.8;
             color: #ffffff;
+            text-align: left;
         }
         .kcg-upload-resume-wrapper {
             label {
@@ -1860,6 +1849,15 @@
                 line-height: 20px;
                 letter-spacing: 0.3px;
                 color: #ffffff;
+            }
+            .kcg-resume-name {
+                display: block;
+                text-align: left;
+                font-size: 13px;
+                line-height: 24px;
+                color: #ffffff;
+                font-weight: 400;
+                letter-spacing: 0.5px;
             }
         }
         .kcg-input[type="file"] {
@@ -2407,7 +2405,7 @@ body.clients {
                 display: block;
             }
 
-            &:before{
+            &::before{
                 .ba;
                 width: 100%;
                 display: block;

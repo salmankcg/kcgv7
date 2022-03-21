@@ -1298,6 +1298,8 @@
         @media screen and (max-width: 575px) {
             width: 55px;
             height: 55px;
+            bottom: 20px;
+            right: 20px;
 
             .kcg-modal-open {
                 width: 55px;
@@ -1315,7 +1317,7 @@
     .kcg-contacts-modal-contents-wrapper {
         position: relative;
         width: 90%;
-        height: 100%;
+        height: ~"calc(100% - 65px)";
         margin: 0 auto;
         display: none;
         justify-content: center;
@@ -1327,6 +1329,7 @@
             position: relative;
             width: 100%;
             max-height: 100%;
+            padding-top: 70px;
             margin: 0 auto;
             overflow-y: auto;
             display: none;
@@ -1348,44 +1351,11 @@
                 border-radius: 10px;
                 background-color: rtransparent;
             }
-
-            .kcg-moral-footer {
-                position: relative;
-                text-align: center;
-                margin-top: 50px;
-
-                p {
-                    font-family: 'Blacker Sans Pro Book', sans-serif;
-                    font-size: 18px;
-                    line-height: 24px;
-                    font-weight: 400;
-                    letter-spacing: 1px;
-                    color: #ffffff;
-                    display: inline-block;
-
-                    a {
-                        text-underline-position: under;
-                        text-decoration: underline;
-                        display: inline-block;
-                    }
-                }
-
-                @media screen and (max-width: @screen-medium) {
-                    p {
-                        font-size: 14px;
-                        line-height: 20px;
-
-                        br {
-                            display: none;
-                        }
-                    }
-                }
-            }
         }
 
         .kcg-popup-back-button {
             position: absolute;
-            bottom: 70px;
+            bottom: 0;
             left: 0;
             display: none;
             z-index: 9;
@@ -1397,11 +1367,55 @@
                 }
             }
         }
+
+        .kcg-moral-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            text-align: center;
+            transform: translateX(-50%);
+
+            p {
+                font-family: 'Blacker Sans Pro Book', sans-serif;
+                font-size: 18px;
+                line-height: 24px;
+                font-weight: 400;
+                letter-spacing: 1px;
+                color: #ffffff;
+                display: inline-block;
+
+                a {
+                    text-underline-position: under;
+                    text-decoration: underline;
+                    display: inline-block;
+                }
+            }
+
+            @media screen and (max-width: @screen-medium) {
+                p {
+                    font-size: 14px;
+                    line-height: 20px;
+
+                    br {
+                        display: none;
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: @screen-medium) {
+            height: ~"calc(100% - 20px)";
+            padding: 70px 0 60px;
+
+            .kcg-contacts-modal-wrapper {
+                padding-top: 20px;
+            }
+        }
     }
     @media screen and (max-width: 575px) {
         &::before {
             width: 55px;
             height: 55px;
+            bottom: 20px;
         }
     }
 }
@@ -1423,12 +1437,12 @@
         }
         @media screen and (max-width: 575px) {
             &::before {
-                right: 15px;
+                right: 20px;
                 bottom: 20px;
             }
             .contacts-open-icon {
+                right: 20px;
                 bottom: 20px;
-                right: 15px;
             }
             .kcg-modal-contents-wrapper {
                 .kcg-modal-title {
@@ -1448,39 +1462,13 @@
                         }
                     }
                 }
-                .kcg-moral-footer {
-                    margin-top: 20px;
-                    padding: 0 55px 0 40px;
-                }
             }
             .kcg-contacts-modal-contents-wrapper {
-                padding: 70px 0 90px;
+                padding: 70px 0 60px;
+                height: ~"calc(100% - 20px)";
 
-                .kcg-popup-back-button {
-                    bottom: 25px;
-                }
-            }
-        }
-        @media screen and (max-width: 575px) and (orientation: portrait) and (max-height: 480px) {
-            .kcg-modal-contents-wrapper {
                 .kcg-moral-footer {
-                    margin-top: 20px;
-                    padding: 0;
-                }
-            }
-        }
-        @media screen and (orientation: landscape) {
-            &::before {
-                bottom: 20px;
-            }
-            .contacts-open-icon {
-                bottom: 20px;
-            }
-            &.active {
-                .kcg-contacts-modal-contents-wrapper {
-                    .kcg-popup-back-button {
-                        bottom: 25px;
-                    }
+                    bottom: 0;
                 }
             }
         }
@@ -1504,13 +1492,14 @@
             font-family: 'Blacker Sans Pro Book', sans-serif;
             font-size: 18px;
             letter-spacing: 0.3px;
+            line-height: 32px;
             font-weight: 400;
         }
         .title {
             font-family: 'Blacker Sans Pro Book', sans-serif;
             font-weight: 400;
-            font-size: 50px;
-            line-height: 60px;
+            font-size: 40px;
+            line-height: 40px;
             letter-spacing: 0.5px;
             color: #ffffff;
         }
@@ -1569,7 +1558,8 @@
         .jobs-menu-list {
             display: inline-flex;
             flex-flow: wrap row;
-            margin: 0 -25px 0 -25px;
+            margin: 0 -25px 0;
+            max-width: 100%;
 
             li {
                 padding: 10px;
@@ -1599,10 +1589,14 @@
             }
             @media screen and (max-width: @screen-medium) and (orientation: portrait) {
                 max-width: 100%;
+                justify-content: center;
 
                 li {
                     max-width: 350px;
                     width: 100%;
+                    &:not(:first-child) {
+                        margin-left: 0;
+                    }
                 }
             }
         }
@@ -1781,11 +1775,11 @@
         justify-content: space-between;
 
         &:not(:first-child) {
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .kcg-form-field {
-            width: ~"calc(50% - 50px)";
+            width: ~"calc(50% - 11px)";
 
             &:not(:first-child) {
                 margin-top: 0;
@@ -1804,7 +1798,7 @@
     }
     .kcg-form-field {
         &:not(:first-child) {
-            margin-top: 20px;
+            margin-top: 15px;
         }
         &.error {
             label {
@@ -1901,9 +1895,14 @@
             resize: none;
         }
         @media( max-width: @screen-medium ){
+            padding: 10px 15px;
+
             label {
                 font-size: 16px;
                 line-height: 24px;
+            }
+            textarea {
+                min-height: 110px;
             }
         }
     }

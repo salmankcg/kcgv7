@@ -262,6 +262,17 @@
 }
 
 
+// ABOUT TEAM SCRAMBLE STYLE
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .w-team {
+        .t-people {
+            .scramble_title {
+                font-family: 'Blacker Sans Pro Book', sans-serif;
+            }
+        }
+    }
+}
+
 
 //CULTURE PAGE STYLE
 @media screen and (max-width: 575px) {
@@ -1329,7 +1340,7 @@
             position: relative;
             width: 100%;
             max-height: 100%;
-            padding-top: 70px;
+            padding-top: 50px;
             margin: 0 auto;
             overflow-y: auto;
             display: none;
@@ -1374,6 +1385,7 @@
             left: 50%;
             text-align: center;
             transform: translateX(-50%);
+            display: none;
 
             p {
                 font-family: 'Blacker Sans Pro Book', sans-serif;
@@ -1416,6 +1428,7 @@
             width: 55px;
             height: 55px;
             bottom: 20px;
+            right: 20px;
         }
     }
 }
@@ -1435,41 +1448,82 @@
                 }
             }
         }
-        @media screen and (max-width: 575px) {
-            &::before {
-                right: 20px;
-                bottom: 20px;
-            }
-            .contacts-open-icon {
-                right: 20px;
-                bottom: 20px;
-            }
-            .kcg-modal-contents-wrapper {
-                .kcg-modal-title {
-                    .title {
-                        font-size: 25px;
-                        line-height: 30px;
-                    }
-                }
-                .kcg-modal-content-area {
-                    margin-top: 20px;
+        /*@media screen and (max-width: 575px) {
 
-                    .popup-menu-list {
-                        li {
-                            a {
-                                padding: 12px 20px;
-                            }
+        }*/
+        &::before {
+            right: 20px;
+            bottom: 20px;
+        }
+        .contacts-open-icon {
+            right: 20px;
+            bottom: 20px;
+        }
+        .kcg-modal-contents-wrapper {
+            .kcg-modal-title {
+                .title {
+                    font-size: 25px;
+                    line-height: 30px;
+                }
+            }
+            .kcg-modal-content-area {
+                margin-top: 20px;
+
+                .jobs-menu-list {
+                     li {
+                        &:not(:first-child) {
+                            margin-left: 30px;
+                        }
+                        a {
+                            font-size: 13px;
+                            padding: 12px 20px;
+                        }
+                     }
+                }
+                .popup-menu-list {
+                    li {
+                        a {
+                            font-size: 13px;
+                            padding: 12px 20px;
                         }
                     }
                 }
             }
-            .kcg-contacts-modal-contents-wrapper {
-                padding: 70px 0 60px;
-                height: ~"calc(100% - 20px)";
-
-                .kcg-moral-footer {
-                    bottom: 0;
+            @media screen and (orientation: portrait) {
+                .kcg-modal-title {
+                    .title {
+                        p {
+                            display: inline;
+                        }
+                    }
                 }
+            }
+        }
+        .kcg-contacts-modal-contents-wrapper {
+            padding: 70px 0 60px;
+            height: ~"calc(100% - 20px)";
+
+            .kcg-moral-footer {
+                bottom: 0;
+            }
+        }
+    }
+    .kcg-contacts-modal-contents-wrapper {
+        .kcg-contacts-modal-wrapper {
+
+        }
+        .kcg-moral-footer {
+            p {
+                font-size: 15px;
+            }
+        } 
+
+        @media screen and (orientation: landscape) {
+            .kcg-moral-footer {
+                bottom: 15px !important;
+            } 
+            .kcg-contacts-modal-wrapper {
+                padding-top: 0;
             }
         }
     }
@@ -1595,7 +1649,7 @@
                     max-width: 350px;
                     width: 100%;
                     &:not(:first-child) {
-                        margin-left: 0;
+                        margin-left: 0 !important;
                     }
                 }
             }
@@ -1721,6 +1775,18 @@
 
             .kcg-jobs-popup-contents {
                 padding: 50px 20px;
+            }
+        }
+        @media screen and (orientation: landscape){
+            .hmbrg {
+                left: -70px;
+
+                .text {
+                    left: -70px !important;
+                }
+            }
+            .kcg-jobs-popup-contents {
+                padding: 70px 70px 50px;
             }
         }
     }
@@ -1949,6 +2015,40 @@
         }
     }
 }
+.mobile-device {
+    .kcg-popup-form-wrapper {
+        .kcgform-field-group {
+            &:not(:first-child) {
+                margin-top: 0;
+            }
+            .kcg-form-field {
+                &:not(:first-child) {
+                    margin-top: 0;
+                }
+            }
+        }
+        .kcg-form-field {
+            padding: 10px 0;
+
+            &:not(:first-child) {
+                margin-top: 0;
+            }
+            label {
+                font-size: 16px;
+                line-height: 30px;
+            }
+            .kcg-input {
+                padding: 10px 15px;
+            }
+            .kcg-upload-resume-wrapper {
+                label {
+                    padding: 10px 15px;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+}
 #ui-datepicker-div {
     z-index: 9999 !important;
 }
@@ -2104,7 +2204,7 @@ body.clients {
                                 font-size: 20px;
                                 line-height: 24px;
                                 color: #ffffff;
-                                width: 270px;
+                                width: 400px;
                                 min-height: 55px;
                                 display: flex;
                                 flex-flow: wrap;

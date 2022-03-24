@@ -1476,9 +1476,6 @@
                 }
             }
         }
-        /*@media screen and (max-width: 575px) {
-
-        }*/
         &::before {
             right: 20px;
             bottom: 20px;
@@ -1529,17 +1526,49 @@
         }
         .kcg-contacts-modal-contents-wrapper {
             padding: 70px 0 60px;
-            height: ~"calc(100% - 20px)";
+            height: ~"calc(100% - 30px)";
+
+            .kcg-popup-back-button {
+                bottom: -12px;
+            }
 
             .kcg-moral-footer {
                 bottom: 0;
             }
         }
+        @media screen and (min-width: 650px) {
+            .kcg-modal-contents-wrapper {
+                .kcg-modal-content-area {
+
+                    .jobs-menu-list {
+                         li {
+                            a {
+                                padding: 12px 15px;
+                            }
+                         }
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: @screen-big) {
+            .kcg-jobs-modal-wrapper {
+                .kcg-jobs-popup-contents-wrapper {
+                    .kcg-jobs-popup-contents {
+                        padding: 70px 50px 50px;
+                    }
+                    .hmbrg {
+                        &.active {
+                            left: -60px;
+                            .text {
+                                left: -60px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     .kcg-contacts-modal-contents-wrapper {
-        .kcg-contacts-modal-wrapper {
-
-        }
         .kcg-moral-footer {
             p {
                 font-size: 15px;
@@ -1547,9 +1576,6 @@
         } 
 
         @media screen and (orientation: landscape) {
-            .kcg-moral-footer {
-                bottom: 15px !important;
-            } 
             .kcg-contacts-modal-wrapper {
                 padding-top: 0;
             }
@@ -1778,6 +1804,7 @@
             padding: 150px 88px 50px;
             height: 100%;
             overflow-y: auto;
+            box-sizing: border-box;
 
             .kcg-jobs-popup-content-wrapper {
                 .paragraph {

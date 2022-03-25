@@ -2484,6 +2484,31 @@ body.clients {
 }
 
 
+// JOURNAL ARCHIVE STYLE
+.main-content {
+    .journal-content {
+        .journal-list {
+            .j-title {
+                font-family: 'Blacker Sans Pro Medium', sans-serif;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.mobile-device {
+    .main-content {
+        .journal-content {
+            @media screen and (min-width: 575px) {
+                .journal-list {
+                    margin: 0 27px 80px;
+                }
+            }
+        }
+    }
+}
+
+
 //SINGLE BLOG STYLE
 .single .webdoor.w-journal-inner .paragraph {
     font-family: "Blacker Sans Pro Book", sans-serif;
@@ -2577,6 +2602,34 @@ body.clients {
                 text-align: center;
                 display: block;
             }
+        }
+    }
+}
+
+
+// CONTACT FORM SHORTCODE STYLE
+.main-content {
+    .contact {
+        .input {
+            &.error {
+                p {
+                    position: absolute;
+                    left: 0;
+                    top: 100%;
+                    font-family: 'Blacker Sans Pro Thin', sans-serif;
+                    font-weight: 400;
+                    color: #fcd572;
+                    font-size: 12px;
+                    line-height: 24px;
+                    -webkit-font-smoothing: antialiased;
+                    letter-spacing: 0.3px;
+                }
+            }
+        }
+    }
+    .status-message {
+        .success {
+            color: #5FD74A;
         }
     }
 }

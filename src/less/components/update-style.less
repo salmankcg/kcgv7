@@ -2501,7 +2501,9 @@ body.clients {
         .journal-content {
             @media screen and (min-width: 575px) {
                 .journal-list {
-                    margin: 0 27px 80px;
+                    .item {
+                        margin: 0 27px 80px;
+                    }
                 }
             }
         }
@@ -2610,26 +2612,30 @@ body.clients {
 // CONTACT FORM SHORTCODE STYLE
 .main-content {
     .contact {
-        .input {
-            &.error {
-                p {
-                    position: absolute;
-                    left: 0;
-                    top: 100%;
-                    font-family: 'Blacker Sans Pro Thin', sans-serif;
-                    font-weight: 400;
-                    color: #fcd572;
-                    font-size: 12px;
-                    line-height: 24px;
-                    -webkit-font-smoothing: antialiased;
-                    letter-spacing: 0.3px;
+        .kcg-contact-form-wrapper {
+            .input {
+                &.error {
+                    p {
+                        position: absolute;
+                        left: 0;
+                        top: 100%;
+                        font-family: 'Blacker Sans Pro Thin', sans-serif;
+                        font-weight: 400;
+                        color: #fcd572;
+                        font-size: 12px;
+                        line-height: 24px;
+                        -webkit-font-smoothing: antialiased;
+                        letter-spacing: 0.3px;
+                    }
                 }
             }
-        }
-    }
-    .status-message {
-        .success {
-            color: #5FD74A;
+            .status-message {
+                font-family: 'Blacker Sans Pro Book', sans-serif;
+                font-size: 15px;
+                line-height: 24px;
+                color: #fcd572;
+                margin-top: 20px;
+            }
         }
     }
 }
